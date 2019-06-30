@@ -1,0 +1,120 @@
+@extends('layouts.admin')
+
+@section('content')
+{{-- Contenido principal de la página --}}
+<div class="content-wrapper">
+	<section class="content-header">
+		<h1>
+			Tipos de identificación
+			<small>General</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+			<li><a href="#">General</a></li>
+			<li class="active">Tipos de identificación</li>
+		</ol>
+	</section>
+
+	<section class="content">
+		@if (Session::has('message'))
+			<div class="alert alert-success alert-dismissible" data-closable>
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+			   {{ Session::get('message') }}
+			</div>
+		@endif
+		<div class="row">
+			<div class="col-md-2">
+				<a href="{{ url('tipoIdentificacion/create') }}" class="btn btn-primary">Crear nuevo</a>
+			</div>
+		</div>
+		<br>
+		<div class="box box-{{ $tiposIdentificacion->total()?'primary':'danger' }}">
+			<div class="box-header with-border">
+				<h3 class="box-title">Tipos de identificación</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="row">
+					{!! Form::model(Request::only('name', 'estado'), ['url' => '/tipoIdentificacion', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+					<div class="col-md-5 col-sm-12">
+						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
+					</div>
+					<div class="col-md-5 col-sm-12">
+						{!! Form::select('estado', ['1' => 'Activo', '0' => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
+					</div>
+					<div class="col-md-2 col-sm-12">
+						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+					</div>
+					{!! Form::close() !!}
+				</div>
+				@if(!$tiposIdentificacion->total())
+					<p>
+						<div class="row">
+							<div class="col-md-12">
+								No se encontraron tipos de identificación <a href="{{ url('tipoIdentificacion/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+							</div>
+						</div>
+					</p>
+				@else
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="text-center">Código</th>
+									<th class="text-center">Nombre</th>
+									<th class="text-center">Tipo de persona</th>
+									<th class="text-center">Estado</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($tiposIdentificacion as $tipoIdentificacion)
+									<tr>
+										<td>{{ $tipoIdentificacion->codigo }}</td>
+										<td>{{ $tipoIdentificacion->nombre }}</td>
+										<td>{{ $tipoIdentificacion->aplicacion }}</td>
+										<td>
+											<span class="label label-{{ $tipoIdentificacion->esta_activo?'success':'danger' }}">
+												{{ $tipoIdentificacion->esta_activo?'activo':'inactivo' }}
+											</span>
+										</td>
+										<td><a class="btn btn-info btn-xs" href="{{ route('tipoIdentificacionEdit', $tipoIdentificacion) }}"><i class="fa fa-edit"></i></a></td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				@endif
+				<div class="row">
+					<div class="col-md-12 text-center">
+						{!! $tiposIdentificacion->appends(Request::only('name', 'estado'))->render() !!}
+					</div>
+				</div>
+			</div>
+			<div class="box-footer">
+				<span class="label label-{{ $tiposIdentificacion->total()?'primary':'danger' }}">
+					{{ $tiposIdentificacion->total() }}
+				</span>&nbsp;elementos.
+			</div>
+		</div>
+	</section>
+</div>
+{{-- Fin de contenido principal de la página --}}
+@endsection
+
+@push('style')
+@endpush
+
+@push('scripts')
+<script type="text/javascript">
+	$(function(){
+		$("input[name='name']").enfocar();
+		$(window).formularioCrear("{{ url('tipoIdentificacion/create') }}");
+	});
+</script>
+@endpush
