@@ -17,28 +17,18 @@
 		$realm = "img/logos/icore.png";
 	}
 @endphp
-<div class="login-box-body">
+<div>
 	{!! Form::open(['url' => 'login', 'method' => 'post', 'role' => 'form']) !!}
-	<p class="login-box-msg"></p>
-	<div class="row">
-		<div class="hidden-xs col-sm-4 col-md-4">
-			<img src="{{ asset($realm) }}">
+	<div style="290px">
+		<div>
+			<div class="form-group has-feedback {{ ($errors->has('usuario')?'has-error':'') }}">
+				{!! Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Usuario', 'autocomplete' => 'off', 'autofocus']) !!}
+				<span class="glyphicon glyphicon-user form-control-feedback"></span>
+				@if ($errors->has('usuario'))
+					<span class="help-block">{{ $errors->first('usuario') }}</span>
+				@endif
+			</div>
 		</div>
-		<div class="col-xs-12 col-sm-8 col-md-8">
-			<div class="row">
-				<div class="col-md-12 text-center"><h4>Iniciar sesión</h4></div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group has-feedback {{ ($errors->has('usuario')?'has-error':'') }}">
-						{!! Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Usuario', 'autocomplete' => 'off', 'autofocus']) !!}
-						<span class="glyphicon glyphicon-user form-control-feedback"></span>
-						@if ($errors->has('usuario'))
-							<span class="help-block">{{ $errors->first('usuario') }}</span>
-						@endif
-					</div>
-				</div>
-			</div>
 
 			<div class="row">
 				<div class="col-md-12">

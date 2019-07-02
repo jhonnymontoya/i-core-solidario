@@ -15,12 +15,12 @@
 	}
 @endphp
 <!DOCTYPE html>
-<html>
+<html lang="es">
 	<head>
 		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>I-Core</title>
-		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		
 		<link rel="canonical" href="{{ url('/') }}">
 		
@@ -56,17 +56,22 @@
 		<![endif]-->
 	</head>
 	
-	<body class="hold-transition login-page">
-		<div class="login-box">
-			<div class="login-logo hidden-sm hidden-md hidden-lg">
-				<img src="{{ asset($realm) }}" alt="I-Core">
+	<body style="width: 100%; margin: 0 auto;">
+		<div class="login-page">
+			<div class="login-box">
+				<div class="login-pic" data-tilt>
+					<img src="{{ asset('img/logos/ICore_144x144.png') }}">
+				</div>
+				@yield('content')
 			</div>
-
-			@yield('content')
 		</div>
-
 		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
 		@stack('scripts')
+		<script type="text/javascript">
+			$('.login-pic').tilt({
+				scale: 1.2
+			})
+		</script>
 	</body>
 </html>

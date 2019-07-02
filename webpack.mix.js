@@ -40,7 +40,8 @@ mix.scripts([
 		'resources/assets/js/jszip.js',
 		'resources/assets/js/xlsx.js',
 		'resources/assets/js/FileSaver.js',
-		'resources/assets/js/TableExport.js'
+		'resources/assets/js/TableExport.js',
+        'resources/assets/js/tilt.jquery.js'
 	], 'public/js/app.js')
    .styles([
    		'resources/assets/css/jquery-ui.css',
