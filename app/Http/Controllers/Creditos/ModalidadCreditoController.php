@@ -219,7 +219,6 @@ class ModalidadCreditoController extends Controller
 				break;
 			case 'SINTASA':
 				$obj->tipo_cuota = 'CAPITAL';
-				$obj->pago_interes = null;
 				$obj->aplica_mora = $request->aplica_mora;
 				$obj->tasa_mora = $request->aplica_mora == '1' ? $request->tasa_mora : null;
 				$obj->es_tasa_condicionada = 0;
