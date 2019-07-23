@@ -8,7 +8,7 @@
 		
 		<link rel="canonical" href="{{ url('/') }}">
 		
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css?ver=2') }}">
 		
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" sizes="16x16 24x24 32x32 64x64"/>
 		<link rel="apple-touch-icon" href="/img/logos/ICore_iOS_60x60.png"/>
@@ -50,7 +50,7 @@
 			@include('layouts.uiConsulta.footer')
 		</div>
 
-		<script type="text/javascript" src="{{ asset('js/app.js?ver=1') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/app.js?ver=2') }}"></script>
 
 		@stack('scripts')
 	</body>
