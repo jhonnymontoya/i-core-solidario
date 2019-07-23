@@ -1,19 +1,3 @@
-@php
-	$realm = null;
-	if(Session::has('realm')) {
-		$realm = Session::get('realm');
-		if(isset($realm->categoriaImagenes[1])) {
-			$realm = $realm->categoriaImagenes[1]->pivot->nombre;
-			$realm = "storage/entidad/" . $realm;
-		}
-		else {
-			$realm = "img/logos/icore.png";
-		}
-	}
-	else {
-		$realm = "img/logos/icore.png";
-	}
-@endphp
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -24,7 +8,7 @@
 		
 		<link rel="canonical" href="{{ url('/') }}">
 		
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css?ver=2') }}">
 		
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" sizes="16x16 24x24 32x32 64x64"/>
 		<link rel="apple-touch-icon" href="/img/logos/ICore_iOS_60x60.png"/>
@@ -59,19 +43,11 @@
 	<body style="width: 100%; margin: 0 auto;">
 		<div class="login-page">
 			<div class="login-box">
-				<div class="login-pic" data-tilt>
-					<img src="{{ asset('img/logos/ICore_144x144.png') }}">
-				</div>
 				@yield('content')
 			</div>
 		</div>
-		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
+		<script type="text/javascript" src="{{ asset('js/app.js?ver=2') }}"></script>
 		@stack('scripts')
-		<script type="text/javascript">
-			$('.login-pic').tilt({
-				scale: 1.2
-			})
-		</script>
 	</body>
 </html>

@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\General\Tercero;
+use App\Models\Sistema\Usuario;
+use App\Models\Sistema\UsuarioWeb;
 use App\Traits\FonadminTrait;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Route;
-use Validator;
-use Session;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
-use App\Models\General\Tercero;
+use Illuminate\Validation\ValidationException;
+use Route;
+use Session;
+use Validator;
 
 class LoginController extends Controller
 {
@@ -61,6 +63,7 @@ class LoginController extends Controller
 	}
 
 	private function realm($request) {
+		$realmAvatar = "img/logos/icore.png";
 		$realm = $request->validate([
 			'realm' => [
 				'bail',
@@ -77,10 +80,15 @@ class LoginController extends Controller
 			foreach($realms as $r) {
 				if($r->entidad->terceroEntidad->numero_identificacion == $realmId) {
 					Session::put("realm", $r->entidad);
+					if(isset($r->entidad->categoriaImagenes[1])) {
+						$realmAvatar = $r->entidad->categoriaImagenes[1]->pivot->nombre;
+						$realmAvatar = "storage/entidad/" . $realmAvatar;
+					}
 					break;
 				}
 			}
 		}
+		Session::put("realmAvatar", $realmAvatar);
 	}
 
 	/**
@@ -92,16 +100,17 @@ class LoginController extends Controller
 	public function login(Request $request) {
 		$this->validateLogin($request);
 
-		if(!Session::has("usuario")) {
+		if(Session::has("usuario") == false) {
 			$tipoUsuario = $this->validarUsuario($request);
 
 			if(is_null($tipoUsuario)) {
 				$mensaje = ['usuario' => ['Usuario no existe o inactivo']];
 				return redirect()->back()->withInput()->withErrors($mensaje);
 			}
-
+			$avatar = $this->obtenerAvatar($request->usuario, $tipoUsuario);
 			Session::put("usuario", $request->usuario);
 			Session::put("tipoUsuario", $tipoUsuario);
+			Session::put("avatar", $avatar);
 			return redirect()->route('login');
 		}
 
@@ -164,6 +173,27 @@ class LoginController extends Controller
 
 		//De lo contrario se retorna null
 		return null;
+	}
+
+	private function obtenerAvatar($usuario, $tipoUsuario) {
+		$avatarPath = "storage/asociados/";
+		$avatar = "avatar-160x160.png";
+
+		if($tipoUsuario == LoginController::ADMINISTRADOR) {
+			$usuario = Usuario::activo(true)->whereUsuario($usuario)->first();
+			$avatarPath = "storage/avatars/";
+			$avatar = $usuario->avatar;
+		}
+
+		if($tipoUsuario == LoginController::SOCIO) {
+			$usuario = UsuarioWeb::activo()->whereUsuario($usuario)->first();
+			$usuario = $usuario->socios->first();
+			if($usuario && strlen($usuario->avatar) > 0) {
+				$avatar = $usuario->avatar;
+			}
+		}
+
+		return sprintf("%s%s", $avatarPath, $avatar);
 	}
 
 	/**

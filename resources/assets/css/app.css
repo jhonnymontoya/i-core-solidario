@@ -47,16 +47,27 @@
 }
 
 .login-box {
-	width: 960px;
+	width: 560px;
 	background-color: #ffffff;
 	border-radius: 10px;
 	overflow: hidden;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: 177px 130px 33px 95px;
+	padding: 70px 50px 33px 50px;*/
 }
 
-.login-pic {
+.login-pic > img {
+	/*border: 1px solid #ff0000;*/
+	max-width: 144px;
+	max-height: 163px;
+}
+
+.login-pic-border {
+	border: 3px solid #b0b0b0;
+}
+
+.login-form {
 	width: 290px;
+	/*border: 1px solid #ff0000;*/
 }
