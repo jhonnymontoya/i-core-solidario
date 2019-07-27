@@ -104,7 +104,9 @@ class TarjetaHabienteController extends Controller
 				$tarjetahabiente->numero_cuenta_vista = $tercero->numero_identificacion;
 			}
 			$tarjetahabiente->save();
-			event(new TarjetaHabienteCreado($tarjetahabiente->id));
+			if($entidad->usa_tarjeta) {
+				event(new TarjetaHabienteCreado($tarjetahabiente->id));
+			}
 			DB::commit();
 		} catch(Exception $e) {
 			DB::rollBack();
@@ -267,7 +269,9 @@ class TarjetaHabienteController extends Controller
 			$solicitudDeCredito->save();
 			$obj->cupo = $request->cupo;
 			$obj->save();
-			event(new TarjetaHabienteCupoModificado($obj->id));
+			if($this->getEntidad()->usa_tarjeta) {
+				event(new TarjetaHabienteCupoModificado($obj->id));
+			}
 			DB::commit();
 		} catch(Exception $e) {
 			DB::rollBack();
