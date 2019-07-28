@@ -1401,6 +1401,39 @@ class ReportesController extends Controller
 
 	/*FIN CRÉDITOS*/
 
+	/*INICIO CONTROL Y VIGILANCIA*/
+
+	/**
+	 * Estudio de créditos
+	 * @param type $request
+	 * @return type
+	 */
+	public function controlVigilanciaBarridoListasControl() {
+		$entidad = $this->getEntidad();
+
+		$query = "exec controlVigilancia.sp_barrido_listas_control ?";
+		$DSBarrido = DB::select($query, [$entidad->id]);
+		if(!$DSBarrido)return "";
+
+		foreach ($DSBarrido as &$item) {
+			$diff = substr($item->fecha_lista, 0, 10);
+			$item->fecha_lista = Carbon::createFromFormat('Y-m-d', $diff)->startOfDay();
+			$item->es_tercero = $item->es_tercero ? 'Sí' : 'No';
+			$item->es_asociado = $item->es_asociado ? 'Sí' : 'No';
+			$item->es_empleado = $item->es_empleado ? 'Sí' : 'No';
+			$item->es_proveedor = $item->es_proveedor ? 'Sí' : 'No';
+			$item->es_pep = $item->es_pep ? 'Sí' : 'No';
+		}
+
+		return view("reportes.controlVigilancia.barridoListasControl")
+					->withEntidad($entidad)
+					->withBarrido($DSBarrido)
+					->withFechaGeneracion(Carbon::now())
+					->render();
+	}
+
+	/*fin CONTROL Y VIGILANCIA*/
+
 	public function getFechaParaMostrar($fecha) {
 		$fechaMostrar = "%s %s";
 		$mes = "";
