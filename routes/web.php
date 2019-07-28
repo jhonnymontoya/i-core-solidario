@@ -204,11 +204,14 @@
 	\App\Http\Controllers\Tarjeta\TarjetaController::routes();
 
 /***************************************************************************************
- * Rutas de Control y Vigilancial
+ * Rutas de Control y Vigilancia
  ***************************************************************************************/
 
 	//Rutas de Archivos SES (Super intendencia economia solidaria)
-	\App\Http\Controllers\ControlVigilancial\ArchivosSESController::routes();
+	\App\Http\Controllers\ControlVigilancia\ArchivosSESController::routes();
+
+	//Rutas de Listas de control SARLAF
+	\App\Http\Controllers\ControlVigilancia\ListaControlController::routes();
 
 /***************************************************************************************
  * Rutas de Home
