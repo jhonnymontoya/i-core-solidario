@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ControlVigilancial;
+namespace App\Http\Controllers\ControlVigilancia;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ControlVigilancia\ArhivosSES\DescargarReporteRequest;
@@ -265,11 +265,11 @@ class ArchivosSESController extends Controller
     public static function routes() {
         Route::get(
             'archivosSES',
-            'ControlVigilancial\ArchivosSESController@index'
+            'ControlVigilancia\ArchivosSESController@index'
         );
         Route::get(
             'archivosSES/descargar',
-            'ControlVigilancial\ArchivosSESController@descargar'
+            'ControlVigilancia\ArchivosSESController@descargar'
         );
     }
 }
