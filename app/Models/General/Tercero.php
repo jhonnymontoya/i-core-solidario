@@ -71,6 +71,7 @@ class Tercero extends Model
 		'esta_activo' 			=> 'boolean',
 		'es_asociado' 			=> 'boolean',
 		'es_empleado'			=> 'boolean',
+		'es_pep'				=> 'boolean',
 	];
 
 	/**
