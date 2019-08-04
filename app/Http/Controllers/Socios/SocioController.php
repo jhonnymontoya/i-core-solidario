@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Socios;
 
 use App\Certificados\CertificadoTributario;
+use App\Events\Socios\SocioAfiliado;
 use App\Helpers\ConversionHelper;
 use App\Helpers\FinancieroHelper;
 use App\Http\Controllers\Controller;
@@ -16,16 +17,12 @@ use App\Http\Requests\Socio\Socio\EditSocioInformacionObligacionFinancieraReques
 use App\Http\Requests\Socio\Socio\EditSocioInformacionTarjetaCreditoRequest;
 use App\Http\Requests\Socio\Socio\EditSocioRequest;
 use App\Http\Requests\Socio\Socio\SelectSocioConParametrosRequest;
-use App\Mail\Socios\SocioAfiliado;
 use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Creditos\Modalidad;
 use App\Models\Creditos\SolicitudCredito;
-use App\Models\General\Ciiu;
-use App\Models\General\Ciudad;
 use App\Models\General\Contacto;
 use App\Models\General\InformacionFinanciera;
 use App\Models\General\ParametroInstitucional;
-use App\Models\General\Profesion;
 use App\Models\General\Sexo;
 use App\Models\General\Tercero;
 use App\Models\General\TipoIdentificacion;
@@ -47,10 +44,9 @@ use Carbon\Carbon;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Log;
 use Route;
+use Session;
 use Validator;
 
 class SocioController extends Controller
@@ -99,10 +95,10 @@ class SocioController extends Controller
 
 	public function store(CreateSocioRequest $request) {
 		$tercero = Tercero::entidadTercero()
-							->whereTipoTercero('NATURAL')
-							->whereTipoIdentificacionId($request->tipo_identificacion)
-							->whereNumeroIdentificacion($request->identificacion)
-							->first();
+			->whereTipoTercero('NATURAL')
+			->whereTipoIdentificacionId($request->tipo_identificacion)
+			->whereNumeroIdentificacion($request->identificacion)
+			->first();
 
 		// Si no existe el tercero, se crea la instancia del mismo
 		if($tercero == null) {
@@ -455,10 +451,10 @@ class SocioController extends Controller
 	public function updateBeneficiarios(Socio $obj, EditSocioInformacionBeneficiarioRequest $request) {
 		$this->objEntidad($obj->tercero, 'No está autorizado a ingresar a la información del socio');
 		$tercero = Tercero::entidadTercero($obj->tercero->entidad->id)
-							->whereTipoTercero('NATURAL')
-							->whereTipoIdentificacionId($request->tipo_identificacion)
-							->whereNumeroIdentificacion($request->identificacion)
-							->first();
+			->whereTipoTercero('NATURAL')
+			->whereTipoIdentificacionId($request->tipo_identificacion)
+			->whereNumeroIdentificacion($request->identificacion)
+			->first();
 
 		if($tercero == null) {
 			$tercero = new Tercero;
@@ -742,10 +738,9 @@ class SocioController extends Controller
 		if($obj->fecha_retiro) {
 			$diasRetiroAFechaAfiliacion = $obj->fecha_retiro->diffInDays(Carbon::createFromFormat('d/m/Y', $request->fecha_afiliacion));
 			if($diasRetiroAFechaAfiliacion < $diasMinimosParaReingreso->valor) {
-				return redirect()
-							->back()
-							->withErrors(['fecha_afiliacion' => 'El socio no cumple con los días mínimos para reintegro'])
-							->withInput();
+				return redirect()->back()
+					->withErrors(['fecha_afiliacion' => 'El socio no cumple con los días mínimos para reintegro'])
+					->withInput();
 			}
 		}
 		$obj->fecha_afiliacion 			= $request->fecha_afiliacion;
@@ -757,18 +752,16 @@ class SocioController extends Controller
 
 		//Validamos que la fecha de afiliación sea mayor o igual de la fecha de ingreso a la empresa
 		if($obj->fecha_afiliacion < $obj->fecha_ingreso)
-			return redirect()
-						->back()
-						->withErrors(['fecha_afiliacion' => 'La fecha de afiliación no puede ser menor a la fecha de ingreso empresa (' . $obj->fecha_ingreso . ')'])
-						->withInput();
+			return redirect()->back()
+				->withErrors(['fecha_afiliacion' => 'La fecha de afiliación no puede ser menor a la fecha de ingreso empresa (' . $obj->fecha_ingreso . ')'])
+				->withInput();
 
 		//Validamos que la fecha de afiliación sea menor a la fecha fin de contrato, si esta existe
 		if(!empty($obj->fecha_fin_contrato)) {
 			if($request->fecha_afiliacion > $obj->fecha_fin_contrato) {
-				return redirect()
-						->back()
-						->withErrors(['fecha_afiliacion' => 'La fecha de afiliación no puede ser mayor a la fecha de fin contrato (' . $obj->fecha_fin_contrato . ')'])
-						->withInput();
+				return redirect()->back()
+					->withErrors(['fecha_afiliacion' => 'La fecha de afiliación no puede ser mayor a la fecha de fin contrato (' . $obj->fecha_fin_contrato . ')'])
+					->withInput();
 			}
 		}
 
@@ -778,8 +771,6 @@ class SocioController extends Controller
 		}
 
 		/*AQUI VALIDACIÓN DE PARAMETROS DE AFILIACIÓN*/
-
-
 		$camposFaltantes = collect([]);
 		if(!$obj->tercero->contactos->count()) {
 			$camposFaltantes->put('contacto', '<a href="' . route('socioEditContacto', $obj) . '">Dirección de contacto</a>');
@@ -803,21 +794,11 @@ class SocioController extends Controller
 		if($camposFaltantes->count()) {
 			return view('socios.socio.afiliar')->withSocio($obj)->withFaltantes($camposFaltantes);
 		}
-
-		$mail = null;
-		$contactos = $obj->tercero->contactos;
-		if($contactos){
-			foreach($contactos as $contacto) {
-				if($contacto->es_preferido) {
-					$mail = $contacto->email ? $contacto->email : $mail;
-					if($mail)break;
-				}
-				$mail = $contacto->email;
-			}
-		}
+		$mensaje = sprintf('Se ha procesado la afiliación con éxito para el socio %s, ahora debe actualizar las cuotas obligatorias', $obj->tercero->nombre_corto);
 
 		$password = str_random(8);
 		$tercero = $obj->tercero;
+
 		$usuarioWeb = UsuarioWeb::whereUsuario($tercero->numero_identificacion)->first();
 		if(empty($usuarioWeb)) {
 			$usuarioWeb = new UsuarioWeb;
@@ -831,9 +812,7 @@ class SocioController extends Controller
 
 		$obj->save();
 
-		if($mail)Mail::to($mail)->send(new SocioAfiliado($obj, $password));
-
-		$mensaje = sprintf('Se ha procesado la afiliación con éxito para el socio %s %s mensaje de bienvenida, ahora debe actualizar las cuotas obligatorias', $obj->tercero->nombre_corto, empty($mail) ? 'sin' : 'con');
+		event(new SocioAfiliado($obj, $password));
 
 		Session::flash('message', $mensaje);
 		return redirect()->route('cuotaObligatoriaCreate', $obj->id);
@@ -1209,19 +1188,8 @@ class SocioController extends Controller
 		$anioIc = $entidad->fecha_inicio_contabilidad->year;
 		$ai = $anioIc > 2018 ? $anioIc : 2018; 
 		$v = Validator::make($request->all(), [
-			"certificado" => [
-				"bail",
-				"required",
-				"string",
-				"in:certificadoTributario"
-			],
-			"anio" => [
-				"bail",
-				"required",
-				"integer",
-				"min:" . $ai,
-				"max:3000"
-			]
+			"certificado" => "bail|required|string|in:certificadoTributario",
+			"anio" => "bail|required|integer|min:$ai|max:3000"
 		]);
 		if($v->fails()) {
 			abort(401, "No se pudo procesar los datos (Año no válido)");

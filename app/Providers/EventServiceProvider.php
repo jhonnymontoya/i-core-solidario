@@ -17,6 +17,18 @@ class EventServiceProvider extends ServiceProvider
 			'App\Listeners\EventListener',
 		],
 
+		/*EVENTOS GENERALES*/
+		'App\Events\General\ProcesoCerrado' => [
+			'App\Listeners\General\IniciarNuevoProceso'
+		],
+
+		/*EVENTOS DE SOCIOS*/
+		'App\Events\Socios\SocioAfiliado' => [
+			'App\Listeners\Socios\EnviarCorreoBienvenida',
+			'App\Listeners\Socios\ChequearSocioEnListasControl',
+		],
+
+		/*EVENTOS DE TARJETAS*/
 		'App\Events\Tarjeta\TarjetaHabienteCreado' => [
 			'App\Listeners\Tarjeta\CrearTarjetaHabienteEnRed'
 		],
@@ -35,10 +47,6 @@ class EventServiceProvider extends ServiceProvider
 
 		'App\Events\Tarjeta\ProcesarTransaccionesProvenientesRed' => [
 			'App\Listeners\Tarjeta\ProcesarTransaccionesProvenientesDeRed'
-		],
-
-		'App\Events\General\ProcesoCerrado' => [
-			'App\Listeners\General\IniciarNuevoProceso'
 		],
 
 		'App\Events\Tarjeta\CalcularAjusteAhorrosVista' => [
