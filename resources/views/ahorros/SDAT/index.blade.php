@@ -125,6 +125,21 @@
 															<i class="fa fa-money"></i>
 														</a>
 													@endif
+													@if ($sdat->estado == "CONSTITUIDO")
+														<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-xs" title="Saldar SDAT">
+															<i class="fa fa-dollar"></i>
+														</a>
+													@endif
+													@if ($sdat->estado == "RENOVADO")
+														<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-xs" title="Saldar SDAT">
+															<i class="fa fa-dollar"></i>
+														</a>
+													@endif
+													@if ($sdat->estado == "PRORROGADO")
+														<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-xs" title="Saldar SDAT">
+															<i class="fa fa-dollar"></i>
+														</a>
+													@endif
 												</td>
 											</tr>
 										<?php
