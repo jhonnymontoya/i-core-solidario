@@ -1101,6 +1101,44 @@ class ReportesController extends Controller
 					->render();
 	}
 
+	/**
+	 * INFORMACIÓN GENERAL DE ASOCIADOS
+	 * @param type $request
+	 * @return type
+	 */
+	public function generalAsociados($request) {
+
+		$entidad = $this->getEntidad();
+
+		$query = "DECLARE @EntidadId int = ?; WITH socios AS( SELECT s.tercero_id, t.numero_identificacion, t.nombre, sx.nombre AS sexo, t.fecha_nacimiento, p.nombre AS empresa, s.fecha_afiliacion, s.fecha_antiguedad, ec.nombre AS estado_civil, s.fecha_ingreso AS fecha_empresa, s.tipo_contrato, s.sueldo_mes, s.estado FROM socios.socios AS s INNER JOIN general.terceros AS t ON s.tercero_id=t.id LEFT JOIN general.sexos AS sx ON t.sexo_id=sx.id LEFT JOIN recaudos.pagadurias AS p ON s.pagaduria_id=p.id LEFT JOIN socios.estados_civiles AS ec ON s.estado_civil_id=ec.id WHERE t.entidad_id = @entidadId AND t.esta_activo = 1 AND t.deleted_at IS NULL), contactos AS(SELECT * FROM (SELECT s.tercero_id AS tercero_id, c.direccion, c.movil, c.telefono, c.email, p.nombre AS pais, d.nombre AS departamento, ci.nombre AS ciudad, ROW_NUMBER() OVER(PARTITION BY s.tercero_id ORDER BY s.tercero_id ASC, p.nombre ASC, c.es_preferido ASC) AS preferido FROM general.contactos AS c LEFT JOIN general.ciudades AS ci ON c.ciudad_id = ci.id LEFT JOIN general.departamentos AS d ON ci.departamento_id = d.id LEFT JOIN general.paises AS p ON d.pais_id = p.id INNER JOIN socios AS s on c.tercero_id = s.tercero_id WHERE c.deleted_at IS NULL) AS c WHERE c.preferido = 1) SELECT s.numero_identificacion AS identificacion, s.nombre AS nombre, s.estado AS estado, s.sexo AS sexo, s.fecha_nacimiento AS nacimiento, s.empresa AS empresa, s.fecha_afiliacion AS afiliacion, s.fecha_antiguedad AS antiguedad, s.estado_civil AS ecivil, s.fecha_empresa AS iempresa, s.tipo_contrato AS contrato, s.sueldo_mes AS sueldo, c.pais AS pais, c.departamento AS departamento, c.ciudad AS ciudad, c.direccion AS direccion, c.telefono as telefono, c.movil as movil, c.email as email FROM socios AS s LEFT JOIN contactos AS c ON s.tercero_id=c.tercero_id";
+		$DSGeneralAsociados = DB::select($query, [$entidad->id]);
+		if(!$DSGeneralAsociados)return "";
+
+		foreach($DSGeneralAsociados as &$generalAsociados) {
+			try {
+				if(!is_null($generalAsociados->nacimiento))
+					$generalAsociados->nacimiento = Carbon::createFromFormat('Y-m-d H:i:s.000', $generalAsociados->nacimiento);
+
+				if(!is_null($generalAsociados->afiliacion))
+					$generalAsociados->afiliacion = Carbon::createFromFormat('Y-m-d H:i:s.000', $generalAsociados->afiliacion);
+
+				if(!is_null($generalAsociados->antiguedad))
+					$generalAsociados->antiguedad = Carbon::createFromFormat('Y-m-d H:i:s.000', $generalAsociados->antiguedad);
+
+				if(!is_null($generalAsociados->iempresa))
+					$generalAsociados->iempresa = Carbon::createFromFormat('Y-m-d H:i:s.000', $generalAsociados->iempresa);
+			}
+			catch(\InvalidArgumentException $e) {
+			}
+		}
+
+		return view("reportes.socios.generalAsociados")
+					->withEntidad($entidad)
+					->withGeneralAsociados($DSGeneralAsociados)
+					->render();
+	}
+
+
 	/*FIN SOCIOS*/
 
 	/*INICIO CRÉDITOS*/
@@ -1404,7 +1442,7 @@ class ReportesController extends Controller
 	/*INICIO CONTROL Y VIGILANCIA*/
 
 	/**
-	 * Estudio de créditos
+	 * BARRIDO LISTAS DE CONTROL
 	 * @param type $request
 	 * @return type
 	 */
@@ -1429,6 +1467,53 @@ class ReportesController extends Controller
 					->withEntidad($entidad)
 					->withBarrido($DSBarrido)
 					->withFechaGeneracion(Carbon::now())
+					->render();
+	}
+
+	/**
+	 * CHEQUEO EN LISTA POR RANGO DE TIEMPO
+	 * @param type $request
+	 * @return type
+	 */
+	public function chequeosListas($request) {
+		$validate = Validator::make($request->all(), [
+			'fechaInicio'		=> 'bail|required|date_format:"Y/m/d"',
+			'fechaFin'			=> 'bail|required|date_format:"Y/m/d"',
+		]);
+
+		if($validate->fails())return "";
+
+		$fechaInicio = Carbon::createFromFormat('Y/m/d', $request->fechaInicio)->startOfDay();
+		$fechaFin = Carbon::createFromFormat('Y/m/d', $request->fechaFin)->startOfDay();
+		$entidad = $this->getEntidad();
+
+		$query = "SELECT created_at AS fecha_proceso, usuario AS usuario, numero_identificacion AS identificacion, primer_nombre AS primer_nombre, segundo_nombre AS segundo_nombre, primer_apellido AS primer_apellido, segundo_apellido AS segundo_apellido, es_tercero AS tercero, es_asociado AS asociado, es_empleado AS empleado, es_proveedor AS proveedor, es_pep AS pep, departamento AS departamento, ciudad AS ciudad, porcentaje_coincidencia AS coincidencia, tipo_coincidencia AS tipo, tipo_lista AS lista, fecha_lista AS fecha_lista, numero_documento AS documento_lista, lista_primer_nombre AS lista_primer_nombre, lista_segundo_nombre AS lista_segundo_nombre, lista_primer_apellido AS lista_primer_apellido, lista_segundo_apellido AS lista_segundo_apellido FROM controlVigilancia.chequeos_listas_control WHERE entidad_id = ? AND general.fn_fecha_sin_hora(created_at) BETWEEN ? AND ?";
+		$DSChequeosListas = DB::select($query, [$entidad->id, $fechaInicio, $fechaFin ]);
+		if(!$DSChequeosListas)return "";
+
+		foreach ($DSChequeosListas as &$chequeos) {
+			
+			$chequeos->tercero = $chequeos->tercero ? 'Sí' : 'No';
+			$chequeos->asociado = $chequeos->asociado ? 'Sí' : 'No';
+			$chequeos->empleado = $chequeos->empleado ? 'Sí' : 'No';
+			$chequeos->proveedor = $chequeos->proveedor ? 'Sí' : 'No';
+			$chequeos->pep = $chequeos->pep ? 'Sí' : 'No';
+		
+		try {
+				if(!is_null($chequeos->fecha_lista))
+				$chequeos->fecha_lista = Carbon::createFromFormat('Y-m-d H:i:s.000', $chequeos->fecha_lista);
+			}
+			catch(\InvalidArgumentException $e) {
+				//dd($saldosConsolidados);
+			}
+		
+		}
+
+		return view("reportes.controlVigilancia.chequeosListas")
+					->withEntidad($entidad)
+					->withChequeosListas($DSChequeosListas)
+					->withFechaInicio($fechaInicio)
+					->withFechaFin($fechaFin)
 					->render();
 	}
 
