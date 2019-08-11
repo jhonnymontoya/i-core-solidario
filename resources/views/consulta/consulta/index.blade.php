@@ -437,6 +437,7 @@
 													<th class="text-center">Plazo días</th>
 													<th>Fecha Vencimiento</th>
 													<th>Tasa E.A.</th>
+													<th class="text-center">Saldo</th>
 													<th class="text-center">Intereses causados</th>
 													<th>Estado</th>
 												</tr>
@@ -446,9 +447,6 @@
 													foreach($sdats as $sdat) {
 														$label = "default";
 														switch ($sdat->estado) {
-															case 'SOLICITUD':
-																$label = "warning";
-																break;
 															case 'CONSTITUIDO':
 																$label = "success";
 																break;
@@ -458,14 +456,9 @@
 															case 'PRORROGADO':
 																$label = "success";
 																break;
-															case 'SALDADO':
-																$label = "default";
-																break;
-															case 'ANULADO':
-																$label = "danger";
-																break;
 															default:
 																$label = "default";
+																continue 2;
 																break;
 														}
 														?>
@@ -477,6 +470,7 @@
 															<td class="text-right">{{ $sdat->plazo }}</td>
 															<td>{{ $sdat->fecha_vencimiento }}</td>
 															<td class="text-right">{{ $sdat->tasa }}</td>
+															<td class="text-right">{{ $sdat->saldo }}</td>
 															<td class="text-right">{{ $sdat->rendimientos }}</td>
 															<td><span class="label label-{{ $label }}">{{ $sdat->estado }}</span></td>
 														</tr>

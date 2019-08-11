@@ -104,6 +104,27 @@ class SDAT extends Model
 	/**
 	 * Funciones
 	 */
+
+	public function estaActivo() {
+		$activo = false;
+
+		switch ($this->attributes["estado"]) {
+			case 'CONSTITUIDO':
+			case 'RENOVADO':
+			case 'PRORROGADO':
+				$activo = true;
+				break;
+			case 'SOLICITUD':
+			case 'SALDADO':
+			case 'ANULADO':
+				$activo = false;
+				break;
+			default:
+				$activo = false;
+				break;
+		}
+		return $activo;
+	}
 	 
 	/**
 	 * Relaciones Uno a Uno

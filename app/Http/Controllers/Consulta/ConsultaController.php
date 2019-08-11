@@ -91,7 +91,13 @@ class ConsultaController extends Controller
 
 		//SDATs
 		foreach($socio->SDATs as $sdat) {
+			if($sdat->estaActivo() == false) {
+				continue;
+			}
 			$rendimientos = $sdat->rendimientosSdat()
+				->where("fecha_movimiento", '<=', $fechaConsulta)
+				->get();
+			$movimientos = $sdat->movimientosSdat()
 				->where("fecha_movimiento", '<=', $fechaConsulta)
 				->get();
 			$deposito = (object)[
@@ -103,7 +109,8 @@ class ConsultaController extends Controller
 				"fecha_vencimiento" => $sdat->fecha_vencimiento,
 				"tasa" => number_format($sdat->tasa, 2) . '%',
 				"estado" => $sdat->estado,
-				"rendimientos" => '$' . number_format($rendimientos->sum("valor"))
+				"rendimientos" => '$' . number_format($rendimientos->sum("valor")),
+				"saldo" => '$' . number_format($movimientos->sum("valor"))
 			];
 			$SDATs->push($deposito);
 		}
