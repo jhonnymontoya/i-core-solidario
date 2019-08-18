@@ -37,12 +37,12 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }}</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }}</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<?php
 							$contador = 0;
 						?>
@@ -81,7 +81,7 @@
 											break;
 									}
 								@endphp
-								<div class="small-box bg-{{ $estaCerrado ? 'green' : 'red' }}">
+								<div class="small-card bg-{{ $estaCerrado ? 'green' : 'red' }}">
 									<div class="inner">
 										<h3>{{ $contador + 1 }}</h3>
 										<p>{{ $modulo->nombre }}</p>
@@ -90,9 +90,9 @@
 										<i class="fa {{ $modulo->icono }}"></i>
 									</div>
 									@if ($estaCerrado)
-										<a class="small-box-footer">Cerrado <i class="fa fa-check"></i></a>
+										<a class="small-card-footer">Cerrado <i class="fa fa-check"></i></a>
 									@else
-										<a href="{{ $link }}" class="small-box-footer">
+										<a href="{{ $link }}" class="small-card-footer">
 											Cerrar <i class="fa fa-lock"></i>
 										</a>
 									@endif
@@ -106,8 +106,8 @@
 							</div>
 						@endif
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						<a href="{{ url('cierreModulos') }}" class="btn btn-danger btn-block">Volver</a>
 					</div>
 				</div>

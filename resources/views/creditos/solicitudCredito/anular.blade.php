@@ -32,12 +32,12 @@
 		{!! Form::model($solicitud, ['url' => ['solicitudCredito', $solicitud, 'anular'], 'method' => 'put', 'role' => 'form']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-warning">
-					<div class="box-header with-border">
-						<h3 class="box-title">Anular solicitud de crédito</h3>
+				<div class="card card-warning">
+					<div class="card-header with-border">
+						<h3 class="card-title">Anular solicitud de crédito</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="alert alert-danger">
@@ -65,8 +65,8 @@
 							</div>
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						{!! Form::submit('Anular', ['class' => 'btn btn-danger', 'tabindex' => '2']) !!}
 						<a href="{{ url('solicitudCredito') }}" class="btn btn-success pull-right" tabindex="1">Cancelar</a>
 					</div>

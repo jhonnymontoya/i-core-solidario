@@ -40,14 +40,14 @@
 			$fecha = Request::has('fecha') ? Request::get('fecha') : date('d/m/Y');
 			$fecha = empty($fecha) ? date('d/m/Y') : $fecha;
 		@endphp
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Consulta</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Consulta</h3>
 				@if ($socio)
 					<a class="btn btn-xs btn-primary pull-right" href="{{ route('reportesReporte', 6) }}?numeroIdentificacion={{ $socio->tercero->numero_identificacion }}&fechaConsulta={{ implode('/', array_reverse(explode('/', $fecha))) }}" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
 				@endif
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('socio', 'fecha'), ['url' => 'socio/consulta', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-6">
@@ -913,7 +913,7 @@
 					</div>
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>

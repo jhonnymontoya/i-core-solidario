@@ -22,8 +22,8 @@
 <br><br>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-body">
 				<div class="col-md-9 col-md-offset-1">
 					<div class="row">
 						<div class="col-md-2 col-xs-2"><strong>Nombre:</strong></div>
@@ -82,9 +82,9 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>AHORROS</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>AHORROS</strong></div>
+			<div class="card-body">
 				<div class="col-md-9 col-md-offset-1 table-responsive">
 					@if($ahorros->count())
 						<table class="table table-striped">
@@ -133,9 +133,9 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>CRÉDITOS</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>CRÉDITOS</strong></div>
+			<div class="card-body">
 				<div class="col-md-9 col-md-offset-1 table-responsive">
 					@if($creditos->count())
 						<table class="table table-striped">

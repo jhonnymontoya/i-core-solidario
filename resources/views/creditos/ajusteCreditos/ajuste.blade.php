@@ -38,11 +38,11 @@
 		<br>
 		{!! Form::model($obligacion, ['url' => ['ajusteCreditos', $obligacion], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask', 'id' => 'formProcesar']) !!}
 		{!! Form::hidden('fechaAjuste', "$fecha") !!}
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Ajuste créditos</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Ajuste créditos</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-6">
 						@php
@@ -407,7 +407,7 @@
 				</div>
 
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<div class="row">
 					@php
 						$url = sprintf("%s?tercero=%s&fechaAjuste=%s", url('ajusteCreditos'), $tercero->id, $fecha);

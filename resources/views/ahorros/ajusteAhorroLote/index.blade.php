@@ -34,11 +34,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $procesos->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Procesos</h3>
+		<div class="card card-{{ $procesos->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Procesos</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name'), ['url' => '/ajusteAhorrosLote', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-6 col-sm-12">
@@ -123,7 +123,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $procesos->total()?'primary':'danger' }}">
 					{{ $procesos->total() }}
 				</span>&nbsp;elementos.

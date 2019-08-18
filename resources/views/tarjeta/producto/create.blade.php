@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Producto
-			<small>Tarjeta</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Tarjeta</a></li>
-			<li class="active">Producto</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Producto
+						<small>Tarjeta</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Tarjeta</a></li>
+						<li class="breadcrumb-item active">Producto</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -26,11 +34,11 @@
 		{!! Form::open(['url' => 'tarjetaProducto', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo producto</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Crear nuevo producto</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
@@ -330,7 +338,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
 						<a href="{{ url('tarjetaProducto') }}" class="btn btn-danger pull-right">Cancelar</a>
 					</div>

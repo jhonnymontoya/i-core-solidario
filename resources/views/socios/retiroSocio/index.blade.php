@@ -41,11 +41,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $solicitudesRetiros->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Retiros</h3>
+		<div class="card card-{{ $solicitudesRetiros->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Retiros</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name', 'estado'), ['url' => '/retiroSocio', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-6 col-sm-12">
@@ -155,7 +155,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $solicitudesRetiros->total()?'primary':'danger' }}">
 					{{ $solicitudesRetiros->total() }}
 				</span>&nbsp;elementos.

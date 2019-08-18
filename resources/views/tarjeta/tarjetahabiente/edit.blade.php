@@ -47,11 +47,11 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Editar tarjeta de {{ $tercero->nombre_completo }}</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Editar tarjeta de {{ $tercero->nombre_completo }}</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						@php
 							$label = "default";
 							switch ($tarjetahabiente->estado) {
@@ -205,7 +205,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-danger pull-right">Volver</a>
 					</div>
 				</div>

@@ -36,13 +36,13 @@
 			</div>
 		@endif
 		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Reliquidar créditos</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Reliquidar créditos</h3>
 			</div>
 			{!! Form::model($credito, ['url' => ['reliquidarCredito', $credito], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
 			{!! Form::hidden('fechaReliquidacion', $fecha) !!}
-			<div class="box-body">
+			<div class="card-body">
 				<br>
 				@if ($errors->has('fechaReliquidacion'))
 					<div class="alert alert-danger alert-dismissible">
@@ -458,7 +458,7 @@
 					@endif
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 			{!! Form::close() !!}
 		</div>

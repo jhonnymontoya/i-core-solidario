@@ -28,17 +28,17 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $menus->count()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Menús</h3>
+		<div class="card card-{{ $menus->count()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Menús</h3>
 
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				<div class="card-tools pull-right">
+					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 						<i class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				@if(!$menus->count())
 					<p>
 						<div class="row">
@@ -116,7 +116,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				{{--
 				<span class="label label-{{ $menus->count()?'primary':'danger' }}">
 					{{ $menus->count() }}

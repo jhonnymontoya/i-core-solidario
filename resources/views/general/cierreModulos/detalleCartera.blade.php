@@ -37,12 +37,12 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						@php
 							$tieneAlertasTipoA = false;
 							$tieneAlertasTipoB = false;
@@ -113,8 +113,8 @@
 						@endif
 						</ul>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						{!! Form::model($periodo, ['route' => ['cierreModulosCarteraProcesar', $periodo], 'method' => 'put', 'role' => 'form', 'id' => 'frmCierreCartera']) !!}
 						{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
 						<a href="{{ route('cierreModulos.cartera.precierre', $periodo->id) }}" target="_blank" class="btn btn-primary">Precierre</a>

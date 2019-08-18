@@ -38,12 +38,12 @@
 		{!! Form::model($proceso, ['route' => ['ajusteCreditoLotePutContabilizar', $proceso], 'method' => 'put', 'role' => 'form', 'id' => 'contabilizarCreditosLote']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-warning">
-					<div class="box-header with-border">
-						<h3 class="box-title">Contabilizar proceso ajuste créditos en lote</h3>
+				<div class="card card-warning">
+					<div class="card-header with-border">
+						<h3 class="card-title">Contabilizar proceso ajuste créditos en lote</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="alert alert-warning">
@@ -91,8 +91,8 @@
 							</div>
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						{{--{!! Form::submit('Desembolsar', ['class' => 'btn btn-success']) !!}--}}
 						<a class="btn btn-success" id="contabilizar">Contabilizar</a>
 						<a href="{{ route('ajusteCreditoLoteResumen', $proceso->id) }}" class="btn btn-danger pull-right">Volver</a>

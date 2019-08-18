@@ -23,11 +23,11 @@
 			</div>
 		@endif
 		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Cuotas voluntarias</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Cuotas voluntarias</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('socio'), ['url' => 'cuotaVoluntaria', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-11">
@@ -141,7 +141,7 @@
 					@endif
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				@if($socio)
 					<span class="label label-primary">{{ $socio->cuotasVoluntarias->count() }}</span>&nbsp;elementos.
 				@endif

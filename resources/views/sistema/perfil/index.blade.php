@@ -28,17 +28,17 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $perfiles->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Perfiles</h3>
+		<div class="card card-{{ $perfiles->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Perfiles</h3>
 
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				<div class="card-tools pull-right">
+					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 						<i class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-4 col-sm-12">
@@ -108,7 +108,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $perfiles->total()?'primary':'danger' }}">
 					{{ $perfiles->total() }}
 				</span>&nbsp;elementos.

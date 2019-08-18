@@ -20,9 +20,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>SOLICITUD</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>SOLICITUD</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1">
 						<div class="row">
@@ -70,9 +70,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>RESUMEN CONDICIONES</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>RESUMEN CONDICIONES</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1 table_responsive">
 						@if ($solicitud->cumplimientoCondiciones->count())
@@ -174,9 +174,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>AMORTIZACIÓN</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>AMORTIZACIÓN</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1">
 						<div class="row">
@@ -210,9 +210,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>CRÉDITOS RECOGIDOS</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>CRÉDITOS RECOGIDOS</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1 table_responsive">
 						@if($creditosRecogidos->count())
@@ -265,9 +265,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>GARANTÍAS - CODEUDORES</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>GARANTÍAS - CODEUDORES</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1">
 						<ul>
@@ -305,9 +305,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>GARANTÍAS - REAL</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>GARANTÍAS - REAL</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1">
 						Sin datos
@@ -319,9 +319,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>GARANTÍAS - FONDO DE GARANTÍAS</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>GARANTÍAS - FONDO DE GARANTÍAS</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1">
 						Sin datos
@@ -333,9 +333,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>CUPO</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>CUPO</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-9 col-md-offset-1 table_responsive">
 						@if($modalidades->count() || $creditos->count())
@@ -414,9 +414,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>ENDEUDAMIENTO MENSUAL</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>ENDEUDAMIENTO MENSUAL</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-1 table_responsive">
 						@if ($endeudamientos->count())
@@ -472,9 +472,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>DOCUMENTACIÓN</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>DOCUMENTACIÓN</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-11 col-md-offset-1 table_responsive">
 						@if ($solicitud->documentos->count())
@@ -512,9 +512,9 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="box box-default">
-			<div class="box-header with-border"><strong>OBSERVACIONES</strong></div>
-			<div class="box-body">
+		<div class="card card-default">
+			<div class="card-header with-border"><strong>OBSERVACIONES</strong></div>
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-11 col-md-offset-1 table_responsive">
 						@if ($solicitud->observaciones)

@@ -38,11 +38,11 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Editar modalidad</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Editar modalidad</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
@@ -250,7 +250,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						<a href="{{ route('modalidadCreditoEdit', $modalidad) }}" class="btn btn-success">Continuar</a>
 						<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
 					</div>

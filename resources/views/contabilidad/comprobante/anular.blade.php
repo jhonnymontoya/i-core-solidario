@@ -40,8 +40,8 @@
 		{!! Form::model($comprobante, ['url' => ['comprobante', $comprobante, 'anular'], 'method' => 'post', 'role' => 'form']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-danger">
-					<div class="box-header with-border">
+				<div class="card card-danger">
+					<div class="card-header with-border">
 						@php
 							$tipoComprobante = $comprobante->tipoComprobante;
 							$numero = $tipoComprobante->codigo;
@@ -49,10 +49,10 @@
 								$numero .= ' ' . $comprobante->numero_comprobante;
 							}
 						@endphp
-						<h3 class="box-title">Anular comprobante {{ $numero }}</h3>
+						<h3 class="card-title">Anular comprobante {{ $numero }}</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="alert alert-danger">
@@ -109,8 +109,8 @@
 							</div>
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						{!! Form::submit('Anular', ['class' => 'btn btn-danger', 'tabindex' => '2']) !!}
 						<a href="{{ url('comprobante') }}" class="btn btn-success pull-right" tabindex="1">Cancelar</a>
 					</div>

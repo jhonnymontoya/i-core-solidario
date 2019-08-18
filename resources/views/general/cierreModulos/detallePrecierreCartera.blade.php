@@ -37,12 +37,12 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Precierre periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Precierre periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<h3>Previsualización información cierre cartera</h3>
 						<a class="btn btn-primary xlsx"><i class="fa fa-file-excel-o"></i> XLSX</a>
 						<a class="btn btn-primary csv"><i class="fa fa-file-excel-o"></i> CSV</a>
@@ -160,8 +160,8 @@
 							</div>
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
 					</div>
 				</div>

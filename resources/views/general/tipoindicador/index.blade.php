@@ -28,11 +28,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $tiposIndicadores->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Tipos de indicadores</h3>
+		<div class="card card-{{ $tiposIndicadores->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Tipos de indicadores</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name'), ['url' => '/tipoIndicador', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-10 col-sm-12">
@@ -111,7 +111,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $tiposIndicadores->total()?'primary':'danger' }}">
 					{{ $tiposIndicadores->total() }}
 				</span>&nbsp;elementos.

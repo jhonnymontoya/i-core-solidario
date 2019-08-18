@@ -35,11 +35,11 @@
 			{!! Form::hidden('modalidad', $solicitud->modalidadCredito->id) !!}
 			{!! Form::hidden('solicitante', $solicitud->tercero->id) !!}
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Aprobar solicitud de crédito</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Aprobar solicitud de crédito</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
@@ -580,7 +580,7 @@
 						</div>
 					</div>
 
-					<div class="box-footer">
+					<div class="card-footer">
 					</div>
 				</div>
 			</div>

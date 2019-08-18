@@ -26,11 +26,11 @@
 		{!! Form::open(['url' => ['cuotaVoluntaria', $socio], 'method' => 'post', 'role' => 'form']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Agregar nueva cuota voluntaria</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Agregar nueva cuota voluntaria</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-12">
 								<p>{{ $socio->tercero->nombre_completo }}</p>
@@ -140,7 +140,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						{!! Form::submit('Agregar', ['class' => 'btn btn-success']) !!}
 						<a href="{{ url('cuotaVoluntaria?socio=' . $socio->id) }}" class="btn btn-danger pull-right">Cancelar</a>
 					</div>

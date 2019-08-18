@@ -30,11 +30,11 @@
 			</div>
 		@endif
 		
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">{{ $reporte->modulo->nombre }} - {{ $reporte->nombre }}</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">{{ $reporte->modulo->nombre }} - {{ $reporte->nombre }}</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				{!! Form::model(Request::all(), ['url' => ['reportes', $reporte], 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 				<div class="row">
 					<div class="col-md-12">
@@ -101,7 +101,7 @@
 					{!! $data !!}
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>

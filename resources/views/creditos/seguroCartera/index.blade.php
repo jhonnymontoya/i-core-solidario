@@ -28,11 +28,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $segurosCartera->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Seguros de cartera</h3>
+		<div class="card card-{{ $segurosCartera->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Seguros de cartera</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name'), ['url' => 'seguroCartera', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-6 col-sm-12">
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $segurosCartera->total()?'primary':'danger' }}">
 					{{ $segurosCartera->total() }}
 				</span>&nbsp;elementos.

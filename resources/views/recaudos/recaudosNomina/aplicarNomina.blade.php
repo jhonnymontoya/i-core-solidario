@@ -36,11 +36,11 @@
 			</div>
 		@endif
 		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Aplicación</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Aplicación</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<a class="btn btn-danger" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}">Volver</a>
 				<br>
 				<br>
@@ -167,7 +167,7 @@
 				</div>
 				{!! Form::close() !!}
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>

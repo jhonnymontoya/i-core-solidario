@@ -25,8 +25,8 @@
 		@endif
 		<div class="row">
 			<div class="col-md-3">
-				<div class="box box-primary">
-					<div class="box-body box-profile">
+				<div class="card card-primary">
+					<div class="card-body card-profile">
 						<img class="profile-user-img img-responsive img-circle" src="{{ asset('storage/avatars/' . (empty($usuario->avatar)?'avatar-160x160.png':$usuario->avatar)) }}" alt="Avatar">
 						<h3 class="profile-username text-center" id="id_nombre_vista">{{ $usuario->nombre_corto }}</h3>
 						<ul class="list-group list-group-unbordered">

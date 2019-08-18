@@ -33,12 +33,12 @@
 		{!! Form::hidden("metodo", "tesoreria") !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-warning">
-					<div class="box-header with-border">
-						<h3 class="box-title">Desembolsar solicitud de crédito</h3>
+				<div class="card card-warning">
+					<div class="card-header with-border">
+						<h3 class="card-title">Desembolsar solicitud de crédito</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="alert alert-success">
@@ -288,8 +288,8 @@
 							</div>
 						@endif
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						@if(!$solicitud->tieneInconsistencias())
 						<a class="btn btn-success" id="procesar">Procesar</a>
 						{{--{!! Form::submit('Procesar', ['class' => 'btn btn-success', 'tabindex' => '1']) !!}--}}

@@ -23,18 +23,18 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="box box-{{ $errors->count()?'danger':'success' }}">
+		<div class="card card-{{ $errors->count()?'danger':'success' }}">
 			{!! Form::open(['url' => 'modulo', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="box-header with-border">
-				<h3 class="box-title">Crear nuevo módulo</h3>
+			<div class="card-header with-border">
+				<h3 class="card-title">Crear nuevo módulo</h3>
 
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				<div class="card-tools pull-right">
+					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 						<i class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
 				<a href="{{ url('modulo') }}" class="btn btn-danger pull-right">Cancelar</a>
 			</div>

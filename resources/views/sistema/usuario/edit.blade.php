@@ -33,8 +33,8 @@
 			{!! Form::model($usuario, ['url' => ['usuario', $usuario], 'method' => 'put', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'usuario']) !!}
 			{!! Form::hidden('avatar', null) !!}
 			<div class="col-md-3">
-				<div class="box box-primary">
-					<div class="box-body box-profile">
+				<div class="card card-primary">
+					<div class="card-body card-profile">
 						<div id="image-cropper">
 							<div class="cropit-preview"></div>
 							<input type="file" class="cropit-image-input" />

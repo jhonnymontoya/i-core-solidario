@@ -38,8 +38,8 @@
 		{!! Form::model($comprobante, ['url' => ['comprobante', $comprobante, 'duplicar'], 'method' => 'post', 'role' => 'form', 'id' => 'formDuplicar']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-warning">
-					<div class="box-header with-border">
+				<div class="card card-warning">
+					<div class="card-header with-border">
 						@php
 							$tipoComprobante = $comprobante->tipoComprobante;
 							$numero = $tipoComprobante->codigo;
@@ -47,10 +47,10 @@
 								$numero .= ' ' . $comprobante->numero_comprobante;
 							}
 						@endphp
-						<h3 class="box-title">Duplicar comprobante {{ $numero }}</h3>
+						<h3 class="card-title">Duplicar comprobante {{ $numero }}</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4 col-md-offset-1">
 								<dl class="dl-horizontal">
@@ -177,8 +177,8 @@
 							</div>
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						<a class="btn btn-success" id="duplicar">Duplicar</a>
 						<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right" tabindex="2">Cancelar</a>
 					</div>

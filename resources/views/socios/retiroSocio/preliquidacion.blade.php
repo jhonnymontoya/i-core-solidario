@@ -38,11 +38,11 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Cálculo liquidación de retiro</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Cálculo liquidación de retiro</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						{!! Form::open(['url' => 'retiroSocio/preliquidacion', 'method' => 'get', 'role' => 'form']) !!}
 						{!! Form::hidden("preliquidar", true) !!}
 						<div class="row">
@@ -310,7 +310,7 @@
 							</div>
 						@endif
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						@if($preliquidacion->count())
 							{!! Form::model($socio, ['route' => ['retiroSocioLiquidar', $socio], 'method' => 'put', 'role' => 'form', 'id' => 'formProcesar']) !!}
 							{!! Form::hidden('fecha_movimiento', $fechaMovimiento) !!}

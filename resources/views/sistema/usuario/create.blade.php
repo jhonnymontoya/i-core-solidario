@@ -26,8 +26,8 @@
 		<div class="row">
 			{!! Form::open(['url' => 'usuario', 'method' => 'post', 'role' => 'form', 'files' => true, 'class' => 'form-horizontal']) !!}
 			<div class="col-md-3">
-				<div class="box box-primary">
-					<div class="box-body box-profile">
+				<div class="card card-primary">
+					<div class="card-body card-profile">
 						<img class="profile-user-img img-responsive img-circle" src="{{ asset('storage/avatars/avatar-160x160.png') }}" alt="Avatar">
 						<h3 class="profile-username text-center" id="id_nombre_vista">Nombre</h3>
 						<ul class="list-group list-group-unbordered">
@@ -61,8 +61,8 @@
 			</div>
 
 			<div class="col-md-9">
-				<div class="box box-success">
-					<div class="box-body">
+				<div class="card card-success">
+					<div class="card-body">
 						
 						<div class="row">
 							<div class="col-md-12">

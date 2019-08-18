@@ -38,11 +38,11 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Cuotas extraordinarias</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Cuotas extraordinarias</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
@@ -192,7 +192,7 @@
 						@endif
 					</div>
 
-					<div class="box-footer">
+					<div class="card-footer">
 						<?php
 							switch($solicitud->estado_solicitud)
 							{

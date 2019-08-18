@@ -37,12 +37,12 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Cargar registros</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Cargar registros</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						{{-- INICIO FILA --}}
 						<div class="row form-horizontal">
 							<div class="col-md-6">
@@ -180,8 +180,8 @@
 							@endif
 						@endif
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-danger pull-right">Volver al comprobante</a>
 					</div>
 				</div>

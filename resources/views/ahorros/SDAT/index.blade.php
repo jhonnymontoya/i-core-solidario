@@ -34,11 +34,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $sdats->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">SDAT</h3>
+		<div class="card card-{{ $sdats->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">SDAT</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name'), ['url' => 'SDAT', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-8 col-sm-12">
@@ -155,7 +155,7 @@
 					</div>
 				</div>			
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $sdats->total()?'primary':'danger' }}">{{ $sdats->total() }}</span> elementos.
 			</div>
 		</div>

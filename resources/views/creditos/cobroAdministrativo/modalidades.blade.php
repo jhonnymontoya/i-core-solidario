@@ -23,11 +23,11 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="box box-{{ $errors->count()?'danger':'success' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Editar cobro administrativo</h3>
+		<div class="card card-{{ $errors->count()?'danger':'success' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Editar cobro administrativo</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-12">
 						<h4>Editando las modalidades de crédito para el cobro administrativo <em>{{ $cobro->codigo }} - {{ $cobro->nombre }}</em></h4>
@@ -59,7 +59,7 @@
 					No existen mosalidades de crédito para asociar, <a class="btn btn-success btn-xs" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Volver</a>
 			</div>
 		</div>

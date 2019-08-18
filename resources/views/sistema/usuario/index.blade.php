@@ -28,14 +28,14 @@
 			</div>
 		</div>
 		<br>
-		<div class="box">
-			<div class="box-header with-border">
-				<h3 class="box-title">Buscar usuarios</h3>
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		<div class="card">
+			<div class="card-header with-border">
+				<h3 class="card-title">Buscar usuarios</h3>
+				<div class="card-tools pull-right">
+					<button type="button" class="btn btn-card-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::all(), ['url' => '/usuario', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-4 col-sm-12">
@@ -83,7 +83,7 @@
 				<div class="row">
 			@endif
 			<div class="col-sm-4">
-				<div class="box box-widget widget-user">
+				<div class="card card-widget widget-user">
 					<div class="widget-user-header bg-{{ $usuario->esta_activo?'aqua':'red' }}-active">
 						<div class="widget-user-username">
 							{{ $usuario->nombre_corto }}
@@ -95,7 +95,7 @@
 					<div class="widget-user-image">
 						<img class="img-circle" src="{{ asset('storage/avatars/' . (empty($usuario->avatar)?'avatar-160x160.png':$usuario->avatar) ) }}" alt="{{ $usuario->nombre_completo }}" />
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						<ul class="nav nav-stacked">
 							<li>
 								<a href="{{ route('usuarioShow', [$usuario->id, '#entidades']) }}">Entidades 

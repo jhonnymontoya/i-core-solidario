@@ -54,11 +54,11 @@
 			</div>
 		@endif
 		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Recaudo por caja</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Recaudo por caja</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('tercero', 'fecha', 'cuenta'), ['url' => 'recaudosCaja/create', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="col-md-4">
@@ -169,7 +169,7 @@
 					<br>
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				@if ($tercero)
 					<a class="btn btn-success" data-toggle="modal" data-target="#mResumen">Continuar</a>
 					<a href="{{ url('recaudosCaja') }}" class="btn btn-danger pull-right">Cancelar</a>

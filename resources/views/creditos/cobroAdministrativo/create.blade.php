@@ -33,11 +33,11 @@
 		<div class="row">
 			{!! Form::open(['url' => 'cobrosAdministrativos', 'method' => 'post', 'role' => 'form']) !!}
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo cobro administrativo</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Crear nuevo cobro administrativo</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
@@ -116,7 +116,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
 						<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Cancelar</a>
 					</div>

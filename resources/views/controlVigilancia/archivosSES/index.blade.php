@@ -28,11 +28,11 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="box box-{{ false?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Archivos SES</h3>
+		<div class="card card-{{ false?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Archivos SES</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('fecha_reporte'), ['url' => 'archivosSES', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="col-md-5">
@@ -117,7 +117,7 @@
 					</div>
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>

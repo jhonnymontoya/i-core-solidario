@@ -34,11 +34,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $impuestos->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Impuestos</h3>
+		<div class="card card-{{ $impuestos->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Impuestos</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'impuesto', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-5 col-sm-12">
@@ -113,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $impuestos->total()?'primary':'danger' }}">
 					{{ $impuestos->total() }}
 				</span>&nbsp;elementos.

@@ -25,11 +25,11 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">pago de impuestos</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">pago de impuestos</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						{!! Form::open(['route' => ['comprobante.pagoImpuesto', $movimientoTemporal], 'method' => 'get', 'role' => 'form']) !!}
 						<div class="row form-horizontal">
 							<div class="col-md-5 col-sm-12">
@@ -155,7 +155,7 @@
 							@endif
 						@endif
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						<div class="row">
 							<div class="col-md-6 col-sm-12">
 								@if (!empty($req) && !empty($infPagImp))

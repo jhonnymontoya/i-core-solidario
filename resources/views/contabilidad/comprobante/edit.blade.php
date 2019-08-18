@@ -48,12 +48,12 @@
 		{!! Form::model($comprobante, ['url' => ['comprobante', $comprobante], 'method' => 'put', 'role' => 'form', 'id' => 'comprobante']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Editar comprobante</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Editar comprobante</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						{{-- INICIO FILA --}}
 						<div class="row form-horizontal">
 							<div class="col-md-6">
@@ -291,8 +291,8 @@
 						</table>
 						{{-- FIN TABLA --}}
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer">
 						{!! Form::submit('Guardar', ['class' => 'btn btn-success', 'form' => 'comprobante']) !!}
 						<a href="{{ route('comprobanteContabilizar', $comprobante) }}" class="btn btn-info">Contabilizar</a>
 						<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right">Volver</a>

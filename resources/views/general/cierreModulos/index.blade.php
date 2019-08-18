@@ -28,11 +28,11 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="box box-{{ $periodos->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Resumen</h3>
+		<div class="card card-{{ $periodos->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Resumen</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				@if(!$periodos->total())
 					<p>
 						<div class="row">
@@ -46,12 +46,12 @@
 					@foreach($periodos as $periodo)
 						<div class="row">
 							<div class="col-md-12">
-								<div class="info-box">
-									<div class="info-box-content">
-										<span class="info-box-number">
+								<div class="info-card">
+									<div class="info-card-content">
+										<span class="info-card-number">
 											Periodo {{ $periodo->mes }} - {{ $periodo->anio }}
 										</span>
-										<span class="info-box-text">
+										<span class="info-card-text">
 											<div class="row">
 												@php
 													$contador = 1;
@@ -88,7 +88,7 @@
 														<a href="{{ $link }}">
 													@endif
 														<div class="col-md-2">
-															<div class="small-box bg-{{ $cerrado ? 'green' : 'red' }}">
+															<div class="small-card bg-{{ $cerrado ? 'green' : 'red' }}">
 																<div class="inner">
 																	<h3>{{ $contador++ }}</h3>
 																	<p>{{ $modulo->nombre }}</p>
@@ -105,7 +105,7 @@
 											</div>
 										</span>
 
-										<span class="info-box-text">
+										<span class="info-card-text">
 											@php
 												$porcentajeProgreso = number_format($periodo->porcentajeProgreso(), 0);
 											@endphp
@@ -116,7 +116,7 @@
 											</div>
 										</span>
 
-										<span class="info-box-text">
+										<span class="info-card-text">
 											<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-success btn-block btn-xs btn-flat pull-right">Ir a resumen de módulos</a>
 										</span>
 									</div>
@@ -131,7 +131,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $periodos->total()?'primary':'danger' }}">
 					{{ $periodos->total() }}
 				</span>&nbsp;elementos.
@@ -144,21 +144,21 @@
 
 @push('style')
 <style type="text/css">
-	/*.info-box{
+	/*.info-card{
 		border:1px solid #333333;
 	}*/
-	.info-box .info-box-content .info-box-text .progress{
+	.info-card .info-card-content .info-card-text .progress{
 		border-radius: 1px;
 		background-color: #f5f5f5;
 		height: 20px;
 		margin: 5px -10px 5px -10px;
 	}
-	.info-box .info-box-content .info-box-text .progress .progress-bar{
+	.info-card .info-card-content .info-card-text .progress .progress-bar{
 		border-radius: 1px;
 		background-color: #3c8dbc;
 		background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)
 	}
-	.info-box-content{
+	.info-card-content{
 		margin-left: 5px;
 	}
 </style>

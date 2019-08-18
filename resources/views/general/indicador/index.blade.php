@@ -23,11 +23,11 @@
 			</div>
 		@endif
 		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Indicadores</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Indicadores</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('indicador'), ['url' => 'indicador', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-11">
@@ -133,7 +133,7 @@
 					<h4>Seleccione un tipo de indicador</h4>
 				@endif
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>

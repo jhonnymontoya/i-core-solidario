@@ -28,11 +28,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $terceros->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Terceros</h3>
+		<div class="card card-{{ $terceros->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Terceros</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name', 'naturaleza', 'tipoIdentificacion', 'estado'), ['url' => 'tercero', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-3 col-sm-12">
@@ -136,7 +136,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $terceros->total()?'primary':'danger' }}">
 					{{ $terceros->total() }}
 				</span>&nbsp;elementos.

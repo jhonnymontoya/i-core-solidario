@@ -28,14 +28,14 @@
 			</div>
 		</div>
 		<br>
-		<div class="box">
-			<div class="box-header with-border">
-				<h3 class="box-title">Buscar socios</h3>
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		<div class="card">
+			<div class="card-header with-border">
+				<h3 class="card-title">Buscar socios</h3>
+				<div class="card-tools pull-right">
+					<button type="button" class="btn btn-card-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::all(), ['url' => '/socio', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-4 col-sm-12">
@@ -103,7 +103,7 @@
 				}
 			?>
 			<div class="col-sm-4">
-				<div class="box box-widget widget-user">
+				<div class="card card-widget widget-user">
 					<div class="widget-user-header bg-{{ $color }}-active">
 						<div class="widget-user-username">
 							{{ $socio->primer_nombre . ' ' . $socio->segundo_nombre }}
@@ -118,7 +118,7 @@
 					<div class="widget-user-image">
 						<img class="img-circle" src="{{ asset('storage/asociados/' . (empty($socio->socio->avatar)?'avatar-160x160.png':$socio->socio->avatar) ) }}" alt="{{ $socio->nombre_corto }}" />
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						<ul class="nav nav-stacked">
 							<li>
 								<a>{{ $socio->identificacion }}</a>

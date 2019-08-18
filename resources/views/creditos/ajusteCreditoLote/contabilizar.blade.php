@@ -35,12 +35,12 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="box box-{{ $errors->count()?'danger':'success' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Procesar archivo ajuste créditos en lote</h3>
+		<div class="card card-{{ $errors->count()?'danger':'success' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Procesar archivo ajuste créditos en lote</h3>
 				<a href="{{ url('ajusteCreditoLote') }}" class="btn btn-danger btn-sm pull-right">Volver</a>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="form-group">
@@ -192,7 +192,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>

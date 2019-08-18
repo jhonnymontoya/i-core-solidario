@@ -26,11 +26,11 @@
 		{!! Form::open(['url' => 'impuesto', 'method' => 'post', 'role' => 'form']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo impuesto</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Crear nuevo impuesto</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row form-horizontal">
 							<div class="col-md-6">
 								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
@@ -66,7 +66,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
 						<a href="{{ url('impuesto') }}" class="btn btn-danger pull-right">Cancelar</a>
 					</div>

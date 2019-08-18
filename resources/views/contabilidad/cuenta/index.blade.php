@@ -28,11 +28,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $cuentas->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Cuentas</h3>
+		<div class="card card-{{ $cuentas->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Cuentas</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				{!! Form::model(Request::only('name', 'tipo', 'nivel', 'modulo','estado'), ['url' => 'cuentaContable', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 				<div class="row">
 					<div class="col-md-3 col-sm-12">
@@ -118,7 +118,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $cuentas->total()?'primary':'danger' }}">
 					{{ $cuentas->total() }}
 				</span>&nbsp;elementos.

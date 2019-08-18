@@ -23,12 +23,12 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="box box-{{ $errors->count()?'danger':'success' }}">
+		<div class="card card-{{ $errors->count()?'danger':'success' }}">
 			{!! Form::model($indicador, ['url' => ['indicador', $indicador], 'method' => 'put', 'role' => 'form']) !!}
-			<div class="box-header with-border">
-				<h3 class="box-title">Actualizar indicador</h3>
+			<div class="card-header with-border">
+				<h3 class="card-title">Actualizar indicador</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-4">
 						<dl class="dl-horizontal">
@@ -129,7 +129,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				{!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
 				<a href="{{ url('indicador?indicador=' . $indicador->tipoIndicador->id) }}" class="btn btn-danger pull-right">Cancelar</a>
 			</div>

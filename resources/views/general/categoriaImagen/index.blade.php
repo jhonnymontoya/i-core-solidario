@@ -28,17 +28,17 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $categoriasImagen->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Categorías de imágenes</h3>
+		<div class="card card-{{ $categoriasImagen->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Categorías de imágenes</h3>
 
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+				<div class="card-tools pull-right">
+					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 						<i class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				@if(!$categoriasImagen->total())
 					<p>
 						<div class="row">
@@ -81,7 +81,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $categoriasImagen->total()?'primary':'danger' }}">
 					{{ $categoriasImagen->total() }}
 				</span>&nbsp;elementos.

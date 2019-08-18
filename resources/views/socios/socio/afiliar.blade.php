@@ -40,12 +40,12 @@
 			</div>
 		@endif
 
-		<div class="box box-{{ $errors->count()?'danger':'success' }}">
+		<div class="card card-{{ $errors->count()?'danger':'success' }}">
 			{!! Form::model($socio, ['url' => ['socio', $socio, 'afiliacion'], 'method' => 'put', 'role' => 'form']) !!}
-			<div class="box-header with-border">
-				<h3 class="box-title">Afiliar socio</h3>
+			<div class="card-header with-border">
+				<h3 class="card-title">Afiliar socio</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				{{-- INICIO FILA --}}
 				<div class="row">
 					{{-- INICIO CAMPO --}}
@@ -157,7 +157,7 @@
 				{{-- FIN FILA --}}
 				<br>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">

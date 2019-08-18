@@ -28,11 +28,11 @@
 			</div>
 		</div>
 		<br>
-		<div class="box box-{{ $tiposGarantias->total()?'primary':'danger' }}">
-			<div class="box-header with-border">
-				<h3 class="box-title">Tipos de garantías</h3>
+		<div class="card card-{{ $tiposGarantias->total()?'primary':'danger' }}">
+			<div class="card-header with-border">
+				<h3 class="card-title">Tipos de garantías</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				<div class="row">
 					{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-3 col-sm-12">
@@ -95,7 +95,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 				<span class="label label-{{ $tiposGarantias->total()?'primary':'danger' }}">
 					{{ $tiposGarantias->total() }}
 				</span>&nbsp;elementos.

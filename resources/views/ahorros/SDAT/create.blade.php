@@ -36,11 +36,11 @@
 		{!! Form::open(['url' => 'SDAT', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo SDAT</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Crear nuevo SDAT</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 
 							<div class="col-md-6">
@@ -168,7 +168,7 @@
 					@endif
 
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						@if (isset($dataTitulo))
 							{!! Form::submit('Radicar', ['class' => 'btn btn-success', 'name' => 'radicar']) !!}
 						@endif

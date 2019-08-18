@@ -43,11 +43,11 @@
 		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Editar producto para {{ $tercero->nombre_corto }}</h3>
+				<div class="card card-{{ $errors->count()?'danger':'success' }}">
+					<div class="card-header with-border">
+						<h3 class="card-title">Editar producto para {{ $tercero->nombre_corto }}</h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="row">
@@ -191,7 +191,7 @@
 							</div>
 						@endif
 					</div>
-					<div class="box-footer">
+					<div class="card-footer">
 						<span class="label label-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
 						<a href="{{ url('tarjetaHabiente') }}" class="btn btn-danger pull-right">Volver</a>
 					</div>

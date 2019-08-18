@@ -23,11 +23,11 @@
 			</div>
 		@endif
 		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Cuotas voluntarias</h3>
+		<div class="card card-primary">
+			<div class="card-header with-border">
+				<h3 class="card-title">Cuotas voluntarias</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
 				{!! Form::open(['url' => ['cuotaVoluntaria', $cuota], 'method' => 'delete', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 				<div class="row">
 					<div class="row">
@@ -109,13 +109,13 @@
 						</table>
 					</div>
 				</div>
-				<div class="box-footer">
+				<div class="card-footer">
 					{!! Form::submit('Confirmar', ['class' => 'btn btn-danger']) !!}
 					<a href="{{ url('cuotaVoluntaria?socio=' . $cuota->socio->id) }}" class="btn btn-success pull-right">Volver</a>
 				</div>
 				{!! Form::close() !!}
 			</div>
-			<div class="box-footer">
+			<div class="card-footer">
 			</div>
 		</div>
 	</section>
