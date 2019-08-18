@@ -8,7 +8,10 @@
 		
 		<link rel="canonical" href="{{ url('/') }}">
 		
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css?ver=2') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+
+		<!-- Google Font: Source Sans Pro -->
+  		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 		
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" sizes="16x16 24x24 32x32 64x64"/>
 		<link rel="apple-touch-icon" href="/img/logos/ICore_iOS_60x60.png"/>
@@ -47,7 +50,7 @@
 			</div>
 		</div>
 
-		<script type="text/javascript" src="{{ asset('js/app.js?ver=2') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 		@stack('scripts')
 	</body>
 </html>

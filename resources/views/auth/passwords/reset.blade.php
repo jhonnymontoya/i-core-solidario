@@ -17,41 +17,68 @@
 	@endif
 
 	<div>
-		<div class="form-group has-feedback {{ ($errors->has('usuario')?'has-error':'') }}">
-			{!! Form::text('usuario', null, ['class' => 'form-control', 'placeholder' => 'Usuario', 'autocomplete' => 'off', 'autofocus']) !!}
-			<span class="glyphicon glyphicon-user form-control-feedback"></span>
-			@if ($errors->has('usuario'))
-				<span class="help-block">{{ $errors->first('usuario') }}</span>
-			@endif
+		<div class="form-group">
+			@php
+				$valid = $errors->has('usuario') ? 'is-invalid' : '';
+			@endphp
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fas fa-user"></i>
+					</span>
+				</div>
+				{!! Form::text('usuario', null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Usuario', 'autocomplete' => 'off', 'autofocus']) !!}
+				@if ($errors->has('usuario'))
+					<div class="invalid-feedback">{{ $errors->first('usuario') }}</div>
+				@endif
+			</div>
 		</div>
 	</div>
 
 	<div>
-		<div class="form-group has-feedback {{ ($errors->has('password')?'has-error':'') }}">
-			{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña', 'autocomplete' => 'on']) !!}
-			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			@if ($errors->has('password'))
-				<span class="help-block">{{ $errors->first('password') }}</span>
-			@endif
+		<div class="form-group">
+			@php
+				$valid = $errors->has('password') ? 'is-invalid' : '';
+			@endphp
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fas fa-lock"></i>
+					</span>
+				</div>
+				{!! Form::password('password', ['class' => [$valid, 'form-control'], 'placeholder' => 'Contraseña', 'autofocus']) !!}
+				@if ($errors->has('password'))
+					<div class="invalid-feedback">{{ $errors->first('password') }}</div>
+				@endif
+			</div>
 		</div>
 	</div>
 
 	<div>
-		<div class="form-group has-feedback {{ ($errors->has('password_confirmation')?'has-error':'') }}">
-			{!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirmar contraseña', 'autocomplete' => 'on']) !!}
-			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			@if ($errors->has('password_confirmation'))
-				<span class="help-block">{{ $errors->first('password_confirmation') }}</span>
-			@endif
+		<div class="form-group">
+			@php
+				$valid = $errors->has('password_confirmation') ? 'is-invalid' : '';
+			@endphp
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fas fa-lock"></i>
+					</span>
+				</div>
+				{!! Form::password('password_confirmation', ['class' => [$valid, 'form-control'], 'placeholder' => 'Confirmar contraseña']) !!}
+				@if ($errors->has('password_confirmation'))
+					<div class="invalid-feedback">{{ $errors->first('password_confirmation') }}</div>
+				@endif
+			</div>
 		</div>
 	</div>
 
 	<div>
-		{!! Form::submit('Restaurar', ['class' => 'btn btn-success btn-block btn-flat']) !!}
+		{!! Form::submit('Restaurar', ['class' => 'btn btn-outline-success btn-block btn-flat']) !!}
 	</div>
 
 	<div class="volver">
-		<a class="btn btn-info btn-block btn-flat" href="{{ url('login') }}" role="button">Volver</a>
+		<a class="btn btn-outline-info btn-block btn-flat" href="{{ url('login') }}" role="button">Volver</a>
 	</div>
 	{!! Form::close() !!}
 </div>

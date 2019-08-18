@@ -26,8 +26,7 @@ jQuery.fn.extend({
 	 * Hace foco en un control de formulario especifico
 	 * @return {[type]} [description]
 	 */
-	enfocar: function()
-	{
+	enfocar: function() {
 		this.focus();
 		this.val(this.val());
 	},

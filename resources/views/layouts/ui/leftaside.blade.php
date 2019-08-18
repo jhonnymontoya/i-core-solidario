@@ -1,91 +1,73 @@
 @inject('menus', 'App\Helpers\MenuHelper')
 
-<aside class="main-sidebar">
+<aside class="main-sidebar sidebar-light-danger elevation-0">
+	<a href="{{ url('/dashboard') }}" class="brand-link">
+		<img src="{{ asset('img/logo32x32.png') }}" alt="I-Core" class="brand-image img-circle">
+		<span class="brand-text font-weight-light">I-Core</span>
+	</a>
+
 	<section class="sidebar">
-		{{-- Sidebar user panel --}}
-		<div class="user-panel">
-			<div class="pull-left image">
-				<img src="{{ asset('storage/avatars/' . (empty(Auth::user()->avatar)?'avatar-160x160.png':Auth::user()->avatar) ) }}" class="img-circle" alt="{{ Auth::user()->nombre_corto }}">
+		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+			<div class="image">
+				<img src="{{ asset('storage/avatars/' . (empty(Auth::user()->avatar)?'avatar-160x160.png':Auth::user()->avatar) ) }}" class="img-circle elevation-2" alt="{{ Auth::user()->nombre_corto }}">
 			</div>
-			<div class="pull-left info">
-				<p>{{ Auth::user()->nombre_corto }}</p>
-				@if(Session::has('entidad'))
-					<small>
-						@if(!empty(Session::get('entidad')->terceroEntidad->sigla))
-							{{ str_limit(Session::get('entidad')->terceroEntidad->sigla, 20) }}
-						@else
-							{{ str_limit(Session::get('entidad')->terceroEntidad->razon_social, 20) }}
-						@endif
-					</small>
-				@endif
+			<div class="info">
+				<a href="{{ url('profile') }}" class="d-block">{{ Auth::user()->nombre_corto }}</a>
 			</div>
 		</div>
-		{{-- Formulario de búsqueda --}}
-		{{--<form action="#" method="get" class="sidebar-form">
-			<div class="input-group">
-				<input type="text" name="q" class="form-control" placeholder="Buscar...">
-				<span class="input-group-btn">
-					<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-				</span>
-			</div>
-		</form>--}}
-		{{-- Fin de formulario de búsqueda --}}
-		{{-- Menú lateral izquierdo --}}
-		<ul class="sidebar-menu">
-			<li class="header">MENÚ</li>
-			@foreach ($menus->menus() as $menu)
-				<li class="treeview{{ $menu->activo?' active':'' }}">
-					<a href="{{ $menu->ruta?url($menu->ruta):'#' }}">
-						@if ($menu->pre_icon)
-							<i class="fa fa-{{ $menu->pre_icon }}"></i> 
-						@endif
-						<span>{{ $menu->nombre }}</span>
+
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				@foreach ($menus->menus() as $menu)
+					<li class="nav-item has-treeview {{ $menu->activo?'menu-open':'' }}">
+						<a href="{{ $menu->ruta?url($menu->ruta):'#' }}" class="nav-link {{ $menu->activo?'active':'' }}">
+							@if ($menu->pre_icon)
+								<i class="fas fa-{{ $menu->pre_icon }}"></i> 
+							@endif
+							<p>
+								{{ $menu->nombre }}
+								@if ($menu->hijos->count() > 0)
+									<i class="right fas fa-angle-left"></i>
+								@endif
+							</p>
+						</a>
 						@if ($menu->hijos->count() > 0)
-							<span class="pull-right-container">
-								<i class="fa fa-angle-left pull-right"></i>
-							</span>
-						@endif
-					</a>
-					@if ($menu->hijos->count() > 0)
-						<ul class="treeview-menu">
-							@foreach ($menu->hijos as $permisoHijo)
-								<li class="{{ $permisoHijo->activo?'active':'' }}">
-									<a href="{{ $permisoHijo->ruta?url($permisoHijo->ruta):'#' }}">
-										@if ($permisoHijo->pre_icon)
-											<i class="fa fa-{{ $permisoHijo->pre_icon }}"></i> 
-										@endif
-										{{ $permisoHijo->nombre }}
+							<ul class="nav nav-treeview {{ $menu->activo?'menu-open':'' }}">
+								@foreach ($menu->hijos as $permisoHijo)
+									<li class="nav-item">
+										<a href="{{ url($permisoHijo->ruta) }}" class="nav-link {{ $permisoHijo->activo?'active':'' }}">
+											@if ($permisoHijo->pre_icon)
+												<i class="fas fa-{{ $permisoHijo->pre_icon }} nav-icon"></i> 
+											@endif
+											<p>{{ $permisoHijo->nombre }}</p>
+											@if ($permisoHijo->hijos->count() > 0)
+												<i class="right fas fa-angle-left"></i>
+											@endif
+										</a>
 										@if ($permisoHijo->hijos->count() > 0)
-											<span class="pull-right-container">
-												<i class="fa fa-angle-left pull-right"></i>
-											</span>
+											<ul class="nav nav-treeview">
+												@foreach ($permisoHijo->hijos as $permisoHijo2)
+													<li class="nav-item">
+														<a href="{{ url($permisoHijo2->ruta) }}" class="nav-link {{ $permisoHijo2->activo?'active':'' }}">
+															@if ($permisoHijo2->pre_icon)
+																<i class="fas fa-{{ $permisoHijo2->pre_icon }} nav-icon"></i> 
+															@endif
+															<p>{{ $permisoHijo2->nombre }}</p>
+															@if ($permisoHijo2->hijos->count() > 0)
+																<i class="right fas fa-angle-left"></i>
+															@endif
+														</a>
+													</li>
+												@endforeach
+											</ul>
 										@endif
-									</a>
-									@if ($permisoHijo->hijos->count() > 0)
-										<ul class="treeview-menu">
-											@foreach ($permisoHijo->hijos as $permisoHijo2)
-												<li class="{{ $permisoHijo2->activo?'active':'' }}">
-													<a href="{{ url($permisoHijo2->ruta) }}">
-														@if ($permisoHijo2->pre_icon)
-															<i class="fa fa-{{ $permisoHijo2->pre_icon }}"></i> 
-														@endif
-														{{ $permisoHijo2->nombre }}
-														@if ($permisoHijo2->hijos->count() > 0)
-															<span class="pull-right-container">
-																<i class="fa fa-angle-left pull-right"></i>
-															</span>
-														@endif
-													</a>
-												</li>
-											@endforeach
-										</ul>
-									@endif
-								</li>
-							@endforeach
-						</ul>
-					@endif
-				</li>
-			@endforeach
-		</ul>
+									</li>
+								@endforeach
+							</ul>
+						@endif
+					</li>
+				@endforeach
+			</ul>
+		</nav>
 	</section>
 </aside>

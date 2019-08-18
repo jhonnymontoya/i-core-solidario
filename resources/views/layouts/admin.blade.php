@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,10 @@
 		
 		<link rel="canonical" href="{{ url('/') }}">
 		
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css?ver=2') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+
+		<!-- Google Font: Source Sans Pro -->
+  		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 		
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" sizes="16x16 24x24 32x32 64x64"/>
 		<link rel="apple-touch-icon" href="/img/logos/ICore_iOS_60x60.png"/>
@@ -39,7 +42,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-	<body class="sidebar-mini {{ Auth::getUser()->ui_configuracion }}">
+	<body class="sidebar-mini layout-fixed {{ Auth::getUser()->ui_configuracion }}">
 
 		<div class="wrapper">
 			{{-- Header --}}
@@ -50,11 +53,9 @@
 			@yield('content')
 			{{-- footer --}}
 			@include('layouts.ui.footer')
-			{{-- menú derecho --}}
-			@include('layouts.ui.rightaside')
 		</div>
 
-		<script type="text/javascript" src="{{ asset('js/app.js?ver=2') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
 		@stack('scripts')
 	</body>

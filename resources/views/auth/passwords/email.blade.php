@@ -33,20 +33,29 @@
 		$usuario = !empty(old('usuario')) ? old('usuario') : $usuario;
 	@endphp
 	<div>
-		<div class="form-group has-feedback {{ ($errors->has('usuario')?'has-error':'') }}">
-			{!! Form::text('usuario', $usuario, ['class' => 'form-control', 'placeholder' => 'Usuario', 'autocomplete' => 'off', 'autofocus']) !!}
-			<span class="glyphicon glyphicon-user form-control-feedback"></span>
-			@if ($errors->has('usuario'))
-				<span class="help-block">{{ $errors->first('usuario') }}</span>
-			@endif
+		<div class="form-group">
+			@php
+				$valid = $errors->has('usuario') ? 'is-invalid' : '';
+			@endphp
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fas fa-user"></i>
+					</span>
+				</div>
+				{!! Form::text('usuario', null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Usuario', 'autocomplete' => 'off', 'autofocus']) !!}
+				@if ($errors->has('usuario'))
+					<div class="invalid-feedback">{{ $errors->first('usuario') }}</div>
+				@endif
+			</div>
 		</div>
 	</div>
 
 	<div>
-		{!! Form::submit('Restaurar', ['class' => 'btn btn-success btn-block btn-flat']) !!}
+		{!! Form::submit('Restaurar', ['class' => 'btn btn-outline-success btn-block btn-flat']) !!}
 	</div>
 	<div class="volver">
-		<a class="btn btn-info btn-block btn-flat" href="{{ url('login') }}" role="button">Volver</a>
+		<a class="btn btn-outline-info btn-block btn-flat" href="{{ url('login') }}" role="button">Volver</a>
 	</div>
 	{!! Form::close() !!}
 </div>
