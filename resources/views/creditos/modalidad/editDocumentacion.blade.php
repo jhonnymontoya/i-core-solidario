@@ -38,240 +38,238 @@
 			</div>
 		@endif
 
-		<div class="row">
+		<div class="container-fluid">
 			{!! Form::model($modalidad, ['url' => ['modalidadCredito', $modalidad, 'documentacion'], 'method' => 'put', 'role' => 'form']) !!}
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Editar modalidad</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-2">
-								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('codigo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Código
-									</label>
-									{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autocomplete' => 'off', 'readonly']) !!}
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Editar modalidad</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-2">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('codigo'))
-										<span class="help-block">{{ $errors->first('codigo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Código
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autocomplete' => 'off', 'readonly']) !!}
+								@if ($errors->has('codigo'))
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
+								@endif
 							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('nombre'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autocomplete' => 'off', 'autofocus']) !!}
+						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autocomplete' => 'off', 'autofocus']) !!}
+								@if ($errors->has('nombre'))
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
+								@endif
 							</div>
-							<div class="col-md-2">
-								<div class="form-group {{ ($errors->has('es_exclusivo_de_socios')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('es_exclusivo_de_socios'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										¿Exclusiva para socios?
-									</label>
-									<br>
-									<?php
-										$es_exclusivo_de_socios = $modalidad->es_exclusivo_de_socios;
-										if(old('es_exclusivo_de_socios') == '0')
-										{
-											$es_exclusivo_de_socios = false;
-										}
-										elseif(old('es_exclusivo_de_socios') == '1')
-										{
-											$es_exclusivo_de_socios = true;
-										}
-									?>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
-											{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
-										</label>
-										<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
-											{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
-										</label>
-									</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group {{ ($errors->has('es_exclusivo_de_socios')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('es_exclusivo_de_socios'))
-										<span class="help-block">{{ $errors->first('es_exclusivo_de_socios') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group {{ ($errors->has('esta_activa')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('esta_activa'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Estado
-									</label>
-									<br>
-									<?php
-										$esta_activa = $modalidad->esta_activa;
-										if(old('esta_activa') == '0')
-										{
-											$esta_activa = false;
-										}
-										elseif(old('esta_activa') == '1')
-										{
-											$esta_activa = true;
-										}
-									?>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
-											{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
-										</label>
-										<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
-											{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
-										</label>
-									</div>
-									@if ($errors->has('esta_activa'))
-										<span class="help-block">{{ $errors->first('esta_activa') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('descripcion'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Descripción
-									</label>
-									{!! Form::textarea('descripcion', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
-									@if ($errors->has('descripcion'))
-										<span class="help-block">{{ $errors->first('descripcion') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEdit', $modalidad) }}">Plazo</a>
-							</li>
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEditTasa', $modalidad) }}">Tasa</a>
-							</li>
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEditCupo', $modalidad) }}">Cupo</a>
-							</li>
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEditAmortizacion', $modalidad) }}">Amortización</a>
-							</li>
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEditCondiciones', $modalidad) }}">Condiciones</a>
-							</li>
-							<li role="presentation" class="active">
-								<a href="{{ route('modalidadCreditoEditDocumentacion', $modalidad) }}">Documentación</a>
-							</li>
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEditGarantias', $modalidad) }}">Garantías</a>
-							</li>
-							<li role="presentation">
-								<a href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
-							</li>
-						</ul>
-
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane fade in active">
+									¿Exclusiva para socios?
+								</label>
 								<br>
-								<div class="row">
-									<div class="col-md-11">
-										<div class="row">
-											<div class="col-md-8">
-												<div class="form-group {{ ($errors->has('documento')?'has-error':'') }}">
-													<label class="control-label">
-														@if ($errors->has('documento'))
-															<i class="fa fa-times-circle-o"></i>
-														@endif
-														Nombre
-													</label>
-													{!! Form::text('documento', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre documento', 'form' => 'adicionRango']) !!}
-													@if ($errors->has('documento'))
-														<span class="help-block">{{ $errors->first('documento') }}</span>
-													@endif
-												</div>
-											</div>
+								<?php
+									$es_exclusivo_de_socios = $modalidad->es_exclusivo_de_socios;
+									if(old('es_exclusivo_de_socios') == '0')
+									{
+										$es_exclusivo_de_socios = false;
+									}
+									elseif(old('es_exclusivo_de_socios') == '1')
+									{
+										$es_exclusivo_de_socios = true;
+									}
+								?>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
+										{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
+									</label>
+									<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
+										{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
+									</label>
+								</div>
+								@if ($errors->has('es_exclusivo_de_socios'))
+									<span class="help-block">{{ $errors->first('es_exclusivo_de_socios') }}</span>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group {{ ($errors->has('esta_activa')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('esta_activa'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Estado
+								</label>
+								<br>
+								<?php
+									$esta_activa = $modalidad->esta_activa;
+									if(old('esta_activa') == '0')
+									{
+										$esta_activa = false;
+									}
+									elseif(old('esta_activa') == '1')
+									{
+										$esta_activa = true;
+									}
+								?>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
+										{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
+									</label>
+									<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
+										{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
+									</label>
+								</div>
+								@if ($errors->has('esta_activa'))
+									<span class="help-block">{{ $errors->first('esta_activa') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('descripcion'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Descripción
+								</label>
+								{!! Form::textarea('descripcion', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
+								@if ($errors->has('descripcion'))
+									<span class="help-block">{{ $errors->first('descripcion') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
 
-											<div class="col-md-4">
-												<div class="form-group {{ ($errors->has('obligatorio')?'has-error':'') }}">
-													<label class="control-label">
-														@if ($errors->has('obligatorio'))
-															<i class="fa fa-times-circle-o"></i>
-														@endif
-														Status
-													</label>
-													<br>
-													<div class="btn-group" data-toggle="buttons">
-														<label class="btn btn-primary active">
-															{!! Form::radio('obligatorio', '1', true, ['form' => 'adicionRango']) !!}Obligatorio
-														</label>
-														<label class="btn btn-primary">
-															{!! Form::radio('obligatorio', '0', false, ['form' => 'adicionRango']) !!}Opcional
-														</label>
-													</div>
-													@if ($errors->has('obligatorio'))
-														<span class="help-block">{{ $errors->first('obligatorio') }}</span>
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEdit', $modalidad) }}">Plazo</a>
+						</li>
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEditTasa', $modalidad) }}">Tasa</a>
+						</li>
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEditCupo', $modalidad) }}">Cupo</a>
+						</li>
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEditAmortizacion', $modalidad) }}">Amortización</a>
+						</li>
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEditCondiciones', $modalidad) }}">Condiciones</a>
+						</li>
+						<li role="presentation" class="active">
+							<a href="{{ route('modalidadCreditoEditDocumentacion', $modalidad) }}">Documentación</a>
+						</li>
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEditGarantias', $modalidad) }}">Garantías</a>
+						</li>
+						<li role="presentation">
+							<a href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
+						</li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active">
+							<br>
+							<div class="row">
+								<div class="col-md-11">
+									<div class="row">
+										<div class="col-md-8">
+											<div class="form-group {{ ($errors->has('documento')?'has-error':'') }}">
+												<label class="control-label">
+													@if ($errors->has('documento'))
+														<i class="fa fa-times-circle-o"></i>
 													@endif
+													Nombre
+												</label>
+												{!! Form::text('documento', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre documento', 'form' => 'adicionRango']) !!}
+												@if ($errors->has('documento'))
+													<span class="help-block">{{ $errors->first('documento') }}</span>
+												@endif
+											</div>
+										</div>
+
+										<div class="col-md-4">
+											<div class="form-group {{ ($errors->has('obligatorio')?'has-error':'') }}">
+												<label class="control-label">
+													@if ($errors->has('obligatorio'))
+														<i class="fa fa-times-circle-o"></i>
+													@endif
+													Status
+												</label>
+												<br>
+												<div class="btn-group" data-toggle="buttons">
+													<label class="btn btn-primary active">
+														{!! Form::radio('obligatorio', '1', true, ['form' => 'adicionRango']) !!}Obligatorio
+													</label>
+													<label class="btn btn-primary">
+														{!! Form::radio('obligatorio', '0', false, ['form' => 'adicionRango']) !!}Opcional
+													</label>
 												</div>
+												@if ($errors->has('obligatorio'))
+													<span class="help-block">{{ $errors->first('obligatorio') }}</span>
+												@endif
 											</div>
 										</div>
 									</div>
-
-									<div class="col-md-1">
-										<label>&nbsp;</label><br>
-										{!! Form::submit('Agregar', ['class' => 'btn btn-success', 'form' => 'adicionRango']) !!}
-									</div>
 								</div>
-								<br>
-								<br>
-								<div class="row">
-									<div class="col-md-12 table-responsive">
-										<table class="table table-hover rangos">
-											<thead>
-												<tr>
-													<th>Nombre</th>
-													<th>Status</th>
-													<th></th>
+
+								<div class="col-md-1">
+									<label>&nbsp;</label><br>
+									{!! Form::submit('Agregar', ['class' => 'btn btn-success', 'form' => 'adicionRango']) !!}
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-12 table-responsive">
+									<table class="table table-hover rangos">
+										<thead>
+											<tr>
+												<th>Nombre</th>
+												<th>Status</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($modalidad->documentacionModalidad as $documento)
+												<tr data-id="{{ $documento->id }}">
+													<td>{{ $documento->documento }}</td>
+													<td>
+														<span class="label label-primary">{{ ($documento->obligatorio ? 'Obligatorio' : 'Opcional') }}</span>
+													</td>
+													<td>
+														<a class="btn btn-danger btn-xs eliminar"><i class="fa fa-trash"></i></a>
+													</td>
 												</tr>
-											</thead>
-											<tbody>
-												@foreach($modalidad->documentacionModalidad as $documento)
-													<tr data-id="{{ $documento->id }}">
-														<td>{{ $documento->documento }}</td>
-														<td>
-															<span class="label label-primary">{{ ($documento->obligatorio ? 'Obligatorio' : 'Opcional') }}</span>
-														</td>
-														<td>
-															<a class="btn btn-danger btn-xs eliminar"><i class="fa fa-trash"></i></a>
-														</td>
-													</tr>
-												@endforeach
-											</tbody>
-										</table>
-									</div>
+											@endforeach
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

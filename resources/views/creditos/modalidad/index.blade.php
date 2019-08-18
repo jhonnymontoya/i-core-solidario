@@ -36,72 +36,74 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $modalidades->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Modalidades de créditos</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name'), ['url' => '/modalidadCredito', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-5 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $modalidades->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Modalidades de créditos</h3>
 				</div>
-				<br>
-				@if(!$modalidades->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron modalidades de créditos <a href="{{ url('modalidadCredito/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name'), ['url' => '/modalidadCredito', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-5 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-					</p>
-				@else
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Código</th>
-									<th>Nombre</th>
-									<th>Afecta cupo de crédito</th>
-									<th>Tipo cuota</th>
-									<th>Estado</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($modalidades as $modalidad)
-									<tr>
-										<td>{{ $modalidad->codigo }}</td>
-										<td>{{ $modalidad->nombre }}</td>
-										<td>{{ $modalidad->afecta_cupo ? 'Sí' : 'No' }}</td>
-										<td>{{ $modalidad->tipo_cuota == 'FIJA' ? 'Fija compuesta' : 'Fija capital' }}</td>
-										<td>
-											<span class="label label-{{ $modalidad->esta_activa?'success':'danger' }}">
-												{{ $modalidad->esta_activa?'activa':'inactiva' }}
-											</span>
-										</td>
-										<td><a class="btn btn-info btn-xs" href="{{ route('modalidadCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $modalidades->appends(Request::only('name'))->render() !!}
+					<br>
+					@if(!$modalidades->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron modalidades de créditos <a href="{{ url('modalidadCredito/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Código</th>
+										<th>Nombre</th>
+										<th>Afecta cupo de crédito</th>
+										<th>Tipo cuota</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($modalidades as $modalidad)
+										<tr>
+											<td>{{ $modalidad->codigo }}</td>
+											<td>{{ $modalidad->nombre }}</td>
+											<td>{{ $modalidad->afecta_cupo ? 'Sí' : 'No' }}</td>
+											<td>{{ $modalidad->tipo_cuota == 'FIJA' ? 'Fija compuesta' : 'Fija capital' }}</td>
+											<td>
+												<span class="label label-{{ $modalidad->esta_activa?'success':'danger' }}">
+													{{ $modalidad->esta_activa?'activa':'inactiva' }}
+												</span>
+											</td>
+											<td><a class="btn btn-info btn-xs" href="{{ route('modalidadCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $modalidades->appends(Request::only('name'))->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $modalidades->total()?'primary':'danger' }}">
-					{{ $modalidades->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $modalidades->total()?'primary':'danger' }}">
+						{{ $modalidades->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

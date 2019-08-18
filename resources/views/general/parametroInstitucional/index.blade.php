@@ -37,82 +37,84 @@
 			</div>
 		@endif
 		<br>
-		<div class="card card-{{ $parametros->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Parametros institucionales</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name'), ['url' => '/entidad', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-5 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $parametros->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Parametros institucionales</h3>
 				</div>
-				<br>
-				@if(!$parametros->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron parametros
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name'), ['url' => '/entidad', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-5 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-					</p>
-				@else
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Modulo</th>
-									<th>Código</th>
-									<th>Descripción</th>
-									<th>Valor</th>
-									<th>Indicador</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($parametros as $parametro)
-									<?php
-										if($parametro->indicador === null)
-										{
-											$indicador = '';
-										}
-										elseif($parametro->indicador === true)
-										{
-											$indicador = 'Sí';
-										}
-										else
-										{
-											$indicador = 'No';
-										}
-									?>
-									<tr>
-										<td>{{ $parametro->modulo }}</td>
-										<td>{{ $parametro->codigo }}</td>
-										<td>{{ str_limit($parametro->descripcion, 70) }}</td>
-										<td>{{ $parametro->valor }}</td>
-										<td>{{ $indicador }}</td>
-										<td><a class="btn btn-info btn-xs" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $parametros->appends(['name', 'estado'])->render() !!}
+					<br>
+					@if(!$parametros->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron parametros
+								</div>
+							</div>
+						</p>
+					@else
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Modulo</th>
+										<th>Código</th>
+										<th>Descripción</th>
+										<th>Valor</th>
+										<th>Indicador</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($parametros as $parametro)
+										<?php
+											if($parametro->indicador === null)
+											{
+												$indicador = '';
+											}
+											elseif($parametro->indicador === true)
+											{
+												$indicador = 'Sí';
+											}
+											else
+											{
+												$indicador = 'No';
+											}
+										?>
+										<tr>
+											<td>{{ $parametro->modulo }}</td>
+											<td>{{ $parametro->codigo }}</td>
+											<td>{{ str_limit($parametro->descripcion, 70) }}</td>
+											<td>{{ $parametro->valor }}</td>
+											<td>{{ $indicador }}</td>
+											<td><a class="btn btn-info btn-xs" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $parametros->appends(['name', 'estado'])->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $parametros->total()?'primary':'danger' }}">
-					{{ $parametros->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $parametros->total()?'primary':'danger' }}">
+						{{ $parametros->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

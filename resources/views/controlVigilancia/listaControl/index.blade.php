@@ -36,54 +36,56 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="card card-{{ false?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Listas de control</h3>
-			</div>
-			<div class="card-body">
-				<p>
-					Las listas de control de vigilancia,
-					son listas emitidas por entidades de control y vigilancia
-					con jurisdicción internacional para la prevención de lavado
-					de activos y financiación del terrorismo.
-				</p>
-				<br>
-				@if($listas->total())
-					<br><br>
-					<div class="table-responsive">
-						<table class="table table-hover table-striped">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Fecha publicación</th>
-									<th class="text-center">Entradas</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($listas as $lista)
+		<div class="container-fluid">
+			<div class="card card-{{ false?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Listas de control</h3>
+				</div>
+				<div class="card-body">
+					<p>
+						Las listas de control de vigilancia,
+						son listas emitidas por entidades de control y vigilancia
+						con jurisdicción internacional para la prevención de lavado
+						de activos y financiación del terrorismo.
+					</p>
+					<br>
+					@if($listas->total())
+						<br><br>
+						<div class="table-responsive">
+							<table class="table table-hover table-striped">
+								<thead>
 									<tr>
-										<td>{{ $lista->nombre }}</td>
-										<td>{{ $lista->fecha_publicacion }}</td>
-										<td class="text-right">{{ $lista->cantidad_detalles }}</td>
-										<td>
-											<a href="{{ route('listaControl.edit', $lista->id) }}" class="btn btn-info btn-xs" title="Editar">
-												<i class="fa fa-edit"></i>
-											</a>
-										</td>
+										<th>Nombre</th>
+										<th>Fecha publicación</th>
+										<th class="text-center">Entradas</th>
+										<th></th>
 									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $listas->appends(Request::only('search'))->render() !!}
+								</thead>
+								<tbody>
+									@foreach ($listas as $lista)
+										<tr>
+											<td>{{ $lista->nombre }}</td>
+											<td>{{ $lista->fecha_publicacion }}</td>
+											<td class="text-right">{{ $lista->cantidad_detalles }}</td>
+											<td>
+												<a href="{{ route('listaControl.edit', $lista->id) }}" class="btn btn-info btn-xs" title="Editar">
+													<i class="fa fa-edit"></i>
+												</a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $listas->appends(Request::only('search'))->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
+				<div class="card-footer">
+				</div>
 			</div>
 		</div>
 	</section>

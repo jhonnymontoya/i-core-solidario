@@ -43,50 +43,48 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-12">
-				{!! Form::open(['url' => ['listaControl', $lista->id], 'method' => 'put', 'id' => 'cargarArchivo', 'files' => true]) !!}
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Cargar registros</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-								<p>Actualizar lista de control: <strong>{{ $lista->tipo }}</strong></p>
-							</div>
+		<div class="container-fluid">
+			{!! Form::open(['url' => ['listaControl', $lista->id], 'method' => 'put', 'id' => 'cargarArchivo', 'files' => true]) !!}
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Cargar registros</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<p>Actualizar lista de control: <strong>{{ $lista->tipo }}</strong></p>
 						</div>
-						<div class="row form-horizontal">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('archivo')?'has-error':'') }}">
-									<label class="col-md-5 control-label">
-										@if ($errors->has('archivo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Seleccione archivo
-									</label>
-									<div class="col-md-7">
-										{!! Form::file('archivo', ['class' => 'form-control', ]) !!}
-										@if ($errors->has('archivo'))
-											<span class="help-block">{{ $errors->first('archivo') }}</span>
-										@endif
-									</div>
+					</div>
+					<div class="row form-horizontal">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('archivo')?'has-error':'') }}">
+								<label class="col-md-5 control-label">
+									@if ($errors->has('archivo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Seleccione archivo
+								</label>
+								<div class="col-md-7">
+									{!! Form::file('archivo', ['class' => 'form-control', ]) !!}
+									@if ($errors->has('archivo'))
+										<span class="help-block">{{ $errors->first('archivo') }}</span>
+									@endif
 								</div>
 							</div>
-							<div class="col-md-8">
-								{!! Form::submit('Cargar', ['class' => 'btn btn-success']) !!}
-							</div>
+						</div>
+						<div class="col-md-8">
+							{!! Form::submit('Cargar', ['class' => 'btn btn-success']) !!}
 						</div>
 					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						<a href="{{ url('listaControl') }}" class="btn btn-danger pull-right">Volver</a>
-						{!! Form::submit("Cargar", ["class" => 'btn btn-success pull-right']) !!}
-					</div>
 				</div>
-				{!! Form::close() !!}
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					<a href="{{ url('listaControl') }}" class="btn btn-danger pull-right">Volver</a>
+					{!! Form::submit("Cargar", ["class" => 'btn btn-success pull-right']) !!}
+				</div>
 			</div>
+			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

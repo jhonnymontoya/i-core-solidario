@@ -36,74 +36,76 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $recaudos->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Recaudos</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name'), ['url' => '/recaudosCaja', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-5 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $recaudos->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Recaudos</h3>
 				</div>
-				<br>
-				@if(!$recaudos->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron recaudos <a href="{{ url('recaudosCaja/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name'), ['url' => '/recaudosCaja', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-5 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-					</p>
-				@else
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Tercero</th>
-									<th>Cuenta</th>
-									<th>Fecha ajuste</th>
-									<th>Valor abono</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($recaudos as $recaudo)
-									@php
-										$data = json_decode($recaudo->recaudo);
-									@endphp
-									<tr>
-										<td>{{ $recaudo->tercero->nombre_completo }}</td>
-										<td>{{ $recaudo->cuif->codigo }} - {{ $recaudo->cuif->nombre }}</td>
-										<td>{{ $recaudo->fecha_recaudo }}</td>
-										<td>{{ $recaudo->contacto }}</td>
-										<td>${{ number_format($data->totalRecaudo) }}</td>
-										<td>
-											<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-default btn-xs" title="Imprimir comprobante">
-												<i class="fa fa-print"></i>
-											</a>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $recaudos->appends(['name'])->render() !!}
+					<br>
+					@if(!$recaudos->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron recaudos <a href="{{ url('recaudosCaja/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Tercero</th>
+										<th>Cuenta</th>
+										<th>Fecha ajuste</th>
+										<th>Valor abono</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($recaudos as $recaudo)
+										@php
+											$data = json_decode($recaudo->recaudo);
+										@endphp
+										<tr>
+											<td>{{ $recaudo->tercero->nombre_completo }}</td>
+											<td>{{ $recaudo->cuif->codigo }} - {{ $recaudo->cuif->nombre }}</td>
+											<td>{{ $recaudo->fecha_recaudo }}</td>
+											<td>{{ $recaudo->contacto }}</td>
+											<td>${{ number_format($data->totalRecaudo) }}</td>
+											<td>
+												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-default btn-xs" title="Imprimir comprobante">
+													<i class="fa fa-print"></i>
+												</a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $recaudos->appends(['name'])->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $recaudos->total()?'primary':'danger' }}">
-					{{ $recaudos->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $recaudos->total()?'primary':'danger' }}">
+						{{ $recaudos->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

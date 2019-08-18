@@ -36,91 +36,93 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $terceros->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Tarjetahabientes</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name'), ['url' => 'tarjetaHabiente', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-6 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $terceros->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Tarjetahabientes</h3>
 				</div>
-				@if(!$terceros->total())
-					<p>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name'), ['url' => 'tarjetaHabiente', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-6 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
+						</div>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
+					</div>
+					@if(!$terceros->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron tarjetahabientes <a href="{{ url('tarjetaHabiente/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<br>
 						<div class="row">
-							<div class="col-md-12">
-								No se encontraron tarjetahabientes <a href="{{ url('tarjetaHabiente/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+							<div class="col-md-12 text-center">
+								{!! $terceros->appends(Request::only('name'))->render() !!}
 							</div>
 						</div>
-					</p>
-				@else
-					<br>
+						<div class="table-responsive">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th>Identificación</th>
+										<th>Nombre</th>
+										<th>Pagaduría</th>
+										<th>Tarjetas</th>
+										<th class="text-center">Cupo total</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($terceros as $tercero)
+										@php
+											$pagaduria = optional($tercero->socio)->pagaduria;
+											$pagaduria = optional($pagaduria)->nombre;
+											$tarjetas = $tercero->tarjetahabientes;
+											$cantidadTarjetas = $tarjetas->count();
+											$cupo = 0;
+											foreach ($tarjetas as $tarjeta) {
+												$cupo += $tarjeta->estado != 'CANCELADA' ? $tarjeta->cupo : 0;
+											}
+										@endphp
+										<tr>
+											<td>
+												<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}">
+													{{ $tercero->tipoIdentificacion->codigo }} - {{ $tercero->numero_identificacion }}
+												</a>
+											</td>
+											<td>
+												<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}">
+													{{ $tercero->nombre_corto }}
+												</a>
+											</td>
+											<td>{{ $pagaduria }}</td>
+											<td>{{ $cantidadTarjetas }}</td>
+											<td class="text-right">${{ number_format($cupo) }}</td>
+											<td><a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
 					<div class="row">
 						<div class="col-md-12 text-center">
 							{!! $terceros->appends(Request::only('name'))->render() !!}
 						</div>
 					</div>
-					<div class="table-responsive">
-						<table class="table table-hover table-striped">
-							<thead>
-								<tr>
-									<th>Identificación</th>
-									<th>Nombre</th>
-									<th>Pagaduría</th>
-									<th>Tarjetas</th>
-									<th class="text-center">Cupo total</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($terceros as $tercero)
-									@php
-										$pagaduria = optional($tercero->socio)->pagaduria;
-										$pagaduria = optional($pagaduria)->nombre;
-										$tarjetas = $tercero->tarjetahabientes;
-										$cantidadTarjetas = $tarjetas->count();
-										$cupo = 0;
-										foreach ($tarjetas as $tarjeta) {
-											$cupo += $tarjeta->estado != 'CANCELADA' ? $tarjeta->cupo : 0;
-										}
-									@endphp
-									<tr>
-										<td>
-											<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}">
-												{{ $tercero->tipoIdentificacion->codigo }} - {{ $tercero->numero_identificacion }}
-											</a>
-										</td>
-										<td>
-											<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}">
-												{{ $tercero->nombre_corto }}
-											</a>
-										</td>
-										<td>{{ $pagaduria }}</td>
-										<td>{{ $cantidadTarjetas }}</td>
-										<td class="text-right">${{ number_format($cupo) }}</td>
-										<td><a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $terceros->appends(Request::only('name'))->render() !!}
-					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $terceros->total()?'primary':'danger' }}">
-					{{ $terceros->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $terceros->total()?'primary':'danger' }}">
+						{{ $terceros->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

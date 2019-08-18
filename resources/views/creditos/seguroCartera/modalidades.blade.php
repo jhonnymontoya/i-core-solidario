@@ -31,44 +31,46 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Editar seguro de cartera</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<h4>Editando las modalidades de crédito para el seguro de cartera <em>{{ $seguroCartera->codigo }} - {{ $seguroCartera->nombre }}</em></h4>
-					</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Editar seguro de cartera</h3>
 				</div>
-				<br>
-				<strong>Modalidades</strong>
-				@if ($modalidades->count())
-					@foreach ($modalidades as $modalidad)
-						@php
-							$asociado = false;
-							$seguroCarteraAsociado = null;
-							if($modalidad->segurosCartera->count() > 0) {
-								$asociado = true;
-								$seguroCarteraAsociado = $modalidad->segurosCartera[0];
-								if($seguroCarteraAsociado->id == $seguroCartera->id) {
-									$seguroCarteraAsociado = null;
-								}
-							}
-						@endphp
-						<div class="row">
-							<div class="col-md-3 col-md-offset-1"><p>{{ $modalidad->nombre }}</p></div>
-							<div class="col-md-8">
-								<a data-modalidad="{{ $modalidad->id }}" class="btn btn-xs asociar btn-{{ $asociado ? 'danger' : 'success' }}">{{ $asociado ? (empty($seguroCarteraAsociado) ? 'Desasociar' : 'Asociado en seguro ' . $seguroCarteraAsociado->codigo . ' - ' . $seguroCarteraAsociado->nombre . ' ¿Desasociar?') : 'Asociar' }}</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Editando las modalidades de crédito para el seguro de cartera <em>{{ $seguroCartera->codigo }} - {{ $seguroCartera->nombre }}</em></h4>
 						</div>
-					@endforeach
-				@else
-					No existen mosalidades de crédito para asociar, <a class="btn btn-success btn-xs" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
-				@endif
-			</div>
-			<div class="card-footer">
-				<a href="{{ route('seguroCarteraEdit', $seguroCartera->id) }}" class="btn btn-danger pull-right">Volver</a>
+					</div>
+					<br>
+					<strong>Modalidades</strong>
+					@if ($modalidades->count())
+						@foreach ($modalidades as $modalidad)
+							@php
+								$asociado = false;
+								$seguroCarteraAsociado = null;
+								if($modalidad->segurosCartera->count() > 0) {
+									$asociado = true;
+									$seguroCarteraAsociado = $modalidad->segurosCartera[0];
+									if($seguroCarteraAsociado->id == $seguroCartera->id) {
+										$seguroCarteraAsociado = null;
+									}
+								}
+							@endphp
+							<div class="row">
+								<div class="col-md-3 col-md-offset-1"><p>{{ $modalidad->nombre }}</p></div>
+								<div class="col-md-8">
+									<a data-modalidad="{{ $modalidad->id }}" class="btn btn-xs asociar btn-{{ $asociado ? 'danger' : 'success' }}">{{ $asociado ? (empty($seguroCarteraAsociado) ? 'Desasociar' : 'Asociado en seguro ' . $seguroCarteraAsociado->codigo . ' - ' . $seguroCarteraAsociado->nombre . ' ¿Desasociar?') : 'Asociar' }}</a>
+								</div>
+							</div>
+						@endforeach
+					@else
+						No existen mosalidades de crédito para asociar, <a class="btn btn-success btn-xs" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
+					@endif
+				</div>
+				<div class="card-footer">
+					<a href="{{ route('seguroCarteraEdit', $seguroCartera->id) }}" class="btn btn-danger pull-right">Volver</a>
+				</div>
 			</div>
 		</div>
 	</section>

@@ -31,99 +31,101 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			{!! Form::open(['url' => 'ajusteAhorrosLote', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="card-header with-border">
-				<h3 class="card-title">Crear nuevo proceso</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('fecha_proceso')?'has-error':'') }}">
-							<label class="control-label">
-								@if ($errors->has('fecha_proceso'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Fecha del proceso
-							</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				{!! Form::open(['url' => 'ajusteAhorrosLote', 'method' => 'post', 'role' => 'form']) !!}
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo proceso</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('fecha_proceso')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('fecha_proceso'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Fecha del proceso
+								</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									{!! Form::text('fecha_proceso', null, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']); !!}
 								</div>
-								{!! Form::text('fecha_proceso', null, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']); !!}
+								@if ($errors->has('fecha_proceso'))
+									<span class="help-block">{{ $errors->first('fecha_proceso') }}</span>
+								@endif
 							</div>
-							@if ($errors->has('fecha_proceso'))
-								<span class="help-block">{{ $errors->first('fecha_proceso') }}</span>
-							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('descripcion'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Descripción
+								</label>
+								{!! Form::text('descripcion', null, ['class' => 'form-control', 'placeholder' => 'Descripción', 'autocomplete' => 'off']); !!}
 								@if ($errors->has('descripcion'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('descripcion') }}</span>
 								@endif
-								Descripción
-							</label>
-							{!! Form::text('descripcion', null, ['class' => 'form-control', 'placeholder' => 'Descripción', 'autocomplete' => 'off']); !!}
-							@if ($errors->has('descripcion'))
-								<span class="help-block">{{ $errors->first('descripcion') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('contrapartida_cuif_id')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('contrapartida_cuif_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('contrapartida_cuif_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta contra partida
+								</label>
+								{!! Form::select('contrapartida_cuif_id', [], null, ['class' => 'form-control', 'placeholder' => 'Seleccione cuenta', 'autocomplete' => 'off']) !!}
 								@if ($errors->has('contrapartida_cuif_id'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('contrapartida_cuif_id') }}</span>
 								@endif
-								Cuenta contra partida
-							</label>
-							{!! Form::select('contrapartida_cuif_id', [], null, ['class' => 'form-control', 'placeholder' => 'Seleccione cuenta', 'autocomplete' => 'off']) !!}
-							@if ($errors->has('contrapartida_cuif_id'))
-								<span class="help-block">{{ $errors->first('contrapartida_cuif_id') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('contrapartida_tercero_id')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('contrapartida_tercero_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('contrapartida_tercero_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tercero contra partida
+								</label>
+								{!! Form::select('contrapartida_tercero_id', [], null, ['class' => 'form-control', 'placeholder' => 'Seleccione tercero', 'autocomplete' => 'off']) !!}
 								@if ($errors->has('contrapartida_tercero_id'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('contrapartida_tercero_id') }}</span>
 								@endif
-								Tercero contra partida
-							</label>
-							{!! Form::select('contrapartida_tercero_id', [], null, ['class' => 'form-control', 'placeholder' => 'Seleccione tercero', 'autocomplete' => 'off']) !!}
-							@if ($errors->has('contrapartida_tercero_id'))
-								<span class="help-block">{{ $errors->first('contrapartida_tercero_id') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('referencia')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('referencia')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('referencia'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Referencia
+								</label>
+								{!! Form::text('referencia', null, ['class' => 'form-control', 'placeholder' => 'Referencia', 'autocomplete' => 'off']); !!}
 								@if ($errors->has('referencia'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('referencia') }}</span>
 								@endif
-								Referencia
-							</label>
-							{!! Form::text('referencia', null, ['class' => 'form-control', 'placeholder' => 'Referencia', 'autocomplete' => 'off']); !!}
-							@if ($errors->has('referencia'))
-								<span class="help-block">{{ $errors->first('referencia') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				{!! Form::close() !!}
 			</div>
-			<div class="card-footer">
-				{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-				<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-danger pull-right">Cancelar</a>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

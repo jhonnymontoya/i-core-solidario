@@ -39,106 +39,104 @@
 			</div>
 		@endif
 		{!! Form::open(['route' => ['SDAT.put.preSaldar', $sdat->id], 'method' => 'put', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Saldar SDAT</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Saldar SDAT</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Confirmar devolución de depósito</h4>
+						</div>
 					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-								<h4>Confirmar devolución de depósito</h4>
-							</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<dl class="dl-horizontal">
+								<dt>No. deposito:</dt>
+								<dd>{{ $sdat->id }}</dd>
+
+								<dt>Tipo:</dt>
+								<dd>{{ $sdat->tipoSdat->codigo }}</dd>
+
+								<dt>Valor contituido:</dt>
+								<dd>${{ number_format($sdat->valor) }}</dd>
+
+								<dt>Tasa E.A.:</dt>
+								<dd>{{ number_format($sdat->tasa, 2) }}%</dd>
+
+								<dt>Fecha constitución:</dt>
+								<dd>{{ $sdat->fecha_constitucion }} ({{ $sdat->fecha_constitucion->diffForHumans() }})</dd>
+
+								<dt>Plazo (días):</dt>
+								<dd>{{ number_format($sdat->plazo) }}</dd>
+
+								<dt>Fecha vencimiento:</dt>
+								<dd>{{ $sdat->fecha_vencimiento }} ({{ $sdat->fecha_vencimiento->diffForHumans() }})</dd>
+								@php
+									$tercero = $sdat->socio->tercero;
+									$nombre = sprintf(
+										"%s %s - %s",
+										$tercero->tipoIdentificacion->codigo,
+										$tercero->numero_identificacion,
+										$tercero->nombre_corto
+									);
+								@endphp
+
+								<dt>Nombre:</dt>
+								<dd>{{ $nombre }}</dd>
+
+							</dl>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<dl class="dl-horizontal">
-									<dt>No. deposito:</dt>
-									<dd>{{ $sdat->id }}</dd>
-
-									<dt>Tipo:</dt>
-									<dd>{{ $sdat->tipoSdat->codigo }}</dd>
-
-									<dt>Valor contituido:</dt>
-									<dd>${{ number_format($sdat->valor) }}</dd>
-
-									<dt>Tasa E.A.:</dt>
-									<dd>{{ number_format($sdat->tasa, 2) }}%</dd>
-
-									<dt>Fecha constitución:</dt>
-									<dd>{{ $sdat->fecha_constitucion }} ({{ $sdat->fecha_constitucion->diffForHumans() }})</dd>
-
-									<dt>Plazo (días):</dt>
-									<dd>{{ number_format($sdat->plazo) }}</dd>
-
-									<dt>Fecha vencimiento:</dt>
-									<dd>{{ $sdat->fecha_vencimiento }} ({{ $sdat->fecha_vencimiento->diffForHumans() }})</dd>
-									@php
-										$tercero = $sdat->socio->tercero;
-										$nombre = sprintf(
-											"%s %s - %s",
-											$tercero->tipoIdentificacion->codigo,
-											$tercero->numero_identificacion,
-											$tercero->nombre_corto
-										);
-									@endphp
-
-									<dt>Nombre:</dt>
-									<dd>{{ $nombre }}</dd>
-
-								</dl>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('fechaDevolucion')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fechaDevolucion'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha devolución
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										@php
-											$fechaDevolucion = old('fechaDevolucion');
-											$fechaDevolucion = empty($fechaDevolucion) ? date('d/m/Y') : $fechaDevolucion;
-										@endphp
-										{!! Form::text('fechaDevolucion', $fechaDevolucion, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('fechaDevolucion')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('fechaDevolucion'))
-										<span class="help-block">{{ $errors->first('fechaDevolucion') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha devolución
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									@php
+										$fechaDevolucion = old('fechaDevolucion');
+										$fechaDevolucion = empty($fechaDevolucion) ? date('d/m/Y') : $fechaDevolucion;
+									@endphp
+									{!! Form::text('fechaDevolucion', $fechaDevolucion, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cuenta'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
-									</div>
-									@if ($errors->has('cuenta'))
-										<span class="help-block">{{ $errors->first('cuenta') }}</span>
-									@endif
-								</div>
+								@if ($errors->has('fechaDevolucion'))
+									<span class="help-block">{{ $errors->first('fechaDevolucion') }}</span>
+								@endif
 							</div>
 						</div>
 
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('cuenta'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-table"></i></span>
+									{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
+								</div>
+								@if ($errors->has('cuenta'))
+									<span class="help-block">{{ $errors->first('cuenta') }}</span>
+								@endif
+							</div>
+						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

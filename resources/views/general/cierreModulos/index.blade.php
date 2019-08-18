@@ -36,113 +36,115 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="card card-{{ $periodos->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Resumen</h3>
-			</div>
-			<div class="card-body">
-				@if(!$periodos->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron periodos
+		<div class="container-fluid">
+			<div class="card card-{{ $periodos->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Resumen</h3>
+				</div>
+				<div class="card-body">
+					@if(!$periodos->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron periodos
+								</div>
 							</div>
-						</div>
-					</p>
-				@else
-					<br>
-					@foreach($periodos as $periodo)
-						<div class="row">
-							<div class="col-md-12">
-								<div class="info-card">
-									<div class="info-card-content">
-										<span class="info-card-number">
-											Periodo {{ $periodo->mes }} - {{ $periodo->anio }}
-										</span>
-										<span class="info-card-text">
-											<div class="row">
-												@php
-													$contador = 1;
-												@endphp
-												@foreach ($periodo->entidad->getModulos() as $modulo)
+						</p>
+					@else
+						<br>
+						@foreach($periodos as $periodo)
+							<div class="row">
+								<div class="col-md-12">
+									<div class="info-card">
+										<div class="info-card-content">
+											<span class="info-card-number">
+												Periodo {{ $periodo->mes }} - {{ $periodo->anio }}
+											</span>
+											<span class="info-card-text">
+												<div class="row">
 													@php
-														$cerrado = $periodo->moduloCerrado($modulo->id);
-														$link = '';
-														switch ($modulo->id) {
-															case 2: //Contabilidad
-																$link = route('cierreModulosDetalleContabilidad', $periodo->id);
-																break;
-															case 3: //Convenios
-																$link = '';
-																break;
-															case 4: //Nómina
-																$link = '';
-																break;
-															case 6: //Ahorros y aportes
-																$link = route('cierreModulosDetalleAhorros', $periodo->id);
-																break;
-															case 7: //Cartera
-																$link = route('cierreModulosDetalleCartera', $periodo->id);
-																break;
-															case 10: //Socios
-																$link = route('cierreModulosDetalleSocios', $periodo->id);
-																break;
-															default:
-																$link = '';
-																break;
-														}
+														$contador = 1;
 													@endphp
-													@if (!$cerrado)
-														<a href="{{ $link }}">
-													@endif
-														<div class="col-md-2">
-															<div class="small-card bg-{{ $cerrado ? 'green' : 'red' }}">
-																<div class="inner">
-																	<h3>{{ $contador++ }}</h3>
-																	<p>{{ $modulo->nombre }}</p>
-																</div>
-																<div class="icon">
-																	<i class="fa {{ $modulo->icono }}"></i>
+													@foreach ($periodo->entidad->getModulos() as $modulo)
+														@php
+															$cerrado = $periodo->moduloCerrado($modulo->id);
+															$link = '';
+															switch ($modulo->id) {
+																case 2: //Contabilidad
+																	$link = route('cierreModulosDetalleContabilidad', $periodo->id);
+																	break;
+																case 3: //Convenios
+																	$link = '';
+																	break;
+																case 4: //Nómina
+																	$link = '';
+																	break;
+																case 6: //Ahorros y aportes
+																	$link = route('cierreModulosDetalleAhorros', $periodo->id);
+																	break;
+																case 7: //Cartera
+																	$link = route('cierreModulosDetalleCartera', $periodo->id);
+																	break;
+																case 10: //Socios
+																	$link = route('cierreModulosDetalleSocios', $periodo->id);
+																	break;
+																default:
+																	$link = '';
+																	break;
+															}
+														@endphp
+														@if (!$cerrado)
+															<a href="{{ $link }}">
+														@endif
+															<div class="col-md-2">
+																<div class="small-card bg-{{ $cerrado ? 'green' : 'red' }}">
+																	<div class="inner">
+																		<h3>{{ $contador++ }}</h3>
+																		<p>{{ $modulo->nombre }}</p>
+																	</div>
+																	<div class="icon">
+																		<i class="fa {{ $modulo->icono }}"></i>
+																	</div>
 																</div>
 															</div>
-														</div>
-													@if (!$cerrado)
-														</a>
-													@endif
-												@endforeach
-											</div>
-										</span>
+														@if (!$cerrado)
+															</a>
+														@endif
+													@endforeach
+												</div>
+											</span>
 
-										<span class="info-card-text">
-											@php
-												$porcentajeProgreso = number_format($periodo->porcentajeProgreso(), 0);
-											@endphp
-											<div class="progress">
-											<div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="{{ $porcentajeProgreso }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $porcentajeProgreso }}%">
-											<span class="">Progreso {{ $porcentajeProgreso }}%</span>
-											</div>
-											</div>
-										</span>
+											<span class="info-card-text">
+												@php
+													$porcentajeProgreso = number_format($periodo->porcentajeProgreso(), 0);
+												@endphp
+												<div class="progress">
+												<div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="{{ $porcentajeProgreso }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $porcentajeProgreso }}%">
+												<span class="">Progreso {{ $porcentajeProgreso }}%</span>
+												</div>
+												</div>
+											</span>
 
-										<span class="info-card-text">
-											<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-success btn-block btn-xs btn-flat pull-right">Ir a resumen de módulos</a>
-										</span>
+											<span class="info-card-text">
+												<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-success btn-block btn-xs btn-flat pull-right">Ir a resumen de módulos</a>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
+						@endforeach
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $periodos->appends(Request::only('name', 'tipo', 'inicio', 'fin', 'estado'))->render() !!}
 						</div>
-					@endforeach
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $periodos->appends(Request::only('name', 'tipo', 'inicio', 'fin', 'estado'))->render() !!}
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $periodos->total()?'primary':'danger' }}">
-					{{ $periodos->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $periodos->total()?'primary':'danger' }}">
+						{{ $periodos->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

@@ -36,82 +36,84 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $segurosCartera->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Seguros de cartera</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name'), ['url' => 'seguroCartera', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-6 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $segurosCartera->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Seguros de cartera</h3>
 				</div>
-
-				@if(!$segurosCartera->total())
-					<br><br>
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron seguros de cartera <a href="{{ url('seguroCartera/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name'), ['url' => 'seguroCartera', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-6 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-					</p>
-				@else
-					<br><br>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Código</th>
-									<th>Nombre</th>
-									<th>Aseguradora</th>
-									<th>Base prima</th>
-									<th class="text-center">Tasa</th>
-									<th>Modalidades asociadas</th>
-									<th>Estado</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($segurosCartera as $seguroCartera)
-									<tr>
-										<td>{{ $seguroCartera->codigo }}</td>
-										<td>{{ $seguroCartera->nombre }}</td>
-										<td>{{ $seguroCartera->aseguradoraTercero->nombre }}</td>
-										<td>{{ $seguroCartera->base_prima }}</td>
-										<td class="text-right">{{ number_format($seguroCartera->tasa_mes, 4) }}%</td>
-										@php
-											$label = "warning";
-											$label = $seguroCartera->modalidades->count() == 0 ? "warning" : "success";
-										@endphp
-										<td class="text-center"><span class="label label-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span></td>
-										<td>
-											<span class="label label-{{ $seguroCartera->esta_activo?'success':'danger' }}">
-												{{ $seguroCartera->esta_activo?'activo':'inactivo' }}
-											</span>
-										</td>
-										<td><a class="btn btn-info btn-xs" href="{{ route('seguroCarteraEdit', $seguroCartera) }}"><i class="fa fa-edit"></i></a></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $segurosCartera->appends(Request::only('name'))->render() !!}
+
+					@if(!$segurosCartera->total())
+						<br><br>
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron seguros de cartera <a href="{{ url('seguroCartera/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<br><br>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Código</th>
+										<th>Nombre</th>
+										<th>Aseguradora</th>
+										<th>Base prima</th>
+										<th class="text-center">Tasa</th>
+										<th>Modalidades asociadas</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($segurosCartera as $seguroCartera)
+										<tr>
+											<td>{{ $seguroCartera->codigo }}</td>
+											<td>{{ $seguroCartera->nombre }}</td>
+											<td>{{ $seguroCartera->aseguradoraTercero->nombre }}</td>
+											<td>{{ $seguroCartera->base_prima }}</td>
+											<td class="text-right">{{ number_format($seguroCartera->tasa_mes, 4) }}%</td>
+											@php
+												$label = "warning";
+												$label = $seguroCartera->modalidades->count() == 0 ? "warning" : "success";
+											@endphp
+											<td class="text-center"><span class="label label-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span></td>
+											<td>
+												<span class="label label-{{ $seguroCartera->esta_activo?'success':'danger' }}">
+													{{ $seguroCartera->esta_activo?'activo':'inactivo' }}
+												</span>
+											</td>
+											<td><a class="btn btn-info btn-xs" href="{{ route('seguroCarteraEdit', $seguroCartera) }}"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $segurosCartera->appends(Request::only('name'))->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $segurosCartera->total()?'primary':'danger' }}">
-					{{ $segurosCartera->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $segurosCartera->total()?'primary':'danger' }}">
+						{{ $segurosCartera->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

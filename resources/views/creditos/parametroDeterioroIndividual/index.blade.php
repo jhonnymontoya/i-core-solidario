@@ -32,71 +32,73 @@
 			</div>
 		@endif
 		<br>
-		<div class="card card-primary">
-			<div class="card-header with-border">
-				<h3 class="card-title">Parámetros deterioro individual</h3>
-			</div>
-			<div class="card-body">
-				{!! Form::open(['method' => 'post', 'id' => 'idAgregarDeterioro']) !!}
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">
-								@if ($errors->has('tipo_cartera'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Tipo de cartera
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
-								</label>
-							</div>
-							@if ($errors->has('tipo_cartera'))
-								<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-							@endif
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">
-								@if ($errors->has('clase'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Clase
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('clase', 'CAPITAL', true) !!}Capital
-								</label>
-								<label class="btn btn-primary">
-									{!! Form::radio('clase', 'INTERES', false) !!}Interes
-								</label>
-							</div>
-							@if ($errors->has('clase'))
-								<span class="help-block">{{ $errors->first('clase') }}</span>
-							@endif
-						</div>
-					</div>
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Parámetros deterioro individual</h3>
 				</div>
+				<div class="card-body">
+					{!! Form::open(['method' => 'post', 'id' => 'idAgregarDeterioro']) !!}
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">
+									@if ($errors->has('tipo_cartera'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tipo de cartera
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
+									</label>
+								</div>
+								@if ($errors->has('tipo_cartera'))
+									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">
+									@if ($errors->has('clase'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Clase
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('clase', 'CAPITAL', true) !!}Capital
+									</label>
+									<label class="btn btn-primary">
+										{!! Form::radio('clase', 'INTERES', false) !!}Interes
+									</label>
+								</div>
+								@if ($errors->has('clase'))
+									<span class="help-block">{{ $errors->first('clase') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
 
-				{{-- componente de actualización de deterioro --}}
-				@component('creditos.parametroDeterioroIndividual.componentes.agregar', ['parametros' => $parametros])
-				@endcomponent
-				{!! Form::close() !!}
-			</div>
-			<div class="card-footer">
+					{{-- componente de actualización de deterioro --}}
+					@component('creditos.parametroDeterioroIndividual.componentes.agregar', ['parametros' => $parametros])
+					@endcomponent
+					{!! Form::close() !!}
+				</div>
+				<div class="card-footer">
+				</div>
 			</div>
 		</div>
 	</section>

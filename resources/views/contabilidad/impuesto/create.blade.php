@@ -32,52 +32,50 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'impuesto', 'method' => 'post', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nuevo impuesto</h3>
-					</div>
-					<div class="card-body">
-						<div class="row form-horizontal">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="col-sm-4 control-label">
-										@if ($errors->has('nombre'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									<div class="col-sm-8">
-										{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del impuesto', 'autofocus']) !!}
-										@if ($errors->has('nombre'))
-											<span class="help-block">{{ $errors->first('nombre') }}</span>
-										@endif
-									</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo impuesto</h3>
+				</div>
+				<div class="card-body">
+					<div class="row form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="col-sm-4 control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre
+								</label>
+								<div class="col-sm-8">
+									{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del impuesto', 'autofocus']) !!}
+									@if ($errors->has('nombre'))
+										<span class="help-block">{{ $errors->first('nombre') }}</span>
+									@endif
 								</div>
 							</div>
-							<div class="col-md-5">
-								<div class="form-group {{ ($errors->has('tipo')?'has-error':'') }}">
-									<label class="col-sm-4 control-label">
-										@if ($errors->has('tipo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo de impuesto
-									</label>
-									<div class="col-sm-8">
-										{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tipo de impuesto']) !!}
-										@if ($errors->has('tipo'))
-											<span class="help-block">{{ $errors->first('tipo') }}</span>
-										@endif
-									</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group {{ ($errors->has('tipo')?'has-error':'') }}">
+								<label class="col-sm-4 control-label">
+									@if ($errors->has('tipo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tipo de impuesto
+								</label>
+								<div class="col-sm-8">
+									{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tipo de impuesto']) !!}
+									@if ($errors->has('tipo'))
+										<span class="help-block">{{ $errors->first('tipo') }}</span>
+									@endif
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('impuesto') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('impuesto') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

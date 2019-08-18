@@ -43,103 +43,101 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }} Contabilidad</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						@php
-							$tieneAlertasTipoA = false;
-							$tieneAlertasTipoB = false;
-							$tieneAlertasTipoC = false;
-						@endphp
-						<div class="alert alert-danger"><h4><i class="fa fa-ban"></i> Alertas tipo A</h4></div>
-						<ul>
-						@if (count($comprobantesDescuadrados['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesDescuadrados['A']) }} comprobantes descuadrados</h4>
-							</li>
-						@endif
-						@if (count($comprobantesBorradorConImpuesto['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesBorradorConImpuesto['A']) }} comprobantes en borrador con impuestos</h4>
-							</li>
-						@endif
-						@if (count($comprobantesBorrador['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesBorrador['A']) }} comprobantes en borrador</h4>
-							</li>
-						@endif
-						@if (!$tieneAlertasTipoA)
-							<h4>No presenta alertas</h4>
-						@endif
-						</ul>
-						<br>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }} Contabilidad</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					@php
+						$tieneAlertasTipoA = false;
+						$tieneAlertasTipoB = false;
+						$tieneAlertasTipoC = false;
+					@endphp
+					<div class="alert alert-danger"><h4><i class="fa fa-ban"></i> Alertas tipo A</h4></div>
+					<ul>
+					@if (count($comprobantesDescuadrados['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesDescuadrados['A']) }} comprobantes descuadrados</h4>
+						</li>
+					@endif
+					@if (count($comprobantesBorradorConImpuesto['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesBorradorConImpuesto['A']) }} comprobantes en borrador con impuestos</h4>
+						</li>
+					@endif
+					@if (count($comprobantesBorrador['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesBorrador['A']) }} comprobantes en borrador</h4>
+						</li>
+					@endif
+					@if (!$tieneAlertasTipoA)
+						<h4>No presenta alertas</h4>
+					@endif
+					</ul>
+					<br>
 
-						<div class="alert alert-warning"><h4><i class="fa fa-warning"></i> Alertas tipo B</h4></div>
-						<ul>
-						@if (count($comprobantesDescuadrados['B']))
-							<?php $tieneAlertasTipoB = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesDescuadrados['B']) }} comprobantes descuadrados</h4>
-							</li>
-						@endif
-						@if (count($comprobantesBorradorConImpuesto['B']))
-							<?php $tieneAlertasTipoB = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesBorradorConImpuesto['B']) }} comprobantes en borrador con impuestos</h4>
-							</li>
-						@endif
-						@if (count($comprobantesBorrador['B']))
-							<?php $tieneAlertasTipoB = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesBorrador['B']) }} comprobantes en borrador</h4>
-							</li>
-						@endif
-						@if (!$tieneAlertasTipoB)
-							<h4>No presenta alertas</h4>
-						@endif
-						</ul>
-						<br>
-						
-						<div class="alert alert-info"><h4><i class="fa fa-info"></i> Alertas tipo C</h4></div>
-						<ul>
-						@if (count($comprobantesDescuadrados['C']))
-							<?php $tieneAlertasTipoC = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesDescuadrados['C']) }} comprobantes descuadrados</h4>
-							</li>
-						@endif
-						@if (count($comprobantesBorradorConImpuesto['C']))
-							<?php $tieneAlertasTipoC = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesBorradorConImpuesto['C']) }} comprobantes en borrador con impuestos</h4>
-							</li>
-						@endif
-						@if (count($comprobantesBorrador['C']))
-							<?php $tieneAlertasTipoC = true; ?>
-							<li>
-								<h4>Existen {{ count($comprobantesBorrador['C']) }} comprobantes en borrador</h4>
-							</li>
-						@endif
-						@if (!$tieneAlertasTipoC)
-							<h4>No presenta alertas</h4>
-						@endif
-						</ul>
-					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						{!! Form::model($periodo, ['route' => ['cierreModulosContabilidadProcesar', $periodo], 'method' => 'put', 'role' => 'form']) !!}
-						{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
-						{!! Form::close() !!}
-					</div>
+					<div class="alert alert-warning"><h4><i class="fa fa-warning"></i> Alertas tipo B</h4></div>
+					<ul>
+					@if (count($comprobantesDescuadrados['B']))
+						<?php $tieneAlertasTipoB = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesDescuadrados['B']) }} comprobantes descuadrados</h4>
+						</li>
+					@endif
+					@if (count($comprobantesBorradorConImpuesto['B']))
+						<?php $tieneAlertasTipoB = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesBorradorConImpuesto['B']) }} comprobantes en borrador con impuestos</h4>
+						</li>
+					@endif
+					@if (count($comprobantesBorrador['B']))
+						<?php $tieneAlertasTipoB = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesBorrador['B']) }} comprobantes en borrador</h4>
+						</li>
+					@endif
+					@if (!$tieneAlertasTipoB)
+						<h4>No presenta alertas</h4>
+					@endif
+					</ul>
+					<br>
+					
+					<div class="alert alert-info"><h4><i class="fa fa-info"></i> Alertas tipo C</h4></div>
+					<ul>
+					@if (count($comprobantesDescuadrados['C']))
+						<?php $tieneAlertasTipoC = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesDescuadrados['C']) }} comprobantes descuadrados</h4>
+						</li>
+					@endif
+					@if (count($comprobantesBorradorConImpuesto['C']))
+						<?php $tieneAlertasTipoC = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesBorradorConImpuesto['C']) }} comprobantes en borrador con impuestos</h4>
+						</li>
+					@endif
+					@if (count($comprobantesBorrador['C']))
+						<?php $tieneAlertasTipoC = true; ?>
+						<li>
+							<h4>Existen {{ count($comprobantesBorrador['C']) }} comprobantes en borrador</h4>
+						</li>
+					@endif
+					@if (!$tieneAlertasTipoC)
+						<h4>No presenta alertas</h4>
+					@endif
+					</ul>
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					{!! Form::model($periodo, ['route' => ['cierreModulosContabilidadProcesar', $periodo], 'method' => 'put', 'role' => 'form']) !!}
+					{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
+					{!! Form::close() !!}
 				</div>
 			</div>
 		</div>

@@ -44,94 +44,96 @@
 			</div>
 		@endif
 		<br>
-		<div class="card card-primary">
-			<div class="card-header with-border">
-				<h3 class="card-title">Recaudos</h3>
-			</div>
-			<div class="card-body">
-				<a class="btn btn-danger" href="{{ url('recaudosNomina?pagaduria=' . $controlProceso->pagaduria->id) }}">Volver</a>
-				<br>
-				<br>
-				<div class="row">
-					<div class="col-md-12 col-md-offset-1">
-						<div class="row">
-							<div class="col-md-1"><strong>Pagaduría:</strong></div>
-							<div class="col-md-2">{{ $controlProceso->pagaduria->nombre }}</div>
-
-							<div class="col-md-1"><strong>Periodo:</strong></div>
-							<div class="col-md-2">{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</div>
-
-							<div class="col-md-1"><strong>Estado:</strong></div>
-							<div class="col-md-1">{{ title_case($controlProceso->estado) }}</div>
-
-							<div class="col-md-2"><strong>Número proceso:</strong></div>
-							<div class="col-md-1">{{ $controlProceso->id }}</div>
-						</div>							
-					</div>
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Recaudos</h3>
 				</div>
+				<div class="card-body">
+					<a class="btn btn-danger" href="{{ url('recaudosNomina?pagaduria=' . $controlProceso->pagaduria->id) }}">Volver</a>
+					<br>
+					<br>
+					<div class="row">
+						<div class="col-md-12 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-1"><strong>Pagaduría:</strong></div>
+								<div class="col-md-2">{{ $controlProceso->pagaduria->nombre }}</div>
 
-				<br>
-				<div class="row">
-					<div class="col-md-6">
-						<h4>Resumen</h4>
+								<div class="col-md-1"><strong>Periodo:</strong></div>
+								<div class="col-md-2">{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</div>
+
+								<div class="col-md-1"><strong>Estado:</strong></div>
+								<div class="col-md-1">{{ title_case($controlProceso->estado) }}</div>
+
+								<div class="col-md-2"><strong>Número proceso:</strong></div>
+								<div class="col-md-1">{{ $controlProceso->id }}</div>
+							</div>							
+						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="pull-right">
-							<a class="btn btn-success" href="{{ route('recaudosNominaAplicar', $controlProceso->id) }}"><i class="fa  fa-check-circle-o"></i> Aplicar recaudos</a>
-							<a class="btn btn-warning">Ajustar recaudos</a>
+
+					<br>
+					<div class="row">
+						<div class="col-md-6">
+							<h4>Resumen</h4>
+						</div>
+						<div class="col-md-6">
+							<div class="pull-right">
+								<a class="btn btn-success" href="{{ route('recaudosNominaAplicar', $controlProceso->id) }}"><i class="fa  fa-check-circle-o"></i> Aplicar recaudos</a>
+								<a class="btn btn-warning">Ajustar recaudos</a>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1 table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Concepto</th>
+										<th class="text-center">Generado</th>
+										<th class="text-center">Aplicado</th>
+										<th class="text-center">Ajustado</th>
+									</tr>
+								</thead>
+								<tbody>
+									@php
+										$generado = $aplicado = $ajustado = 0;
+									@endphp
+									@foreach($recaudosNomina as $recaudoNomina)
+										@php
+											$generado += $recaudoNomina->generado;
+											$aplicado += $recaudoNomina->aplicado;
+											$ajustado += $recaudoNomina->ajustado;
+										@endphp
+										<tr>
+											<td>{{ $recaudoNomina->conceptoRecaudo->codigo }} - {{ $recaudoNomina->conceptoRecaudo->nombre }}</td>
+											<td class="text-right">${{ number_format($recaudoNomina->generado) }}</td>
+											<td class="text-right">${{ number_format($recaudoNomina->aplicado) }}</td>
+											<td class="text-right">${{ number_format($recaudoNomina->ajustado) }}</td>
+										</tr>
+									@endforeach
+								</tbody>
+								<tfoot>
+									<tr>
+										<th>Totales</th>
+										<th class="text-right">${{ number_format($generado, 0) }}</th>
+										<th class="text-right">${{ number_format($aplicado, 0) }}</th>
+										<th class="text-right">${{ number_format($ajustado, 0) }}</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+					<br><br>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<a class="btn btn-info btn-xs" href="{{ route('reportesReporte', 5) }}?numeroProceso={{ $controlProceso->id }}" target="_blank"><i class="fa fa-eye"></i> Detalle generado</a>
+							<a data-toggle="modal" data-target="#mAnularGeneracion" class="btn btn-danger btn-xs"><i class="fa fa-exclamation-triangle"></i> Anular generación</a>
 						</div>
 					</div>
 				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1 table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Concepto</th>
-									<th class="text-center">Generado</th>
-									<th class="text-center">Aplicado</th>
-									<th class="text-center">Ajustado</th>
-								</tr>
-							</thead>
-							<tbody>
-								@php
-									$generado = $aplicado = $ajustado = 0;
-								@endphp
-								@foreach($recaudosNomina as $recaudoNomina)
-									@php
-										$generado += $recaudoNomina->generado;
-										$aplicado += $recaudoNomina->aplicado;
-										$ajustado += $recaudoNomina->ajustado;
-									@endphp
-									<tr>
-										<td>{{ $recaudoNomina->conceptoRecaudo->codigo }} - {{ $recaudoNomina->conceptoRecaudo->nombre }}</td>
-										<td class="text-right">${{ number_format($recaudoNomina->generado) }}</td>
-										<td class="text-right">${{ number_format($recaudoNomina->aplicado) }}</td>
-										<td class="text-right">${{ number_format($recaudoNomina->ajustado) }}</td>
-									</tr>
-								@endforeach
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>Totales</th>
-									<th class="text-right">${{ number_format($generado, 0) }}</th>
-									<th class="text-right">${{ number_format($aplicado, 0) }}</th>
-									<th class="text-right">${{ number_format($ajustado, 0) }}</th>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
+				<div class="card-footer">
 				</div>
-				<br><br>
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<a class="btn btn-info btn-xs" href="{{ route('reportesReporte', 5) }}?numeroProceso={{ $controlProceso->id }}" target="_blank"><i class="fa fa-eye"></i> Detalle generado</a>
-						<a data-toggle="modal" data-target="#mAnularGeneracion" class="btn btn-danger btn-xs"><i class="fa fa-exclamation-triangle"></i> Anular generación</a>
-					</div>
-				</div>
-			</div>
-			<div class="card-footer">
 			</div>
 		</div>
 	</section>

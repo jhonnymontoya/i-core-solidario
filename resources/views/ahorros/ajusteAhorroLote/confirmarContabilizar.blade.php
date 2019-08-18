@@ -44,67 +44,65 @@
 			</div>
 		@endif
 		{!! Form::model($proceso, ['route' => ['ajusteAhorrosLotePutContabilizar', $proceso], 'method' => 'put', 'role' => 'form', 'id' => 'contabilizarAhorrosLote']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-warning">
-					<div class="card-header with-border">
-						<h3 class="card-title">Contabilizar proceso ajuste ahorros en lote</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<div class="alert alert-warning">
-									<h4>
-										<i class="fa fa-info-circle"></i>&nbsp;Confirmar contabilizar
-									</h4>
-									Se contabilizará los ajustes de ahorros en lote para el presente proceso
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<dl class="dl-horizontal">
-									<dt>Número proceso:</dt>
-									<dd>{{ $proceso->consecutivo_proceso }}</dd>
-									<dt>Fecha proceso:</dt>
-									<dd>{{ $proceso->fecha_proceso }}</dd>
-									<dt>Estado:</dt>
-									@php
-										$label = "label-";
-										switch($proceso->estado) {
-											case 'PRECARGA':
-												$label .= 'default';
-												break;
-											case 'CARGADO':
-												$label .= 'info';
-												break;
-											case 'DESEMBOLSADO':
-												$label .= 'success';
-												break;
-											case 'ANULADO':
-												$label .= 'danger';
-												break;
-											default:
-												$label .= 'default';
-												break;
-										}
-									@endphp
-									<dd><span class="label {{ $label }}">{{ $proceso->estado }}</span></dd>
-									<dt>Número de ajustes:</dt>
-									<dd>{{ $proceso->cantidad_ajustes_ahorros }}</dd>
-									<dt>Valor ajustes:</dt>
-									<dd>${{ number_format($proceso->total_valor_ajuste, 0) }}</dd>
-								</dl>
+		<div class="container-fluid">
+			<div class="card card-warning card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Contabilizar proceso ajuste ahorros en lote</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="alert alert-warning">
+								<h4>
+									<i class="fa fa-info-circle"></i>&nbsp;Confirmar contabilizar
+								</h4>
+								Se contabilizará los ajustes de ahorros en lote para el presente proceso
 							</div>
 						</div>
 					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						{{--{!! Form::submit('Desembolsar', ['class' => 'btn btn-success']) !!}--}}
-						<a class="btn btn-success" id="contabilizar">Contabilizar</a>
-						<a href="{{ route('ajusteAhorrosLoteResumen', $proceso->id) }}" class="btn btn-danger pull-right">Volver</a>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<dl class="dl-horizontal">
+								<dt>Número proceso:</dt>
+								<dd>{{ $proceso->consecutivo_proceso }}</dd>
+								<dt>Fecha proceso:</dt>
+								<dd>{{ $proceso->fecha_proceso }}</dd>
+								<dt>Estado:</dt>
+								@php
+									$label = "label-";
+									switch($proceso->estado) {
+										case 'PRECARGA':
+											$label .= 'default';
+											break;
+										case 'CARGADO':
+											$label .= 'info';
+											break;
+										case 'DESEMBOLSADO':
+											$label .= 'success';
+											break;
+										case 'ANULADO':
+											$label .= 'danger';
+											break;
+										default:
+											$label .= 'default';
+											break;
+									}
+								@endphp
+								<dd><span class="label {{ $label }}">{{ $proceso->estado }}</span></dd>
+								<dt>Número de ajustes:</dt>
+								<dd>{{ $proceso->cantidad_ajustes_ahorros }}</dd>
+								<dt>Valor ajustes:</dt>
+								<dd>${{ number_format($proceso->total_valor_ajuste, 0) }}</dd>
+							</dl>
+						</div>
 					</div>
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					{{--{!! Form::submit('Desembolsar', ['class' => 'btn btn-success']) !!}--}}
+					<a class="btn btn-success" id="contabilizar">Contabilizar</a>
+					<a href="{{ route('ajusteAhorrosLoteResumen', $proceso->id) }}" class="btn btn-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>

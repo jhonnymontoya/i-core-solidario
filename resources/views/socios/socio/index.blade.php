@@ -36,34 +36,36 @@
 			</div>
 		</div>
 		<br>
-		<div class="card">
-			<div class="card-header with-border">
-				<h3 class="card-title">Buscar socios</h3>
-				<div class="card-tools pull-right">
-					<button type="button" class="btn btn-card-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		<div class="container-fluid">
+			<div class="card card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Buscar socios</h3>
+					<div class="card-tools pull-right">
+						<button type="button" class="btn btn-card-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					</div>
 				</div>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::all(), ['url' => '/socio', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-4 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::all(), ['url' => '/socio', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-4 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
+						</div>
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('pagaduria', $pagadurias, null, ['class' => 'form-control select2', 'placeholder' => 'Pagaduria']); !!}
+						</div>
+						<div class="col-md-2 col-sm-12">
+							{!! Form::select('estado', ['ACTIVO' => 'Activo', 'NOVEDAD' => 'Novedad', 'RETIRO' => 'Retiro', 'LIQUIDADO' => 'Liquidado', 'PROCESO' => 'Proceso'], null, ['class' => 'form-control select2', 'placeholder' => 'Estado']); !!}
+						</div>
+						<div class="col-md-2 col-sm-12">
+							{!! Form::select('calificacion', ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'K' => 'K'], null, ['class' => 'form-control select2', 'placeholder' => 'Calificación']); !!}
+						</div>
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-					<div class="col-md-3 col-sm-12">
-						{!! Form::select('pagaduria', $pagadurias, null, ['class' => 'form-control select2', 'placeholder' => 'Pagaduria']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						{!! Form::select('estado', ['ACTIVO' => 'Activo', 'NOVEDAD' => 'Novedad', 'RETIRO' => 'Retiro', 'LIQUIDADO' => 'Liquidado', 'PROCESO' => 'Proceso'], null, ['class' => 'form-control select2', 'placeholder' => 'Estado']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						{!! Form::select('calificacion', ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'K' => 'K'], null, ['class' => 'form-control select2', 'placeholder' => 'Calificación']); !!}
-					</div>
-					<div class="col-md-1 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+					<br>
 				</div>
-				<br>
 			</div>
 		</div>
 		@if($terceros->count() > 0)
@@ -111,7 +113,7 @@
 				}
 			?>
 			<div class="col-sm-4">
-				<div class="card card-widget widget-user">
+				<div class="card card-widget widget-user card-outline">
 					<div class="widget-user-header bg-{{ $color }}-active">
 						<div class="widget-user-username">
 							{{ $socio->primer_nombre . ' ' . $socio->segundo_nombre }}

@@ -32,82 +32,80 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'tipoCuentaAhorros', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nuevo tipo de cuenta de ahorros</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('nombre_producto')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('nombre_producto'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									{!! Form::text('nombre_producto', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del producto', 'autofocus']) !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo tipo de cuenta de ahorros</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('nombre_producto')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('nombre_producto'))
-										<span class="help-block">{{ $errors->first('nombre_producto') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Nombre
+								</label>
+								{!! Form::text('nombre_producto', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del producto', 'autofocus']) !!}
+								@if ($errors->has('nombre_producto'))
+									<span class="help-block">{{ $errors->first('nombre_producto') }}</span>
+								@endif
 							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('capital_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('capital_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta capital
-									</label>
-									{!! Form::select('capital_cuif_id', [], null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital']) !!}
+						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('capital_cuif_id')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('capital_cuif_id'))
-										<span class="help-block">{{ $errors->first('capital_cuif_id') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Cuenta capital
+								</label>
+								{!! Form::select('capital_cuif_id', [], null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital']) !!}
+								@if ($errors->has('capital_cuif_id'))
+									<span class="help-block">{{ $errors->first('capital_cuif_id') }}</span>
+								@endif
 							</div>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('saldo_minimo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('saldo_minimo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Saldo mínimo
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon">$</span>
-										{!! Form::text('saldo_minimo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Saldo mínimo', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
-									</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('saldo_minimo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('saldo_minimo'))
-										<span class="help-block">{{ $errors->first('saldo_minimo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Saldo mínimo
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									{!! Form::text('saldo_minimo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Saldo mínimo', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
 								</div>
+								@if ($errors->has('saldo_minimo'))
+									<span class="help-block">{{ $errors->first('saldo_minimo') }}</span>
+								@endif
 							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('dias_para_inactivacion')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('dias_para_inactivacion'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Días para inactivación
-									</label>
-									{!! Form::number('dias_para_inactivacion', null, ['class' => 'form-control select2', 'placeholder' => 'Días para inactivación', 'min' => 0, 'step' => 1]) !!}
+						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('dias_para_inactivacion')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('dias_para_inactivacion'))
-										<span class="help-block">{{ $errors->first('dias_para_inactivacion') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Días para inactivación
+								</label>
+								{!! Form::number('dias_para_inactivacion', null, ['class' => 'form-control select2', 'placeholder' => 'Días para inactivación', 'min' => 0, 'step' => 1]) !!}
+								@if ($errors->has('dias_para_inactivacion'))
+									<span class="help-block">{{ $errors->first('dias_para_inactivacion') }}</span>
+								@endif
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('tipoCuentaAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('tipoCuentaAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

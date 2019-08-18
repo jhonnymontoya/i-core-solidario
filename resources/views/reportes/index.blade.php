@@ -37,78 +37,80 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		
-		<div class="card card-primary">
-			<div class="card-header with-border">
-				<h3 class="card-title">Menú reportes</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name', 'modulo'), ['url' => 'reportes', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-8 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
-					</div>
-					<div class="col-md-3 col-sm-12">
-						{!! Form::select('modulo', $modulos, null, ['class' => 'form-control select2', 'placeholder' => 'Categoría']); !!}
-					</div>
-					<div class="col-md-1 col-sm-12">
-						<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Menú reportes</h3>
 				</div>
-				@if(!$reportes->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								<br>
-								No se encontraron reportes
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name', 'modulo'), ['url' => 'reportes', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-8 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-					</p>
-				@else
-					<br>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Categoría</th>
-									<th>Descripción</th>
-									<th>Parámetros</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($reportes as $reporte)
-									<tr>
-										<td><a href="{{ route('reportesReporte', $reporte->id) }}">{{ $reporte->nombre }}</a></td>
-										<td>{{ $reporte->modulo->nombre }}</td>
-										<td>{{ str_limit($reporte->descripcion, 50) }}</td>
-										<td>{{ $reporte->parametros->count() }}</td>
-										<td>
-											<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-play"></i> Ver reporte</a>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>Nombre</th>
-									<th>Categoría</th>
-									<th>Descripción</th>
-									<th></th>
-								</tr>
-							</tfoot>
-						</table>
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('modulo', $modulos, null, ['class' => 'form-control select2', 'placeholder' => 'Categoría']); !!}
+						</div>
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $reportes->appends(Request::only('name', 'modulo'))->render() !!}
+					@if(!$reportes->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									<br>
+									No se encontraron reportes
+								</div>
+							</div>
+						</p>
+					@else
+						<br>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Categoría</th>
+										<th>Descripción</th>
+										<th>Parámetros</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($reportes as $reporte)
+										<tr>
+											<td><a href="{{ route('reportesReporte', $reporte->id) }}">{{ $reporte->nombre }}</a></td>
+											<td>{{ $reporte->modulo->nombre }}</td>
+											<td>{{ str_limit($reporte->descripcion, 50) }}</td>
+											<td>{{ $reporte->parametros->count() }}</td>
+											<td>
+												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-play"></i> Ver reporte</a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+								<tfoot>
+									<tr>
+										<th>Nombre</th>
+										<th>Categoría</th>
+										<th>Descripción</th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $reportes->appends(Request::only('name', 'modulo'))->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
+				<div class="card-footer">
+				</div>
 			</div>
 		</div>
 	</section>

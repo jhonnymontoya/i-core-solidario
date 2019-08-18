@@ -43,92 +43,90 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						@php
-							$tieneAlertasTipoA = false;
-							$tieneAlertasTipoB = false;
-							$tieneAlertasTipoC = false;
-						@endphp
-						<div class="alert alert-danger"><h4><i class="fa fa-ban"></i> Alertas tipo A</h4></div>
-						<ul>
-						@if (count($creditosSaldoNegativo['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Créditos con saldo negativo: {{ count($creditosSaldoNegativo['A']) }}</h4>
-							</li>
-						@endif
-						@if (count($creditosSinAmortizacion['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Créditos sin amortización: {{ count($creditosSinAmortizacion['A']) }}</h4>
-							</li>
-						@endif
-						@if (count($creditosSaldoEstadoDiferenteDesembolso['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Créditos con saldo y estado no desembolsado: {{ count($creditosSaldoEstadoDiferenteDesembolso['A']) }}</h4>
-							</li>
-						@endif
-						@if (count($diferenciaCarteraContabilidad['A']))
-							<?php $tieneAlertasTipoA = true; ?>
-							<li>
-								<h4>Diferencia entre módulos contable y créditos</h4>
-							</li>
-						@endif
-						@if (!$tieneAlertasTipoA)
-							<h4>No presenta alertas</h4>
-						@endif
-						</ul>
-						<br>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					@php
+						$tieneAlertasTipoA = false;
+						$tieneAlertasTipoB = false;
+						$tieneAlertasTipoC = false;
+					@endphp
+					<div class="alert alert-danger"><h4><i class="fa fa-ban"></i> Alertas tipo A</h4></div>
+					<ul>
+					@if (count($creditosSaldoNegativo['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Créditos con saldo negativo: {{ count($creditosSaldoNegativo['A']) }}</h4>
+						</li>
+					@endif
+					@if (count($creditosSinAmortizacion['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Créditos sin amortización: {{ count($creditosSinAmortizacion['A']) }}</h4>
+						</li>
+					@endif
+					@if (count($creditosSaldoEstadoDiferenteDesembolso['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Créditos con saldo y estado no desembolsado: {{ count($creditosSaldoEstadoDiferenteDesembolso['A']) }}</h4>
+						</li>
+					@endif
+					@if (count($diferenciaCarteraContabilidad['A']))
+						<?php $tieneAlertasTipoA = true; ?>
+						<li>
+							<h4>Diferencia entre módulos contable y créditos</h4>
+						</li>
+					@endif
+					@if (!$tieneAlertasTipoA)
+						<h4>No presenta alertas</h4>
+					@endif
+					</ul>
+					<br>
 
-						<div class="alert alert-warning"><h4><i class="fa fa-warning"></i> Alertas tipo B</h4></div>
-						<ul>
-						@if (count($carteraDiasVencidos['B']))
-							<?php $tieneAlertasTipoB = true; ?>
-							<li>
-								<h4>Créditos con más de 90 días vencidos: {{ count($carteraDiasVencidos['B']) }}</h4>
-							</li>
-						@endif
-						@if (!$tieneAlertasTipoB)
-							<h4>No presenta alertas</h4>
-						@endif
-						</ul>
-						<br>
-						
-						<div class="alert alert-info"><h4><i class="fa fa-info"></i> Alertas tipo C</h4></div>
-						<ul>
-						@if (count($carteraDiasVencidos['C']))
-							<?php $tieneAlertasTipoC = true; ?>
-							<li>
-								<h4>Créditos con 90 o menos días vencidos: {{ count($carteraDiasVencidos['C']) }}</h4>
-							</li>
-						@endif
-						@if (count($creditosSinDefinir['C']))
-							<?php $tieneAlertasTipoC = true; ?>
-							<li>
-								<h4>Solicitudes de crédito del periodo sin definir: {{ count($creditosSinDefinir['C']) }}</h4>
-							</li>
-						@endif
-						@if (!$tieneAlertasTipoC)
-							<h4>No presenta alertas</h4>
-						@endif
-						</ul>
-					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						{!! Form::model($periodo, ['route' => ['cierreModulosCarteraProcesar', $periodo], 'method' => 'put', 'role' => 'form', 'id' => 'frmCierreCartera']) !!}
-						{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ route('cierreModulos.cartera.precierre', $periodo->id) }}" target="_blank" class="btn btn-primary">Precierre</a>
-						<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
-						{!! Form::close() !!}
-					</div>
+					<div class="alert alert-warning"><h4><i class="fa fa-warning"></i> Alertas tipo B</h4></div>
+					<ul>
+					@if (count($carteraDiasVencidos['B']))
+						<?php $tieneAlertasTipoB = true; ?>
+						<li>
+							<h4>Créditos con más de 90 días vencidos: {{ count($carteraDiasVencidos['B']) }}</h4>
+						</li>
+					@endif
+					@if (!$tieneAlertasTipoB)
+						<h4>No presenta alertas</h4>
+					@endif
+					</ul>
+					<br>
+					
+					<div class="alert alert-info"><h4><i class="fa fa-info"></i> Alertas tipo C</h4></div>
+					<ul>
+					@if (count($carteraDiasVencidos['C']))
+						<?php $tieneAlertasTipoC = true; ?>
+						<li>
+							<h4>Créditos con 90 o menos días vencidos: {{ count($carteraDiasVencidos['C']) }}</h4>
+						</li>
+					@endif
+					@if (count($creditosSinDefinir['C']))
+						<?php $tieneAlertasTipoC = true; ?>
+						<li>
+							<h4>Solicitudes de crédito del periodo sin definir: {{ count($creditosSinDefinir['C']) }}</h4>
+						</li>
+					@endif
+					@if (!$tieneAlertasTipoC)
+						<h4>No presenta alertas</h4>
+					@endif
+					</ul>
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					{!! Form::model($periodo, ['route' => ['cierreModulosCarteraProcesar', $periodo], 'method' => 'put', 'role' => 'form', 'id' => 'frmCierreCartera']) !!}
+					{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ route('cierreModulos.cartera.precierre', $periodo->id) }}" target="_blank" class="btn btn-primary">Precierre</a>
+					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
+					{!! Form::close() !!}
 				</div>
 			</div>
 		</div>

@@ -36,81 +36,83 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $tipos->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Tipos de SDAT</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name', 'tipo_ahorro', 'estado'), ['url' => 'tipoSDAT', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-8 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
-					</div>
-					<div class="col-md-3 col-sm-12">
-						{!! Form::select('estado', [true => 'Activa', false => 'Inactiva'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
-					</div>
-					<div class="col-md-1 col-sm-12">
-						<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $tipos->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Tipos de SDAT</h3>
 				</div>
-				@if(!$tipos->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron tipos de SDAT <a href="{{ url('tipoSDAT/create') }}" class="btn btn-primary btn-xs">crear una nuevo</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name', 'tipo_ahorro', 'estado'), ['url' => 'tipoSDAT', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-8 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-					</p>
-				@else
-					<br>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Código</th>
-									<th>Nombre</th>
-									<th>Cuenta capital</th>
-									<th>Cuenta intereses</th>
-									<th>Cuenta intereses por pagar</th>
-									<th>Estado</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($tipos as $tipo)
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('estado', [true => 'Activa', false => 'Inactiva'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
+						</div>
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+						</div>
+						{!! Form::close() !!}
+					</div>
+					@if(!$tipos->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron tipos de SDAT <a href="{{ url('tipoSDAT/create') }}" class="btn btn-primary btn-xs">crear una nuevo</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<br>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
 									<tr>
-										<td>{{ $tipo->codigo }}</td>
-										<td>{{ $tipo->nombre }}</td>
-										<td>{{ str_limit($tipo->capitalCuif->full, 20) }}</td>
-										<td>{{ str_limit($tipo->interesesCuif->full, 20) }}</td>
-										<td>{{ str_limit($tipo->interesesPorPagarCuif->full, 20) }}</td>
-										<td>
-											@php
-												$label = $tipo->esta_activo ? 'success' : 'danger';
-												$estado = $tipo->esta_activo ? 'Activo' : 'Inactivo';
-											@endphp
-											<span class="label label-{{ $label }}">{{ $estado }}</span>
-										</td>
-										<td>
-											<a href="{{ route('tipoSDAT.edit', $tipo->id) }}" class="btn btn-info btn-xs" title="Editar">
-												<i class="fa fa-edit"></i>
-											</a>
-										</td>
+										<th>Código</th>
+										<th>Nombre</th>
+										<th>Cuenta capital</th>
+										<th>Cuenta intereses</th>
+										<th>Cuenta intereses por pagar</th>
+										<th>Estado</th>
+										<th></th>
 									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $tipos->appends(Request::only('name', 'tipo_ahorro', 'estado'))->render() !!}
-					</div>
-				</div>			
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $tipos->total()?'primary':'danger' }}">{{ $tipos->total() }}</span> elementos.
+								</thead>
+								<tbody>
+									@foreach ($tipos as $tipo)
+										<tr>
+											<td>{{ $tipo->codigo }}</td>
+											<td>{{ $tipo->nombre }}</td>
+											<td>{{ str_limit($tipo->capitalCuif->full, 20) }}</td>
+											<td>{{ str_limit($tipo->interesesCuif->full, 20) }}</td>
+											<td>{{ str_limit($tipo->interesesPorPagarCuif->full, 20) }}</td>
+											<td>
+												@php
+													$label = $tipo->esta_activo ? 'success' : 'danger';
+													$estado = $tipo->esta_activo ? 'Activo' : 'Inactivo';
+												@endphp
+												<span class="label label-{{ $label }}">{{ $estado }}</span>
+											</td>
+											<td>
+												<a href="{{ route('tipoSDAT.edit', $tipo->id) }}" class="btn btn-info btn-xs" title="Editar">
+													<i class="fa fa-edit"></i>
+												</a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $tipos->appends(Request::only('name', 'tipo_ahorro', 'estado'))->render() !!}
+						</div>
+					</div>			
+				</div>
+				<div class="card-footer">
+					<span class="label label-{{ $tipos->total()?'primary':'danger' }}">{{ $tipos->total() }}</span> elementos.
+				</div>
 			</div>
 		</div>
 	</section>

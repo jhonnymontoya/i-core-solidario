@@ -32,61 +32,59 @@
 			</div>
 		@endif
 		{!! Form::model($causa, ['url' => ['causaAnulacionMovimiento', $causa], 'method' => 'put', 'role' => 'form', 'id' => 'comprobante']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nueva causa de anulación para movimientos</h3>
-					</div>
-					<div class="card-body">
-						<div class="row form-horizontal">
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nueva causa de anulación para movimientos</h3>
+				</div>
+				<div class="card-body">
+					<div class="row form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="col-sm-1 control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre
+								</label>
+								<div class="col-sm-11">
+									{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'autofocus']) !!}
+									@if ($errors->has('nombre'))
+										<span class="help-block">{{ $errors->first('nombre') }}</span>
+									@endif
+								</div>
+							</div>
+						</div>
+						{{-- INICIO CAMPO --}}
 							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="col-sm-1 control-label">
-										@if ($errors->has('nombre'))
+								<div class="form-group {{ ($errors->has('esta_activa')?'has-error':'') }}">
+									<label class="col-sm-4 control-label">
+										@if ($errors->has('esta_activa'))
 											<i class="fa fa-times-circle-o"></i>
 										@endif
-										Nombre
+										Estado
 									</label>
-									<div class="col-sm-11">
-										{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'autofocus']) !!}
-										@if ($errors->has('nombre'))
-											<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="col-sm-8">
+										<div class="btn-group" data-toggle="buttons">
+											<label class="btn btn-primary {{ $causa->esta_activa ? 'active' : ''}}">
+												{!! Form::radio('esta_activa', '1', $causa->esta_activa ? true : false) !!}ACTIVA
+											</label>
+											<label class="btn btn-danger {{ $causa->esta_activa ? '' : 'active'}}">
+												{!! Form::radio('esta_activa', '0', $causa->esta_activa ? false : true) !!}INACTIVA
+											</label>
+										</div>
+										@if ($errors->has('esta_activa'))
+											<span class="help-block">{{ $errors->first('esta_activa') }}</span>
 										@endif
 									</div>
 								</div>
 							</div>
-							{{-- INICIO CAMPO --}}
-								<div class="col-md-6">
-									<div class="form-group {{ ($errors->has('esta_activa')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('esta_activa'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Estado
-										</label>
-										<div class="col-sm-8">
-											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $causa->esta_activa ? 'active' : ''}}">
-													{!! Form::radio('esta_activa', '1', $causa->esta_activa ? true : false) !!}ACTIVA
-												</label>
-												<label class="btn btn-danger {{ $causa->esta_activa ? '' : 'active'}}">
-													{!! Form::radio('esta_activa', '0', $causa->esta_activa ? false : true) !!}INACTIVA
-												</label>
-											</div>
-											@if ($errors->has('esta_activa'))
-												<span class="help-block">{{ $errors->first('esta_activa') }}</span>
-											@endif
-										</div>
-									</div>
-								</div>
-								{{-- FIN CAMPO --}}
-						</div>
+							{{-- FIN CAMPO --}}
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('causaAnulacionMovimiento') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('causaAnulacionMovimiento') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

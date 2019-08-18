@@ -38,58 +38,56 @@
 			</div>
 		@endif
 		{!! Form::model($comprobante, ['url' => ['comprobante', $comprobante, 'delete'], 'method' => 'delete', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-danger">
-					<div class="card-header with-border">
-						<h3 class="card-title">Eliminar comprobante</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<div class="alert alert-danger">
-									<h4>
-										<i class="fa fa-ban"></i>&nbsp;Alerta!
-									</h4>
-									Esta a punto de eliminar el comprobante sin contabilizar, esta acción no puede ser reversada...
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<dl class="dl-horizontal">
-									<dt>Tipo comprobante:</dt>
-									<dd>{{ $comprobante->tipoComprobante->nombre_completo }}</dd>
-									<dt>Fecha del comprobante:</dt>
-									<dd>{{ $comprobante->fecha_movimiento }} ({{ $comprobante->fecha_movimiento->diffForHumans() }})</dd>
-									<dt>Descripción:</dt>
-									<dd>{{ $comprobante->descripcion }}</dd>
-								</dl>
-								<dl class="dl-horizontal">
-									<dt>Registros:</dt>
-									<dd>{{ $comprobante->detalleMovimientos->count() }}</dd>
-								</dl>
-								<div class="row">
-									<div class="col-md-4">
-										<dl class="dl-horizontal">
-											<dt>Total débitos:</dt>
-											<dd>${{ number_format($comprobante->debitos, 0) }}</dd>
-											<dt>Total créditos:</dt>
-											<dd>${{ number_format($comprobante->creditos, 0) }}</dd>
-											<dt>Total diferencia:</dt>
-											<dd>${{ number_format($comprobante->debitos - $comprobante->creditos, 0) }}</dd>
-										</dl>
-									</div>
-								</div>
+		<div class="container-fluid">
+			<div class="card card-danger card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Eliminar comprobante</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="alert alert-danger">
+								<h4>
+									<i class="fa fa-ban"></i>&nbsp;Alerta!
+								</h4>
+								Esta a punto de eliminar el comprobante sin contabilizar, esta acción no puede ser reversada...
 							</div>
 						</div>
 					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						{!! Form::submit('Eliminar', ['class' => 'btn btn-danger', 'tabindex' => '2']) !!}
-						<a href="{{ url('comprobante') }}" class="btn btn-success pull-right" tabindex="1">Cancelar</a>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<dl class="dl-horizontal">
+								<dt>Tipo comprobante:</dt>
+								<dd>{{ $comprobante->tipoComprobante->nombre_completo }}</dd>
+								<dt>Fecha del comprobante:</dt>
+								<dd>{{ $comprobante->fecha_movimiento }} ({{ $comprobante->fecha_movimiento->diffForHumans() }})</dd>
+								<dt>Descripción:</dt>
+								<dd>{{ $comprobante->descripcion }}</dd>
+							</dl>
+							<dl class="dl-horizontal">
+								<dt>Registros:</dt>
+								<dd>{{ $comprobante->detalleMovimientos->count() }}</dd>
+							</dl>
+							<div class="row">
+								<div class="col-md-4">
+									<dl class="dl-horizontal">
+										<dt>Total débitos:</dt>
+										<dd>${{ number_format($comprobante->debitos, 0) }}</dd>
+										<dt>Total créditos:</dt>
+										<dd>${{ number_format($comprobante->creditos, 0) }}</dd>
+										<dt>Total diferencia:</dt>
+										<dd>${{ number_format($comprobante->debitos - $comprobante->creditos, 0) }}</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					{!! Form::submit('Eliminar', ['class' => 'btn btn-danger', 'tabindex' => '2']) !!}
+					<a href="{{ url('comprobante') }}" class="btn btn-success pull-right" tabindex="1">Cancelar</a>
 				</div>
 			</div>
 		</div>

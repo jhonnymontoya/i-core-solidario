@@ -44,69 +44,67 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'tarjetas', 'method' => 'post', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nuevas tarjetas</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('fechaVencimiento')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fechaVencimiento'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha de vencimiento
-									</label>
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fechaVencimiento', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'yyyy/mm']) !!}
-									</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevas tarjetas</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('fechaVencimiento')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('fechaVencimiento'))
-										<span class="help-block">{{ $errors->first('fechaVencimiento') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha de vencimiento
+								</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+									</div>
+									{!! Form::text('fechaVencimiento', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'yyyy/mm']) !!}
 								</div>
+								@if ($errors->has('fechaVencimiento'))
+									<span class="help-block">{{ $errors->first('fechaVencimiento') }}</span>
+								@endif
 							</div>
+						</div>
 
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('numeroInicial')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('numeroInicial'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Número inicial
-									</label>
-									{!! Form::number('numeroInicial', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número inicial']) !!}
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('numeroInicial')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('numeroInicial'))
-										<span class="help-block">{{ $errors->first('numeroInicial') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Número inicial
+								</label>
+								{!! Form::number('numeroInicial', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número inicial']) !!}
+								@if ($errors->has('numeroInicial'))
+									<span class="help-block">{{ $errors->first('numeroInicial') }}</span>
+								@endif
 							</div>
+						</div>
 
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('numeroFinal')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('numeroFinal'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Número final
-									</label>
-									{!! Form::number('numeroFinal', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número final']) !!}
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('numeroFinal')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('numeroFinal'))
-										<span class="help-block">{{ $errors->first('numeroFinal') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Número final
+								</label>
+								{!! Form::number('numeroFinal', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número final']) !!}
+								@if ($errors->has('numeroFinal'))
+									<span class="help-block">{{ $errors->first('numeroFinal') }}</span>
+								@endif
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('tarjetas') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('tarjetas') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

@@ -31,211 +31,213 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			{!! Form::open(['url' => 'cuentaContable', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="card-header with-border">
-				<h3 class="card-title">Crear nueva cuenta contable</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				{!! Form::open(['url' => 'cuentaContable', 'method' => 'post', 'role' => 'form']) !!}
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nueva cuenta contable</h3>
 
-				<div class="card-tools pull-right">
-					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-						<i class="fa fa-minus"></i>
-					</button>
+					<div class="card-tools pull-right">
+						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
 				</div>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-							<label class="control-label">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('codigo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Código de la cuenta
+								</label>
+								{!! Form::number('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código de la cuenta', 'min' => '1', 'step' => '1', 'autocomplete' => 'off', 'autofocus']); !!}
 								@if ($errors->has('codigo'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
 								@endif
-								Código de la cuenta
-							</label>
-							{!! Form::number('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código de la cuenta', 'min' => '1', 'step' => '1', 'autocomplete' => 'off', 'autofocus']); !!}
-							@if ($errors->has('codigo'))
-								<span class="help-block">{{ $errors->first('codigo') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-8">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre de la cuenta
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre de la cuenta', 'autocomplete' => 'off']); !!}
 								@if ($errors->has('nombre'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
 								@endif
-								Nombre de la cuenta
-							</label>
-							{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre de la cuenta', 'autocomplete' => 'off']); !!}
-							@if ($errors->has('nombre'))
-								<span class="help-block">{{ $errors->first('nombre') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">							
-					<div class="col-md-2">
-						<div class="form-group">
-							<label class="control-label">Nivel de la cuenta</label>
-							<div id="id_level">&nbsp;</div>
+					<div class="row">							
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">Nivel de la cuenta</label>
+								<div id="id_level">&nbsp;</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">Tipo de cuenta</label>
+								<div id="id_tipo">&nbsp;</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Categoría de la cuenta</label>
+								<div id="id_categoria">&nbsp;</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="control-label">Cuenta padre</label>
+								<div id="id_padre">&nbsp;</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-md-2">
-						<div class="form-group">
-							<label class="control-label">Tipo de cuenta</label>
-							<div id="id_tipo">&nbsp;</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="control-label">Categoría de la cuenta</label>
-							<div id="id_categoria">&nbsp;</div>
-						</div>
-					</div>
-					<div class="col-md-5">
-						<div class="form-group">
-							<label class="control-label">Cuenta padre</label>
-							<div id="id_padre">&nbsp;</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group {{ ($errors->has('naturaleza')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('naturaleza')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('naturaleza'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Naturaleza
+								</label>
+								{!! Form::select('naturaleza', ['DÉBITO' => 'Débito', 'CRÉDITO' => 'Crédito'], null, ['class' => 'form-control', 'placeholder' => 'Naturaleza de la cuenta']) !!}
 								@if ($errors->has('naturaleza'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('naturaleza') }}</span>
 								@endif
-								Naturaleza
-							</label>
-							{!! Form::select('naturaleza', ['DÉBITO' => 'Débito', 'CRÉDITO' => 'Crédito'], null, ['class' => 'form-control', 'placeholder' => 'Naturaleza de la cuenta']) !!}
-							@if ($errors->has('naturaleza'))
-								<span class="help-block">{{ $errors->first('naturaleza') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group {{ ($errors->has('modulo')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('modulo')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('modulo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Módulo
+								</label>
+								{!! Form::select('modulo', $modulos, null, ['class' => 'form-control', 'placeholder' => 'Módulo de la cuenta']) !!}
 								@if ($errors->has('modulo'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('modulo') }}</span>
 								@endif
-								Módulo
-							</label>
-							{!! Form::select('modulo', $modulos, null, ['class' => 'form-control', 'placeholder' => 'Módulo de la cuenta']) !!}
-							@if ($errors->has('modulo'))
-								<span class="help-block">{{ $errors->first('modulo') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group {{ ($errors->has('negativo')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('negativo')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('negativo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									¿Acepta saldos negativos?
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('negativo', '1', true) !!}Sí
+									</label>
+									<label class="btn btn-danger">
+										{!! Form::radio('negativo', '0', false) !!}No
+									</label>
+								</div>
 								@if ($errors->has('negativo'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('negativo') }}</span>
 								@endif
-								¿Acepta saldos negativos?
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('negativo', '1', true) !!}Sí
-								</label>
-								<label class="btn btn-danger">
-									{!! Form::radio('negativo', '0', false) !!}No
-								</label>
 							</div>
-							@if ($errors->has('negativo'))
-								<span class="help-block">{{ $errors->first('negativo') }}</span>
-							@endif
 						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group {{ ($errors->has('resultado')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('resultado')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('resultado'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									¿Es cuenta de resultados (PYG)?
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary">
+										{!! Form::radio('resultado', '1', false) !!}Sí
+									</label>
+									<label class="btn btn-danger active">
+										{!! Form::radio('resultado', '0', true) !!}No
+									</label>
+								</div>
 								@if ($errors->has('resultado'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('resultado') }}</span>
 								@endif
-								¿Es cuenta de resultados (PYG)?
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary">
-									{!! Form::radio('resultado', '1', false) !!}Sí
-								</label>
-								<label class="btn btn-danger active">
-									{!! Form::radio('resultado', '0', true) !!}No
-								</label>
 							</div>
-							@if ($errors->has('resultado'))
-								<span class="help-block">{{ $errors->first('resultado') }}</span>
-							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group {{ ($errors->has('ordent')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('ordent')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('ordent'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									¿Es cuenta de orden?
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary {{ old('ordent') == true ? 'active' : '' }}">
+										{!! Form::radio('ordent', '1', old('ordent') == true ? true : false) !!}Sí
+									</label>
+									<label class="btn btn-danger {{ empty(old('ordent')) | old('ordent')  == false ? 'active' : '' }}">
+										{!! Form::radio('ordent', '0', empty(old('ordent')) | old('ordent')  == false ? true : false) !!}No
+									</label>
+								</div>
 								@if ($errors->has('ordent'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('ordent') }}</span>
 								@endif
-								¿Es cuenta de orden?
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary {{ old('ordent') == true ? 'active' : '' }}">
-									{!! Form::radio('ordent', '1', old('ordent') == true ? true : false) !!}Sí
-								</label>
-								<label class="btn btn-danger {{ empty(old('ordent')) | old('ordent')  == false ? 'active' : '' }}">
-									{!! Form::radio('ordent', '0', empty(old('ordent')) | old('ordent')  == false ? true : false) !!}No
-								</label>
 							</div>
-							@if ($errors->has('ordent'))
-								<span class="help-block">{{ $errors->first('ordent') }}</span>
-							@endif
 						</div>
-					</div>
-					<div class="col-md-6" id="id_orden" style="display:{{ old('ordent') == true ? 'block' : 'none'}};">
-						<div class="form-group {{ ($errors->has('orden')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-6" id="id_orden" style="display:{{ old('ordent') == true ? 'block' : 'none'}};">
+							<div class="form-group {{ ($errors->has('orden')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('orden'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta de compensación
+								</label>
+								<br>
+								{!! Form::number('orden', null, ['class' => 'form-control', 'placeholder' => 'Código de la cuenta', 'min' => '1', 'step' => '1', 'autocomplete' => 'off']); !!}
 								@if ($errors->has('orden'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('orden') }}</span>
 								@endif
-								Cuenta de compensación
-							</label>
-							<br>
-							{!! Form::number('orden', null, ['class' => 'form-control', 'placeholder' => 'Código de la cuenta', 'min' => '1', 'step' => '1', 'autocomplete' => 'off']); !!}
-							@if ($errors->has('orden'))
-								<span class="help-block">{{ $errors->first('orden') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('comentario')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('comentario')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('comentario'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Comentario
+								</label>
+								{!! Form::textarea('comentario', null, ['class' => 'form-control', 'placeholder' => 'Comentario de la cuenta']) !!}
 								@if ($errors->has('comentario'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('comentario') }}</span>
 								@endif
-								Comentario
-							</label>
-							{!! Form::textarea('comentario', null, ['class' => 'form-control', 'placeholder' => 'Comentario de la cuenta']) !!}
-							@if ($errors->has('comentario'))
-								<span class="help-block">{{ $errors->first('comentario') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('cuentaContable') }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				{!! Form::close() !!}
 			</div>
-			<div class="card-footer">
-				{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-				<a href="{{ url('cuentaContable') }}" class="btn btn-danger pull-right">Cancelar</a>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

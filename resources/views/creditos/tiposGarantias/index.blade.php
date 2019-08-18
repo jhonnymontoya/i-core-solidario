@@ -36,77 +36,79 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $tiposGarantias->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Tipos de garantías</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-3 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
-					</div>
-					<div class="col-md-3 col-sm-12">
-						{!! Form::select('estado', [true => 'Activo', false => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $tiposGarantias->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Tipos de garantías</h3>
 				</div>
-
-				@if(!$tiposGarantias->total())
-					<br><br>
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron tipos de garantía <a href="{{ url('tipoGarantia/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-3 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-					</p>
-				@else
-					<br><br>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Código</th>
-									<th>Nombre</th>
-									<th>Tipo garantía</th>
-									<th>Condición</th>
-									<th>Estado</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($tiposGarantias as $tipoGarantia)
-									<tr>
-										<td>{{ $tipoGarantia->codigo }}</td>
-										<td>{{ $tipoGarantia->nombre }}</td>
-										<td>{{ $tipoGarantia->tipo_garantia }}</td>
-										<td>{{ $tipoGarantia->condicion }}</td>
-										<td>
-											<span class="label label-{{ $tipoGarantia->esta_activa?'success':'danger' }}">
-												{{ $tipoGarantia->esta_activa?'activo':'inactivo' }}
-											</span>
-										</td>
-										<td><a class="btn btn-info btn-xs" href="{{ route('tipoGarantiaEdit', $tipoGarantia) }}"><i class="fa fa-edit"></i></a></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('estado', [true => 'Activo', false => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
+						</div>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $tiposGarantias->appends(Request::only('name', 'entidad', 'estado'))->render() !!}
+
+					@if(!$tiposGarantias->total())
+						<br><br>
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron tipos de garantía <a href="{{ url('tipoGarantia/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<br><br>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Código</th>
+										<th>Nombre</th>
+										<th>Tipo garantía</th>
+										<th>Condición</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($tiposGarantias as $tipoGarantia)
+										<tr>
+											<td>{{ $tipoGarantia->codigo }}</td>
+											<td>{{ $tipoGarantia->nombre }}</td>
+											<td>{{ $tipoGarantia->tipo_garantia }}</td>
+											<td>{{ $tipoGarantia->condicion }}</td>
+											<td>
+												<span class="label label-{{ $tipoGarantia->esta_activa?'success':'danger' }}">
+													{{ $tipoGarantia->esta_activa?'activo':'inactivo' }}
+												</span>
+											</td>
+											<td><a class="btn btn-info btn-xs" href="{{ route('tipoGarantiaEdit', $tipoGarantia) }}"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $tiposGarantias->appends(Request::only('name', 'entidad', 'estado'))->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $tiposGarantias->total()?'primary':'danger' }}">
-					{{ $tiposGarantias->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $tiposGarantias->total()?'primary':'danger' }}">
+						{{ $tiposGarantias->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

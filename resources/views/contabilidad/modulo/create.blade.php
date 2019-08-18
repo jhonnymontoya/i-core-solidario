@@ -31,40 +31,42 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			{!! Form::open(['url' => 'modulo', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="card-header with-border">
-				<h3 class="card-title">Crear nuevo módulo</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				{!! Form::open(['url' => 'modulo', 'method' => 'post', 'role' => 'form']) !!}
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo módulo</h3>
 
-				<div class="card-tools pull-right">
-					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-						<i class="fa fa-minus"></i>
-					</button>
+					<div class="card-tools pull-right">
+						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
 				</div>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-							<label class="control-label">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del módulo', 'required']) !!}
 								@if ($errors->has('nombre'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
 								@endif
-								Nombre
-							</label>
-							{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del módulo', 'required']) !!}
-							@if ($errors->has('nombre'))
-								<span class="help-block">{{ $errors->first('nombre') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('modulo') }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				{!! Form::close() !!}
 			</div>
-			<div class="card-footer">
-				{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-				<a href="{{ url('modulo') }}" class="btn btn-danger pull-right">Cancelar</a>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

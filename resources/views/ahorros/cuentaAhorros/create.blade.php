@@ -32,48 +32,46 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'cuentaAhorros', 'method' => 'post', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nueva cuenta de ahorros</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('tipo_cuenta_ahorro_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tipo_cuenta_ahorro_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo cuenta ahorro
-									</label>
-									{!! Form::select('tipo_cuenta_ahorro_id', $tiposCuentaAhorros, null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Tipo cuenta ahorro']) !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nueva cuenta de ahorros</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('tipo_cuenta_ahorro_id')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('tipo_cuenta_ahorro_id'))
-										<span class="help-block">{{ $errors->first('tipo_cuenta_ahorro_id') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Tipo cuenta ahorro
+								</label>
+								{!! Form::select('tipo_cuenta_ahorro_id', $tiposCuentaAhorros, null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Tipo cuenta ahorro']) !!}
+								@if ($errors->has('tipo_cuenta_ahorro_id'))
+									<span class="help-block">{{ $errors->first('tipo_cuenta_ahorro_id') }}</span>
+								@endif
 							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('titular_socio_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('titular_socio_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Titular
-									</label>
-									{!! Form::select('titular_socio_id', [], null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital']) !!}
+						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('titular_socio_id')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('titular_socio_id'))
-										<span class="help-block">{{ $errors->first('titular_socio_id') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Titular
+								</label>
+								{!! Form::select('titular_socio_id', [], null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital']) !!}
+								@if ($errors->has('titular_socio_id'))
+									<span class="help-block">{{ $errors->first('titular_socio_id') }}</span>
+								@endif
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('cuentaAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('cuentaAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

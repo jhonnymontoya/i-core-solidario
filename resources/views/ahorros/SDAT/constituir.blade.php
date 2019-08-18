@@ -39,71 +39,69 @@
 			</div>
 		@endif
 		{!! Form::open(['route' => ['SDAT.put.constituir', $sdat->id], 'method' => 'put', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Constituir SDAT</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Constituir SDAT</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Confirmación de constitución de deposito</h4>
+						</div>
 					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-								<h4>Confirmación de constitución de deposito</h4>
-							</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<dl class="dl-horizontal">
+								<dt>No. Radicado:</dt>
+								<dd>{{ $sdat->id }}</dd>
+
+								@php
+									$tercero = $sdat->socio->tercero;
+									$nombre = sprintf(
+										"%s %s - %s",
+										$tercero->tipoIdentificacion->codigo,
+										$tercero->numero_identificacion,
+										$tercero->nombre_corto
+									);
+								@endphp
+
+								<dt>Nombre:</dt>
+								<dd>{{ $nombre }}</dd>
+
+								<dt>Valor:</dt>
+								<dd>${{ number_format($sdat->valor) }}</dd>
+							</dl>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<dl class="dl-horizontal">
-									<dt>No. Radicado:</dt>
-									<dd>{{ $sdat->id }}</dd>
-
-									@php
-										$tercero = $sdat->socio->tercero;
-										$nombre = sprintf(
-											"%s %s - %s",
-											$tercero->tipoIdentificacion->codigo,
-											$tercero->numero_identificacion,
-											$tercero->nombre_corto
-										);
-									@endphp
-
-									<dt>Nombre:</dt>
-									<dd>{{ $nombre }}</dd>
-
-									<dt>Valor:</dt>
-									<dd>${{ number_format($sdat->valor) }}</dd>
-								</dl>
-							</div>
-						</div>
-
-						<div class="row form-horizontal">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
-									<label class="control-label col-md-2">
-										@if ($errors->has('cuenta'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta
-									</label>
-									<div class="col-md-8">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-table"></i></span>
-											{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
-										</div>
-										@if ($errors->has('cuenta'))
-											<span class="help-block">{{ $errors->first('cuenta') }}</span>
-										@endif
+					<div class="row form-horizontal">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
+								<label class="control-label col-md-2">
+									@if ($errors->has('cuenta'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta
+								</label>
+								<div class="col-md-8">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-table"></i></span>
+										{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
 									</div>
+									@if ($errors->has('cuenta'))
+										<span class="help-block">{{ $errors->first('cuenta') }}</span>
+									@endif
 								</div>
 							</div>
 						</div>
+					</div>
 
-					</div>
-					<div class="card-footer">
-						{!! Form::submit('Constituir', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Constituir', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

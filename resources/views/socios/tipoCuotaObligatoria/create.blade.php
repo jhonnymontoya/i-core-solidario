@@ -32,136 +32,134 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'tipoCuotaObligatoria', 'method' => 'post', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nueva cuota obligatoria</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('codigo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Código
-									</label>
-									{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'autofocus']) !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nueva cuota obligatoria</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('codigo'))
-										<span class="help-block">{{ $errors->first('codigo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Código
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'autofocus']) !!}
+								@if ($errors->has('codigo'))
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('nombre'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
+								@if ($errors->has('nombre'))
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
+								@endif
 							</div>
-							<div class="col-md-5">
-								<div class="form-group {{ ($errors->has('cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta auxiliar
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('cuif_id', [], null, ['class' => 'form-control select2']) !!}
-									</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group {{ ($errors->has('cuif_id')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('cuif_id'))
-										<span class="help-block">{{ $errors->first('cuif_id') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Cuenta auxiliar
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-table"></i></span>
+									{!! Form::select('cuif_id', [], null, ['class' => 'form-control select2']) !!}
 								</div>
+								@if ($errors->has('cuif_id'))
+									<span class="help-block">{{ $errors->first('cuif_id') }}</span>
+								@endif
 							</div>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('es_reintegrable')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('es_reintegrable'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										¿Es reintegrable?
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<?php
-											$reintegro = trim(old('es_reintegrable')) == '' ? '1' : old('es_reintegrable');
-											$reintegro = $reintegro == '1' ? true : false;
-										?>
-										<label class="btn btn-primary {{ $reintegro ? 'active' : '' }}">
-											{!! Form::radio('es_reintegrable', '1', $reintegro ? true : false) !!}Sí
-										</label>
-										<label class="btn btn-danger {{ !$reintegro ? 'active' : '' }}">
-											{!! Form::radio('es_reintegrable', '0', !$reintegro ? true : false) !!}No
-										</label>
-									</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('es_reintegrable')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('es_reintegrable'))
-										<span class="help-block">{{ $errors->first('es_reintegrable') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('tipo_calculo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tipo_calculo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo cálculo
+									¿Es reintegrable?
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<?php
+										$reintegro = trim(old('es_reintegrable')) == '' ? '1' : old('es_reintegrable');
+										$reintegro = $reintegro == '1' ? true : false;
+									?>
+									<label class="btn btn-primary {{ $reintegro ? 'active' : '' }}">
+										{!! Form::radio('es_reintegrable', '1', $reintegro ? true : false) !!}Sí
 									</label>
-									{!! Form::select('tipo_calculo', ['PORCENTAJESUELDO' => '% Sueldo', 'PORCENTAJESMMLV' => '% SMMLV', 'VALORFIJO' => 'Valor fijo'], null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Seleccione una opción']) !!}
+									<label class="btn btn-danger {{ !$reintegro ? 'active' : '' }}">
+										{!! Form::radio('es_reintegrable', '0', !$reintegro ? true : false) !!}No
+									</label>
+								</div>
+								@if ($errors->has('es_reintegrable'))
+									<span class="help-block">{{ $errors->first('es_reintegrable') }}</span>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('tipo_calculo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('tipo_calculo'))
-										<span class="help-block">{{ $errors->first('tipo_calculo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Tipo cálculo
+								</label>
+								{!! Form::select('tipo_calculo', ['PORCENTAJESUELDO' => '% Sueldo', 'PORCENTAJESMMLV' => '% SMMLV', 'VALORFIJO' => 'Valor fijo'], null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Seleccione una opción']) !!}
+								@if ($errors->has('tipo_calculo'))
+									<span class="help-block">{{ $errors->first('tipo_calculo') }}</span>
+								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('valor'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Valor
-									</label>
-									{!! Form::number('valor', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Valor', 'step' => '0.01']) !!}
+						</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('valor'))
-										<span class="help-block">{{ $errors->first('valor') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Valor
+								</label>
+								{!! Form::number('valor', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Valor', 'step' => '0.01']) !!}
+								@if ($errors->has('valor'))
+									<span class="help-block">{{ $errors->first('valor') }}</span>
+								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('tope')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tope'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tope
-									</label>
-									{!! Form::number('tope', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Tope', 'step' => '0.01']) !!}
+						</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('tope')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('tope'))
-										<span class="help-block">{{ $errors->first('tope') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Tope
+								</label>
+								{!! Form::number('tope', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Tope', 'step' => '0.01']) !!}
+								@if ($errors->has('tope'))
+									<span class="help-block">{{ $errors->first('tope') }}</span>
+								@endif
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('tipoCuotaObligatoria') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('tipoCuotaObligatoria') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

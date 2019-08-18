@@ -31,137 +31,139 @@
 			</div>
 		@endif
 		<br>
-		<div class="card card-primary">
-			<div class="card-header with-border">
-				<h3 class="card-title">Parámetros contables</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label">
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Parámetros contables</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">
+									@if ($errors->has('tipo_cartera'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tipo de cartera
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
+									</label>
+								</div>
 								@if ($errors->has('tipo_cartera'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
 								@endif
-								Tipo de cartera
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
-								</label>
 							</div>
-							@if ($errors->has('tipo_cartera'))
-								<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-							@endif
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">
+									@if ($errors->has('tipo_garantia'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tipo de garantía
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) CON LIBRANZA', true) !!}Garantía real con libranza
+									</label>
+									<label class="btn btn-primary">
+										{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) CON LIBRANZA', false) !!}Garantía personal con libranza
+									</label>
+									<label class="btn btn-primary">
+										{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) SIN LIBRANZA', false) !!}Garantía real sin libranza
+									</label>
+									<label class="btn btn-primary">
+										{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) SIN LIBRANZA', false) !!}Garantía personal sin libranza
+									</label>
+								</div>
+								@if ($errors->has('tipo_cartera'))
+									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 table-responsive">
+							<table class="table table-hover table-striped">
+								<thead>
+									<th></th>
+									<th class="text-center">A</th>
+									<th class="text-center">B</th>
+									<th class="text-center">C</th>
+									<th class="text-center">D</th>
+									<th class="text-center">E</th>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Capital</th>
+										<td class="capital-a text-center"></td>
+										<td class="capital-b text-center"></td>
+										<td class="capital-c text-center"></td>
+										<td class="capital-d text-center"></td>
+										<td class="capital-e text-center"></td>
+									</tr>
+									<tr>
+										<th>Intereses ingreso</th>
+										<td class="interesIngreso-a text-center"></td>
+										<td class="interesIngreso-b text-center"></td>
+										<td class="interesIngreso-c text-center"></td>
+										<td class="interesIngreso-d text-center"></td>
+										<td class="interesIngreso-e text-center"></td>
+									</tr>
+									<tr>
+										<th>Intereses por cobrar</th>
+										<td class="interesCobrar-a text-center"></td>
+										<td class="interesCobrar-b text-center"></td>
+										<td class="interesCobrar-c text-center"></td>
+										<td class="interesCobrar-d text-center"></td>
+										<td class="interesCobrar-e text-center"></td>
+									</tr>
+									<tr>
+										<th>Intereses anticipados</th>
+										<td class="interesAnticipados-a text-center"></td>
+										<td class="interesAnticipados-b text-center"></td>
+										<td class="interesAnticipados-c text-center"></td>
+										<td class="interesAnticipados-d text-center"></td>
+										<td class="interesAnticipados-e text-center"></td>
+									</tr>
+									<tr>
+										<th>Deterioro capital</th>
+										<td class="deterioroCapital-a text-center"></td>
+										<td class="deterioroCapital-b text-center"></td>
+										<td class="deterioroCapital-c text-center"></td>
+										<td class="deterioroCapital-d text-center"></td>
+										<td class="deterioroCapital-e text-center"></td>
+									</tr>
+									<tr>
+										<th>Deterioro intereses</th>
+										<td class="deterioroIntereses-a text-center"></td>
+										<td class="deterioroIntereses-b text-center"></td>
+										<td class="deterioroIntereses-c text-center"></td>
+										<td class="deterioroIntereses-d text-center"></td>
+										<td class="deterioroIntereses-e text-center"></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label">
-								@if ($errors->has('tipo_garantia'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Tipo de garantía
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) CON LIBRANZA', true) !!}Garantía real con libranza
-								</label>
-								<label class="btn btn-primary">
-									{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) CON LIBRANZA', false) !!}Garantía personal con libranza
-								</label>
-								<label class="btn btn-primary">
-									{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) SIN LIBRANZA', false) !!}Garantía real sin libranza
-								</label>
-								<label class="btn btn-primary">
-									{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) SIN LIBRANZA', false) !!}Garantía personal sin libranza
-								</label>
-							</div>
-							@if ($errors->has('tipo_cartera'))
-								<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-							@endif
-						</div>
-					</div>
+				<div class="card-footer">
 				</div>
-				<div class="row">
-					<div class="col-md-12 table-responsive">
-						<table class="table table-hover table-striped">
-							<thead>
-								<th></th>
-								<th class="text-center">A</th>
-								<th class="text-center">B</th>
-								<th class="text-center">C</th>
-								<th class="text-center">D</th>
-								<th class="text-center">E</th>
-							</thead>
-							<tbody>
-								<tr>
-									<th>Capital</th>
-									<td class="capital-a text-center"></td>
-									<td class="capital-b text-center"></td>
-									<td class="capital-c text-center"></td>
-									<td class="capital-d text-center"></td>
-									<td class="capital-e text-center"></td>
-								</tr>
-								<tr>
-									<th>Intereses ingreso</th>
-									<td class="interesIngreso-a text-center"></td>
-									<td class="interesIngreso-b text-center"></td>
-									<td class="interesIngreso-c text-center"></td>
-									<td class="interesIngreso-d text-center"></td>
-									<td class="interesIngreso-e text-center"></td>
-								</tr>
-								<tr>
-									<th>Intereses por cobrar</th>
-									<td class="interesCobrar-a text-center"></td>
-									<td class="interesCobrar-b text-center"></td>
-									<td class="interesCobrar-c text-center"></td>
-									<td class="interesCobrar-d text-center"></td>
-									<td class="interesCobrar-e text-center"></td>
-								</tr>
-								<tr>
-									<th>Intereses anticipados</th>
-									<td class="interesAnticipados-a text-center"></td>
-									<td class="interesAnticipados-b text-center"></td>
-									<td class="interesAnticipados-c text-center"></td>
-									<td class="interesAnticipados-d text-center"></td>
-									<td class="interesAnticipados-e text-center"></td>
-								</tr>
-								<tr>
-									<th>Deterioro capital</th>
-									<td class="deterioroCapital-a text-center"></td>
-									<td class="deterioroCapital-b text-center"></td>
-									<td class="deterioroCapital-c text-center"></td>
-									<td class="deterioroCapital-d text-center"></td>
-									<td class="deterioroCapital-e text-center"></td>
-								</tr>
-								<tr>
-									<th>Deterioro intereses</th>
-									<td class="deterioroIntereses-a text-center"></td>
-									<td class="deterioroIntereses-b text-center"></td>
-									<td class="deterioroIntereses-c text-center"></td>
-									<td class="deterioroIntereses-d text-center"></td>
-									<td class="deterioroIntereses-e text-center"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="card-footer">
 			</div>
 		</div>
 	</section>

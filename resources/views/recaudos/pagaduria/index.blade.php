@@ -36,72 +36,74 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $pagadurias->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Pagadurías</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name'), ['url' => '/pagaduria', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-5 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-2 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $pagadurias->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Pagadurías</h3>
 				</div>
-				<br>
-				@if(!$pagadurias->total())
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron pagadurías <a href="{{ url('pagaduria/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name'), ['url' => '/pagaduria', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-5 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-					</p>
-				@else
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Periodicidad</th>
-									<th>Contacto</th>
-									<th>Email</th>
-									<th>Estado</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($pagadurias as $pagaduria)
-									<tr>
-										<td>{{ $pagaduria->nombre }}</td>
-										<td>{{ $pagaduria->periodicidad_pago }}</td>
-										<td>{{ $pagaduria->contacto }}</td>
-										<td>{{ $pagaduria->contacto_email }}</td>
-										<td>
-											<span class="label label-{{ $pagaduria->esta_activa?'success':'danger' }}">
-												{{ $pagaduria->esta_activa?'activo':'inactivo' }}
-											</span>
-										</td>
-										<td><a class="btn btn-info btn-xs" href="{{ route('pagaduriaEdit', $pagaduria) }}"><i class="fa fa-edit"></i></a></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $pagadurias->appends(['name', 'estado'])->render() !!}
+					<br>
+					@if(!$pagadurias->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron pagadurías <a href="{{ url('pagaduria/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Periodicidad</th>
+										<th>Contacto</th>
+										<th>Email</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($pagadurias as $pagaduria)
+										<tr>
+											<td>{{ $pagaduria->nombre }}</td>
+											<td>{{ $pagaduria->periodicidad_pago }}</td>
+											<td>{{ $pagaduria->contacto }}</td>
+											<td>{{ $pagaduria->contacto_email }}</td>
+											<td>
+												<span class="label label-{{ $pagaduria->esta_activa?'success':'danger' }}">
+													{{ $pagaduria->esta_activa?'activo':'inactivo' }}
+												</span>
+											</td>
+											<td><a class="btn btn-info btn-xs" href="{{ route('pagaduriaEdit', $pagaduria) }}"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $pagadurias->appends(['name', 'estado'])->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $pagadurias->total()?'primary':'danger' }}">
-					{{ $pagadurias->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $pagadurias->total()?'primary':'danger' }}">
+						{{ $pagadurias->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

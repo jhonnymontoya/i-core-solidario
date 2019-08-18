@@ -43,135 +43,133 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Precierre periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						<h3>Previsualización información cierre cartera</h3>
-						<a class="btn btn-primary xlsx"><i class="fa fa-file-excel-o"></i> XLSX</a>
-						<a class="btn btn-primary csv"><i class="fa fa-file-excel-o"></i> CSV</a>
-						<a class="btn btn-primary txt"><i class="fa fa-file-text-o"></i> TXT</a>
-						<div class="row">
-							<div class="col-md-12 table-responsive">
-								<table class="table table-striped precierre">
-									<thead>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Precierre periodo {{ $periodo->mes }} - {{ $periodo->anio }} Cartera</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					<h3>Previsualización información cierre cartera</h3>
+					<a class="btn btn-primary xlsx"><i class="fa fa-file-excel-o"></i> XLSX</a>
+					<a class="btn btn-primary csv"><i class="fa fa-file-excel-o"></i> CSV</a>
+					<a class="btn btn-primary txt"><i class="fa fa-file-text-o"></i> TXT</a>
+					<div class="row">
+						<div class="col-md-12 table-responsive">
+							<table class="table table-striped precierre">
+								<thead>
+									<tr>
+										<th class="text-center">Identificación</th>
+										<th>Nombre</th>
+										<th>Estado</th>
+										<th>Empresa</th>
+										<th>Obligación</th>
+										<th>Desembolso</th>
+										<th class="text-center">Valor inicial</th>
+										<th class="text-center">Tasa M.V</th>
+										<th class="text-center">Plazo</th>
+										<th class="text-center">Cuota</th>
+										<th class="text-center">Altura</th>
+										<th class="text-center">Pendientes</th>
+										<th>Codigo modalidad</th>
+										<th>Nombre modalidad</th>
+										<th class="text-center">Saldo capital</th>
+										<th class="text-center">Saldo Intereses</th>
+										<th class="text-center">Interes causado</th>
+										<th class="text-center">Causado anterior</th>
+										<th class="text-center">Saldo seguro</th>
+										<th class="text-center">Días mora</th>
+										<th class="text-center">Capital vencido</th>
+										<th>Tipo Garantía</th>
+										<th>Forma pago</th>
+										<th>Periodicidad</th>
+										<th>Terminación estimada</th>
+										<th>Último movimiento</th>
+										<th>Calificación anterior</th>
+										<th>Calificación actual</th>
+										<th>Calificación final</th>
+										<th class="text-center">% Deterioro capital</th>
+										<th class="text-center">Aportes deterioro</th>
+										<th class="text-center">Base deterioro</th>
+										<th class="text-center">Deterioro capital</th>
+										<th class="text-center">% Deterioro intereses</th>
+										<th class="text-center">Deterioro Intereses</th>
+										<th>Cancelación</th>
+										<th>Estado obligación</th>
+										<th>Cuenta capital</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($preCierre as $item)
+										@php
+											$empresa = is_null($item->pagaduria_id) ? '' : $pagadurias[$item->pagaduria_id];
+											$fechaCancelacion = "";
+											$fechaUltimoPago = "";
+											$fechaTerminacionProgramada = "";
+											$fechaDesembolso = "";
+											try{
+												if($item->fecha_cancelacion)
+													$fechaCancelacion = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_cancelacion)->startOfDay();
+												if($item->fecha_ultimo_pago)
+													$fechaUltimoPago = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_ultimo_pago)->startOfDay();
+												if($item->fecha_terminacion_programada)
+													$fechaTerminacionProgramada = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_terminacion_programada)->startOfDay();
+												if($item->fecha_desembolso)
+													$fechaDesembolso = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_desembolso)->startOfDay();
+											}
+											catch(\InvalidArgumentException $e){
+												//
+											}
+										@endphp
 										<tr>
-											<th class="text-center">Identificación</th>
-											<th>Nombre</th>
-											<th>Estado</th>
-											<th>Empresa</th>
-											<th>Obligación</th>
-											<th>Desembolso</th>
-											<th class="text-center">Valor inicial</th>
-											<th class="text-center">Tasa M.V</th>
-											<th class="text-center">Plazo</th>
-											<th class="text-center">Cuota</th>
-											<th class="text-center">Altura</th>
-											<th class="text-center">Pendientes</th>
-											<th>Codigo modalidad</th>
-											<th>Nombre modalidad</th>
-											<th class="text-center">Saldo capital</th>
-											<th class="text-center">Saldo Intereses</th>
-											<th class="text-center">Interes causado</th>
-											<th class="text-center">Causado anterior</th>
-											<th class="text-center">Saldo seguro</th>
-											<th class="text-center">Días mora</th>
-											<th class="text-center">Capital vencido</th>
-											<th>Tipo Garantía</th>
-											<th>Forma pago</th>
-											<th>Periodicidad</th>
-											<th>Terminación estimada</th>
-											<th>Último movimiento</th>
-											<th>Calificación anterior</th>
-											<th>Calificación actual</th>
-											<th>Calificación final</th>
-											<th class="text-center">% Deterioro capital</th>
-											<th class="text-center">Aportes deterioro</th>
-											<th class="text-center">Base deterioro</th>
-											<th class="text-center">Deterioro capital</th>
-											<th class="text-center">% Deterioro intereses</th>
-											<th class="text-center">Deterioro Intereses</th>
-											<th>Cancelación</th>
-											<th>Estado obligación</th>
-											<th>Cuenta capital</th>
+											<td class="text-right">{{ $item->tercero_numero_identificacion }}</td>
+											<td>{{ $item->tercero_nombre }}</td>
+											<td>{{ $item->socio_estado }}</td>
+											<td>{{ $empresa }}</td>
+											<td>{{ $item->numero_obligacion }}</td>
+											<td>{{ $fechaDesembolso }}</td>
+											<td class="text-right">${{ number_format($item->valor_credito) }}</td>
+											<td class="text-right">{{ number_format($item->tasa, 3) }}%</td>
+											<td class="text-right">{{ number_format($item->plazo) }}</td>
+											<td class="text-right">${{ number_format($item->valor_cuota) }}</td>
+											<td class="text-right">{{ number_format($item->altura_cuota) }}</td>
+											<td class="text-right">{{ number_format($item->numero_cuotas_pendientes) }}</td>
+											<td>{{ $item->modalidad_codigo }}</td>
+											<td>{{ $item->modalidad_nombre }}</td>
+											<td class="text-right">${{ number_format($item->saldo_capital) }}</td>
+											<td class="text-right">${{ number_format($item->saldo_intereses) }}</td>
+											<td class="text-right">${{ number_format($item->interes_causado) }}</td>
+											<td class="text-right">${{ number_format($item->interes_causado_anterior) }}</td>
+											<td class="text-right">${{ number_format($item->saldo_seguro) }}</td>
+											<td class="text-right">{{ number_format($item->dias_vencidos) }}</td>
+											<td class="text-right">${{ number_format($item->capital_vencido) }}</td>
+											<td>{{ $item->tipo_garantia }}</td>
+											<td>{{ $item->forma_pago }}</td>
+											<td>{{ $item->periodicidad }}</td>
+											<td>{{ $fechaTerminacionProgramada }}</td>
+											<td>{{ $fechaUltimoPago }}</td>
+											<td>{{ $item->calificacion_periodo_anterior }}</td>
+											<td>{{ $item->calificacion_actual }}</td>
+											<td>{{ $item->calificacion_final }}</td>
+											<td class="text-center">{{ number_format($item->porcentaje_deterioro_capital, 2) }}%</td>
+											<td class="text-center">${{ number_format($item->valor_aporte_deterioro) }}</td>
+											<td class="text-center">${{ number_format($item->base_deterioro) }}</td>
+											<td class="text-center">${{ number_format($item->deterioro_capital) }}</td>
+											<td class="text-center">{{ number_format($item->porcentaje_deterioro_intereses, 2) }}%</td>
+											<td class="text-center">${{ number_format($item->deterioro_intereses) }}</td>
+											<td>{{ $fechaCancelacion }}</td>
+											<td>{{ $item->estado_solicitud }}</td>
+											<td>{{ $item->cuif_capital }}</td>
 										</tr>
-									</thead>
-									<tbody>
-										@foreach ($preCierre as $item)
-											@php
-												$empresa = is_null($item->pagaduria_id) ? '' : $pagadurias[$item->pagaduria_id];
-												$fechaCancelacion = "";
-												$fechaUltimoPago = "";
-												$fechaTerminacionProgramada = "";
-												$fechaDesembolso = "";
-												try{
-													if($item->fecha_cancelacion)
-														$fechaCancelacion = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_cancelacion)->startOfDay();
-													if($item->fecha_ultimo_pago)
-														$fechaUltimoPago = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_ultimo_pago)->startOfDay();
-													if($item->fecha_terminacion_programada)
-														$fechaTerminacionProgramada = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_terminacion_programada)->startOfDay();
-													if($item->fecha_desembolso)
-														$fechaDesembolso = \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00.000', $item->fecha_desembolso)->startOfDay();
-												}
-												catch(\InvalidArgumentException $e){
-													//
-												}
-											@endphp
-											<tr>
-												<td class="text-right">{{ $item->tercero_numero_identificacion }}</td>
-												<td>{{ $item->tercero_nombre }}</td>
-												<td>{{ $item->socio_estado }}</td>
-												<td>{{ $empresa }}</td>
-												<td>{{ $item->numero_obligacion }}</td>
-												<td>{{ $fechaDesembolso }}</td>
-												<td class="text-right">${{ number_format($item->valor_credito) }}</td>
-												<td class="text-right">{{ number_format($item->tasa, 3) }}%</td>
-												<td class="text-right">{{ number_format($item->plazo) }}</td>
-												<td class="text-right">${{ number_format($item->valor_cuota) }}</td>
-												<td class="text-right">{{ number_format($item->altura_cuota) }}</td>
-												<td class="text-right">{{ number_format($item->numero_cuotas_pendientes) }}</td>
-												<td>{{ $item->modalidad_codigo }}</td>
-												<td>{{ $item->modalidad_nombre }}</td>
-												<td class="text-right">${{ number_format($item->saldo_capital) }}</td>
-												<td class="text-right">${{ number_format($item->saldo_intereses) }}</td>
-												<td class="text-right">${{ number_format($item->interes_causado) }}</td>
-												<td class="text-right">${{ number_format($item->interes_causado_anterior) }}</td>
-												<td class="text-right">${{ number_format($item->saldo_seguro) }}</td>
-												<td class="text-right">{{ number_format($item->dias_vencidos) }}</td>
-												<td class="text-right">${{ number_format($item->capital_vencido) }}</td>
-												<td>{{ $item->tipo_garantia }}</td>
-												<td>{{ $item->forma_pago }}</td>
-												<td>{{ $item->periodicidad }}</td>
-												<td>{{ $fechaTerminacionProgramada }}</td>
-												<td>{{ $fechaUltimoPago }}</td>
-												<td>{{ $item->calificacion_periodo_anterior }}</td>
-												<td>{{ $item->calificacion_actual }}</td>
-												<td>{{ $item->calificacion_final }}</td>
-												<td class="text-center">{{ number_format($item->porcentaje_deterioro_capital, 2) }}%</td>
-												<td class="text-center">${{ number_format($item->valor_aporte_deterioro) }}</td>
-												<td class="text-center">${{ number_format($item->base_deterioro) }}</td>
-												<td class="text-center">${{ number_format($item->deterioro_capital) }}</td>
-												<td class="text-center">{{ number_format($item->porcentaje_deterioro_intereses, 2) }}%</td>
-												<td class="text-center">${{ number_format($item->deterioro_intereses) }}</td>
-												<td>{{ $fechaCancelacion }}</td>
-												<td>{{ $item->estado_solicitud }}</td>
-												<td>{{ $item->cuif_capital }}</td>
-											</tr>
-										@endforeach
-									</tbody>
-								</table>
-							</div>
+									@endforeach
+								</tbody>
+							</table>
 						</div>
 					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
-					</div>
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>

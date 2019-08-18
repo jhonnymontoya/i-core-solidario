@@ -31,64 +31,66 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			{!! Form::open(['url' => 'conceptosRecaudos', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="card-header with-border">
-				<h3 class="card-title">Crear nuevo concepto de recaudo</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('pagaduria_id')?'has-error':'') }}">
-							<label class="control-label">
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				{!! Form::open(['url' => 'conceptosRecaudos', 'method' => 'post', 'role' => 'form']) !!}
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo concepto de recaudo</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('pagaduria_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('pagaduria_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Pagaduria
+								</label>
+								{!! Form::select('pagaduria_id', $pagadurias, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione pagaduría', 'autofocus']) !!}
 								@if ($errors->has('pagaduria_id'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('pagaduria_id') }}</span>
 								@endif
-								Pagaduria
-							</label>
-							{!! Form::select('pagaduria_id', $pagadurias, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione pagaduría', 'autofocus']) !!}
-							@if ($errors->has('pagaduria_id'))
-								<span class="help-block">{{ $errors->first('pagaduria_id') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
 
-					<div class="col-md-2">
-						<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-2">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('codigo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Código concepto
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Código del concepto']) !!}
 								@if ($errors->has('codigo'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
 								@endif
-								Código concepto
-							</label>
-							{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Código del concepto']) !!}
-							@if ($errors->has('codigo'))
-								<span class="help-block">{{ $errors->first('codigo') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
 
-					<div class="col-md-6">
-						<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del concepto']) !!}
 								@if ($errors->has('nombre'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
 								@endif
-								Nombre
-							</label>
-							{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del concepto']) !!}
-							@if ($errors->has('nombre'))
-								<span class="help-block">{{ $errors->first('nombre') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('conceptosRecaudos') }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				{!! Form::close() !!}
 			</div>
-			<div class="card-footer">
-				{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-				<a href="{{ url('conceptosRecaudos') }}" class="btn btn-danger pull-right">Cancelar</a>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

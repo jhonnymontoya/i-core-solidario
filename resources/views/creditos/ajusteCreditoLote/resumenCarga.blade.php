@@ -45,7 +45,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card card-warning">
+				<div class="card card-warning card-outline">
 					<div class="card-header with-border">
 						<h3 class="card-title">Resumen carga archivo de créditos</h3>
 					</div>

@@ -44,290 +44,288 @@
 			</div>
 		@endif
 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Cálculo liquidación de retiro</h3>
-					</div>
-					<div class="card-body">
-						{!! Form::open(['url' => 'retiroSocio/preliquidacion', 'method' => 'get', 'role' => 'form']) !!}
-						{!! Form::hidden("preliquidar", true) !!}
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('socio_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('socio_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Socio
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-male"></i></span>
-										{!! Form::select('socio_id', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
-									</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Cálculo liquidación de retiro</h3>
+				</div>
+				<div class="card-body">
+					{!! Form::open(['url' => 'retiroSocio/preliquidacion', 'method' => 'get', 'role' => 'form']) !!}
+					{!! Form::hidden("preliquidar", true) !!}
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('socio_id')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('socio_id'))
-										<span class="help-block">{{ $errors->first('socio_id') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Socio
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-male"></i></span>
+									{!! Form::select('socio_id', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
 								</div>
+								@if ($errors->has('socio_id'))
+									<span class="help-block">{{ $errors->first('socio_id') }}</span>
+								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('fechaMovimiento')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fechaMovimiento'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha movimiento
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::text('fechaMovimiento', Request::has('fechaMovimiento') ? Request::get('fechaMovimiento') : date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('fechaMovimiento')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('fechaMovimiento'))
-										<span class="help-block">{{ $errors->first('fechaMovimiento') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha movimiento
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::text('fechaMovimiento', Request::has('fechaMovimiento') ? Request::get('fechaMovimiento') : date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
+								@if ($errors->has('fechaMovimiento'))
+									<span class="help-block">{{ $errors->first('fechaMovimiento') }}</span>
+								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('fechaSaldo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fechaSaldo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha saldo
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::text('fechaSaldo', Request::has('fechaSaldo') ? Request::get('fechaSaldo') : date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('fechaSaldo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('fechaSaldo'))
-										<span class="help-block">{{ $errors->first('fechaSaldo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha saldo
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::text('fechaSaldo', Request::has('fechaSaldo') ? Request::get('fechaSaldo') : date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
+								@if ($errors->has('fechaSaldo'))
+									<span class="help-block">{{ $errors->first('fechaSaldo') }}</span>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label><br>
+								{!! Form::submit('Preliquidar', ['class' => 'btn btn-success']) !!}
+							</div>
+						</div>
+					</div>
+					{!! Form::close() !!}
+
+					@if($preliquidacion->count())
+						<br>
+						<div class="row">
+							<div class="col-md-3">
+								<label>Socio</label><br>
+								{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->numero_identificacion }} {{ $socio->tercero->nombre }}
 							</div>
 							<div class="col-md-2">
-								<div class="form-group">
-									<label class="control-label">&nbsp;</label><br>
-									{!! Form::submit('Preliquidar', ['class' => 'btn btn-success']) !!}
+								<label>Fecha afiliación</label><br>
+								{{ $socio->fecha_afiliacion }}
+							</div>
+							<div class="col-md-1">
+								<?php
+									$label = "default";
+									switch ($socio->estado) {
+										case 'ACTIVO':
+											$label = 'green';
+											break;
+										case 'NOVEDAD':
+											$label = 'orange';
+											break;
+										case 'RETIRO':
+											$label = 'maroon';
+											break;
+										case 'LIQUIDADO':
+											$label = 'red';
+											break;
+										case 'PROCESO':
+											$label = 'light-blue';
+											break;
+									}
+								?>
+								<label>Estado</label><br>
+								<span class="label bg-{{ $label }}">{{ $socio->estado }}</span>
+							</div>
+							<div class="col-md-2">
+								<?php
+									$retiro = $socio->sociosRetiros->first();
+									$fechaRetiro = '-';
+									if(!empty($retiro))
+									{
+										$fechaRetiro = $retiro->fecha_solicitud_retiro;
+									}
+								?>
+								<label>Fecha retiro</label><br>
+								{{ $fechaRetiro }}
+							</div>
+							<div class="col-md-2">
+								<label>Fecha movimiento</label><br>
+								{{ $fechaMovimiento }}
+							</div>
+							<div class="col-md-2">
+								<label>Fecha saldos</label><br>
+								{{ $fechaSaldo }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5 table-responsive">
+								<h3>Saldos a favor</h3>
+								<table class="table table-bordered table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Nombre concepto</th>
+											<th class="text-center">Saldo</th>
+											<th class="text-center">Intereses</th>
+											<th class="text-center">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+											$ahorros = 0;
+										?>
+										@foreach($preliquidacion as $pre)
+											@if($pre->tipo == 'AHORRO')
+												<?php
+													$ahorros += $pre->saldo + $pre->interes;
+												?>
+												<tr>
+													<td>{{ $pre->nombre }}</td>
+													<td class="text-right">${{ number_format($pre->saldo, 0) }}</td>
+													<td class="text-right">${{ number_format($pre->interes, 0) }}</td>
+													<td class="text-right">${{ number_format($pre->saldo + $pre->interes, 0) }}</td>
+												</tr>
+											@endif
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-7 table-responsive">
+								<h3>Saldos en contra</h3>
+								<table class="table table-bordered table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Numero obligación</th>
+											<th class="text-center">Saldo</th>
+											<th class="text-center">Interes</th>
+											<th class="text-center">Seguros</th>
+											<th class="text-center">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+											$creditos = 0;
+										?>
+										@foreach($preliquidacion as $pre)
+											@if($pre->tipo == 'CRÉDITO' || $pre->tipo == 'GMF')
+												<?php
+													$creditos += $pre->saldo + $pre->interes + $pre->seguro;
+												?>
+												<tr>
+													<td>{{ $pre->nombre }}</td>
+													<td class="text-right">${{ number_format($pre->saldo, 0) }}</td>
+													<td class="text-right">${{ number_format($pre->interes, 0) }}</td>
+													<td class="text-right">${{ number_format($pre->seguro, 0) }}</td>
+													<td class="text-right">${{ number_format($pre->saldo + $pre->interes + $pre->seguro, 0) }}</td>
+												</tr>
+											@endif
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-3 table-responsive">
+								<table class="table">
+									<tbody>
+										<tr>
+											<th>Total saldo a favor</th>
+											<td class="text-right">${{ number_format($ahorros, 0) }}</td>
+										</tr>
+										<tr>
+											<th>Total saldo en contra</th>
+											<td class="text-right">${{ number_format($creditos, 0) }}</td>
+										</tr>
+										<tr><td></td></tr>
+										<tr>
+											<th>Total liquidación</th>
+											<td class="text-right">
+												<?php
+													$liquidacion = $ahorros - $creditos;
+												?>
+												<strong class="{{ $liquidacion < 0 ? 'text-danger' : '' }}">${{ number_format($liquidacion, 0) }}</strong>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						@if($socio->logLiquidacionesRetiros->count())
+							<br>
+							<div class="row">
+								<div class="col-md-6">
+									<label class="text-danger">Mensajes de alerta</label><br>
+									<ul>
+										@foreach($socio->logLiquidacionesRetiros as $log)
+											<li>{{ $log->mensaje }}</li>
+										@endforeach
+									</ul>
+								</div>
+							</div>
+						@endif
+						<div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="tituloConfirmacion">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="tituloConfirmacion">Liquidación de usuario</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-md-10 col-md-offset-1">
+												<div class="alert alert-warning">
+													<h4>
+														<i class="fa fa-warning"></i>&nbsp;Alerta!
+													</h4>
+													Confirme los datos antes de ejecutar el proceso de liquidación
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10 col-md-offset-1">
+												<dl class="dl-horizontal">
+													<dt>Socio:</dt>
+													<dd>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->numero_identificacion }} {{ $socio->tercero->nombre }}</dd>
+													<dt>Fecha movimiento:</dt>
+													<dd>{{ $fechaMovimiento }}</dd>
+													<dt>Fecha saldos:</dt>
+													<dd>{{ $fechaSaldo }}</dd>
+												</dl>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<a class="btn btn-success" id="continuar">Liquidar</a>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+									</div>
 								</div>
 							</div>
 						</div>
+					@endif
+				</div>
+				<div class="card-footer">
+					@if($preliquidacion->count())
+						{!! Form::model($socio, ['route' => ['retiroSocioLiquidar', $socio], 'method' => 'put', 'role' => 'form', 'id' => 'formProcesar']) !!}
+						{!! Form::hidden('fecha_movimiento', $fechaMovimiento) !!}
+						{!! Form::hidden('fecha_saldo', $fechaSaldo) !!}
 						{!! Form::close() !!}
-
-						@if($preliquidacion->count())
-							<br>
-							<div class="row">
-								<div class="col-md-3">
-									<label>Socio</label><br>
-									{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->numero_identificacion }} {{ $socio->tercero->nombre }}
-								</div>
-								<div class="col-md-2">
-									<label>Fecha afiliación</label><br>
-									{{ $socio->fecha_afiliacion }}
-								</div>
-								<div class="col-md-1">
-									<?php
-										$label = "default";
-										switch ($socio->estado) {
-											case 'ACTIVO':
-												$label = 'green';
-												break;
-											case 'NOVEDAD':
-												$label = 'orange';
-												break;
-											case 'RETIRO':
-												$label = 'maroon';
-												break;
-											case 'LIQUIDADO':
-												$label = 'red';
-												break;
-											case 'PROCESO':
-												$label = 'light-blue';
-												break;
-										}
-									?>
-									<label>Estado</label><br>
-									<span class="label bg-{{ $label }}">{{ $socio->estado }}</span>
-								</div>
-								<div class="col-md-2">
-									<?php
-										$retiro = $socio->sociosRetiros->first();
-										$fechaRetiro = '-';
-										if(!empty($retiro))
-										{
-											$fechaRetiro = $retiro->fecha_solicitud_retiro;
-										}
-									?>
-									<label>Fecha retiro</label><br>
-									{{ $fechaRetiro }}
-								</div>
-								<div class="col-md-2">
-									<label>Fecha movimiento</label><br>
-									{{ $fechaMovimiento }}
-								</div>
-								<div class="col-md-2">
-									<label>Fecha saldos</label><br>
-									{{ $fechaSaldo }}
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-5 table-responsive">
-									<h3>Saldos a favor</h3>
-									<table class="table table-bordered table-striped table-hover">
-										<thead>
-											<tr>
-												<th>Nombre concepto</th>
-												<th class="text-center">Saldo</th>
-												<th class="text-center">Intereses</th>
-												<th class="text-center">Total</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
-												$ahorros = 0;
-											?>
-											@foreach($preliquidacion as $pre)
-												@if($pre->tipo == 'AHORRO')
-													<?php
-														$ahorros += $pre->saldo + $pre->interes;
-													?>
-													<tr>
-														<td>{{ $pre->nombre }}</td>
-														<td class="text-right">${{ number_format($pre->saldo, 0) }}</td>
-														<td class="text-right">${{ number_format($pre->interes, 0) }}</td>
-														<td class="text-right">${{ number_format($pre->saldo + $pre->interes, 0) }}</td>
-													</tr>
-												@endif
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-
-								<div class="col-md-7 table-responsive">
-									<h3>Saldos en contra</h3>
-									<table class="table table-bordered table-striped table-hover">
-										<thead>
-											<tr>
-												<th>Numero obligación</th>
-												<th class="text-center">Saldo</th>
-												<th class="text-center">Interes</th>
-												<th class="text-center">Seguros</th>
-												<th class="text-center">Total</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
-												$creditos = 0;
-											?>
-											@foreach($preliquidacion as $pre)
-												@if($pre->tipo == 'CRÉDITO' || $pre->tipo == 'GMF')
-													<?php
-														$creditos += $pre->saldo + $pre->interes + $pre->seguro;
-													?>
-													<tr>
-														<td>{{ $pre->nombre }}</td>
-														<td class="text-right">${{ number_format($pre->saldo, 0) }}</td>
-														<td class="text-right">${{ number_format($pre->interes, 0) }}</td>
-														<td class="text-right">${{ number_format($pre->seguro, 0) }}</td>
-														<td class="text-right">${{ number_format($pre->saldo + $pre->interes + $pre->seguro, 0) }}</td>
-													</tr>
-												@endif
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-3 table-responsive">
-									<table class="table">
-										<tbody>
-											<tr>
-												<th>Total saldo a favor</th>
-												<td class="text-right">${{ number_format($ahorros, 0) }}</td>
-											</tr>
-											<tr>
-												<th>Total saldo en contra</th>
-												<td class="text-right">${{ number_format($creditos, 0) }}</td>
-											</tr>
-											<tr><td></td></tr>
-											<tr>
-												<th>Total liquidación</th>
-												<td class="text-right">
-													<?php
-														$liquidacion = $ahorros - $creditos;
-													?>
-													<strong class="{{ $liquidacion < 0 ? 'text-danger' : '' }}">${{ number_format($liquidacion, 0) }}</strong>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							@if($socio->logLiquidacionesRetiros->count())
-								<br>
-								<div class="row">
-									<div class="col-md-6">
-										<label class="text-danger">Mensajes de alerta</label><br>
-										<ul>
-											@foreach($socio->logLiquidacionesRetiros as $log)
-												<li>{{ $log->mensaje }}</li>
-											@endforeach
-										</ul>
-									</div>
-								</div>
-							@endif
-							<div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="tituloConfirmacion">
-								<div class="modal-dialog modal-lg" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="tituloConfirmacion">Liquidación de usuario</h4>
-										</div>
-										<div class="modal-body">
-											<div class="row">
-												<div class="col-md-10 col-md-offset-1">
-													<div class="alert alert-warning">
-														<h4>
-															<i class="fa fa-warning"></i>&nbsp;Alerta!
-														</h4>
-														Confirme los datos antes de ejecutar el proceso de liquidación
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-10 col-md-offset-1">
-													<dl class="dl-horizontal">
-														<dt>Socio:</dt>
-														<dd>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->numero_identificacion }} {{ $socio->tercero->nombre }}</dd>
-														<dt>Fecha movimiento:</dt>
-														<dd>{{ $fechaMovimiento }}</dd>
-														<dt>Fecha saldos:</dt>
-														<dd>{{ $fechaSaldo }}</dd>
-													</dl>
-												</div>
-											</div>
-										</div>
-										<div class="modal-footer">
-											<a class="btn btn-success" id="continuar">Liquidar</a>
-											<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						@endif
-					</div>
-					<div class="card-footer">
-						@if($preliquidacion->count())
-							{!! Form::model($socio, ['route' => ['retiroSocioLiquidar', $socio], 'method' => 'put', 'role' => 'form', 'id' => 'formProcesar']) !!}
-							{!! Form::hidden('fecha_movimiento', $fechaMovimiento) !!}
-							{!! Form::hidden('fecha_saldo', $fechaSaldo) !!}
-							{!! Form::close() !!}
-							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmacion">Liquidar</button>
-						@endif
-						<a href="{{ url('retiroSocio') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmacion">Liquidar</button>
+					@endif
+					<a href="{{ url('retiroSocio') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

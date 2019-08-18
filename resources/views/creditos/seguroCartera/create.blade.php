@@ -31,98 +31,100 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			{!! Form::open(['url' => 'seguroCartera', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
-			<div class="card-header with-border">
-				<h3 class="card-title">Crear nuevo seguro para cartera</h3>
-			</div>
-			<div class="card-body">
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				{!! Form::open(['url' => 'seguroCartera', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo seguro para cartera</h3>
+				</div>
+				<div class="card-body">
 
-				<div class="row">
-					<div class="col-md-2">
-						<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-2">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('codigo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Código
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autofocus']) !!}
 								@if ($errors->has('codigo'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
 								@endif
-								Código
-							</label>
-							{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autofocus']) !!}
-							@if ($errors->has('codigo'))
-								<span class="help-block">{{ $errors->first('codigo') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
 
-					<div class="col-md-7">
-						<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-7">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
 								@if ($errors->has('nombre'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
 								@endif
-								Nombre
-							</label>
-							{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
-							@if ($errors->has('nombre'))
-								<span class="help-block">{{ $errors->first('nombre') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
 
-					<div class="col-md-3">
-						<div class="form-group {{ ($errors->has('base_prima')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('base_prima')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('base_prima'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Base para prima
+								</label>
+								{!! Form::select('base_prima', ['SALDO' => 'Saldo', 'VALORINICIAL' => 'Valor inicial'], null, ['class' => 'form-control']) !!}
 								@if ($errors->has('base_prima'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('base_prima') }}</span>
 								@endif
-								Base para prima
-							</label>
-							{!! Form::select('base_prima', ['SALDO' => 'Saldo', 'VALORINICIAL' => 'Valor inicial'], null, ['class' => 'form-control']) !!}
-							@if ($errors->has('base_prima'))
-								<span class="help-block">{{ $errors->first('base_prima') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-md-9">
-						<div class="form-group {{ ($errors->has('aseguradora_tercero_id')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="form-group {{ ($errors->has('aseguradora_tercero_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('aseguradora_tercero_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Aseguradora
+								</label>
+								{!! Form::select('aseguradora_tercero_id', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione aseguradora']) !!}
 								@if ($errors->has('aseguradora_tercero_id'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('aseguradora_tercero_id') }}</span>
 								@endif
-								Aseguradora
-							</label>
-							{!! Form::select('aseguradora_tercero_id', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione aseguradora']) !!}
-							@if ($errors->has('aseguradora_tercero_id'))
-								<span class="help-block">{{ $errors->first('aseguradora_tercero_id') }}</span>
-							@endif
+							</div>
 						</div>
-					</div>
 
-					<div class="col-md-3">
-						<div class="form-group {{ ($errors->has('tasa_mes')?'has-error':'') }}">
-							<label class="control-label">
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('tasa_mes')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('tasa_mes'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tasa mensual
+								</label>
+								{!! Form::number('tasa_mes', null, ['class' => 'form-control', 'placeholder' => 'Tasa mensual', 'autocomplete' => 'off', 'step' => '0.0001']) !!}
 								@if ($errors->has('tasa_mes'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('tasa_mes') }}</span>
 								@endif
-								Tasa mensual
-							</label>
-							{!! Form::number('tasa_mes', null, ['class' => 'form-control', 'placeholder' => 'Tasa mensual', 'autocomplete' => 'off', 'step' => '0.0001']) !!}
-							@if ($errors->has('tasa_mes'))
-								<span class="help-block">{{ $errors->first('tasa_mes') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('seguroCartera') }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				{!! Form::close() !!}
 			</div>
-			<div class="card-footer">
-				{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-				<a href="{{ url('seguroCartera') }}" class="btn btn-danger pull-right">Cancelar</a>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

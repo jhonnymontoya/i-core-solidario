@@ -39,135 +39,133 @@
 		@endif
 
 		{!! Form::model($cobro, ['url' => ['cobrosAdministrativos', $cobro], 'method' => 'put', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Editar cobro administrativo</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('codigo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Código
-									</label>
-									{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autocomplete' => 'off', 'autofocus']) !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Editar cobro administrativo</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('codigo'))
-										<span class="help-block">{{ $errors->first('codigo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Código
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autocomplete' => 'off', 'autofocus']) !!}
+								@if ($errors->has('codigo'))
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
+								@endif
 							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('nombre'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autocomplete' => 'off']) !!}
+						</div>
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autocomplete' => 'off']) !!}
+								@if ($errors->has('nombre'))
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
+								@endif
 							</div>
-							<div class="col-md-2">
-								<div class="form-group {{ ($errors->has('esta_activo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('esta_activo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Estado
-									</label>
-									<br>
-									@php
-										$estaActivo = $cobro->esta_activo;
-										if(strlen(old('esta_activo')) > 0) {
-											$estaActivo = old('esta_activo') == "1" ? true : false;
-										}
-									@endphp
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ ($estaActivo ? 'active' : '') }}">
-											{!! Form::radio('esta_activo', '1', $estaActivo) !!}Activo
-										</label>
-										<label class="btn btn-danger {{ ($estaActivo ? '' : 'active') }}">
-											{!! Form::radio('esta_activo', '0', $estaActivo) !!}Inacivo
-										</label>
-									</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group {{ ($errors->has('esta_activo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('esta_activo'))
-										<span class="help-block">{{ $errors->first('esta_activo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Estado
+								</label>
+								<br>
+								@php
+									$estaActivo = $cobro->esta_activo;
+									if(strlen(old('esta_activo')) > 0) {
+										$estaActivo = old('esta_activo') == "1" ? true : false;
+									}
+								@endphp
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary {{ ($estaActivo ? 'active' : '') }}">
+										{!! Form::radio('esta_activo', '1', $estaActivo) !!}Activo
+									</label>
+									<label class="btn btn-danger {{ ($estaActivo ? '' : 'active') }}">
+										{!! Form::radio('esta_activo', '0', $estaActivo) !!}Inacivo
+									</label>
 								</div>
+								@if ($errors->has('esta_activo'))
+									<span class="help-block">{{ $errors->first('esta_activo') }}</span>
+								@endif
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('efecto')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('efecto'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Efecto
-									</label>
-									<br>
-									<?php
-										$efecto = $cobro->efecto;
-										if(!empty(old('efecto'))) {
-											$efecto = old('efecto');
-										}
-									?>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? 'active' : ''}}">
-											{!! Form::radio('efecto', 'DEDUCCIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? true : false) !!}Deducción de crédito
-										</label>
-										<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? '' : 'active'}}">
-											{!! Form::radio('efecto', 'ADICIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? false : true) !!}Adición de crédito
-										</label>
-									</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('efecto')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('efecto'))
-										<span class="help-block">{{ $errors->first('efecto') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
-							</div>
-							<div class="col-md-8">
-								<div class="form-group {{ ($errors->has('destino_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('destino_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta destino
+									Efecto
+								</label>
+								<br>
+								<?php
+									$efecto = $cobro->efecto;
+									if(!empty(old('efecto'))) {
+										$efecto = old('efecto');
+									}
+								?>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? 'active' : ''}}">
+										{!! Form::radio('efecto', 'DEDUCCIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? true : false) !!}Deducción de crédito
 									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('destino_cuif_id', [], null, ['class' => 'form-control select2']) !!}
-									</div>
-									@if ($errors->has('destino_cuif_id'))
-										<span class="help-block">{{ $errors->first('destino_cuif_id') }}</span>
-									@endif
+									<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? '' : 'active'}}">
+										{!! Form::radio('efecto', 'ADICIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? false : true) !!}Adición de crédito
+									</label>
 								</div>
+								@if ($errors->has('efecto'))
+									<span class="help-block">{{ $errors->first('efecto') }}</span>
+								@endif
 							</div>
 						</div>
-						<hr>
-						<br>
+						<div class="col-md-8">
+							<div class="form-group {{ ($errors->has('destino_cuif_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('destino_cuif_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta destino
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-table"></i></span>
+									{!! Form::select('destino_cuif_id', [], null, ['class' => 'form-control select2']) !!}
+								</div>
+								@if ($errors->has('destino_cuif_id'))
+									<span class="help-block">{{ $errors->first('destino_cuif_id') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
+					<hr>
+					<br>
 
-						{{-- Componente de parametros del cobro --}}
-						@component('creditos.cobroAdministrativo.componentes.parametros', ['cobro' => $cobro])
+					{{-- Componente de parametros del cobro --}}
+					@component('creditos.cobroAdministrativo.componentes.parametros', ['cobro' => $cobro])
+					@endcomponent
+
+					@if ($cobro->es_condicionado)
+						{{-- Componente de condiciones del cobro --}}
+						@component('creditos.cobroAdministrativo.componentes.condiciones', ['cobro' => $cobro])
 						@endcomponent
-
-						@if ($cobro->es_condicionado)
-							{{-- Componente de condiciones del cobro --}}
-							@component('creditos.cobroAdministrativo.componentes.condiciones', ['cobro' => $cobro])
-							@endcomponent
-						@endif
-					</div>
-					<div class="card-footer">
-						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+					@endif
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

@@ -44,344 +44,342 @@
 			</div>
 		@endif
 
-		<div class="row">
+		<div class="container-fluid">
 			{!! Form::model($solicitud, ['url' => ['solicitudCredito', $solicitud], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask', 'name' => 'solicitud_credito']) !!}
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Radicar solicitud de crédito</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('modalidad'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Modalidad de crédito
-									</label>
-									{!! Form::text('modalidad', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => 'form-control', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'readonly']) !!}
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Radicar solicitud de crédito</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('modalidad'))
-										<span class="help-block">{{ $errors->first('modalidad') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Modalidad de crédito
+								</label>
+								{!! Form::text('modalidad', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => 'form-control', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'readonly']) !!}
+								@if ($errors->has('modalidad'))
+									<span class="help-block">{{ $errors->first('modalidad') }}</span>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('solicitante')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('solicitante'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Solicitante
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-male"></i></span>
-										@php
-											$nombreMostar = $solicitud->tercero->tipoIdentificacion->codigo . ' ' . $solicitud->tercero->numero_identificacion . ' - ' . $solicitud->tercero->nombre_corto;
-										@endphp
-										<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fa fa-external-link"></i></small></a>
-									</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('solicitante')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('solicitante'))
-										<span class="help-block">{{ $errors->first('solicitante') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Solicitante
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-male"></i></span>
+									@php
+										$nombreMostar = $solicitud->tercero->tipoIdentificacion->codigo . ' ' . $solicitud->tercero->numero_identificacion . ' - ' . $solicitud->tercero->nombre_corto;
+									@endphp
+									<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fa fa-external-link"></i></small></a>
 								</div>
+								@if ($errors->has('solicitante'))
+									<span class="help-block">{{ $errors->first('solicitante') }}</span>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('fecha_solicitud')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fecha_solicitud'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha solicitud
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
-									</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('fecha_solicitud')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('fecha_solicitud'))
-										<span class="help-block">{{ $errors->first('fecha_solicitud') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha solicitud
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
 								</div>
+								@if ($errors->has('fecha_solicitud'))
+									<span class="help-block">{{ $errors->first('fecha_solicitud') }}</span>
+								@endif
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">
-										Pagaduría
-									</label>
-									@php
-										$socio = optional($solicitud->tercero)->socio;
-										$pagaduria = empty($socio) ? '' : $socio->pagaduria->nombre;
-									@endphp
-									{!! Form::text('pagaduria', $pagaduria, ['class' => 'form-control', 'placeholder' => 'Pagaduría', 'autocomplete' => 'off', 'readonly']) !!}
-								</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">
+									Pagaduría
+								</label>
+								@php
+									$socio = optional($solicitud->tercero)->socio;
+									$pagaduria = empty($socio) ? '' : $socio->pagaduria->nombre;
+								@endphp
+								{!! Form::text('pagaduria', $pagaduria, ['class' => 'form-control', 'placeholder' => 'Pagaduría', 'autocomplete' => 'off', 'readonly']) !!}
 							</div>
+						</div>
 
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">
-										Periodicidad pagaduría
-									</label>
-									@php
-										$periodicidad = empty($socio) ? '' : $socio->pagaduria->periodicidad_pago;
-									@endphp
-									{!! Form::text('periodicidadPagaduria', $periodicidad, ['class' => 'form-control', 'placeholder' => 'Pagaduría', 'autocomplete' => 'off', 'readonly']) !!}
-								</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">
+									Periodicidad pagaduría
+								</label>
+								@php
+									$periodicidad = empty($socio) ? '' : $socio->pagaduria->periodicidad_pago;
+								@endphp
+								{!! Form::text('periodicidadPagaduria', $periodicidad, ['class' => 'form-control', 'placeholder' => 'Pagaduría', 'autocomplete' => 'off', 'readonly']) !!}
 							</div>
 						</div>
-						{{-- INICIO FILA --}}
-						<div class="row">
-							<div class="col-md-12">
-								<h4 id="error" style="display: none; color: #dd4b39;">&nbsp;</h4>
-							</div>
+					</div>
+					{{-- INICIO FILA --}}
+					<div class="row">
+						<div class="col-md-12">
+							<h4 id="error" style="display: none; color: #dd4b39;">&nbsp;</h4>
 						</div>
-						{{-- FIN FILA --}}
-						<hr>
+					</div>
+					{{-- FIN FILA --}}
+					<hr>
 
-						<div class="row form-horizontal">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('valor_credito')?'has-error':'') }}">
-									<label class="col-md-6 control-label">
-										@if ($errors->has('valor_credito'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Valor solicitud
-									</label>
-									<div class="col-md-6 input-group">
-										<span class="input-group-addon">$</span>
-										{!! Form::text('valor_credito', null, ['class' => 'form-control text-right', 'autofocus', 'data-maskMoney']) !!}
-									</div>
+					<div class="row form-horizontal">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('valor_credito')?'has-error':'') }}">
+								<label class="col-md-6 control-label">
 									@if ($errors->has('valor_credito'))
-										<span class="help-block">{{ $errors->first('valor_credito') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Valor solicitud
+								</label>
+								<div class="col-md-6 input-group">
+									<span class="input-group-addon">$</span>
+									{!! Form::text('valor_credito', null, ['class' => 'form-control text-right', 'autofocus', 'data-maskMoney']) !!}
 								</div>
+								@if ($errors->has('valor_credito'))
+									<span class="help-block">{{ $errors->first('valor_credito') }}</span>
+								@endif
 							</div>
+						</div>
 
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('tasa')?'has-error':'') }}">
-									<label class="col-md-6 control-label">
-										@if ($errors->has('tasa'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tasa M.V.
-									</label>
-									<div class="col-md-6 input-group">
-										<span class="input-group-addon">%</span>
-										{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => 'form-control', 'readonly']) !!}
-									</div>
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('tasa')?'has-error':'') }}">
+								<label class="col-md-6 control-label">
 									@if ($errors->has('tasa'))
-										<span class="help-block">{{ $errors->first('tasa') }}</span>
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tasa M.V.
+								</label>
+								<div class="col-md-6 input-group">
+									<span class="input-group-addon">%</span>
+									{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => 'form-control', 'readonly']) !!}
+								</div>
+								@if ($errors->has('tasa'))
+									<span class="help-block">{{ $errors->first('tasa') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
+
+					<div></div>
+					<br>
+					<hr>
+					<div class="row form-horizontal">
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
+								<label class="col-md-7 control-label">
+									@if ($errors->has('plazo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Número de cuotas
+								</label>
+								<div class="col-md-5">
+									{!! Form::text('plazo', null, ['class' => 'form-control', 'autofocus', 'min' => '1', 'step' => '1']) !!}
+									@if ($errors->has('plazo'))
+										<span class="help-block">{{ $errors->first('plazo') }}</span>
 									@endif
 								</div>
 							</div>
 						</div>
 
-						<div></div>
-						<br>
-						<hr>
-						<div class="row form-horizontal">
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
-									<label class="col-md-7 control-label">
-										@if ($errors->has('plazo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Número de cuotas
-									</label>
-									<div class="col-md-5">
-										{!! Form::text('plazo', null, ['class' => 'form-control', 'autofocus', 'min' => '1', 'step' => '1']) !!}
-										@if ($errors->has('plazo'))
-											<span class="help-block">{{ $errors->first('plazo') }}</span>
-										@endif
-									</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('forma_pago')?'has-error':'') }}">
+								<label class="col-md-6 control-label">
+									@if ($errors->has('forma_pago'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Forma de pago
+								</label>
+								<div class="col-md-6">
+									{!! Form::select('forma_pago', ['NOMINA' => 'Nómina', 'PRIMA' => 'Prima', 'CAJA' => 'Caja'], null, ['class' => 'form-control select2']) !!}
+									@if ($errors->has('forma_pago'))
+										<span class="help-block">{{ $errors->first('forma_pago') }}</span>
+									@endif
 								</div>
 							</div>
-
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('forma_pago')?'has-error':'') }}">
-									<label class="col-md-6 control-label">
-										@if ($errors->has('forma_pago'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Forma de pago
-									</label>
-									<div class="col-md-6">
-										{!! Form::select('forma_pago', ['NOMINA' => 'Nómina', 'PRIMA' => 'Prima', 'CAJA' => 'Caja'], null, ['class' => 'form-control select2']) !!}
-										@if ($errors->has('forma_pago'))
-											<span class="help-block">{{ $errors->first('forma_pago') }}</span>
-										@endif
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('periodicidad')?'has-error':'') }}">
-									<label class="col-md-4 control-label">
-										@if ($errors->has('periodicidad'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Periodicidad de pago
-									</label>
-									<div class="col-md-8">
-										{!! Form::select('periodicidad', $periodicidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una periodicidad']) !!}
-										@if ($errors->has('periodicidad'))
-											<span class="help-block">{{ $errors->first('periodicidad') }}</span>
-										@endif
-									</div>
-								</div>
-							</div>
-
 						</div>
 
-						<div class="row form-horizontal">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('fecha_primer_pago')?'has-error':'') }}">
-									<label class="col-md-6 control-label">
-										@if ($errors->has('fecha_primer_pago'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha primer pago
-									</label>
-									<div class="col-md-6 input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::select('fecha_primer_pago', $programaciones, null, ['class' => 'form-control pull-right select2']) !!}
-									</div>
+						<div class="col-md-6">
+							<div class="form-group {{ ($errors->has('periodicidad')?'has-error':'') }}">
+								<label class="col-md-4 control-label">
+									@if ($errors->has('periodicidad'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Periodicidad de pago
+								</label>
+								<div class="col-md-8">
+									{!! Form::select('periodicidad', $periodicidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una periodicidad']) !!}
+									@if ($errors->has('periodicidad'))
+										<span class="help-block">{{ $errors->first('periodicidad') }}</span>
+									@endif
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row form-horizontal">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('fecha_primer_pago')?'has-error':'') }}">
+								<label class="col-md-6 control-label">
 									@if ($errors->has('fecha_primer_pago'))
-										<span class="help-block">{{ $errors->first('fecha_primer_pago') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha primer pago
+								</label>
+								<div class="col-md-6 input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::select('fecha_primer_pago', $programaciones, null, ['class' => 'form-control pull-right select2']) !!}
 								</div>
+								@if ($errors->has('fecha_primer_pago'))
+									<span class="help-block">{{ $errors->first('fecha_primer_pago') }}</span>
+								@endif
 							</div>
-
-							@if($solicitud->modalidadCredito->tipo_cuota == 'CAPITAL')
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('fecha_primer_pago_intereses')?'has-error':'') }}">
-									<label class="col-md-7 control-label">
-										@if ($errors->has('fecha_primer_pago_intereses'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha primer pago intereses
-									</label>
-									<div class="col-md-5 input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::select('fecha_primer_pago_intereses', $programaciones, null, ['class' => 'form-control pull-right select2']) !!}
-									</div>
-									@if ($errors->has('fecha_primer_pago_intereses'))
-										<span class="help-block">{{ $errors->first('fecha_primer_pago_intereses') }}</span>
-									@endif
-								</div>
-							</div>
-							@endif
-
-							@if($solicitud->modalidadCredito->acepta_cuotas_extraordinarias)
-							<div class="col-md-4">
-								<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-primary">Agregar cuotas extraordinarias</a>
-							</div>
-							@endif					
-
 						</div>
 
-						@if($solicitud->amortizaciones->count())
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group {{ ($errors->has('observaciones')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('observaciones'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Observaciones
-									</label>
-									{!! Form::textarea('observaciones', null, ['class' => 'form-control', 'placeholder' => 'Observaciones de radicación', 'style' => 'height:100px;']) !!}
-									@if ($errors->has('observaciones'))
-										<span class="help-block">{{ $errors->first('observaciones') }}</span>
+						@if($solicitud->modalidadCredito->tipo_cuota == 'CAPITAL')
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('fecha_primer_pago_intereses')?'has-error':'') }}">
+								<label class="col-md-7 control-label">
+									@if ($errors->has('fecha_primer_pago_intereses'))
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha primer pago intereses
+								</label>
+								<div class="col-md-5 input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::select('fecha_primer_pago_intereses', $programaciones, null, ['class' => 'form-control pull-right select2']) !!}
 								</div>
+								@if ($errors->has('fecha_primer_pago_intereses'))
+									<span class="help-block">{{ $errors->first('fecha_primer_pago_intereses') }}</span>
+								@endif
 							</div>
 						</div>
 						@endif
 
-						<hr>
-						<div class="row form-horizontal">
-							<div class="col-md-12">
-								{!! Form::submit('Calcular amortización', ['class' => 'btn bg-olive']) !!}
-								@if($solicitud->amortizaciones->count())
-								<a href="{{ route('solicitudCreditoRadicar', $solicitud->id) }}" class="btn btn-primary">Radicar</a>
-								@endif
-								<a href="{{ url('solicitudCredito') }}" class="btn btn-danger pull-right">Volver</a>
-							</div>
-
+						@if($solicitud->modalidadCredito->acepta_cuotas_extraordinarias)
+						<div class="col-md-4">
+							<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-primary">Agregar cuotas extraordinarias</a>
 						</div>
+						@endif					
+
 					</div>
 
 					@if($solicitud->amortizaciones->count())
-					<br>
-					<div class="row" style="margin-left: 30px; margin-right: 30px;">
-						<div class="col-md-3">
-							<div class="row">
-								<div class="col-md-8"><label>Tasa seguro cartera</label></div>
-								<div class="col-md-4">{{ empty($solicitud->seguroCartera) ? 0 : number_format($solicitud->seguroCartera->tasa_mes, 4) }}%</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('observaciones')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('observaciones'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Observaciones
+								</label>
+								{!! Form::textarea('observaciones', null, ['class' => 'form-control', 'placeholder' => 'Observaciones de radicación', 'style' => 'height:100px;']) !!}
+								@if ($errors->has('observaciones'))
+									<span class="help-block">{{ $errors->first('observaciones') }}</span>
+								@endif
 							</div>
-						</div>
-						<div class="col-md-5">
-							<div class="row">
-								<div class="col-md-8"><label>Porcentaje capital en extraordinarias</label></div>
-								<div class="col-md-4">{{ number_format($solicitud->porcentajeCapitalEnExtraordinarias(), 2) }}%</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="row">
-								<div class="col-md-6"><label>Tasa E.A.</label></div>
-								<div class="col-md-6">
-									<?php
-										$tasaEA = ($solicitud->tasa / 100) + 1;
-										$tasaEA = pow($tasaEA, 12) - 1;
-										$tasaEA = number_format($tasaEA * 100, 2);
-									?>
-									{{ $tasaEA }}%
-								</div>
-							</div>
-						</div>
-					</div>
-					<br>
-					<div class="row" style="margin-left:20px; margin-right:20px;">
-						<div class="col-md-12 table-responsive">
-							<table id="tablaAmortizacion" class="table table-hover">
-								<thead>
-									<tr>
-										<th>Cuota</th>
-										<th>Naturaleza cuota</th>
-										<th>Forma pago</th>
-										<th>Fecha pago</th>
-										<th class="text-center">Capital</th>
-										<th class="text-center">Intereses</th>
-										<th class="text-center">Seguro cartera</th>
-										<th class="text-center">Total cuota</th>
-										<th class="text-center">Nuevo saldo</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($solicitud->amortizaciones as $amortizacion)
-										<tr>
-											<td>{{ $amortizacion->numero_cuota }}</td>
-											<td>{{ $amortizacion->naturaleza_cuota }}</td>
-											<td>{{ $amortizacion->forma_pago }}</td>
-											<td>{{ $amortizacion->fecha_cuota }}</td>
-											<td class="text-right">${{ number_format($amortizacion->abono_capital, 0) }}</td>
-											<td class="text-right">${{ number_format($amortizacion->abono_intereses, 0) }}</td>
-											<td class="text-right">${{ number_format($amortizacion->abono_seguro_cartera, 0) }}</td>
-											<td class="text-right">${{ number_format($amortizacion->total_cuota, 0) }}</td>
-											<td class="text-right">${{ number_format($amortizacion->nuevo_saldo_capital, 0) }}</td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table>
 						</div>
 					</div>
 					@endif
 
-					<div class="card-footer">
+					<hr>
+					<div class="row form-horizontal">
+						<div class="col-md-12">
+							{!! Form::submit('Calcular amortización', ['class' => 'btn bg-olive']) !!}
+							@if($solicitud->amortizaciones->count())
+							<a href="{{ route('solicitudCreditoRadicar', $solicitud->id) }}" class="btn btn-primary">Radicar</a>
+							@endif
+							<a href="{{ url('solicitudCredito') }}" class="btn btn-danger pull-right">Volver</a>
+						</div>
+
 					</div>
+				</div>
+
+				@if($solicitud->amortizaciones->count())
+				<br>
+				<div class="row" style="margin-left: 30px; margin-right: 30px;">
+					<div class="col-md-3">
+						<div class="row">
+							<div class="col-md-8"><label>Tasa seguro cartera</label></div>
+							<div class="col-md-4">{{ empty($solicitud->seguroCartera) ? 0 : number_format($solicitud->seguroCartera->tasa_mes, 4) }}%</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="row">
+							<div class="col-md-8"><label>Porcentaje capital en extraordinarias</label></div>
+							<div class="col-md-4">{{ number_format($solicitud->porcentajeCapitalEnExtraordinarias(), 2) }}%</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-6"><label>Tasa E.A.</label></div>
+							<div class="col-md-6">
+								<?php
+									$tasaEA = ($solicitud->tasa / 100) + 1;
+									$tasaEA = pow($tasaEA, 12) - 1;
+									$tasaEA = number_format($tasaEA * 100, 2);
+								?>
+								{{ $tasaEA }}%
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row" style="margin-left:20px; margin-right:20px;">
+					<div class="col-md-12 table-responsive">
+						<table id="tablaAmortizacion" class="table table-hover">
+							<thead>
+								<tr>
+									<th>Cuota</th>
+									<th>Naturaleza cuota</th>
+									<th>Forma pago</th>
+									<th>Fecha pago</th>
+									<th class="text-center">Capital</th>
+									<th class="text-center">Intereses</th>
+									<th class="text-center">Seguro cartera</th>
+									<th class="text-center">Total cuota</th>
+									<th class="text-center">Nuevo saldo</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach($solicitud->amortizaciones as $amortizacion)
+									<tr>
+										<td>{{ $amortizacion->numero_cuota }}</td>
+										<td>{{ $amortizacion->naturaleza_cuota }}</td>
+										<td>{{ $amortizacion->forma_pago }}</td>
+										<td>{{ $amortizacion->fecha_cuota }}</td>
+										<td class="text-right">${{ number_format($amortizacion->abono_capital, 0) }}</td>
+										<td class="text-right">${{ number_format($amortizacion->abono_intereses, 0) }}</td>
+										<td class="text-right">${{ number_format($amortizacion->abono_seguro_cartera, 0) }}</td>
+										<td class="text-right">${{ number_format($amortizacion->total_cuota, 0) }}</td>
+										<td class="text-right">${{ number_format($amortizacion->nuevo_saldo_capital, 0) }}</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+				@endif
+
+				<div class="card-footer">
 				</div>
 			</div>
 			{!! Form::close() !!}

@@ -43,81 +43,79 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }}</h3>
-					</div>
-					{{-- INICIO card BODY --}}
-					<div class="card-body">
-						<?php
-							$contador = 0;
-						?>
-						@foreach($periodo->entidad->getModulos() as $modulo)
-							@if($contador % 3 == 0)
-								@if($contador != 0)
-									</div>
-								@endif
-								<div class="row">
-							@endif
-							<div class="col-md-4 col-sm-12 col-xs-12">
-								@php
-									$link = "";
-									$estaCerrado = $periodo->moduloCerrado($modulo->id);
-									switch ($modulo->id) {
-										case 2: //Contabilidad
-											$link = route('cierreModulosDetalleContabilidad', $periodo->id);
-											break;
-										case 3: //Convenios
-											$link = "#";
-											break;
-										case 4: //Nómina
-											$link = "#";
-											break;
-										case 6: //Ahorros y aportes
-											$link = route('cierreModulosDetalleAhorros', $periodo->id);
-											break;
-										case 7: //Cartera
-											$link = route('cierreModulosDetalleCartera', $periodo->id);
-											break;
-										case 10: //Socios
-											$link = route('cierreModulosDetalleSocios', $periodo->id);
-											break;
-										default:
-											$link = '#';
-											break;
-									}
-								@endphp
-								<div class="small-card bg-{{ $estaCerrado ? 'green' : 'red' }}">
-									<div class="inner">
-										<h3>{{ $contador + 1 }}</h3>
-										<p>{{ $modulo->nombre }}</p>
-									</div>
-									<div class="icon">
-										<i class="fa {{ $modulo->icono }}"></i>
-									</div>
-									@if ($estaCerrado)
-										<a class="small-card-footer">Cerrado <i class="fa fa-check"></i></a>
-									@else
-										<a href="{{ $link }}" class="small-card-footer">
-											Cerrar <i class="fa fa-lock"></i>
-										</a>
-									@endif
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Proceso de cierres periodo {{ $periodo->mes }} - {{ $periodo->anio }}</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					<?php
+						$contador = 0;
+					?>
+					@foreach($periodo->entidad->getModulos() as $modulo)
+						@if($contador % 3 == 0)
+							@if($contador != 0)
 								</div>
-							</div>
-							<?php
-								$contador += 1;
-							?>
-						@endforeach
-						@if($contador > 0)
-							</div>
+							@endif
+							<div class="row">
 						@endif
-					</div>
-					{{-- FIN card BODY --}}
-					<div class="card-footer">
-						<a href="{{ url('cierreModulos') }}" class="btn btn-danger btn-block">Volver</a>
-					</div>
+						<div class="col-md-4 col-sm-12 col-xs-12">
+							@php
+								$link = "";
+								$estaCerrado = $periodo->moduloCerrado($modulo->id);
+								switch ($modulo->id) {
+									case 2: //Contabilidad
+										$link = route('cierreModulosDetalleContabilidad', $periodo->id);
+										break;
+									case 3: //Convenios
+										$link = "#";
+										break;
+									case 4: //Nómina
+										$link = "#";
+										break;
+									case 6: //Ahorros y aportes
+										$link = route('cierreModulosDetalleAhorros', $periodo->id);
+										break;
+									case 7: //Cartera
+										$link = route('cierreModulosDetalleCartera', $periodo->id);
+										break;
+									case 10: //Socios
+										$link = route('cierreModulosDetalleSocios', $periodo->id);
+										break;
+									default:
+										$link = '#';
+										break;
+								}
+							@endphp
+							<div class="small-card bg-{{ $estaCerrado ? 'green' : 'red' }}">
+								<div class="inner">
+									<h3>{{ $contador + 1 }}</h3>
+									<p>{{ $modulo->nombre }}</p>
+								</div>
+								<div class="icon">
+									<i class="fa {{ $modulo->icono }}"></i>
+								</div>
+								@if ($estaCerrado)
+									<a class="small-card-footer">Cerrado <i class="fa fa-check"></i></a>
+								@else
+									<a href="{{ $link }}" class="small-card-footer">
+										Cerrar <i class="fa fa-lock"></i>
+									</a>
+								@endif
+							</div>
+						</div>
+						<?php
+							$contador += 1;
+						?>
+					@endforeach
+					@if($contador > 0)
+						</div>
+					@endif
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer">
+					<a href="{{ url('cierreModulos') }}" class="btn btn-danger btn-block">Volver</a>
 				</div>
 			</div>
 		</div>

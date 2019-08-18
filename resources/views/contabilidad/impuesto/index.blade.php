@@ -42,86 +42,88 @@
 			</div>
 		</div>
 		<br>
-		<div class="card card-{{ $impuestos->total()?'primary':'danger' }}">
-			<div class="card-header with-border">
-				<h3 class="card-title">Impuestos</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'impuesto', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-					<div class="col-md-5 col-sm-12">
-						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
-					</div>
-					<div class="col-md-3 col-sm-12">
-						{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Tipo', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-3 col-sm-12">
-						{!! Form::select('estado', [true => "Activo", false => "Inactivo"], null, ['class' => 'form-control select2', 'placeholder' => 'Estado', 'autocomplete' => 'off']); !!}
-					</div>
-					<div class="col-md-1 col-sm-12">
-						<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
-					</div>
-					{!! Form::close() !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $impuestos->total()?'primary':'danger' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Impuestos</h3>
 				</div>
-				@if(!$impuestos->total())
-					<br>
-					<p>
-						<div class="row">
-							<div class="col-md-12">
-								No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
-							</div>
+				<div class="card-body">
+					<div class="row">
+						{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'impuesto', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+						<div class="col-md-5 col-sm-12">
+							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-					</p>
-				@else
-					<br><br>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Tipo</th>
-									<th>Número conceptos</th>
-									<th>Estado</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($impuestos as $impuesto)
-									<tr>
-										<td>
-											<a href="{{ route('impuesto.edit', $impuesto->id) }}" title="Editar">{{ $impuesto->nombre }}</a>
-										</td>
-										<td>{{ $impuesto->tipo }}</td>
-										<?php
-											$conceptos = $impuesto->conceptosImpuestos->count();
-											$activo = $impuesto->esta_activo;
-											$estado = $activo ? "Activo" : "Inactivo";
-										?>
-										<td>
-											<span class="label label-{{ $conceptos ? "success" : "danger" }}">{{ $conceptos }}</span>
-										</td>
-										<td>
-											<span class="label label-{{ $activo ? "success" : "danger" }}">{{ $estado }}</span>
-										</td>
-										<td>
-											<a href="{{ route('impuesto.edit', $impuesto->id) }}" class="btn btn-xs btn-info" title="Editar"><i class="fa fa-edit"></i></a>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Tipo', 'autocomplete' => 'off']); !!}
+						</div>
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('estado', [true => "Activo", false => "Inactivo"], null, ['class' => 'form-control select2', 'placeholder' => 'Estado', 'autocomplete' => 'off']); !!}
+						</div>
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+						</div>
+						{!! Form::close() !!}
 					</div>
-				@endif
-				<div class="row">
-					<div class="col-md-12 text-center">
-						{!! $impuestos->appends(Request::only('name', 'tipo', 'estado'))->render() !!}
+					@if(!$impuestos->total())
+						<br>
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+								</div>
+							</div>
+						</p>
+					@else
+						<br><br>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Tipo</th>
+										<th>Número conceptos</th>
+										<th>Estado</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($impuestos as $impuesto)
+										<tr>
+											<td>
+												<a href="{{ route('impuesto.edit', $impuesto->id) }}" title="Editar">{{ $impuesto->nombre }}</a>
+											</td>
+											<td>{{ $impuesto->tipo }}</td>
+											<?php
+												$conceptos = $impuesto->conceptosImpuestos->count();
+												$activo = $impuesto->esta_activo;
+												$estado = $activo ? "Activo" : "Inactivo";
+											?>
+											<td>
+												<span class="label label-{{ $conceptos ? "success" : "danger" }}">{{ $conceptos }}</span>
+											</td>
+											<td>
+												<span class="label label-{{ $activo ? "success" : "danger" }}">{{ $estado }}</span>
+											</td>
+											<td>
+												<a href="{{ route('impuesto.edit', $impuesto->id) }}" class="btn btn-xs btn-info" title="Editar"><i class="fa fa-edit"></i></a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-md-12 text-center">
+							{!! $impuestos->appends(Request::only('name', 'tipo', 'estado'))->render() !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<span class="label label-{{ $impuestos->total()?'primary':'danger' }}">
-					{{ $impuestos->total() }}
-				</span>&nbsp;elementos.
+				<div class="card-footer">
+					<span class="label label-{{ $impuestos->total()?'primary':'danger' }}">
+						{{ $impuestos->total() }}
+					</span>&nbsp;elementos.
+				</div>
 			</div>
 		</div>
 	</section>

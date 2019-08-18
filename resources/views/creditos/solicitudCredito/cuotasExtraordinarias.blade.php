@@ -44,187 +44,185 @@
 			</div>
 		@endif
 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Cuotas extraordinarias</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Cuotas extraordinarias</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">
+									Modalidad de crédito
+								</label>
+								{!! Form::text('modalidad', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => 'form-control', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'readonly']) !!}
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">
+									Solicitante
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-male"></i></span>
+									@php
+										$nombreMostar = $solicitud->tercero->tipoIdentificacion->codigo . ' ' . $solicitud->tercero->numero_identificacion . ' - ' . $solicitud->tercero->nombre_corto;
+									@endphp
+									<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fa fa-external-link"></i></small></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">
+									Fecha solicitud
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="control-label">
-										Modalidad de crédito
-									</label>
-									{!! Form::text('modalidad', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => 'form-control', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'readonly']) !!}
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="control-label">
-										Solicitante
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-male"></i></span>
-										@php
-											$nombreMostar = $solicitud->tercero->tipoIdentificacion->codigo . ' ' . $solicitud->tercero->numero_identificacion . ' - ' . $solicitud->tercero->nombre_corto;
-										@endphp
-										<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fa fa-external-link"></i></small></a>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="control-label">
-										Fecha solicitud
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
-									</div>
-								</div>
-							</div>
+					{{-- INICIO FILA --}}
+					<div class="row">
+						<div class="col-md-12">
+							<h4 id="error" style="display: none; color: #dd4b39;">&nbsp;</h4>
 						</div>
-						{{-- INICIO FILA --}}
-						<div class="row">
-							<div class="col-md-12">
-								<h4 id="error" style="display: none; color: #dd4b39;">&nbsp;</h4>
-							</div>
-						</div>
-						{{-- FIN FILA --}}
-						<hr>
+					</div>
+					{{-- FIN FILA --}}
+					<hr>
 
-						<div class="row form-horizontal">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('valor_credito')?'has-error':'') }}">
-									<label class="col-md-6 control-label">
-										@if ($errors->has('valor_credito'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Valor solicitud
-									</label>
-									<div class="col-md-6 input-group">
-										<span class="input-group-addon">$</span>
-										{!! Form::text('valor_credito', $solicitud->valor_credito, ['class' => 'form-control text-right', 'data-maskMoney', 'readonly']) !!}
-									</div>
+					<div class="row form-horizontal">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('valor_credito')?'has-error':'') }}">
+								<label class="col-md-6 control-label">
 									@if ($errors->has('valor_credito'))
-										<span class="help-block">{{ $errors->first('valor_credito') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Valor solicitud
+								</label>
+								<div class="col-md-6 input-group">
+									<span class="input-group-addon">$</span>
+									{!! Form::text('valor_credito', $solicitud->valor_credito, ['class' => 'form-control text-right', 'data-maskMoney', 'readonly']) !!}
 								</div>
+								@if ($errors->has('valor_credito'))
+									<span class="help-block">{{ $errors->first('valor_credito') }}</span>
+								@endif
 							</div>
+						</div>
 
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="col-md-6 control-label">
-										Tasa M.V.
-									</label>
-									<div class="col-md-6 input-group">
-										<span class="input-group-addon">%</span>
-										{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => 'form-control', 'readonly']) !!}
-									</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="col-md-6 control-label">
+									Tasa M.V.
+								</label>
+								<div class="col-md-6 input-group">
+									<span class="input-group-addon">%</span>
+									{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => 'form-control', 'readonly']) !!}
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<?php
-									switch($solicitud->estado_solicitud)
-									{
-										case 'BORRADOR':
-											?>
-											<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
-											<?php
-											break;
-										case 'RADICADO':
-											?>
-											<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
-											<?php
-											break;
-										case 'APROBADO':
-											?>
-											<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
-											<?php
-											break;
-										
-										default:
-											break;
-									}
-								?>
-							</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<?php
+								switch($solicitud->estado_solicitud)
+								{
+									case 'BORRADOR':
+										?>
+										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<?php
+										break;
+									case 'RADICADO':
+										?>
+										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<?php
+										break;
+									case 'APROBADO':
+										?>
+										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<?php
+										break;
+									
+									default:
+										break;
+								}
+							?>
 						</div>
-						<hr>
-						<div class="row">
-							<div class="col-md-12">
-								<a class="btn btn-primary" data-toggle="modal" data-target="#agregarCuota">Agregar cuota</a>
-							</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-12">
+							<a class="btn btn-primary" data-toggle="modal" data-target="#agregarCuota">Agregar cuota</a>
 						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-12">
+							<h4>{{ $cuotas->count() }} cuotas extraordinarias</h4>
+						</div>
+					</div>
+					@if ($cuotas->count())
 						<br>
 						<div class="row">
-							<div class="col-md-12">
-								<h4>{{ $cuotas->count() }} cuotas extraordinarias</h4>
+							<div class="col-md-12 table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th class="text-center">Número cuotas</th>
+											<th class="text-center">Valor cuota</th>
+											<th>Forma pago</th>
+											<th>Periodicidad</th>
+											<th>Fecha primera cuota</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($cuotas as $cuota)
+											<tr>
+												<td class="text-right">{{ $cuota->numero_cuotas }}</td>
+												<td class="text-right">${{ number_format($cuota->valor_cuota) }}</td>
+												<td>{{ $cuota->forma_pago }}</td>
+												<td>{{ $cuota->periodicidad }}</td>
+												<td>{{ $cuota->inicio_descuento }}</td>
+												<td>
+													<a href="{{ route('solicitudCredito.delete.cuotasExtraordinarias', [$solicitud->id, $cuota->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
 							</div>
 						</div>
-						@if ($cuotas->count())
-							<br>
-							<div class="row">
-								<div class="col-md-12 table-responsive">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th class="text-center">Número cuotas</th>
-												<th class="text-center">Valor cuota</th>
-												<th>Forma pago</th>
-												<th>Periodicidad</th>
-												<th>Fecha primera cuota</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody>
-											@foreach ($cuotas as $cuota)
-												<tr>
-													<td class="text-right">{{ $cuota->numero_cuotas }}</td>
-													<td class="text-right">${{ number_format($cuota->valor_cuota) }}</td>
-													<td>{{ $cuota->forma_pago }}</td>
-													<td>{{ $cuota->periodicidad }}</td>
-													<td>{{ $cuota->inicio_descuento }}</td>
-													<td>
-														<a href="{{ route('solicitudCredito.delete.cuotasExtraordinarias', [$solicitud->id, $cuota->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
-							</div>
-						@endif
-					</div>
+					@endif
+				</div>
 
-					<div class="card-footer">
-						<?php
-							switch($solicitud->estado_solicitud)
-							{
-								case 'BORRADOR':
-									?>
-									<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
-									<?php
-									break;
-								case 'RADICADO':
-									?>
-									<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
-									<?php
-									break;
-								case 'APROBADO':
-									?>
-									<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
-									<?php
-									break;
-								
-								default:
-									break;
-							}
-						?>
-					</div>
+				<div class="card-footer">
+					<?php
+						switch($solicitud->estado_solicitud)
+						{
+							case 'BORRADOR':
+								?>
+								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<?php
+								break;
+							case 'RADICADO':
+								?>
+								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<?php
+								break;
+							case 'APROBADO':
+								?>
+								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<?php
+								break;
+							
+							default:
+								break;
+						}
+					?>
 				</div>
 			</div>
 		</div>

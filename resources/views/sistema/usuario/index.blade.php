@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<br>
-		<div class="card">
+		<div class="card card-outline">
 			<div class="card-header with-border">
 				<h3 class="card-title">Buscar usuarios</h3>
 				<div class="card-tools pull-right">
@@ -91,7 +91,7 @@
 				<div class="row">
 			@endif
 			<div class="col-sm-4">
-				<div class="card card-widget widget-user">
+				<div class="card card-widget widget-user card-outline">
 					<div class="widget-user-header bg-{{ $usuario->esta_activo?'aqua':'red' }}-active">
 						<div class="widget-user-username">
 							{{ $usuario->nombre_corto }}

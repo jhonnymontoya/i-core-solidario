@@ -38,69 +38,67 @@
 			</div>
 		@endif
 
-		<div class="row">
-			{!! Form::open(['url' => 'solicitudCredito', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nueva solicitud de crédito</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('modalidad'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Modalidad de crédito
-									</label>
-									{!! Form::select('modalidad', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'autofocus']) !!}
+		<div class="container-fluid">
+			{!! Form::open(['url' => 'solicitudCredito', 'method' => 'post', 'role' => 'form']) !!}<div class="col-md-12">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nueva solicitud de crédito</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('modalidad'))
-										<span class="help-block">{{ $errors->first('modalidad') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Modalidad de crédito
+								</label>
+								{!! Form::select('modalidad', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'autofocus']) !!}
+								@if ($errors->has('modalidad'))
+									<span class="help-block">{{ $errors->first('modalidad') }}</span>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('solicitante')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('solicitante'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Solicitante
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-male"></i></span>
-										{!! Form::select('solicitante', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
-									</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('solicitante')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('solicitante'))
-										<span class="help-block">{{ $errors->first('solicitante') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Solicitante
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-male"></i></span>
+									{!! Form::select('solicitante', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
 								</div>
+								@if ($errors->has('solicitante'))
+									<span class="help-block">{{ $errors->first('solicitante') }}</span>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('fecha_solicitud')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fecha_solicitud'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha solicitud
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										{!! Form::text('fecha_solicitud', date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('fecha_solicitud')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('fecha_solicitud'))
-										<span class="help-block">{{ $errors->first('fecha_solicitud') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Fecha solicitud
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									{!! Form::text('fecha_solicitud', date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
+								@if ($errors->has('fecha_solicitud'))
+									<span class="help-block">{{ $errors->first('fecha_solicitud') }}</span>
+								@endif
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('solicitudCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('solicitudCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

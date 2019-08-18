@@ -31,80 +31,82 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="card card-{{ $errors->count()?'danger':'success' }}">
-			{!! Form::open(['url' => 'tipoIdentificacion', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="card-header with-border">
-				<h3 class="card-title">Crear nuevo tipo de identificación</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				{!! Form::open(['url' => 'tipoIdentificacion', 'method' => 'post', 'role' => 'form']) !!}
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo tipo de identificación</h3>
 
-				<div class="card-tools pull-right">
-					<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-						<i class="fa fa-minus"></i>
-					</button>
+					<div class="card-tools pull-right">
+						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
 				</div>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('aplicacion')?'has-error':'') }}">
-							<label class="control-label">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('aplicacion')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('aplicacion'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tipo de persona
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('aplicacion', 'NATURAL', true) !!}Natural
+									</label>
+									<label class="btn btn-primary">
+										{!! Form::radio('aplicacion', 'JURÍDICA', false) !!}Jurídica
+									</label>
+								</div>
 								@if ($errors->has('aplicacion'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('aplicacion') }}</span>
 								@endif
-								Tipo de persona
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('aplicacion', 'NATURAL', true) !!}Natural
-								</label>
-								<label class="btn btn-primary">
-									{!! Form::radio('aplicacion', 'JURÍDICA', false) !!}Jurídica
-								</label>
 							</div>
-							@if ($errors->has('aplicacion'))
-								<span class="help-block">{{ $errors->first('aplicacion') }}</span>
-							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('codigo'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Código
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'CC, TI, CE, NIT', 'required']) !!}
 								@if ($errors->has('codigo'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
 								@endif
-								Código
-							</label>
-							{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'CC, TI, CE, NIT', 'required']) !!}
-							@if ($errors->has('codigo'))
-								<span class="help-block">{{ $errors->first('codigo') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-							<label class="control-label">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('nombre'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del tipo de identificación', 'required']) !!}
 								@if ($errors->has('nombre'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
 								@endif
-								Nombre
-							</label>
-							{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del tipo de identificación', 'required']) !!}
-							@if ($errors->has('nombre'))
-								<span class="help-block">{{ $errors->first('nombre') }}</span>
-							@endif
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('tipoIdentificacion') }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				{!! Form::close() !!}
 			</div>
-			<div class="card-footer">
-				{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-				<a href="{{ url('tipoIdentificacion') }}" class="btn btn-danger pull-right">Cancelar</a>
-			</div>
-			{!! Form::close() !!}
 		</div>
 	</section>
 </div>

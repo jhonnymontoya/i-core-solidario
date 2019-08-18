@@ -36,118 +36,120 @@
 			</div>
 		@endif
 		<br>
-		<div class="card card-primary">
-			<div class="card-header with-border">
-				<h3 class="card-title">Parámetros calificación de cartera</h3>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label">
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Parámetros calificación de cartera</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">
+									@if ($errors->has('tipo_cartera'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Tipo de cartera
+								</label>
+								<br>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-primary active">
+										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
+									</label>
+									<label class="btn btn-primary disabled">
+										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
+									</label>
+								</div>
 								@if ($errors->has('tipo_cartera'))
-									<i class="fa fa-times-circle-o"></i>
+									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
 								@endif
-								Tipo de cartera
-							</label>
-							<br>
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary active">
-									{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
-								</label>
-								<label class="btn btn-primary disabled">
-									{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
-								</label>
 							</div>
-							@if ($errors->has('tipo_cartera'))
-								<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-							@endif
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1 table-responsive">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th class="text-center" width="30%">Categoría</th>
+										<th class="text-center" width="30%">Mora en días desde</th>
+										<th class="text-center" width="30%">Mora en días hasta</th>
+										<th class="text-center" width="10%"></th>
+									</tr>
+								</thead>
+								<tbody>
+									@php
+										$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'A')->first();
+									@endphp
+									<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="A" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
+										<th class="text-center">A</th>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
+										<td class="text-center">
+											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+										</td>
+									</tr>
+
+									@php
+										$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'B')->first();
+									@endphp
+									<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="B" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
+										<th class="text-center">B</th>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
+										<td class="text-center">
+											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+										</td>
+									</tr>
+
+									@php
+										$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'C')->first();
+									@endphp
+									<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="C" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
+										<th class="text-center">C</th>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
+										<td class="text-center">
+											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+										</td>
+									</tr>
+
+									@php
+										$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'D')->first();
+									@endphp
+									<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="D" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
+										<th class="text-center">D</th>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
+										<td class="text-center">
+											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+										</td>
+									</tr>
+
+									@php
+										$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'E')->first();
+									@endphp
+									<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="E" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
+										<th class="text-center">E</th>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
+										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
+										<td class="text-center">
+											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1 table-responsive">
-						<table class="table table-hover table-striped">
-							<thead>
-								<tr>
-									<th class="text-center" width="30%">Categoría</th>
-									<th class="text-center" width="30%">Mora en días desde</th>
-									<th class="text-center" width="30%">Mora en días hasta</th>
-									<th class="text-center" width="10%"></th>
-								</tr>
-							</thead>
-							<tbody>
-								@php
-									$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'A')->first();
-								@endphp
-								<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="A" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
-									<th class="text-center">A</th>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
-									<td class="text-center">
-										<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
-									</td>
-								</tr>
-
-								@php
-									$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'B')->first();
-								@endphp
-								<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="B" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
-									<th class="text-center">B</th>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
-									<td class="text-center">
-										<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
-									</td>
-								</tr>
-
-								@php
-									$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'C')->first();
-								@endphp
-								<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="C" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
-									<th class="text-center">C</th>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
-									<td class="text-center">
-										<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
-									</td>
-								</tr>
-
-								@php
-									$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'D')->first();
-								@endphp
-								<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="D" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
-									<th class="text-center">D</th>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
-									<td class="text-center">
-										<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
-									</td>
-								</tr>
-
-								@php
-									$c = $calificaciones->where('tipo_cartera', 'CONSUMO')->where('calificacion', 'E')->first();
-								@endphp
-								<tr class="actualizar" data-tipocartera="CONSUMO" data-calificacion="E" data-desde="{{ optional($c)->dias_desde }}" data-hasta="{{ optional($c)->dias_hasta }}">
-									<th class="text-center">E</th>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
-									<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
-									<td class="text-center">
-										<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				<div class="card-footer">
 				</div>
-			</div>
-			<div class="card-footer">
 			</div>
 		</div>
 	</section>

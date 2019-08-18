@@ -32,105 +32,103 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'tipoSDAT', 'method' => 'post', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card card-{{ $errors->count()?'danger':'success' }}">
-					<div class="card-header with-border">
-						<h3 class="card-title">Crear nuevo tipo SDAT</h3>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('codigo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Código
-									</label>
-									{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'autofocus']) !!}
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo tipo SDAT</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('codigo'))
-										<span class="help-block">{{ $errors->first('codigo') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Código
+								</label>
+								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'autofocus']) !!}
+								@if ($errors->has('codigo'))
+									<span class="help-block">{{ $errors->first('codigo') }}</span>
+								@endif
 							</div>
-							<div class="col-md-8">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('nombre'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
+						</div>
+						<div class="col-md-8">
+							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
-								</div>
+									Nombre
+								</label>
+								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
+								@if ($errors->has('nombre'))
+									<span class="help-block">{{ $errors->first('nombre') }}</span>
+								@endif
 							</div>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('capital_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('capital_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta capital
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('capital_cuif_id', [], null, ['class' => 'form-control select2']) !!}
-									</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('capital_cuif_id')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('capital_cuif_id'))
-										<span class="help-block">{{ $errors->first('capital_cuif_id') }}</span>
+										<i class="fa fa-times-circle-o"></i>
 									@endif
+									Cuenta capital
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-table"></i></span>
+									{!! Form::select('capital_cuif_id', [], null, ['class' => 'form-control select2']) !!}
 								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('intereses_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('intereses_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta intereses
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('intereses_cuif_id', [], null, ['class' => 'form-control select2']) !!}
-									</div>
-									@if ($errors->has('intereses_cuif_id'))
-										<span class="help-block">{{ $errors->first('intereses_cuif_id') }}</span>
-									@endif
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('intereses_por_pagar_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('intereses_por_pagar_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta intereses por pagar
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('intereses_por_pagar_cuif_id', [], null, ['class' => 'form-control select2']) !!}
-									</div>
-									@if ($errors->has('intereses_por_pagar_cuif_id'))
-										<span class="help-block">{{ $errors->first('intereses_por_pagar_cuif_id') }}</span>
-									@endif
-								</div>
+								@if ($errors->has('capital_cuif_id'))
+									<span class="help-block">{{ $errors->first('capital_cuif_id') }}</span>
+								@endif
 							</div>
 						</div>
 
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('intereses_cuif_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('intereses_cuif_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta intereses
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-table"></i></span>
+									{!! Form::select('intereses_cuif_id', [], null, ['class' => 'form-control select2']) !!}
+								</div>
+								@if ($errors->has('intereses_cuif_id'))
+									<span class="help-block">{{ $errors->first('intereses_cuif_id') }}</span>
+								@endif
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group {{ ($errors->has('intereses_por_pagar_cuif_id')?'has-error':'') }}">
+								<label class="control-label">
+									@if ($errors->has('intereses_por_pagar_cuif_id'))
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Cuenta intereses por pagar
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-table"></i></span>
+									{!! Form::select('intereses_por_pagar_cuif_id', [], null, ['class' => 'form-control select2']) !!}
+								</div>
+								@if ($errors->has('intereses_por_pagar_cuif_id'))
+									<span class="help-block">{{ $errors->first('intereses_por_pagar_cuif_id') }}</span>
+								@endif
+							</div>
+						</div>
 					</div>
-					<div class="card-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('tipoSDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+
+				</div>
+				<div class="card-footer">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+					<a href="{{ url('tipoSDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

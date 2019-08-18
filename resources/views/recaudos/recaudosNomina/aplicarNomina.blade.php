@@ -44,138 +44,140 @@
 			</div>
 		@endif
 		<br>
-		<div class="card card-primary">
-			<div class="card-header with-border">
-				<h3 class="card-title">Aplicación</h3>
-			</div>
-			<div class="card-body">
-				<a class="btn btn-danger" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}">Volver</a>
-				<br>
-				<br>
-				<div class="row">
-					<div class="col-md-12 col-md-offset-1">
-						<div class="row">
-							<div class="col-md-1"><strong>Pagaduría:</strong></div>
-							<div class="col-md-2">{{ $controlProceso->pagaduria->nombre }}</div>
-
-							<div class="col-md-1"><strong>Periodo:</strong></div>
-							<div class="col-md-2">{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</div>
-
-							<div class="col-md-2"><strong>Total cargado:</strong></div>
-							<div class="col-md-2">${{ number_format($controlProceso->total_aplicar) }}</div>
-						</div>							
-					</div>
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Aplicación</h3>
 				</div>
+				<div class="card-body">
+					<a class="btn btn-danger" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}">Volver</a>
+					<br>
+					<br>
+					<div class="row">
+						<div class="col-md-12 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-1"><strong>Pagaduría:</strong></div>
+								<div class="col-md-2">{{ $controlProceso->pagaduria->nombre }}</div>
 
-				<br>
-				<div class="row">
-					<div class="col-md-1">
-						<h4>Datos</h4>
-					</div>
-					<div class="col-md-7">
-						<a href="{{ route('recaudosNominaGenerarDatosAplicar', $controlProceso->id) }}" class="btn btn-info"><i class="fa fa-upload"></i> Cargar generación</a>
-						<a class="btn btn-info" data-toggle="modal" data-target=".mod_carga"><i class="fa fa-upload"></i> Cargar archivo</a>
-						<a href="{{ route('recaudosNominaEliminarDatosAplicar', $controlProceso->id) }}" class="btn btn-warning"><i class="fa fa-eraser"></i> Limpiar carga</a>
-					</div>
-					<div class="col-md-4">
-						<div class="pull-right">
-							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmacion"><i class="fa fa-check-circle-o"></i> Aplicar recaudos</button>
-							<a class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i> Anular aplicación</a>
+								<div class="col-md-1"><strong>Periodo:</strong></div>
+								<div class="col-md-2">{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</div>
+
+								<div class="col-md-2"><strong>Total cargado:</strong></div>
+								<div class="col-md-2">${{ number_format($controlProceso->total_aplicar) }}</div>
+							</div>							
 						</div>
 					</div>
-				</div>
-				<br>
-				@if (Session::has('errores'))
+
+					<br>
+					<div class="row">
+						<div class="col-md-1">
+							<h4>Datos</h4>
+						</div>
+						<div class="col-md-7">
+							<a href="{{ route('recaudosNominaGenerarDatosAplicar', $controlProceso->id) }}" class="btn btn-info"><i class="fa fa-upload"></i> Cargar generación</a>
+							<a class="btn btn-info" data-toggle="modal" data-target=".mod_carga"><i class="fa fa-upload"></i> Cargar archivo</a>
+							<a href="{{ route('recaudosNominaEliminarDatosAplicar', $controlProceso->id) }}" class="btn btn-warning"><i class="fa fa-eraser"></i> Limpiar carga</a>
+						</div>
+						<div class="col-md-4">
+							<div class="pull-right">
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmacion"><i class="fa fa-check-circle-o"></i> Aplicar recaudos</button>
+								<a class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i> Anular aplicación</a>
+							</div>
+						</div>
+					</div>
+					<br>
+					@if (Session::has('errores'))
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1 table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Error</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (Session::get('errores') as $error)
+											<tr>
+												<td>{{ $error }}</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<br><br>
+					@endif
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1 table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Error</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach (Session::get('errores') as $error)
+							@if($controlProceso->datosParaAplicar->count())
+								<table class="table">
+									<thead>
 										<tr>
-											<td>{{ $error }}</td>
+											<th>Nombre</th>
+											<th class="text-center">Valor generado</th>
+											<th class="text-center">Valor a aplicar</th>
 										</tr>
-									@endforeach
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										@foreach($controlProceso->datosParaAplicar as $datoParaAplicar)
+											<tr>
+												<td>{{ $datoParaAplicar->tercero->tipoIdentificacion->codigo }} {{ $datoParaAplicar->tercero->numero_identificacion }} -  {{ $datoParaAplicar->tercero->nombre }}</td>
+												<td class="text-right">${{ number_format($datoParaAplicar->valor_generado) }}</td>
+												<td class="text-right">${{ number_format($datoParaAplicar->valor_descontado) }}</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							@else
+								<br>
+								<label>No existen datos para aplicar</label>
+							@endif
 						</div>
 					</div>
-					<br><br>
-				@endif
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1 table-responsive">
-						@if($controlProceso->datosParaAplicar->count())
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Nombre</th>
-										<th class="text-center">Valor generado</th>
-										<th class="text-center">Valor a aplicar</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($controlProceso->datosParaAplicar as $datoParaAplicar)
-										<tr>
-											<td>{{ $datoParaAplicar->tercero->tipoIdentificacion->codigo }} {{ $datoParaAplicar->tercero->numero_identificacion }} -  {{ $datoParaAplicar->tercero->nombre }}</td>
-											<td class="text-right">${{ number_format($datoParaAplicar->valor_generado) }}</td>
-											<td class="text-right">${{ number_format($datoParaAplicar->valor_descontado) }}</td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						@else
-							<br>
-							<label>No existen datos para aplicar</label>
-						@endif
-					</div>
-				</div>
-				<br>
-				{!! Form::open(['route' => ['recaudosNominaProcesarRecaudos', $controlProceso], 'method' => 'put', 'role' => 'form', 'id' => 'formProcesar']) !!}
-				<div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="tituloConfirmacion">
-					<div class="modal-dialog modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="tituloConfirmacion">Aplicar recaudos</h4>
-							</div>
-							<div class="modal-body">
-								<div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<div class="alert alert-warning">
-											<h4>
-												<i class="fa fa-warning"></i>&nbsp;Alerta!
-											</h4>
-											Confirme el proceso de aplicación de recaudos
+					<br>
+					{!! Form::open(['route' => ['recaudosNominaProcesarRecaudos', $controlProceso], 'method' => 'put', 'role' => 'form', 'id' => 'formProcesar']) !!}
+					<div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="tituloConfirmacion">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="tituloConfirmacion">Aplicar recaudos</h4>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-10 col-md-offset-1">
+											<div class="alert alert-warning">
+												<h4>
+													<i class="fa fa-warning"></i>&nbsp;Alerta!
+												</h4>
+												Confirme el proceso de aplicación de recaudos
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-10 col-md-offset-1">
+											<dl class="dl-horizontal">
+												<dt>Pagaduría:</dt>
+												<dd>{{ $controlProceso->pagaduria->nombre }}</dd>
+												<dt>Periodo:</dt>
+												<dd>{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</dd>
+												<dt>Total cargado:</dt>
+												<dd>${{ number_format($controlProceso->total_aplicar) }}</dd>
+											</dl>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<dl class="dl-horizontal">
-											<dt>Pagaduría:</dt>
-											<dd>{{ $controlProceso->pagaduria->nombre }}</dd>
-											<dt>Periodo:</dt>
-											<dd>{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</dd>
-											<dt>Total cargado:</dt>
-											<dd>${{ number_format($controlProceso->total_aplicar) }}</dd>
-										</dl>
-									</div>
+								<div class="modal-footer">
+									<a class="btn btn-success" id="procesar">Procesar</a>
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 								</div>
-							</div>
-							<div class="modal-footer">
-								<a class="btn btn-success" id="procesar">Procesar</a>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 							</div>
 						</div>
 					</div>
+					{!! Form::close() !!}
 				</div>
-				{!! Form::close() !!}
-			</div>
-			<div class="card-footer">
+				<div class="card-footer">
+				</div>
 			</div>
 		</div>
 	</section>
