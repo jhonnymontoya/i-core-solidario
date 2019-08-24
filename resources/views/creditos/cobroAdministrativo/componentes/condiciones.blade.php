@@ -105,7 +105,7 @@
 						<td>{{ $data["base_cobro"] }}</td>
 						<td>{{ $data["factor_calculo"] }}</td>
 						<td>{{ $data["valor"] }}</td>
-						<td><a class="btn btn-danger btn-xs eliminar"><i class="fa fa-trash"></i></a></td>
+						<td><a class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a></td>
 					</tr>
 				@endforeach
 			</tbody>
@@ -136,7 +136,7 @@
 				dataType: 'json',
 				data: $data
 			}).done(function(data){
-				$eliminar = $("<a>").addClass("btn").addClass("btn-danger").addClass("btn-xs");
+				$eliminar = $("<a>").addClass("btn").addClass("btn-danger").addClass("btn-sm");
 				$eliminar.html("<i class=\"fa fa-trash\"></i>");
 				$eliminar.click(function(event){eliminar(this);});
 				$rango = $("<tr>")

@@ -130,7 +130,7 @@
 					</div>
 					<hr>
 					@if (!$tarjetaHabientes->count())
-						No se encontraon tarjetas, <a href="{{ url('tarjetaHabiente/create') }}?tercero_id={{ $tercero->id }}" class="btn btn-primary btn-xs">Crear nueva tarjeta</a>
+						No se encontraon tarjetas, <a href="{{ url('tarjetaHabiente/create') }}?tercero_id={{ $tercero->id }}" class="btn btn-primary btn-sm">Crear nueva tarjeta</a>
 					@else
 						<div class="row">
 							<div class="col-md-12">
@@ -186,7 +186,7 @@
 													</span>
 												</td>
 												<td>
-													<a href="{{ route('tarjetaHabiente.edit', [$tercero->id, $tarjetaHabiente->id]) }}" class="btn btn-info btn-xs">
+													<a href="{{ route('tarjetaHabiente.edit', [$tercero->id, $tarjetaHabiente->id]) }}" class="btn btn-info btn-sm">
 														<i class="fa fa-edit"></i>
 													</a>
 												</td>

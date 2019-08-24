@@ -226,10 +226,10 @@
 													{{ $condicion["periodo"] }}
 												</a>
 												<div class="pull-right">
-													<a class="btn btn-success btn-xs" data-toggle="modal" data-target="#mam" data-href="#con{{$id}}" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}">
+													<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#mam" data-href="#con{{$id}}" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}">
 														<font color="#fff"><i class="fa fa-plus"></i> agregar montos</font>
 													</a>
-													<a data-toggle="modal" data-target="#mdelPeriodo" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}" class="btn btn-danger btn-xs" title="Eliminar rango de tiempo"><font color="#fff"><i class="fa fa-trash"></i></font></a>
+													<a data-toggle="modal" data-target="#mdelPeriodo" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}" class="btn btn-danger btn-sm" title="Eliminar rango de tiempo"><font color="#fff"><i class="fa fa-trash"></i></font></a>
 												</div>
 											</h4>
 										</div>
@@ -255,7 +255,7 @@
 																			<td class="text-right">{{ $monto["monto_maximo"] }}</td>
 																			<td class="text-right">{{ $monto["tasa"] }}</td>
 																			<td class="text-right">
-																				<a data-toggle="modal" data-target="#mdelMonto" data-id="{{ $monto["id"] }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+																				<a data-toggle="modal" data-target="#mdelMonto" data-id="{{ $monto["id"] }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 																			</td>
 																		</tr>
 																	@endforeach

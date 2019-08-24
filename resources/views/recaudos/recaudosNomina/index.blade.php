@@ -124,7 +124,7 @@
 												<td>{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</td>
 												<td>{{ title_case($controlProceso->estado) }}</td>
 												<td>
-													<a class="btn btn-primary btn-xs" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fa fa-external-link"></i></a>
+													<a class="btn btn-primary btn-sm" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fa fa-external-link"></i></a>
 												</td>
 											</tr>
 										@endforeach

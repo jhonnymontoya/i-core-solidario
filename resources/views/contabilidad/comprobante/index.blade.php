@@ -79,7 +79,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron comprobantes <a href="{{ url('comprobante/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron comprobantes <a href="{{ url('comprobante/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -153,27 +153,27 @@
 												@endif
 											</td>
 											<td>
-												<a href="{{ ($estadoLabel == 'warning' ? route('comprobanteEdit', $comprobante->id) : '') }}" class="btn btn-default btn-xs {{ ($estadoLabel == 'warning') ? '' : 'disabled' }}" title="Editar">
+												<a href="{{ ($estadoLabel == 'warning' ? route('comprobanteEdit', $comprobante->id) : '') }}" class="btn btn-default btn-sm {{ ($estadoLabel == 'warning') ? '' : 'disabled' }}" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
-												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $comprobante->tipoComprobante->codigo }}&numeroComprobante={{ $comprobante->numero_comprobante }}" class="btn btn-default btn-xs {{ ($estadoLabel == 'warning') ? 'disabled' : '' }}" title="Imprimir comprobante">
+												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $comprobante->tipoComprobante->codigo }}&numeroComprobante={{ $comprobante->numero_comprobante }}" class="btn btn-default btn-sm {{ ($estadoLabel == 'warning') ? 'disabled' : '' }}" title="Imprimir comprobante">
 													<i class="fa fa-print"></i>
 												</a>
-												<a href="{{ route('comprobante.duplicar', $comprobante->id) }}" class="btn btn-default btn-xs {{ (($estadoLabel == 'success' || $estadoLabel == 'danger') && $comprobante->origen != 'PROCESO') ? '' : 'disabled' }}" title="Duplicar">
+												<a href="{{ route('comprobante.duplicar', $comprobante->id) }}" class="btn btn-default btn-sm {{ (($estadoLabel == 'success' || $estadoLabel == 'danger') && $comprobante->origen != 'PROCESO') ? '' : 'disabled' }}" title="Duplicar">
 													<i class="fa fa-copy"></i>
 												</a>
 												@if ($estadoLabel != 'warning')
 													@if ($comprobante->origen == 'MANUAL' && is_null($comprobante->causa_anulado_id))
-														<a href="{{ route('comprobante.anular', $comprobante->id) }}" class="btn btn-default btn-xs" title="Anular">
+														<a href="{{ route('comprobante.anular', $comprobante->id) }}" class="btn btn-default btn-sm" title="Anular">
 															<i class="fa fa-close"></i>
 														</a>
 													@else
-														<a href="" class="btn btn-default btn-xs disabled" title="Anular">
+														<a href="" class="btn btn-default btn-sm disabled" title="Anular">
 															<i class="fa fa-close"></i>
 														</a>
 													@endif
 												@else
-													<a href="{{ route('comprobanteDelete', $comprobante->id) }}" class="btn btn-default btn-xs" title="Eliminar">
+													<a href="{{ route('comprobanteDelete', $comprobante->id) }}" class="btn btn-default btn-sm" title="Eliminar">
 													<i class="fa fa-trash"></i>
 												</a>
 												@endif

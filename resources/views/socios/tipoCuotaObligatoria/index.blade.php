@@ -59,7 +59,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron cuotas obligatorias <a href="{{ url('tipoCuotaObligatoria/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+									No se encontraron cuotas obligatorias <a href="{{ url('tipoCuotaObligatoria/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -130,7 +130,7 @@
 												</span>
 											</td>
 											<td>
-												<a href="{{ route('tipoCuotaObligatoriaEdit', $cuota->id) }}" class="btn btn-info btn-xs" title="Editar">
+												<a href="{{ route('tipoCuotaObligatoriaEdit', $cuota->id) }}" class="btn btn-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

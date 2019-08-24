@@ -57,7 +57,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron cobros administrativos <a href="{{ url('cobrosAdministrativos/create') }}" class="btn btn-primary btn-xs">crear una nuevo</a>
+									No se encontraron cobros administrativos <a href="{{ url('cobrosAdministrativos/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -108,8 +108,8 @@
 												</span>
 											</td>
 											<td>
-												<a href="{{ route('cobrosAdministrativos.edit', $cobro) }}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a>
-												<a href="{{ route('cobrosAdministrativos.modalidades', $cobro) }}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Asociar modalidades"><i class="fa fa-plus"></i></a>
+												<a href="{{ route('cobrosAdministrativos.edit', $cobro) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('cobrosAdministrativos.modalidades', $cobro) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Asociar modalidades"><i class="fa fa-plus"></i></a>
 											</td>
 										</tr>
 									@endforeach

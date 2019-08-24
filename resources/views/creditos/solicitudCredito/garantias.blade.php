@@ -224,7 +224,7 @@
 														<a role="button" data-toggle="collapse" data-parent="#accordion" href="#cod{{$id}}" aria-expanded="false" aria-controls="cod{{$id}}">
 															{{ $codeudor['numeroIdentificacion'] }} - {{ $codeudor['nombre'] }} - {{ $codeudor['nombreGarantia'] }}
 														</a>
-														<a href="{{ route('solicitudCreditoDeleteCodeudor', [$solicitud->id, $codeudor['id']]) }}" class="btn btn-danger btn-xs pull-right"><font color="#fff"><i class="fa fa-trash"></i></font></a>
+														<a href="{{ route('solicitudCreditoDeleteCodeudor', [$solicitud->id, $codeudor['id']]) }}" class="btn btn-danger btn-sm pull-right"><font color="#fff"><i class="fa fa-trash"></i></font></a>
 													</h4>
 												</div>
 												<div id="cod{{$id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="codeudor{{++$id}}">

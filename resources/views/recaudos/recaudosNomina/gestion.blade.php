@@ -127,8 +127,8 @@
 					<br><br>
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
-							<a class="btn btn-info btn-xs" href="{{ route('reportesReporte', 5) }}?numeroProceso={{ $controlProceso->id }}" target="_blank"><i class="fa fa-eye"></i> Detalle generado</a>
-							<a data-toggle="modal" data-target="#mAnularGeneracion" class="btn btn-danger btn-xs"><i class="fa fa-exclamation-triangle"></i> Anular generación</a>
+							<a class="btn btn-info btn-sm" href="{{ route('reportesReporte', 5) }}?numeroProceso={{ $controlProceso->id }}" target="_blank"><i class="fa fa-eye"></i> Detalle generado</a>
+							<a data-toggle="modal" data-target="#mAnularGeneracion" class="btn btn-danger btn-sm"><i class="fa fa-exclamation-triangle"></i> Anular generación</a>
 						</div>
 					</div>
 				</div>

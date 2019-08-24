@@ -60,12 +60,12 @@
 							<div class="row">
 								<div class="col-md-3 col-md-offset-1"><p>{{ $modalidad->nombre }}</p></div>
 								<div class="col-md-8">
-									<a data-modalidad="{{ $modalidad->id }}" class="btn btn-xs asociar btn-{{ $asociado ? 'danger' : 'success' }}">{{ $asociado ? (empty($seguroCarteraAsociado) ? 'Desasociar' : 'Asociado en seguro ' . $seguroCarteraAsociado->codigo . ' - ' . $seguroCarteraAsociado->nombre . ' ¿Desasociar?') : 'Asociar' }}</a>
+									<a data-modalidad="{{ $modalidad->id }}" class="btn btn-sm asociar btn-{{ $asociado ? 'danger' : 'success' }}">{{ $asociado ? (empty($seguroCarteraAsociado) ? 'Desasociar' : 'Asociado en seguro ' . $seguroCarteraAsociado->codigo . ' - ' . $seguroCarteraAsociado->nombre . ' ¿Desasociar?') : 'Asociar' }}</a>
 								</div>
 							</div>
 						@endforeach
 					@else
-						No existen mosalidades de crédito para asociar, <a class="btn btn-success btn-xs" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
+						No existen mosalidades de crédito para asociar, <a class="btn btn-success btn-sm" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
 					@endif
 				</div>
 				<div class="card-footer">

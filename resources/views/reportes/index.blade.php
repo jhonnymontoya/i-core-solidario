@@ -87,7 +87,7 @@
 											<td>{{ str_limit($reporte->descripcion, 50) }}</td>
 											<td>{{ $reporte->parametros->count() }}</td>
 											<td>
-												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-play"></i> Ver reporte</a>
+												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-play"></i> Ver reporte</a>
 											</td>
 										</tr>
 									@endforeach

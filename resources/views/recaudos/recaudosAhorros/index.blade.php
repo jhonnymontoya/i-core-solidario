@@ -57,7 +57,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron abonos <a href="{{ url('recaudosAhorros/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron abonos <a href="{{ url('recaudosAhorros/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -85,7 +85,7 @@
 											<td>{{ $recaudo->contacto }}</td>
 											<td>${{ number_format($data->totalRecaudo) }}</td>
 											<td>
-												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-default btn-xs" title="Imprimir comprobante">
+												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-default btn-sm" title="Imprimir comprobante">
 													<i class="fa fa-print"></i>
 												</a>
 											</td>

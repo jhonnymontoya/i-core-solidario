@@ -412,7 +412,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-xs">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -515,7 +515,7 @@
 																	<td>{{ $organismo->fecha_nombramiento }}</td>
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-xs">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -619,7 +619,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-xs">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -724,7 +724,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-xs">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -829,7 +829,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-xs">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -917,7 +917,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-xs'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_directivo > tbody").append(fila);
 			}).fail(function(data){
@@ -936,7 +936,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td>";
-				fila += "<td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-xs'>";
+				fila += "<td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_legal > tbody").append(fila);
 			}).fail(function(data){
@@ -955,7 +955,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-xs'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_controlsocial > tbody").append(fila);
 			}).fail(function(data){
@@ -974,7 +974,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-xs'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_comiteCartera > tbody").append(fila);
 			}).fail(function(data){
@@ -993,7 +993,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-xs'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_comiteRiesgoLiquidez > tbody").append(fila);
 			}).fail(function(data){

@@ -48,11 +48,11 @@
 								<div class="cropit-preview"></div>
 								<input type="file" class="cropit-image-input" />
 								<div class="row text-center">
-									<a class="select-image-btn btn btn-default btn-xs"><i class="fa fa-camera"></i></a>
-									<a class="rotate-ccw-btn btn btn-default btn-xs"><i class="fa fa-rotate-left"></i></a>
-									<a class="rotate-cw-btn btn btn-default btn-xs"><i class="fa fa-rotate-right"></i></a>
-									<a class="zoom-in-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-in"></i></a>
-									<a class="zoom-out-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-out"></i></a>
+									<a class="select-image-btn btn btn-default btn-sm"><i class="fa fa-camera"></i></a>
+									<a class="rotate-ccw-btn btn btn-default btn-sm"><i class="fa fa-rotate-left"></i></a>
+									<a class="rotate-cw-btn btn btn-default btn-sm"><i class="fa fa-rotate-right"></i></a>
+									<a class="zoom-in-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
+									<a class="zoom-out-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
 								</div>
 							</div>
 							<br>

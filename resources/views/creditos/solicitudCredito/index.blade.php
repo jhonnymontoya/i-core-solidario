@@ -76,7 +76,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron solicitudes de crédito <a href="{{ url('solicitudCredito/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+									No se encontraron solicitudes de crédito <a href="{{ url('solicitudCredito/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -190,23 +190,23 @@
 													{
 														case 'BORRADOR':
 															?>
-															<a class="btn btn-info btn-xs" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Editar"><i class="fa fa-edit"></i></a>
-															<a class="btn btn-warning btn-xs" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
+															<a class="btn btn-info btn-sm" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Editar"><i class="fa fa-edit"></i></a>
+															<a class="btn btn-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
 															<?php
 															break;
 														case 'RADICADO':
 															?>
-															<a class="btn btn-success btn-xs" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Aprobar"><i class="fa fa-thumbs-o-up"></i></a>
-															<a class="btn btn-danger btn-xs" href="{{ route('solicitudCreditoRechazar', $solicitud) }}" title="Rechazar"><i class="fa fa-thumbs-o-down"></i></a>
-															<a class="btn btn-warning btn-xs" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
-															<a class="btn btn-default btn-xs" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
+															<a class="btn btn-success btn-sm" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Aprobar"><i class="fa fa-thumbs-o-up"></i></a>
+															<a class="btn btn-danger btn-sm" href="{{ route('solicitudCreditoRechazar', $solicitud) }}" title="Rechazar"><i class="fa fa-thumbs-o-down"></i></a>
+															<a class="btn btn-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
+															<a class="btn btn-default btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
 															<?php
 															break;
 														case 'APROBADO':
 															?>
-															<a class="btn btn-success btn-xs" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Desembolsar"><i class="fa fa-money"></i></a>
-															<a class="btn btn-warning btn-xs" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
-															<a class="btn btn-default btn-xs" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
+															<a class="btn btn-success btn-sm" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Desembolsar"><i class="fa fa-money"></i></a>
+															<a class="btn btn-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
+															<a class="btn btn-default btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
 															<?php
 															break;
 														

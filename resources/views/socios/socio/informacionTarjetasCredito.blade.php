@@ -222,7 +222,7 @@
 															<td>${{ number_format($tarjeta->cupo) }}</td>
 															<td>${{ number_format($tarjeta->saldo) }}</td>
 															<td>
-																<a href="{{ route('socioEditTarjetasCreditoEliminar', [$socio->id, $tarjeta->id]) }}" class="btn btn-danger btn-xs">
+																<a href="{{ route('socioEditTarjetasCreditoEliminar', [$socio->id, $tarjeta->id]) }}" class="btn btn-danger btn-sm">
 																	<i class="fa fa-trash"></i>
 																</a>
 															</td>

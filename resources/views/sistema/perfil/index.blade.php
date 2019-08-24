@@ -70,7 +70,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron perfiles <a href="{{ url('perfil/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron perfiles <a href="{{ url('perfil/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -104,7 +104,7 @@
 													{{ $perfil->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
-											<td><a class="btn btn-info btn-xs" href="{{ route('perfilEdit', $perfil) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-info btn-sm" href="{{ route('perfilEdit', $perfil) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

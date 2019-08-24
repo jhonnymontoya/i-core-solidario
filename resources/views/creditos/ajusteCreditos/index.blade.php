@@ -139,7 +139,7 @@
 														<td class="text-right">${{ number_format($credito->valor_cuota, 0) }}</td>
 														<td class="text-right">${{ number_format($credito->saldoObligacion(Request::get("fechaAjuste")), 0) }}</td>
 														<td class="text-center">
-															<a href="{{ route('ajusteCredito', $credito->id) }}?fechaAjuste={{Request::get('fechaAjuste')}}" class="btn btn-info btn-xs">Ajustar</a>
+															<a href="{{ route('ajusteCredito', $credito->id) }}?fechaAjuste={{Request::get('fechaAjuste')}}" class="btn btn-info btn-sm">Ajustar</a>
 														</td>
 													</tr>
 												@endforeach

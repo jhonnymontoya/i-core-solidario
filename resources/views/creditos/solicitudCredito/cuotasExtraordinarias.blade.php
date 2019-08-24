@@ -188,7 +188,7 @@
 												<td>{{ $cuota->periodicidad }}</td>
 												<td>{{ $cuota->inicio_descuento }}</td>
 												<td>
-													<a href="{{ route('solicitudCredito.delete.cuotasExtraordinarias', [$solicitud->id, $cuota->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+													<a href="{{ route('solicitudCredito.delete.cuotasExtraordinarias', [$solicitud->id, $cuota->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 												</td>
 											</tr>
 										@endforeach

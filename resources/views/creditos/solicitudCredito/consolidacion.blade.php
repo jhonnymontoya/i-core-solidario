@@ -250,7 +250,7 @@
 														<td>
 															{!! Form::open(['route' => ['solicitudCreditoDeleteConsolidacion', $solicitud], 'method' => 'delete', 'role' => 'form']) !!}
 															{!! Form::hidden('credito', $creditoRecogido->id) !!}
-															{!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-xs']) !!}
+															{!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-sm']) !!}
 															{!! Form::close() !!}
 														</td>
 													</tr>
@@ -266,7 +266,7 @@
 													<th colspan="3"></th>
 													<th>Exedente para desembolso:</th>
 													<th class="text-right">${{ number_format($solicitud->valor_credito - $total) }}</th>
-													<th><a class="btn btn-success btn-xs" data-toggle="modal" data-target="#desembolso">Modificar</a></th>
+													<th><a class="btn btn-success btn-sm" data-toggle="modal" data-target="#desembolso">Modificar</a></th>
 												</tr>
 											</tfoot>
 										</table>

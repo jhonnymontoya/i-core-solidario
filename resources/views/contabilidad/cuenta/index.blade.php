@@ -81,7 +81,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron cuentas contables <a href="{{ url('cuentaContable/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+									No se encontraron cuentas contables <a href="{{ url('cuentaContable/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -114,7 +114,7 @@
 											<td>{{ $cuenta->nivel }}</td>
 											<td>{{ $cuenta->tipo_cuenta }}</td>
 											<td>{{ !empty($cuenta->modulo) ? $cuenta->modulo->nombre : ''}}</td>
-											<td><a class="btn btn-info btn-xs" href="{{ route('cuentaEdit', $cuenta->id) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-info btn-sm" href="{{ route('cuentaEdit', $cuenta->id) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

@@ -146,7 +146,7 @@
 														<td>{{ $modalidad->nombre }}</td>
 														<td class="conceptoActual">{{ !empty($concepto) ? $concepto->codigo . ' - ' . $concepto->nombre : '' }}</td>
 														<td>
-															<a class="btn btn-xs btn-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadAhorros(this);">Asociar</a>
+															<a class="btn btn-sm btn-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadAhorros(this);">Asociar</a>
 														</td>
 													</tr>
 												@endforeach
@@ -195,7 +195,7 @@
 														<td>{{ $modalidad->nombre }}</td>
 														<td class="conceptoActual">{{ !empty($concepto) ? $concepto->codigo . ' - ' . $concepto->nombre : '' }}</td>
 														<td>
-															<a class="btn btn-xs btn-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadCredito(this);">Asociar</a>
+															<a class="btn btn-sm btn-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadCredito(this);">Asociar</a>
 														</td>
 													</tr>
 												@endforeach

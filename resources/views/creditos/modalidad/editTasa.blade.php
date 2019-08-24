@@ -536,7 +536,7 @@
 															<td>{{ number_format($rango->condicionado_hasta, 0) }}</td>
 															<td>{{ number_format($rango->tipo_condicion_minimo, 2) }}</td>
 															<td>
-																<a class="btn btn-danger btn-xs eliminar"><i class="fa fa-trash"></i></a>
+																<a class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>
 															</td>
 														</tr>
 													@endforeach
@@ -687,7 +687,7 @@
 				type: 'PUT',
 				data: data,
 				success: function(result){
-					botonEliminar = $("<a></a>").addClass("btn btn-danger btn-xs eliminar");
+					botonEliminar = $("<a></a>").addClass("btn btn-danger btn-sm eliminar");
 					botonEliminar.append($("<i></i>").addClass("fa fa-trash"));
 					rango = $("<tr></tr>").append($("<td></td>").text(result.condicionado_desde));
 					rango.append($("<td></td>").text(result.condicionado_hasta));

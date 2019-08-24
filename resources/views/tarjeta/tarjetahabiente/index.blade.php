@@ -56,7 +56,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron tarjetahabientes <a href="{{ url('tarjetaHabiente/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron tarjetahabientes <a href="{{ url('tarjetaHabiente/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -105,7 +105,7 @@
 											<td>{{ $pagaduria }}</td>
 											<td>{{ $cantidadTarjetas }}</td>
 											<td class="text-right">${{ number_format($cupo) }}</td>
-											<td><a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a></td>
+											<td><a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

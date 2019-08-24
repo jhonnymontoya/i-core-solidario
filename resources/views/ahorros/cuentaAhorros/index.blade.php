@@ -62,7 +62,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron cuentas de ahorros <a href="{{ url('cuentaAhorros/create') }}" class="btn btn-primary btn-xs">crear uno nueva</a>
+									No se encontraron cuentas de ahorros <a href="{{ url('cuentaAhorros/create') }}" class="btn btn-primary btn-sm">crear uno nueva</a>
 								</div>
 							</div>
 						</p>
@@ -102,7 +102,7 @@
 												</span>
 											</td>
 											<td>
-												<a href="{{ route('cuentaAhorros.edit', $cuentaAhorros->id) }}" class="btn btn-info btn-xs" title="Editar">
+												<a href="{{ route('cuentaAhorros.edit', $cuentaAhorros->id) }}" class="btn btn-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

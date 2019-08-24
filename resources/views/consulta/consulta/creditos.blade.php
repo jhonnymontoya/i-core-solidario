@@ -107,7 +107,7 @@
 						</div>
 					</div>
 					<br>
-					<a id="verAmortizacion" class="btn btn-info btn-xs">Plan de pagos</a>
+					<a id="verAmortizacion" class="btn btn-info btn-sm">Plan de pagos</a>
 					@if($credito->amortizaciones->count())
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>

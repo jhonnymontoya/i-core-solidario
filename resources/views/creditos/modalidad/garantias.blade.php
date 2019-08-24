@@ -246,7 +246,7 @@
 													<td>{{ $tipoGarantia->nombre }}</td>
 													<td>{{ $tipoGarantia->tipo_garantia }}</td>
 													<td>
-														<a class="btn btn-danger btn-xs eliminar"><i class="fa fa-trash"></i></a>
+														<a class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 											@endforeach
@@ -311,7 +311,7 @@
 				type: 'PUT',
 				data: $data,
 				success: function(result){
-					botonEliminar = $("<a></a>").addClass("btn btn-danger btn-xs eliminar");
+					botonEliminar = $("<a></a>").addClass("btn btn-danger btn-sm eliminar");
 					botonEliminar.append($("<i></i>").addClass("fa fa-trash"));
 					garantia = $("<tr></tr>").append($("<td></td>").text(result.nombre));
 					garantia.append($("<td></td>").append(result.tipoGarantia));

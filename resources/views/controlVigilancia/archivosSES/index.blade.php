@@ -112,7 +112,7 @@
 														</a>
 													</td>
 													<td>
-														<a href="{{ $href }}"  target="_blank" class="btn btn-success btn-xs">
+														<a href="{{ $href }}"  target="_blank" class="btn btn-success btn-sm">
 															<i class="fa fa-download"></i> Descargar
 														</a>
 													</td>

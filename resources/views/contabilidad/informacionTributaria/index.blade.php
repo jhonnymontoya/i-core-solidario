@@ -66,7 +66,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -107,8 +107,8 @@
 														\Carbon\Carbon::now()->subMonth()->endOfMonth()->format("Y/m/d")
 													);
 												@endphp
-												<a href="{{ $if }}" target="_blank" class="btn btn-xs btn-primary" title="Declaración">Declaración</a>
-												<a href="{{ $dt }}" target="_blank" class="btn btn-xs btn-primary" title="Detalle">Detalle</a>
+												<a href="{{ $if }}" target="_blank" class="btn btn-sm btn-primary" title="Declaración">Declaración</a>
+												<a href="{{ $dt }}" target="_blank" class="btn btn-sm btn-primary" title="Detalle">Detalle</a>
 											</td>
 										</tr>
 									@endforeach

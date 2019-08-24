@@ -133,7 +133,7 @@
 													<td>{{ empty($cuota->periodo_inicial) ? '' : $cuota->periodo_inicial->toFormattedDateString() }}</td>
 													<td>{{ empty($cuota->periodo_final) ? '' : $cuota->periodo_final->toFormattedDateString() }}</td>
 													<td>
-														<a href="{{ route('cuotaVoluntariaDelete', $cuota->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+														<a href="{{ route('cuotaVoluntariaDelete', $cuota->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 											@endforeach

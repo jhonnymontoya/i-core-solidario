@@ -63,7 +63,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron procesos <a href="{{ url('ajusteCreditoLote/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+									No se encontraron procesos <a href="{{ url('ajusteCreditoLote/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -112,12 +112,12 @@
 											</td>
 											<td>
 												@if($proceso->estado == 'PRECARGA')
-													<a class="btn btn-info btn-xs" title="Editar" href="{{ route('ajusteCreditoLoteCargarCreditos', $proceso->id) }}"><i class="fa fa-edit"></i></a>
+													<a class="btn btn-info btn-sm" title="Editar" href="{{ route('ajusteCreditoLoteCargarCreditos', $proceso->id) }}"><i class="fa fa-edit"></i></a>
 												@elseif($proceso->estado == 'CARGADO')
-													<a class="btn btn-info btn-xs" title="Editar" href="{{ route('ajusteCreditoLoteResumen', $proceso->id) }}"><i class="fa fa-edit"></i></a>
+													<a class="btn btn-info btn-sm" title="Editar" href="{{ route('ajusteCreditoLoteResumen', $proceso->id) }}"><i class="fa fa-edit"></i></a>
 												@endif
 												@if($proceso->estado == 'PRECARGA' || $proceso->estado == 'CARGADO')
-													<a class="btn btn-danger btn-xs" title="Anular" href="{{ route('ajusteCreditoLoteAnular', $proceso->id) }}"><i class="fa fa-close"></i></a>
+													<a class="btn btn-danger btn-sm" title="Anular" href="{{ route('ajusteCreditoLoteAnular', $proceso->id) }}"><i class="fa fa-close"></i></a>
 												@endif
 											</td>
 										</tr>

@@ -203,7 +203,7 @@
 															<td>{{ $beneficiario->parentesco->nombre }}</td>
 															<td>{{ $beneficiario->porcentaje_beneficio }}%</td>
 															<td>
-																<a href="#" class="btn btn-danger btn-xs" onclick="javascript:rowDelete(this);">
+																<a href="#" class="btn btn-danger btn-sm" onclick="javascript:rowDelete(this);">
 																	<i class="fa fa-trash"></i>
 																</a>
 															</td>

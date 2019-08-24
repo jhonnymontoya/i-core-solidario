@@ -60,7 +60,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron conceptos de recaudos <a href="{{ url('conceptosRecaudos/create') }}" class="btn btn-primary btn-xs">crear una nuevo</a>
+									No se encontraron conceptos de recaudos <a href="{{ url('conceptosRecaudos/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -82,8 +82,8 @@
 											<td>{{ $concepto->nombre }}</td>
 											<td>{{ $concepto->pagaduria->nombre }}</td>
 											<td>
-												<a class="btn btn-info btn-xs" href="{{ route('conceptosRecaudosEdit', $concepto) }}"><i class="fa fa-edit"></i></a>
-												<a class="btn btn-danger btn-xs disabled"><i class="fa fa-trash"></i></a>
+												<a class="btn btn-info btn-sm" href="{{ route('conceptosRecaudosEdit', $concepto) }}"><i class="fa fa-edit"></i></a>
+												<a class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									@endforeach

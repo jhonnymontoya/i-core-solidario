@@ -53,7 +53,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron causas para anulación de movimientos <a href="{{ url('causaAnulacionMovimiento/create') }}" class="btn btn-primary btn-xs">crear una nuevo</a>
+									No se encontraron causas para anulación de movimientos <a href="{{ url('causaAnulacionMovimiento/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -80,7 +80,7 @@
 											</td>
 											<td>{{ $causa->movimientos->count() }}</td>
 											<td>
-												<a href="{{ route('causaAnulacionMovimientoEdit', $causa->id) }}" class="btn btn-info btn-xs" title="Editar">
+												<a href="{{ route('causaAnulacionMovimientoEdit', $causa->id) }}" class="btn btn-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

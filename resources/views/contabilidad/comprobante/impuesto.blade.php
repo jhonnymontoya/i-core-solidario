@@ -180,7 +180,7 @@
 											<td class="text-right">${{ number_format($imp->valor_impuesto, 0) }}</td>
 											<td class="text-right">${{ number_format($imp->iva, 0) }}</td>
 											<td>
-												<a class="btn btn-danger btn-xs eliminarImpuesto">
+												<a class="btn btn-danger btn-sm eliminarImpuesto">
 													<i class="fa fa-trash"></i>
 												</a>
 											</td>

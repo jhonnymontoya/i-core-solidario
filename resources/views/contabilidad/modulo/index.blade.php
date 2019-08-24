@@ -65,7 +65,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron módulos <a href="{{ url('modulo/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron módulos <a href="{{ url('modulo/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -93,7 +93,7 @@
 											<td>{{ $modulo->cuentasContables->where('entidad_id', Auth::getSession()->get('entidad')->id)->count() }}</td>
 											<td>{{ $modulo->tiposComprobantes->where('entidad_id', Auth::getSession()->get('entidad')->id)->count() }}</td>
 											<td>
-												<a class="btn btn-primary btn-xs" href="{{ route('moduloEdit', $modulo) }}"><i class="fa fa-edit"></i></a>
+												<a class="btn btn-primary btn-sm" href="{{ route('moduloEdit', $modulo) }}"><i class="fa fa-edit"></i></a>
 											</td>
 										</tr>
 									@endforeach

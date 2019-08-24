@@ -92,7 +92,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -104,7 +104,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -116,7 +116,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -128,7 +128,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -140,7 +140,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-xs hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 								</tbody>

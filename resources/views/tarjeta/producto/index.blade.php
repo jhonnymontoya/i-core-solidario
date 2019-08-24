@@ -57,7 +57,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron productos <a href="{{ url('tarjetaProducto/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron productos <a href="{{ url('tarjetaProducto/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>

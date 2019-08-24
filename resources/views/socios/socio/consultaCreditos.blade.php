@@ -203,8 +203,8 @@
 						</div>
 					</div>
 					<br>
-					<a id="verAmortizacion" class="btn btn-info btn-xs">Ver amortización</a>
-					<a id="verCodeudores" class="btn btn-info btn-xs">Ver codeudores</a>
+					<a id="verAmortizacion" class="btn btn-info btn-sm">Ver amortización</a>
+					<a id="verCodeudores" class="btn btn-info btn-sm">Ver codeudores</a>
 					@if($credito->amortizaciones->count())
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>

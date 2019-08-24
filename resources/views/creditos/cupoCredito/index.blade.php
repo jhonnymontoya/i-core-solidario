@@ -56,7 +56,7 @@
 								<label>Número de veces </label>
 								<span class="label label-success">{{ number_format($parametro->valor, 1) }}</span>&nbsp;&nbsp;
 							@endif
-							<a href="{{ route('parametroInstitucionalEdit', $parametro->id) }}" class="btn btn-primary btn-xs">Editar</a>
+							<a href="{{ route('parametroInstitucionalEdit', $parametro->id) }}" class="btn btn-primary btn-sm">Editar</a>
 						</div>
 					</div>
 					<br>
@@ -85,7 +85,7 @@
 											<td>{{ $modalidad->codigo }}</td>
 											<td>{{ $modalidad->nombre }}</td>
 											<td>{{ $modalidad->apalancamiento_cupo }}</td>
-											<td><a class="btn btn-info btn-xs" href="{{ route('cupoCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-info btn-sm" href="{{ route('cupoCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

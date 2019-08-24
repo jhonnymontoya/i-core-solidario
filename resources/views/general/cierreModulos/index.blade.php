@@ -126,7 +126,7 @@
 											</span>
 
 											<span class="info-card-text">
-												<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-success btn-block btn-xs btn-flat pull-right">Ir a resumen de módulos</a>
+												<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-success btn-block btn-sm btn-flat pull-right">Ir a resumen de módulos</a>
 											</span>
 										</div>
 									</div>

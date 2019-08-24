@@ -31,8 +31,8 @@
 			</div>
 		@endif
 		<div class="row">
-			<div class="col-md-1">
-				<a href="{{ url('tarjetas/create') }}" class="btn btn-primary">Crear nuevas</a>
+			<div class="col-md-2">
+				<a href="{{ url('tarjetas/create') }}" class="btn btn-outline-primary">Crear nuevas</a>
 			</div>
 		</div>
 		<br>
@@ -42,8 +42,8 @@
 					<h3 class="card-title">Tarjetas</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'tipoCuenta', 'estado'), ['url' => 'tarjetas', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'tipoCuenta', 'estado'), ['url' => 'tarjetas', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-6 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
@@ -51,15 +51,15 @@
 							{!! Form::select('estado', ['DISPONIBLE' => 'Disponible', 'ASIGNADA' => 'Asignada'], null, ['class' => 'form-control select2', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
-					@if(!$tarjetas->total())
+					{!! Form::close() !!}
+					@if($tarjetas->total())
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron tarjetas <a href="{{ url('tarjetas/create') }}" class="btn btn-primary btn-xs">crear nuevas</a>
+									No se encontraron tarjetas <a href="{{ url('tarjetas/create') }}" class="btn btn-outline-primary btn-sm">crear nuevas</a>
 								</div>
 							</div>
 						</p>

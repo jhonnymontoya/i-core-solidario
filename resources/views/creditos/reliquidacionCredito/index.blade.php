@@ -135,7 +135,7 @@
 														<td class="text-right">{{ $credito->plazo }} {{ $credito->plazo == 1 ? 'cuota' : 'cuotas' }}</td>
 														<td class="text-right">${{ number_format($saldo, 0) }}</td>
 														<td class="text-center">
-															<a href="{{ route('reliquidarCreditoReliquidar', $credito->id) }}?fechaReliquidacion={{ $fecha }}" class="btn btn-info btn-xs">Reliquidar</a>
+															<a href="{{ route('reliquidarCreditoReliquidar', $credito->id) }}?fechaReliquidacion={{ $fecha }}" class="btn btn-info btn-sm">Reliquidar</a>
 														</td>
 													</tr>
 												@endforeach

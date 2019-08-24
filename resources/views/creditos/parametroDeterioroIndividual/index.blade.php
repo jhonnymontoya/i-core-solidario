@@ -155,7 +155,7 @@
 		$parametro.append($("<td>").addClass("text-center").text(data.dias_hasta));
 		$parametro.append($("<td>").addClass("text-center").text(data.deterioro + "%"));
 		$parametro.append($("<td>").html(
-			"<a class=\"btn btn-danger btn-xs aLimpiar\"><i class=\"fa fa-trash\"></i></a>"
+			"<a class=\"btn btn-danger btn-sm aLimpiar\"><i class=\"fa fa-trash\"></i></a>"
 		));
 		$("#res").append($parametro);
 		$(".aLimpiar").click(function(event){

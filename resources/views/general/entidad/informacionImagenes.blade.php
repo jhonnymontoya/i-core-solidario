@@ -73,11 +73,11 @@
 																<div id="image-cropper">
 																	<div class="cropit-preview"></div>
 																	<input type="file" class="cropit-image-input" />
-																	<a class="select-image-btn btn btn-default btn-xs"><i class="fa fa-camera"></i></a>
-																	<a class="rotate-ccw-btn btn btn-default btn-xs"><i class="fa fa-rotate-left"></i></a>
-																	<a class="rotate-cw-btn btn btn-default btn-xs"><i class="fa fa-rotate-right"></i></a>
-																	<a class="zoom-in-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-in"></i></a>
-																	<a class="zoom-out-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-out"></i></a>
+																	<a class="select-image-btn btn btn-default btn-sm"><i class="fa fa-camera"></i></a>
+																	<a class="rotate-ccw-btn btn btn-default btn-sm"><i class="fa fa-rotate-left"></i></a>
+																	<a class="rotate-cw-btn btn btn-default btn-sm"><i class="fa fa-rotate-right"></i></a>
+																	<a class="zoom-in-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
+																	<a class="zoom-out-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
 																</div>
 															</div>
 														</div>
@@ -93,7 +93,7 @@
 								</div>
 								@endif
 							@else
-								<h4>No se encontrarón categorías de imágenes, ir a <a href="{{ url('categoriaImagen/create') }}" class="btn btn-primary btn-xs">Crear categorías de imágenes</a></h4>
+								<h4>No se encontrarón categorías de imágenes, ir a <a href="{{ url('categoriaImagen/create') }}" class="btn btn-primary btn-sm">Crear categorías de imágenes</a></h4>
 							@endif
 						</div>
 					</div>

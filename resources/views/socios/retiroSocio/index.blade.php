@@ -73,7 +73,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron registros de retiros <a href="{{ url('retiroSocio/create') }}" class="btn btn-primary btn-xs">Ingresar solicitud</a>
+									No se encontraron registros de retiros <a href="{{ url('retiroSocio/create') }}" class="btn btn-primary btn-sm">Ingresar solicitud</a>
 								</div>
 							</div>
 						</p>
@@ -140,14 +140,14 @@
 											</td>
 											<td>
 												@if($solicitud->socio->estado != 'LIQUIDADO' && $solicitud->socio->estado == 'RETIRO')
-													<a href="{{ url('retiroSocio/preliquidacion') }}?preliquidar=1&socio_id={{ $solicitud->socio->id }}&fechaMovimiento={{ $solicitud->fecha_solicitud_retiro }}&fechaSaldo={{ $solicitud->fecha_solicitud_retiro }}" class="btn btn-danger btn-xs" title="Liquidar asociado"><i class="fa fa-user-times"></i></a>
-													<a href="#" data-toggle="modal" data-target="#mAnular" data-nombre="{{ $nombre }}" data-fecha="{{ $fecha }}" data-id="{{ $solicitud->id }}" class="btn btn-default btn-xs" title="Anular retiro"><i class="fa fa-close"></i></a>
+													<a href="{{ url('retiroSocio/preliquidacion') }}?preliquidar=1&socio_id={{ $solicitud->socio->id }}&fechaMovimiento={{ $solicitud->fecha_solicitud_retiro }}&fechaSaldo={{ $solicitud->fecha_solicitud_retiro }}" class="btn btn-danger btn-sm" title="Liquidar asociado"><i class="fa fa-user-times"></i></a>
+													<a href="#" data-toggle="modal" data-target="#mAnular" data-nombre="{{ $nombre }}" data-fecha="{{ $fecha }}" data-id="{{ $solicitud->id }}" class="btn btn-default btn-sm" title="Anular retiro"><i class="fa fa-close"></i></a>
 												@endif
 												@if($solicitud->movimiento)
-													<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $solicitud->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $solicitud->movimiento->numero_comprobante }}" class="btn btn-default btn-xs" title="Imprimir comprobante" target="_blank">
+													<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $solicitud->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $solicitud->movimiento->numero_comprobante }}" class="btn btn-default btn-sm" title="Imprimir comprobante" target="_blank">
 														<i class="fa fa-print"></i>
 													</a>
-													<a href="#" data-toggle="modal" data-target="#mAnularLiquidacion" data-nombre="{{ $nombre }}" data-fecha="{{ $fechaLiquidacion }}" data-id="{{ $solicitud->id }}" class="btn btn-default btn-xs" title="Anular liquidación"><i class="fa fa-close"></i></a>
+													<a href="#" data-toggle="modal" data-target="#mAnularLiquidacion" data-nombre="{{ $nombre }}" data-fecha="{{ $fechaLiquidacion }}" data-id="{{ $solicitud->id }}" class="btn btn-default btn-sm" title="Anular liquidación"><i class="fa fa-close"></i></a>
 												@endif
 											</td>
 										</tr>

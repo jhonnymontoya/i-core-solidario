@@ -65,7 +65,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron SDAT <a href="{{ url('SDAT/create') }}" class="btn btn-primary btn-xs">crear uno nuevo</a>
+									No se encontraron SDAT <a href="{{ url('SDAT/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -130,22 +130,22 @@
 													<td><label class="label label-{{ $label }}"></span>{{ $sdat->estado }}</label></td>
 													<td>
 														@if ($sdat->estado == "SOLICITUD")
-															<a href="{{ route('SDAT.constituir', $sdat->id) }}" class="btn btn-success btn-xs" title="Constituir">
+															<a href="{{ route('SDAT.constituir', $sdat->id) }}" class="btn btn-success btn-sm" title="Constituir">
 																<i class="fa fa-money"></i>
 															</a>
 														@endif
 														@if ($sdat->estado == "CONSTITUIDO")
-															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-xs" title="Saldar SDAT">
+															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-sm" title="Saldar SDAT">
 																<i class="fa fa-dollar"></i>
 															</a>
 														@endif
 														@if ($sdat->estado == "RENOVADO")
-															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-xs" title="Saldar SDAT">
+															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-sm" title="Saldar SDAT">
 																<i class="fa fa-dollar"></i>
 															</a>
 														@endif
 														@if ($sdat->estado == "PRORROGADO")
-															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-xs" title="Saldar SDAT">
+															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-sm" title="Saldar SDAT">
 																<i class="fa fa-dollar"></i>
 															</a>
 														@endif

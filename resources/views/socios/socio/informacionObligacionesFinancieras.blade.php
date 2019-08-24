@@ -204,7 +204,7 @@
 															<td>{{ $obligacion->fecha_inicial }} ({{ !empty($obligacion->fecha_inicial) ? $obligacion->fecha_inicial->diffForHumans() : 'No especificado'}})</td>
 															<td>${{ number_format($obligacion->monto) }}</td>
 															<td>
-																<a href="{{ route('socioEditObligacionesFinancierasEliminar', [$socio->id, $obligacion->id]) }}" class="btn btn-danger btn-xs">
+																<a href="{{ route('socioEditObligacionesFinancierasEliminar', [$socio->id, $obligacion->id]) }}" class="btn btn-danger btn-sm">
 																	<i class="fa fa-trash"></i>
 																</a>
 															</td>

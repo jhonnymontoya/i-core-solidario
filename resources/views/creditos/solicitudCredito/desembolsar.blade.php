@@ -350,11 +350,11 @@
 					<hr>
 					<div class="row form-horizontal">
 						<div class="col-md-12">
-							<a id="verCondiciones" class="btn btn-info btn-xs">Ver condiciones</a>
-							<a id="verAmortizacion" class="btn btn-info btn-xs">Ver amortización</a>
-							<a id="verDocumentacion" class="btn btn-info btn-xs">Actualizar documentación</a>
-							<a href="{{ route('solicitudCreditoGarantias', $solicitud->id) }}" class="btn btn-info btn-xs">Garantías</a>
-							<a href="{{ route('solicitudCreditoAnular', $solicitud) }}" class="btn btn-warning btn-xs pull-right">Anular solicitud</a>
+							<a id="verCondiciones" class="btn btn-info btn-sm">Ver condiciones</a>
+							<a id="verAmortizacion" class="btn btn-info btn-sm">Ver amortización</a>
+							<a id="verDocumentacion" class="btn btn-info btn-sm">Actualizar documentación</a>
+							<a href="{{ route('solicitudCreditoGarantias', $solicitud->id) }}" class="btn btn-info btn-sm">Garantías</a>
+							<a href="{{ route('solicitudCreditoAnular', $solicitud) }}" class="btn btn-warning btn-sm pull-right">Anular solicitud</a>
 						</div>
 					</div>
 
@@ -421,7 +421,7 @@
 													</td>
 													<td>
 														@if($aprobar)
-															<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success' }} btn-xs" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
+															<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success' }} btn-sm" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
 														@endif
 													</td>
 												</tr>
@@ -482,9 +482,9 @@
 													<td>
 														@if($aprobar)
 															@if($condicion->condicion != 'Documentación')
-																<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success' }} btn-xs" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
+																<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success' }} btn-sm" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
 															@else
-																<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success'}} btn-xs" onclick="javascript:alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar'}}</a>
+																<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success'}} btn-sm" onclick="javascript:alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar'}}</a>
 															@endif
 														@endif
 													</td>
@@ -600,7 +600,7 @@
 													<span class="label label-documento-{{ $documento->id }} label-{{ $cumple ? 'success' : 'danger' }}">{{ $cumple ? 'Sí' : 'No' }}</span>
 												</td>
 												<td>
-													<a data-id="{{ $documento->id }}" class="btn btn-{{ $cumple ? 'danger' : 'success' }} btn-xs" onclick="javascript:alternarDocumento(this)">{{ $cumple ? 'No cumple' : 'Cumple' }}</a>
+													<a data-id="{{ $documento->id }}" class="btn btn-{{ $cumple ? 'danger' : 'success' }} btn-sm" onclick="javascript:alternarDocumento(this)">{{ $cumple ? 'No cumple' : 'Cumple' }}</a>
 												</td>
 											</tr>
 										@endforeach

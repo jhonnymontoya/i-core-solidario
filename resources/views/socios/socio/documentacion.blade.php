@@ -53,7 +53,7 @@
 				<div class="card-header with-border">
 					<h3 class="card-title">Consulta</h3>
 					@if ($socio)
-						<a class="btn btn-xs btn-primary pull-right" href="{{ route('reportesReporte', 6) }}?numeroIdentificacion={{ $socio->tercero->numero_identificacion }}&fechaConsulta={{ implode('/', array_reverse(explode('/', $fecha))) }}" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
+						<a class="btn btn-sm btn-primary pull-right" href="{{ route('reportesReporte', 6) }}?numeroIdentificacion={{ $socio->tercero->numero_identificacion }}&fechaConsulta={{ implode('/', array_reverse(explode('/', $fecha))) }}" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
 					@endif
 				</div>
 				<div class="card-body">

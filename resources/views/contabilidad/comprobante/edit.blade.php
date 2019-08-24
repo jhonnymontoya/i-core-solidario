@@ -271,7 +271,7 @@
 									<td class="text-right">${{ number_format($detalle->debito, 0) }}</td>
 									<td class="text-right">${{ number_format($detalle->credito, 0) }}</td>
 									<td class="text-center">
-										<a href="#" onclick="javascript:return rowDelete(this);" title="Eliminar" class="btn btn-danger btn-xs">
+										<a href="#" onclick="javascript:return rowDelete(this);" title="Eliminar" class="btn btn-danger btn-sm">
 											<i class="fa fa-trash"></i>
 										</a>
 									</td>
@@ -392,7 +392,7 @@
 				$fila.append("<td>" + $data.item.referencia + "</td>");
 				$fila.append("<td class='text-right'>$" + $data.item.debito + "</td>");
 				$fila.append("<td class='text-right'>$" + $data.item.credito + "</td>");
-				$fila.append("<td class='text-center'><a href='#' onclick='javascript:return rowDelete(this);' title='Eliminar' class='btn btn-danger btn-xs'><i class='fa fa-trash'></i></a></td>");
+				$fila.append("<td class='text-center'><a href='#' onclick='javascript:return rowDelete(this);' title='Eliminar' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a></td>");
 				$('#tablaRegistros').DataTable().destroy();
 				$("#id_registros").prepend($fila);
 				$('#tablaRegistros').DataTable({"scrollY": '340px', "scrollCollapse": true, "paging": false, "ordering": false, "info": false, "searching": false});

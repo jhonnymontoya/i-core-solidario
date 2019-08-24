@@ -97,7 +97,7 @@
 											<td>{{ str_limit($parametro->descripcion, 70) }}</td>
 											<td>{{ $parametro->valor }}</td>
 											<td>{{ $indicador }}</td>
-											<td><a class="btn btn-info btn-xs" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-info btn-sm" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

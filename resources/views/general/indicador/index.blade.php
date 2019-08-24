@@ -100,7 +100,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}" class="btn btn-primary btn-xs">Actualizar</a>
+								<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}" class="btn btn-primary btn-sm">Actualizar</a>
 							</div>
 						</div>
 						<br><br>
@@ -125,7 +125,7 @@
 														{{ $variable }}{{ number_format($indicador->valor, 0) }}
 													@endif
 												</td>
-												<td><a href="{{ route('indicadorEdit', $indicador->id) }}" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></a></td>
+												<td><a href="{{ route('indicadorEdit', $indicador->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a></td>
 											</tr>
 										@endforeach
 									</tbody>

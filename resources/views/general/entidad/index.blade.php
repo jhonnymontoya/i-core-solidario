@@ -57,7 +57,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron entidades <a href="{{ url('entidad/create') }}" class="btn btn-primary btn-xs">crear una nueva</a>
+									No se encontraron entidades <a href="{{ url('entidad/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -98,7 +98,7 @@
 													{{ $entidad->terceroEntidad->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
-											<td><a class="btn btn-info btn-xs" href="{{ route('entidadEdit', $entidad) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-info btn-sm" href="{{ route('entidadEdit', $entidad) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>
