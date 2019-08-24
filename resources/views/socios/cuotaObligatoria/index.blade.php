@@ -53,7 +53,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -62,7 +62,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<label>Cuotas obligatorias para:</label> {{$socio->tercero->nombre_completo}}
-								<a href="{{ route('cuotaObligatoriaCreate', $socio) }}" class="btn btn-success pull-right">Editar</a>
+								<a href="{{ route('cuotaObligatoriaCreate', $socio) }}" class="btn btn-outline-success pull-right">Editar</a>
 							</div>
 						</div>
 						<br><br>

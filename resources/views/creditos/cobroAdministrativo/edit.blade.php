@@ -90,10 +90,10 @@
 									}
 								@endphp
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ ($estaActivo ? 'active' : '') }}">
+									<label class="btn btn-outline-primary {{ ($estaActivo ? 'active' : '') }}">
 										{!! Form::radio('esta_activo', '1', $estaActivo) !!}Activo
 									</label>
-									<label class="btn btn-danger {{ ($estaActivo ? '' : 'active') }}">
+									<label class="btn btn-outline-danger {{ ($estaActivo ? '' : 'active') }}">
 										{!! Form::radio('esta_activo', '0', $estaActivo) !!}Inacivo
 									</label>
 								</div>
@@ -120,10 +120,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $efecto == 'DEDUCCIONCREDITO' ? 'active' : ''}}">
 										{!! Form::radio('efecto', 'DEDUCCIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? true : false) !!}Deducción de crédito
 									</label>
-									<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? '' : 'active'}}">
+									<label class="btn btn-outline-primary {{ $efecto == 'DEDUCCIONCREDITO' ? '' : 'active'}}">
 										{!! Form::radio('efecto', 'ADICIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? false : true) !!}Adición de crédito
 									</label>
 								</div>
@@ -164,8 +164,8 @@
 					@endif
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

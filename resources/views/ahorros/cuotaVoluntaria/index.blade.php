@@ -53,7 +53,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -62,7 +62,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<label>Cuotas voluntarias para:</label> {{$socio->tercero->nombre_completo}}
-								<a href="{{ route('cuotaVoluntariaCreate', $socio) }}" class="btn btn-success pull-right">Agregar</a>
+								<a href="{{ route('cuotaVoluntariaCreate', $socio) }}" class="btn btn-outline-success pull-right">Agregar</a>
 							</div>
 						</div>
 						<br><br>
@@ -133,7 +133,7 @@
 													<td>{{ empty($cuota->periodo_inicial) ? '' : $cuota->periodo_inicial->toFormattedDateString() }}</td>
 													<td>{{ empty($cuota->periodo_final) ? '' : $cuota->periodo_final->toFormattedDateString() }}</td>
 													<td>
-														<a href="{{ route('cuotaVoluntariaDelete', $cuota->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+														<a href="{{ route('cuotaVoluntariaDelete', $cuota->id) }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 											@endforeach

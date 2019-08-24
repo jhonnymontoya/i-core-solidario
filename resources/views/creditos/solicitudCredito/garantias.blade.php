@@ -126,12 +126,12 @@
 								{
 									case 'RADICADO':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									case 'APROBADO':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									
@@ -205,7 +205,7 @@
 									<div class="form-group">
 										<label class="control-label">&nbsp;</label>
 										<br>
-										{!! Form::submit('Agregar', ['class' => 'btn btn-success']) !!}
+										{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success']) !!}
 									</div>
 								</div>
 							</div>
@@ -224,7 +224,7 @@
 														<a role="button" data-toggle="collapse" data-parent="#accordion" href="#cod{{$id}}" aria-expanded="false" aria-controls="cod{{$id}}">
 															{{ $codeudor['numeroIdentificacion'] }} - {{ $codeudor['nombre'] }} - {{ $codeudor['nombreGarantia'] }}
 														</a>
-														<a href="{{ route('solicitudCreditoDeleteCodeudor', [$solicitud->id, $codeudor['id']]) }}" class="btn btn-danger btn-sm pull-right"><font color="#fff"><i class="fa fa-trash"></i></font></a>
+														<a href="{{ route('solicitudCreditoDeleteCodeudor', [$solicitud->id, $codeudor['id']]) }}" class="btn btn-outline-danger btn-sm pull-right"><font color="#fff"><i class="fa fa-trash"></i></font></a>
 													</h4>
 												</div>
 												<div id="cod{{$id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="codeudor{{++$id}}">
@@ -343,12 +343,12 @@
 						{
 							case 'RADICADO':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							case 'APROBADO':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							

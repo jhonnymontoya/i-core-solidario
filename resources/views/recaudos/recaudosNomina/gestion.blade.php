@@ -50,7 +50,7 @@
 					<h3 class="card-title">Recaudos</h3>
 				</div>
 				<div class="card-body">
-					<a class="btn btn-danger" href="{{ url('recaudosNomina?pagaduria=' . $controlProceso->pagaduria->id) }}">Volver</a>
+					<a class="btn btn-outline-danger" href="{{ url('recaudosNomina?pagaduria=' . $controlProceso->pagaduria->id) }}">Volver</a>
 					<br>
 					<br>
 					<div class="row">
@@ -78,8 +78,8 @@
 						</div>
 						<div class="col-md-6">
 							<div class="pull-right">
-								<a class="btn btn-success" href="{{ route('recaudosNominaAplicar', $controlProceso->id) }}"><i class="fa  fa-check-circle-o"></i> Aplicar recaudos</a>
-								<a class="btn btn-warning">Ajustar recaudos</a>
+								<a class="btn btn-outline-success" href="{{ route('recaudosNominaAplicar', $controlProceso->id) }}"><i class="fa  fa-check-circle-o"></i> Aplicar recaudos</a>
+								<a class="btn btn-outline-warning">Ajustar recaudos</a>
 							</div>
 						</div>
 					</div>
@@ -127,8 +127,8 @@
 					<br><br>
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
-							<a class="btn btn-info btn-sm" href="{{ route('reportesReporte', 5) }}?numeroProceso={{ $controlProceso->id }}" target="_blank"><i class="fa fa-eye"></i> Detalle generado</a>
-							<a data-toggle="modal" data-target="#mAnularGeneracion" class="btn btn-danger btn-sm"><i class="fa fa-exclamation-triangle"></i> Anular generación</a>
+							<a class="btn btn-outline-info btn-sm" href="{{ route('reportesReporte', 5) }}?numeroProceso={{ $controlProceso->id }}" target="_blank"><i class="fa fa-eye"></i> Detalle generado</a>
+							<a data-toggle="modal" data-target="#mAnularGeneracion" class="btn btn-outline-danger btn-sm"><i class="fa fa-exclamation-triangle"></i> Anular generación</a>
 						</div>
 					</div>
 				</div>
@@ -169,8 +169,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-				{!! Form::submit("Anular", ["class" => "btn btn-success"]) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+				{!! Form::submit("Anular", ["class" => "btn btn-outline-success"]) !!}
 			</div>
 		</div>
 	</div>

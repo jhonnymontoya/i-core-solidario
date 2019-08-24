@@ -192,28 +192,28 @@
 					<div class="row">
 						@if ($tarjetahabiente->producto->credito)
 							<div class="col-md-2 col-sm-12">
-								<a class="btn btn-default" data-toggle="modal" data-target="#mActualizarCupo" data-cupo="{{ round($tarjetahabiente->cupo, 0) }}" data-tarjeta="{{ $tarjetahabiente->id }}">Actualizar cupo</a>
+								<a class="btn btn-outline-secondary" data-toggle="modal" data-target="#mActualizarCupo" data-cupo="{{ round($tarjetahabiente->cupo, 0) }}" data-tarjeta="{{ $tarjetahabiente->id }}">Actualizar cupo</a>
 							</div>
 						@endif
 						<div class="col-md-2 col-sm-12">
-							<a class="btn btn-default disabled" id="btnActualizarEstado">Actualizar estado</a>
+							<a class="btn btn-outline-secondary disabled" id="btnActualizarEstado">Actualizar estado</a>
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<a class="btn btn-default disabled" id="btnConsultaSaldosRed">Consulta saldos red</a>
+							<a class="btn btn-outline-secondary disabled" id="btnConsultaSaldosRed">Consulta saldos red</a>
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<a class="btn btn-default disabled" id="btnConsultaTarjetaRed">Consulta tarjeta red</a>
+							<a class="btn btn-outline-secondary disabled" id="btnConsultaTarjetaRed">Consulta tarjeta red</a>
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<a class="btn btn-default disabled" id="btnRemplazarTarjeta">Remplazar tarjeta</a>
+							<a class="btn btn-outline-secondary disabled" id="btnRemplazarTarjeta">Remplazar tarjeta</a>
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<a class="btn btn-default disabled" id="btnCancelarTarjeta">Cancelar tarjeta</a>
+							<a class="btn btn-outline-secondary disabled" id="btnCancelarTarjeta">Cancelar tarjeta</a>
 						</div>
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-danger pull-right">Volver</a>
+					<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>

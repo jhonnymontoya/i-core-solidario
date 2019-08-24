@@ -53,7 +53,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -100,7 +100,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}" class="btn btn-primary btn-sm">Actualizar</a>
+								<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}" class="btn btn-outline-primary btn-sm">Actualizar</a>
 							</div>
 						</div>
 						<br><br>
@@ -125,7 +125,7 @@
 														{{ $variable }}{{ number_format($indicador->valor, 0) }}
 													@endif
 												</td>
-												<td><a href="{{ route('indicadorEdit', $indicador->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a></td>
+												<td><a href="{{ route('indicadorEdit', $indicador->id) }}" class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></a></td>
 											</tr>
 										@endforeach
 									</tbody>

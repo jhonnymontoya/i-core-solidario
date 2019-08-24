@@ -95,10 +95,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
 										{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
 										{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
 									</label>
 								</div>
@@ -128,10 +128,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $esta_activa ? 'active' : ''}}">
 										{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
 									</label>
-									<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $esta_activa ? '' : 'active'}}">
 										{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
 									</label>
 								</div>
@@ -216,10 +216,10 @@
 												</label>
 												<br>
 												<div class="btn-group" data-toggle="buttons">
-													<label class="btn btn-primary active">
+													<label class="btn btn-outline-primary active">
 														{!! Form::radio('obligatorio', '1', true, ['form' => 'adicionRango']) !!}Obligatorio
 													</label>
-													<label class="btn btn-primary">
+													<label class="btn btn-outline-primary">
 														{!! Form::radio('obligatorio', '0', false, ['form' => 'adicionRango']) !!}Opcional
 													</label>
 												</div>
@@ -233,7 +233,7 @@
 
 								<div class="col-md-1">
 									<label>&nbsp;</label><br>
-									{!! Form::submit('Agregar', ['class' => 'btn btn-success', 'form' => 'adicionRango']) !!}
+									{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success', 'form' => 'adicionRango']) !!}
 								</div>
 							</div>
 							<br>
@@ -256,7 +256,7 @@
 														<span class="label label-primary">{{ ($documento->obligatorio ? 'Obligatorio' : 'Opcional') }}</span>
 													</td>
 													<td>
-														<a class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>
+														<a class="btn btn-outline-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 											@endforeach
@@ -268,8 +268,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('modalidadCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}
@@ -296,7 +296,7 @@
 <p></p>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
 </div>
 </div>
 </div>
@@ -322,7 +322,7 @@
 				type: 'PUT',
 				data: data,
 				success: function(result){
-					botonEliminar = $("<a></a>").addClass("btn btn-danger btn-sm eliminar");
+					botonEliminar = $("<a></a>").addClass("btn btn-outline-danger btn-sm eliminar");
 					botonEliminar.append($("<i></i>").addClass("fa fa-trash"));
 					documento = $("<tr></tr>").append($("<td></td>").text(result.documento));
 					obligatorio = $("<span></span>").addClass("label label-primary");

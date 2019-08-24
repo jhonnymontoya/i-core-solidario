@@ -115,7 +115,7 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					<a href="{{ url('cierreModulos') }}" class="btn btn-danger btn-block">Volver</a>
+					<a href="{{ url('cierreModulos') }}" class="btn btn-outline-danger btn-block">Volver</a>
 				</div>
 			</div>
 		</div>

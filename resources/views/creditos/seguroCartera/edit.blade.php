@@ -131,10 +131,10 @@
 										$activo = trim(old('esta_activo')) == '' ? $seguroCartera->esta_activo : old('esta_activo');
 										$activo = $activo ? true : false;
 									?>
-									<label class="btn btn-primary {{ $activo ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activo', '1', $activo ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$activo ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activo', '0', !$activo ? true : false) !!}No
 									</label>
 								</div>
@@ -160,13 +160,13 @@
 							<span class="label label-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span> {{ $texto }}.
 						</div>
 						<div class="col-md-8">
-							<a class="btn btn-primary" href="{{ route('seguroCarteraModalidades', $seguroCartera) }}">Asociar modalidades de créditos</a>
+							<a class="btn btn-outline-primary" href="{{ route('seguroCarteraModalidades', $seguroCartera) }}">Asociar modalidades de créditos</a>
 						</div>
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('seguroCartera') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('seguroCartera') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

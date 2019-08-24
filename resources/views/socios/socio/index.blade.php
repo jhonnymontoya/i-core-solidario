@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('socio/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('socio/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -60,7 +60,7 @@
 							{!! Form::select('calificacion', ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'K' => 'K'], null, ['class' => 'form-control select2', 'placeholder' => 'Calificación']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -180,13 +180,13 @@
 						</ul>
 						<div class="row">
 							<div class="col-sm-12 col-xs-12 border-right text-center">
-								<a href="{{ route('socioEdit', $socio->socio) }}" class="btn btn-default" title="Editar">
+								<a href="{{ route('socioEdit', $socio->socio) }}" class="btn btn-outline-secondary" title="Editar">
 									<i class="fa fa-edit"></i>
 								</a>
-								<a href="{{ route('socioAfiliacion', $socio->socio) }}" class="btn btn-default {{ ($socio->socio->estado == 'ACTIVO' || $socio->socio->estado == 'NOVEDAD') ? 'disabled' : '' }}" title="Afiliar">
+								<a href="{{ route('socioAfiliacion', $socio->socio) }}" class="btn btn-outline-secondary {{ ($socio->socio->estado == 'ACTIVO' || $socio->socio->estado == 'NOVEDAD') ? 'disabled' : '' }}" title="Afiliar">
 									<i class="fa fa-thumbs-o-up"></i>
 								</a>
-								<a href="{{ url('socio/consulta') }}?socio={{ $socio->socio->id }}&fecha={{ date('d/m/Y') }}" class="btn btn-default" title="Consulta">
+								<a href="{{ url('socio/consulta') }}?socio={{ $socio->socio->id }}&fecha={{ date('d/m/Y') }}" class="btn btn-outline-secondary" title="Consulta">
 									<i class="fa fa-bullseye"></i>
 								</a>
 							</div>

@@ -88,10 +88,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary{{ $perfil->esta_activo?' active':'' }}">
+									<label class="btn btn-outline-primary{{ $perfil->esta_activo?' active':'' }}">
 										{!! Form::radio('esta_activo', '1', true) !!}Sí
 									</label>
-									<label class="btn btn-danger{{ !$perfil->esta_activo?' active':'' }}">
+									<label class="btn btn-outline-danger{{ !$perfil->esta_activo?' active':'' }}">
 										{!! Form::radio('esta_activo', '0', false) !!}No
 									</label>
 								</div>
@@ -136,8 +136,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('perfil') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('perfil') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

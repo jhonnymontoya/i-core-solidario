@@ -45,7 +45,7 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<a href="{{ url('consulta') }}" class="btn btn-primary pull-right">Volver</a>
+							<a href="{{ url('consulta') }}" class="btn btn-outline-primary pull-right">Volver</a>
 						</div>
 					</div>
 					<br>
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 					<br>
-					<a id="verAmortizacion" class="btn btn-info btn-sm">Plan de pagos</a>
+					<a id="verAmortizacion" class="btn btn-outline-info btn-sm">Plan de pagos</a>
 					@if($credito->amortizaciones->count())
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>

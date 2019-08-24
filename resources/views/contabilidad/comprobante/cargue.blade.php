@@ -115,7 +115,7 @@
 						<div class="col-md-12">
 							<div class="pull-right">
 								<a href="{{ url('/plantillas/contabilidad/PlantillaCargueMovimientosContables.csv') }}" download="PlantillaCargueMovimientosContables.csv" class="btn bg-purple">Descargar plantilla</a>
-								<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-danger">Volver al comprobante</a>
+								<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-outline-danger">Volver al comprobante</a>
 							</div>
 						</div>
 					</div>
@@ -139,7 +139,7 @@
 							</div>
 						</div>
 						<div class="col-md-8">
-							{!! Form::submit('Cargar', ['class' => 'btn btn-success']) !!}
+							{!! Form::submit('Cargar', ['class' => 'btn btn-outline-success']) !!}
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -189,7 +189,7 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-danger pull-right">Volver al comprobante</a>
+					<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-outline-danger pull-right">Volver al comprobante</a>
 				</div>
 			</div>
 		</div>

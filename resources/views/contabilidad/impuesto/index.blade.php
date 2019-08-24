@@ -38,7 +38,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('impuesto/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('impuesto/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -60,7 +60,7 @@
 							{!! Form::select('estado', [true => "Activo", false => "Inactivo"], null, ['class' => 'form-control select2', 'placeholder' => 'Estado', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -69,7 +69,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -105,7 +105,7 @@
 												<span class="label label-{{ $activo ? "success" : "danger" }}">{{ $estado }}</span>
 											</td>
 											<td>
-												<a href="{{ route('impuesto.edit', $impuesto->id) }}" class="btn btn-sm btn-info" title="Editar"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('impuesto.edit', $impuesto->id) }}" class="btn btn-sm btn-outline-info" title="Editar"><i class="fa fa-edit"></i></a>
 											</td>
 										</tr>
 									@endforeach

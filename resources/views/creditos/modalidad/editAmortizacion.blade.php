@@ -95,10 +95,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
 										{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
 										{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
 									</label>
 								</div>
@@ -128,10 +128,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $esta_activa ? 'active' : ''}}">
 										{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
 									</label>
-									<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $esta_activa ? '' : 'active'}}">
 										{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
 									</label>
 								</div>
@@ -210,10 +210,10 @@
 												}
 											?>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $tipoCuota == 'FIJA' ? 'active' : ''}}">
+												<label class="btn btn-outline-primary {{ $tipoCuota == 'FIJA' ? 'active' : ''}}">
 													{!! Form::radio('tipo_cuota', 'FIJA', $tipoCuota == 'FIJA' ? true : false, ['class' => 'radio']) !!}Fija compuesta
 												</label>
-												<label class="btn btn-primary {{ $tipoCuota == 'FIJA' ? '' : 'active'}}">
+												<label class="btn btn-outline-primary {{ $tipoCuota == 'FIJA' ? '' : 'active'}}">
 													{!! Form::radio('tipo_cuota', 'CAPITAL', $tipoCuota == 'FIJA' ? false : true) !!}Fija capital
 												</label>
 											</div>
@@ -243,7 +243,7 @@
 													$amortizacion = array_search('semanal', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'semanal', $amortizacion ? true : false) !!}Semanal
 											</label>
 											<?php
@@ -252,7 +252,7 @@
 													$amortizacion = array_search('decadal', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'decadal', $amortizacion ? true : false) !!}Decadal
 											</label>
 											<?php
@@ -261,7 +261,7 @@
 													$amortizacion = array_search('catorcenal', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'catorcenal', $amortizacion ? true : false) !!}Catorcenal
 											</label>
 											<?php
@@ -270,7 +270,7 @@
 													$amortizacion = array_search('quincenal', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'quincenal', $amortizacion ? true : false) !!}Quincenal
 											</label>
 											<?php
@@ -279,7 +279,7 @@
 													$amortizacion = array_search('mensual', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'mensual', $amortizacion ? true : false) !!}Mensual
 											</label>
 											<?php
@@ -288,7 +288,7 @@
 													$amortizacion = array_search('bimestral', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'bimestral', $amortizacion ? true : false) !!}Bimestral
 											</label>
 											<?php
@@ -297,7 +297,7 @@
 													$amortizacion = array_search('trimestral', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'trimestral', $amortizacion ? true : false) !!}Trimestral
 											</label>
 											<?php
@@ -306,7 +306,7 @@
 													$amortizacion = array_search('cuatrimestral', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'cuatrimestral', $amortizacion ? true : false) !!}Cuatrimestral
 											</label>
 											<?php
@@ -315,7 +315,7 @@
 													$amortizacion = array_search('semestral', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'semestral', $amortizacion ? true : false) !!}Semestral
 											</label>
 											<?php
@@ -324,7 +324,7 @@
 													$amortizacion = array_search('anual', old('periodicidades_admitidas')) !== false ? true : false;
 												}
 											?>
-											<label class="btn btn-primary {{ $amortizacion ? 'active' : '' }}">
+											<label class="btn btn-outline-primary {{ $amortizacion ? 'active' : '' }}">
 												{!! Form::checkbox('periodicidades_admitidas[]', 'anual', $amortizacion ? true : false) !!}Anual
 											</label>
 										</div>
@@ -357,10 +357,10 @@
 												}
 											?>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $aceptaCuotaExtraordinaria ? 'active' : ''}}">
+												<label class="btn btn-outline-primary {{ $aceptaCuotaExtraordinaria ? 'active' : ''}}">
 													{!! Form::radio('acepta_cuotas_extraordinarias', '1', $aceptaCuotaExtraordinaria ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-primary {{ $aceptaCuotaExtraordinaria ? '' : 'active'}}">
+												<label class="btn btn-outline-primary {{ $aceptaCuotaExtraordinaria ? '' : 'active'}}">
 													{!! Form::radio('acepta_cuotas_extraordinarias', '0', $aceptaCuotaExtraordinaria? false : true) !!}No
 												</label>
 											</div>
@@ -395,8 +395,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('modalidadCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

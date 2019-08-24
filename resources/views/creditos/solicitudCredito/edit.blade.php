@@ -275,7 +275,7 @@
 
 						@if($solicitud->modalidadCredito->acepta_cuotas_extraordinarias)
 						<div class="col-md-4">
-							<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-primary">Agregar cuotas extraordinarias</a>
+							<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-outline-primary">Agregar cuotas extraordinarias</a>
 						</div>
 						@endif					
 
@@ -305,9 +305,9 @@
 						<div class="col-md-12">
 							{!! Form::submit('Calcular amortización', ['class' => 'btn bg-olive']) !!}
 							@if($solicitud->amortizaciones->count())
-							<a href="{{ route('solicitudCreditoRadicar', $solicitud->id) }}" class="btn btn-primary">Radicar</a>
+							<a href="{{ route('solicitudCreditoRadicar', $solicitud->id) }}" class="btn btn-outline-primary">Radicar</a>
 							@endif
-							<a href="{{ url('solicitudCredito') }}" class="btn btn-danger pull-right">Volver</a>
+							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger pull-right">Volver</a>
 						</div>
 
 					</div>

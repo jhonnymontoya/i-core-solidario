@@ -100,10 +100,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
 										{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
 										{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
 									</label>
 								</div>
@@ -133,10 +133,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $esta_activa ? 'active' : ''}}">
 										{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
 									</label>
-									<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $esta_activa ? '' : 'active'}}">
 										{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
 									</label>
 								</div>
@@ -223,7 +223,7 @@
 								<div class="col-md-1">
 									<div class="form-group">
 										<label class="control-label">&nbsp;</label>
-										<a class="btn btn-success agregarGarantia">Agregar</a>
+										<a class="btn btn-outline-success agregarGarantia">Agregar</a>
 									</div>
 								</div>
 							</div>
@@ -246,7 +246,7 @@
 													<td>{{ $tipoGarantia->nombre }}</td>
 													<td>{{ $tipoGarantia->tipo_garantia }}</td>
 													<td>
-														<a class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>
+														<a class="btn btn-outline-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 											@endforeach
@@ -258,8 +258,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="{{ route('modalidadCreditoEdit', $modalidad) }}" class="btn btn-success">Continuar</a>
-					<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
+					<a href="{{ route('modalidadCreditoEdit', $modalidad) }}" class="btn btn-outline-success">Continuar</a>
+					<a href="{{ url('modalidadCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>
@@ -282,7 +282,7 @@
 <p></p>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
 </div>
 </div>
 </div>
@@ -311,7 +311,7 @@
 				type: 'PUT',
 				data: $data,
 				success: function(result){
-					botonEliminar = $("<a></a>").addClass("btn btn-danger btn-sm eliminar");
+					botonEliminar = $("<a></a>").addClass("btn btn-outline-danger btn-sm eliminar");
 					botonEliminar.append($("<i></i>").addClass("fa fa-trash"));
 					garantia = $("<tr></tr>").append($("<td></td>").text(result.nombre));
 					garantia.append($("<td></td>").append(result.tipoGarantia));

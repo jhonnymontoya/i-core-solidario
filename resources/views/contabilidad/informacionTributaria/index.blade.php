@@ -38,7 +38,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('impuesto/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('impuesto/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -57,7 +57,7 @@
 							{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Tipo', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -66,7 +66,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -107,8 +107,8 @@
 														\Carbon\Carbon::now()->subMonth()->endOfMonth()->format("Y/m/d")
 													);
 												@endphp
-												<a href="{{ $if }}" target="_blank" class="btn btn-sm btn-primary" title="Declaración">Declaración</a>
-												<a href="{{ $dt }}" target="_blank" class="btn btn-sm btn-primary" title="Detalle">Detalle</a>
+												<a href="{{ $if }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Declaración">Declaración</a>
+												<a href="{{ $dt }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Detalle">Detalle</a>
 											</td>
 										</tr>
 									@endforeach

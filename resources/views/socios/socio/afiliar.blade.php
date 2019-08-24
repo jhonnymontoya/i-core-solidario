@@ -170,8 +170,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger pull-right">Cancelar</a>
+									{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 								</div>
 							</div>
 						</div>

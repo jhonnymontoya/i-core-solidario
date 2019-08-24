@@ -203,7 +203,7 @@
 															<td>{{ $beneficiario->parentesco->nombre }}</td>
 															<td>{{ $beneficiario->porcentaje_beneficio }}%</td>
 															<td>
-																<a href="#" class="btn btn-danger btn-sm" onclick="javascript:rowDelete(this);">
+																<a href="#" class="btn btn-outline-danger btn-sm" onclick="javascript:rowDelete(this);">
 																	<i class="fa fa-trash"></i>
 																</a>
 															</td>
@@ -246,8 +246,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
+									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
 									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 								</div>
 							</div>

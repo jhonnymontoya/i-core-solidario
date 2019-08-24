@@ -48,11 +48,11 @@
 								<div class="cropit-preview"></div>
 								<input type="file" class="cropit-image-input" />
 								<div class="row text-center">
-									<a class="select-image-btn btn btn-default btn-sm"><i class="fa fa-camera"></i></a>
-									<a class="rotate-ccw-btn btn btn-default btn-sm"><i class="fa fa-rotate-left"></i></a>
-									<a class="rotate-cw-btn btn btn-default btn-sm"><i class="fa fa-rotate-right"></i></a>
-									<a class="zoom-in-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-									<a class="zoom-out-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
+									<a class="select-image-btn btn btn-outline-secondary btn-sm"><i class="fa fa-camera"></i></a>
+									<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
+									<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
+									<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
+									<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
 								</div>
 							</div>
 							<br>
@@ -62,7 +62,7 @@
 									<b>Usuario</b> <a class="pull-right" id="id_usuario_vista">{{ $usuario->usuario }}</a>
 								</li>
 							</ul>
-							{!! Form::submit('Guardar', ['class' => 'btn btn-primary btn-block']) !!}
+							{!! Form::submit('Guardar', ['class' => 'btn btn-outline-primary btn-block']) !!}
 						</div>
 					</div>
 				</div>
@@ -277,10 +277,10 @@
 											</label>
 											<div class="col-sm-9">
 												<div class="btn-group" data-toggle="buttons">
-													<label class="btn btn-primary{{ $usuario->esta_activo?' active':'' }}">
+													<label class="btn btn-outline-primary{{ $usuario->esta_activo?' active':'' }}">
 														{!! Form::radio('esta_activo', '1', $usuario->esta_activo?true:false) !!}Sí
 													</label>
-													<label class="btn btn-danger{{ !$usuario->esta_activo?' active':'' }}">
+													<label class="btn btn-outline-danger{{ !$usuario->esta_activo?' active':'' }}">
 														{!! Form::radio('esta_activo', '0', $usuario->esta_activo?false:true) !!}No
 													</label>
 												</div>
@@ -296,8 +296,8 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<div class="col-sm-offset-2 col-sm-9">
-												{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-												<a href="{{ url('usuario') }}" class="btn btn-danger pull-right">Cancelar</a>
+												{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+												<a href="{{ url('usuario') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 											</div>
 										</div>
 									</div>
@@ -354,8 +354,8 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<div class="col-sm-offset-2 col-sm-9">
-												{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-												<a href="{{ url('usuario') }}" class="btn btn-danger pull-right">Cancelar</a>
+												{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+												<a href="{{ url('usuario') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 											</div>
 										</div>
 									</div>

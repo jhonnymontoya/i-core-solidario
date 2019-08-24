@@ -93,7 +93,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-2 col-sm-12">
-								{!! Form::submit('Buscar', ['class' => 'btn btn-success']) !!}
+								{!! Form::submit('Buscar', ['class' => 'btn btn-outline-success']) !!}
 							</div>
 						</div>
 					</div>
@@ -169,12 +169,12 @@
 								{!! Form::open(['route' => ['comprobante.cargarImpuesto', $movimientoTemporal], 'method' => 'put']) !!}
 								{!! Form::hidden('impuesto', $impuesto) !!}
 								{!! Form::hidden('fechaCorte', $fechaCorte) !!}
-								{!! Form::submit('Aceptar', ['class' => 'btn btn-success']) !!}
+								{!! Form::submit('Aceptar', ['class' => 'btn btn-outline-success']) !!}
 								{!! Form::close() !!}
 							@endif
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<a href="{{ route('comprobanteEdit', $movimientoTemporal->id) }}" class="btn btn-danger pull-right">Volver al comprobante</a>
+							<a href="{{ route('comprobanteEdit', $movimientoTemporal->id) }}" class="btn btn-outline-danger pull-right">Volver al comprobante</a>
 						</div>
 					</div>
 				</div>

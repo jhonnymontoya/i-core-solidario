@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('tipoGarantia/create') }}" class="btn btn-primary">Crear nueva</a>
+				<a href="{{ url('tipoGarantia/create') }}" class="btn btn-outline-primary">Crear nueva</a>
 			</div>
 		</div>
 		<br>
@@ -51,7 +51,7 @@
 							{!! Form::select('estado', [true => 'Activo', false => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -61,7 +61,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron tipos de garantía <a href="{{ url('tipoGarantia/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
+									No se encontraron tipos de garantía <a href="{{ url('tipoGarantia/create') }}" class="btn btn-outline-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -91,7 +91,7 @@
 													{{ $tipoGarantia->esta_activa?'activo':'inactivo' }}
 												</span>
 											</td>
-											<td><a class="btn btn-info btn-sm" href="{{ route('tipoGarantiaEdit', $tipoGarantia) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-outline-info btn-sm" href="{{ route('tipoGarantiaEdit', $tipoGarantia) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

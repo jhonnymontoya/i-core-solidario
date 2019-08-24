@@ -41,11 +41,11 @@
 									<input type="file" class="cropit-image-input" />
 								</div>
 								<div class="col-12 text-center">
-									<a class="rotate-ccw-btn btn btn-default btn-sm"><i class="fas fa-undo"></i></a>
-									<a class="rotate-cw-btn btn btn-default btn-sm"><i class="fa fa-redo"></i></a>
-									<a class="btn btn-default btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
-									<a class="zoom-in-btn btn btn-default btn-sm"><i class="fas fa-search-plus"></i></a>
-									<a class="zoom-out-btn btn btn-default btn-sm"><i class="fas fa-search-minus"></i></a>
+									<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-undo"></i></a>
+									<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-redo"></i></a>
+									<a class="btn btn-outline-secondary btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
+									<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
+									<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
 								</div>
 							</div>
 						</div>

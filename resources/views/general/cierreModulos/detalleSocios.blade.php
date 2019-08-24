@@ -153,8 +153,8 @@
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
 					{!! Form::model($periodo, ['route' => ['cierreModulosSociosProcesar', $periodo], 'method' => 'put', 'role' => 'form']) !!}
-					{!! Form::submit('Procesar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
+					{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
 					{!! Form::close() !!}
 				</div>
 			</div>

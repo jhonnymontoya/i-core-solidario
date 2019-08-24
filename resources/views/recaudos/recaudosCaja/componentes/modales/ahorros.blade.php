@@ -23,14 +23,14 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<a class="btn btn-default aSugerirCuota">Sugerir cuota: $0</a>
+						<a class="btn btn-outline-secondary aSugerirCuota">Sugerir cuota: $0</a>
 					</div>
 				</div>
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-primary" value="Guardar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        		<input type="submit" class="btn btn-outline-primary" value="Guardar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 		</form>

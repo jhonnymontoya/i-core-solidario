@@ -50,16 +50,16 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
 									</label>
 								</div>
@@ -78,10 +78,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('clase', 'CAPITAL', true) !!}Capital
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('clase', 'INTERES', false) !!}Interes
 									</label>
 								</div>
@@ -155,7 +155,7 @@
 		$parametro.append($("<td>").addClass("text-center").text(data.dias_hasta));
 		$parametro.append($("<td>").addClass("text-center").text(data.deterioro + "%"));
 		$parametro.append($("<td>").html(
-			"<a class=\"btn btn-danger btn-sm aLimpiar\"><i class=\"fa fa-trash\"></i></a>"
+			"<a class=\"btn btn-outline-danger btn-sm aLimpiar\"><i class=\"fa fa-trash\"></i></a>"
 		));
 		$("#res").append($parametro);
 		$(".aLimpiar").click(function(event){

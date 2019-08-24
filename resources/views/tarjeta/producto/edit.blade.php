@@ -125,13 +125,13 @@
 								</label>
 								<div>
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ $credito ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $credito ? 'active' : '' }}">
 											{!! Form::checkbox('credito', '1', $credito) !!}Crédito
 										</label>
-										<label class="btn btn-primary {{ $ahorro ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $ahorro ? 'active' : '' }}">
 											{!! Form::checkbox('ahorro', '1', $ahorro) !!}Cuenta de ahorros
 										</label>
-										<label class="btn btn-primary {{ $vista ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $vista ? 'active' : '' }}">
 											{!! Form::checkbox('vista', '1', $vista) !!}Vista
 										</label>
 									</div>
@@ -184,10 +184,10 @@
 										}
 									@endphp
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary disabled {{ $tipoPagoCuotaManejo == 'A' ? 'active' : '' }}">
+										<label class="btn btn-outline-primary disabled {{ $tipoPagoCuotaManejo == 'A' ? 'active' : '' }}">
 											{!! Form::radio('tipo_pago_cuota_manejo', 'ANTICIPADO', $tipoPagoCuotaManejo == 'A' ? true : false) !!}Anticipado
 										</label>
-										<label class="btn btn-primary {{ $tipoPagoCuotaManejo == 'B' ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $tipoPagoCuotaManejo == 'B' ? 'active' : '' }}">
 											{!! Form::radio('tipo_pago_cuota_manejo', 'VENCIDO', $tipoPagoCuotaManejo == 'B' ? true : false ) !!}Vencido
 										</label>
 									</div>
@@ -346,10 +346,10 @@
 										$estaActivo = empty(old('esta_activo')) ? $producto->esta_activo : old('esta_activo');
 									@endphp
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ $estaActivo ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $estaActivo ? 'active' : '' }}">
 											{!! Form::radio('esta_activo', 1, $estaActivo ? true : false) !!}Activo
 										</label>
-										<label class="btn btn-danger {{ !$estaActivo ? 'active' : '' }}">
+										<label class="btn btn-outline-danger {{ !$estaActivo ? 'active' : '' }}">
 											{!! Form::radio('esta_activo', 0, !$estaActivo ? true : false ) !!}Inactivo
 										</label>
 									</div>
@@ -362,8 +362,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tarjetaProducto') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tarjetaProducto') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

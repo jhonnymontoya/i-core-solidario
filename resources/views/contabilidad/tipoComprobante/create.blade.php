@@ -108,13 +108,13 @@
 								</label>
 								<div>
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ old('tipo_consecutivo') == 'A' ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ old('tipo_consecutivo') == 'A' ? 'active' : '' }}">
 											{!! Form::radio('tipo_consecutivo', 'A', old('tipo_consecutivo') == 'A' ? true : false) !!}Año + Consecutivo
 										</label>
-										<label class="btn btn-primary {{ old('tipo_consecutivo') == 'B' ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ old('tipo_consecutivo') == 'B' ? 'active' : '' }}">
 											{!! Form::radio('tipo_consecutivo', 'B', old('tipo_consecutivo') == 'B' ? true : false ) !!}Año + Mes + Consecutivo
 										</label>
-										<label class="btn btn-primary {{ old('tipo_consecutivo') == 'C' ? 'active' : empty(old('tipo_consecutivo')) ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ old('tipo_consecutivo') == 'C' ? 'active' : empty(old('tipo_consecutivo')) ? 'active' : '' }}">
 											{!! Form::radio('tipo_consecutivo', 'C', old('tipo_consecutivo') == 'C' ? true : empty(old('tipo_consecutivo')) ? true : false) !!}Secuencia Continua
 										</label>
 									</div>
@@ -152,8 +152,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoComprobante') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoComprobante') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('seguroCartera/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('seguroCartera/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -48,7 +48,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -58,7 +58,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron seguros de cartera <a href="{{ url('seguroCartera/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron seguros de cartera <a href="{{ url('seguroCartera/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -96,7 +96,7 @@
 													{{ $seguroCartera->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
-											<td><a class="btn btn-info btn-sm" href="{{ route('seguroCarteraEdit', $seguroCartera) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-outline-info btn-sm" href="{{ route('seguroCarteraEdit', $seguroCartera) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

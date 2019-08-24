@@ -143,8 +143,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('indicador?indicador=' . $tipo_indicador->id) }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Actualizar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('indicador?indicador=' . $tipo_indicador->id) }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

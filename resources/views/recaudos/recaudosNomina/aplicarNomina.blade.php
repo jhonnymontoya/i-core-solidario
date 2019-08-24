@@ -50,7 +50,7 @@
 					<h3 class="card-title">Aplicación</h3>
 				</div>
 				<div class="card-body">
-					<a class="btn btn-danger" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}">Volver</a>
+					<a class="btn btn-outline-danger" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}">Volver</a>
 					<br>
 					<br>
 					<div class="row">
@@ -74,14 +74,14 @@
 							<h4>Datos</h4>
 						</div>
 						<div class="col-md-7">
-							<a href="{{ route('recaudosNominaGenerarDatosAplicar', $controlProceso->id) }}" class="btn btn-info"><i class="fa fa-upload"></i> Cargar generación</a>
-							<a class="btn btn-info" data-toggle="modal" data-target=".mod_carga"><i class="fa fa-upload"></i> Cargar archivo</a>
-							<a href="{{ route('recaudosNominaEliminarDatosAplicar', $controlProceso->id) }}" class="btn btn-warning"><i class="fa fa-eraser"></i> Limpiar carga</a>
+							<a href="{{ route('recaudosNominaGenerarDatosAplicar', $controlProceso->id) }}" class="btn btn-outline-info"><i class="fa fa-upload"></i> Cargar generación</a>
+							<a class="btn btn-outline-info" data-toggle="modal" data-target=".mod_carga"><i class="fa fa-upload"></i> Cargar archivo</a>
+							<a href="{{ route('recaudosNominaEliminarDatosAplicar', $controlProceso->id) }}" class="btn btn-outline-warning"><i class="fa fa-eraser"></i> Limpiar carga</a>
 						</div>
 						<div class="col-md-4">
 							<div class="pull-right">
-								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmacion"><i class="fa fa-check-circle-o"></i> Aplicar recaudos</button>
-								<a class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i> Anular aplicación</a>
+								<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#confirmacion"><i class="fa fa-check-circle-o"></i> Aplicar recaudos</button>
+								<a class="btn btn-outline-danger"><i class="fa fa-exclamation-triangle"></i> Anular aplicación</a>
 							</div>
 						</div>
 					</div>
@@ -168,8 +168,8 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<a class="btn btn-success" id="procesar">Procesar</a>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+									<a class="btn btn-outline-success" id="procesar">Procesar</a>
+									<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 								</div>
 							</div>
 						</div>
@@ -212,8 +212,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<a class="btn btn-primary" id="cargar">Cargar</a>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Calcelar</button>
+				<a class="btn btn-outline-primary" id="cargar">Cargar</a>
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Calcelar</button>
 			</div>
 		</div>
 	</div>

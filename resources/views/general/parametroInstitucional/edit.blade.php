@@ -115,10 +115,10 @@
 											$indicador = true;
 										}
 									?>
-									<label class="btn btn-primary {{ $indicador ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $indicador ? 'active' : '' }}">
 										{!! Form::radio('indicador', '1', $indicador ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-primary {{ !$indicador ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ !$indicador ? 'active' : '' }}">
 										{!! Form::radio('indicador', '0', !$indicador ? true : false) !!}No
 									</label>
 								</div>
@@ -131,8 +131,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('parametrosInstitucionales') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('parametrosInstitucionales') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

@@ -26,7 +26,7 @@
 	<section class="content">
 		<div class="row">
 			<div class="col-md-1">
-				<a href="{{ url('causaAnulacionMovimiento/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('causaAnulacionMovimiento/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -45,7 +45,7 @@
 							{!! Form::select('estado', ['1' => 'Activo', '0' => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -53,7 +53,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron causas para anulación de movimientos <a href="{{ url('causaAnulacionMovimiento/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
+									No se encontraron causas para anulación de movimientos <a href="{{ url('causaAnulacionMovimiento/create') }}" class="btn btn-outline-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -80,7 +80,7 @@
 											</td>
 											<td>{{ $causa->movimientos->count() }}</td>
 											<td>
-												<a href="{{ route('causaAnulacionMovimientoEdit', $causa->id) }}" class="btn btn-info btn-sm" title="Editar">
+												<a href="{{ route('causaAnulacionMovimientoEdit', $causa->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

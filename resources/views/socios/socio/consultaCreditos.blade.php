@@ -64,7 +64,7 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<a class="btn btn-primary disabled pull-right">
+							<a class="btn btn-outline-primary disabled pull-right">
 								<i class="fa fa-download"></i> Descargar
 							</a>
 						</div>
@@ -203,8 +203,8 @@
 						</div>
 					</div>
 					<br>
-					<a id="verAmortizacion" class="btn btn-info btn-sm">Ver amortización</a>
-					<a id="verCodeudores" class="btn btn-info btn-sm">Ver codeudores</a>
+					<a id="verAmortizacion" class="btn btn-outline-info btn-sm">Ver amortización</a>
+					<a id="verCodeudores" class="btn btn-outline-info btn-sm">Ver codeudores</a>
 					@if($credito->amortizaciones->count())
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>

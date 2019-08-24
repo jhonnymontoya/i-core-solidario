@@ -150,10 +150,10 @@
 										$capitalizacion = trim(old('capitalizacion_simultanea')) == '' ? '0' : old('capitalizacion_simultanea');
 										$capitalizacion = $capitalizacion == '0' ? false : true;
 									?>
-									<label class="btn btn-primary {{ $capitalizacion ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $capitalizacion ? 'active' : '' }}">
 										{!! Form::radio('capitalizacion_simultanea', '1', $capitalizacion ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$capitalizacion ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$capitalizacion ? 'active' : '' }}">
 										{!! Form::radio('capitalizacion_simultanea', '0', !$capitalizacion ? true : false) !!}No
 									</label>
 								</div>
@@ -176,10 +176,10 @@
 										$capitalizacion = trim(old('paga_retiros')) == '' ? '0' : old('paga_retiros');
 										$capitalizacion = $capitalizacion == '0' ? false : true;
 									?>
-									<label class="btn btn-primary {{ $capitalizacion ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $capitalizacion ? 'active' : '' }}">
 										{!! Form::radio('paga_retiros', '1', $capitalizacion ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$capitalizacion ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$capitalizacion ? 'active' : '' }}">
 										{!! Form::radio('paga_retiros', '0', !$capitalizacion ? true : false) !!}No
 									</label>
 								</div>
@@ -240,10 +240,10 @@
 									$pagaInteresRetiro = trim(old('paga_intereses_retirados')) == '' ? '0' : old('paga_intereses_retirados');
 									$pagaInteresRetiro = $pagaInteresRetiro == '0' ? false : true;
 								?>
-								<label class="btn btn-primary {{ $pagaInteresRetiro ? 'active' : '' }}">
+								<label class="btn btn-outline-primary {{ $pagaInteresRetiro ? 'active' : '' }}">
 									{!! Form::radio('paga_intereses_retirados', '1', $pagaInteresRetiro ? true : false) !!}Sí
 								</label>
-								<label class="btn btn-danger {{ !$pagaInteresRetiro ? 'active' : '' }}">
+								<label class="btn btn-outline-danger {{ !$pagaInteresRetiro ? 'active' : '' }}">
 									{!! Form::radio('paga_intereses_retirados', '0', !$pagaInteresRetiro ? true : false) !!}No
 								</label>
 							</div>
@@ -330,10 +330,10 @@
 										$capitalizacion = trim(old('penalidad_por_retiro')) == '' ? '0' : old('penalidad_por_retiro');
 										$capitalizacion = $capitalizacion == '0' ? false : true;
 									?>
-									<label class="btn btn-primary {{ $capitalizacion ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $capitalizacion ? 'active' : '' }}">
 										{!! Form::radio('penalidad_por_retiro', '1', $capitalizacion ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$capitalizacion ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$capitalizacion ? 'active' : '' }}">
 										{!! Form::radio('penalidad_por_retiro', '0', !$capitalizacion ? true : false) !!}No
 									</label>
 								</div>
@@ -345,8 +345,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoCuotaAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoCuotaAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

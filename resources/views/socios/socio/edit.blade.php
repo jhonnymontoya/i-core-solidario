@@ -317,10 +317,10 @@
 										</label>
 										<div class="col-sm-8">
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $socio->es_mujer_cabeza_familia?'active':'' }}">
+												<label class="btn btn-outline-primary {{ $socio->es_mujer_cabeza_familia?'active':'' }}">
 													{!! Form::radio('mujer_cabeza_familia', '1', $socio->es_mujer_cabeza_familia?true:false) !!}Sí
 												</label>
-												<label class="btn btn-primary {{ $socio->es_mujer_cabeza_familia?'':'active' }}">
+												<label class="btn btn-outline-primary {{ $socio->es_mujer_cabeza_familia?'':'active' }}">
 													{!! Form::radio('mujer_cabeza_familia', '0', $socio->es_mujer_cabeza_familia?false:true) !!}No
 												</label>
 											</div>
@@ -393,10 +393,10 @@
 										</label>
 										<div class="col-sm-8">
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $socio->tercero->banco->last() == null ? 'active' : ($socio->tercero->banco->last()->pivot->tipo_cuenta == 'AHORROS' ? 'active' :  '')}}">
+												<label class="btn btn-outline-primary {{ $socio->tercero->banco->last() == null ? 'active' : ($socio->tercero->banco->last()->pivot->tipo_cuenta == 'AHORROS' ? 'active' :  '')}}">
 													{!! Form::radio('transferencia_tipo_cuenta', 'AHORROS', $socio->tercero->banco->last() == null ? true : ($socio->tercero->banco->last()->pivot->tipo_cuenta == 'AHORROS' ? true : false)) !!}Ahorros
 												</label>
-												<label class="btn btn-primary {{ $socio->tercero->banco->last() == null ? '' : ($socio->tercero->banco->last()->pivot->tipo_cuenta == 'AHORROS' ? '' :  'active')}}">
+												<label class="btn btn-outline-primary {{ $socio->tercero->banco->last() == null ? '' : ($socio->tercero->banco->last()->pivot->tipo_cuenta == 'AHORROS' ? '' :  'active')}}">
 													{!! Form::radio('transferencia_tipo_cuenta', 'CORRIENTE', $socio->tercero->banco->last() == null ? false : ($socio->tercero->banco->last()->pivot->tipo_cuenta == 'AHORROS' ? false : true)) !!}Corriente
 												</label>
 											</div>
@@ -415,8 +415,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
+									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
 									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 								</div>
 							</div>

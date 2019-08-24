@@ -43,7 +43,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -56,7 +56,7 @@
 								<label>Número de veces </label>
 								<span class="label label-success">{{ number_format($parametro->valor, 1) }}</span>&nbsp;&nbsp;
 							@endif
-							<a href="{{ route('parametroInstitucionalEdit', $parametro->id) }}" class="btn btn-primary btn-sm">Editar</a>
+							<a href="{{ route('parametroInstitucionalEdit', $parametro->id) }}" class="btn btn-outline-primary btn-sm">Editar</a>
 						</div>
 					</div>
 					<br>
@@ -85,7 +85,7 @@
 											<td>{{ $modalidad->codigo }}</td>
 											<td>{{ $modalidad->nombre }}</td>
 											<td>{{ $modalidad->apalancamiento_cupo }}</td>
-											<td><a class="btn btn-info btn-sm" href="{{ route('cupoCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-outline-info btn-sm" href="{{ route('cupoCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

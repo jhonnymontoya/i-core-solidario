@@ -69,7 +69,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -101,7 +101,7 @@
 						<br>
 						<div class="row">
 							<div class="col-md-11 col-md-offset-1">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmacion">Procesar periodo</button>
+								<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Procesar periodo</button>
 							</div>
 						</div>
 
@@ -124,7 +124,7 @@
 												<td>{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</td>
 												<td>{{ title_case($controlProceso->estado) }}</td>
 												<td>
-													<a class="btn btn-primary btn-sm" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fa fa-external-link"></i></a>
+													<a class="btn btn-outline-primary btn-sm" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fa fa-external-link"></i></a>
 												</td>
 											</tr>
 										@endforeach
@@ -165,9 +165,9 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<a class="btn btn-success" id="procesar">Procesar</a>
-										{{--{!! Form::submit('Procesar', ['class' => 'btn btn-success disabled', 'id' => 'procesar']) !!}--}}
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+										<a class="btn btn-outline-success" id="procesar">Procesar</a>
+										{{--{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success disabled', 'id' => 'procesar']) !!}--}}
+										<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 									</div>
 								</div>
 							</div>

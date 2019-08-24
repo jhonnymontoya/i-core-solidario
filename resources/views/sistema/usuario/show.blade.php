@@ -196,10 +196,10 @@
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-sm-5">
-												<a href="{{ url('usuario') }}" class="btn btn-block btn-sm btn-info"><i class="fa fa-arrow-left"></i> Volver</a>
+												<a href="{{ url('usuario') }}" class="btn btn-block btn-sm btn-outline-info"><i class="fa fa-arrow-left"></i> Volver</a>
 											</div>
 											<div class="col-sm-5">
-												<a href="{{ route('usuarioEdit', $usuario) }}" class="btn btn-block btn-sm btn-info pull-right"><i class="fa fa-edit"></i> Editar</a>
+												<a href="{{ route('usuarioEdit', $usuario) }}" class="btn btn-block btn-sm btn-outline-info pull-right"><i class="fa fa-edit"></i> Editar</a>
 											</div>
 										</div>
 									</div>
@@ -240,10 +240,10 @@
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-sm-5">
-												<a href="{{ url('usuario') }}" class="btn btn-block btn-sm btn-info"><i class="fa fa-arrow-left"></i> Volver</a>
+												<a href="{{ url('usuario') }}" class="btn btn-block btn-sm btn-outline-info"><i class="fa fa-arrow-left"></i> Volver</a>
 											</div>
 											<div class="col-sm-5">
-												<a href="{{ route('usuarioEdit', [$usuario, '#entidades']) }}" class="btn btn-block btn-sm btn-info pull-right"><i class="fa fa-edit"></i> Editar</a>
+												<a href="{{ route('usuarioEdit', [$usuario, '#entidades']) }}" class="btn btn-block btn-sm btn-outline-info pull-right"><i class="fa fa-edit"></i> Editar</a>
 											</div>
 										</div>
 									</div>

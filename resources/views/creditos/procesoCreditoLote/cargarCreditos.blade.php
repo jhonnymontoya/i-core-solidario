@@ -163,9 +163,9 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{{--{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}--}}
-					<a class="btn btn-success" id="cargar">Continuar</a>
-					<a href="{{ url('procesoCreditoLote') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{{--{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}--}}
+					<a class="btn btn-outline-success" id="cargar">Continuar</a>
+					<a href="{{ url('procesoCreditoLote') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

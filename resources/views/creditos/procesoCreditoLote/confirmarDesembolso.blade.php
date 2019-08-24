@@ -96,9 +96,9 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					{{--{!! Form::submit('Desembolsar', ['class' => 'btn btn-success']) !!}--}}
-					<a class="btn btn-success" id="desembolsar">Desembolsar</a>
-					<a href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}" class="btn btn-danger pull-right">Volver</a>
+					{{--{!! Form::submit('Desembolsar', ['class' => 'btn btn-outline-success']) !!}--}}
+					<a class="btn btn-outline-success" id="desembolsar">Desembolsar</a>
+					<a href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>

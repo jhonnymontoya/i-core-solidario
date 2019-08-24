@@ -74,14 +74,14 @@
 							</div>
 						</div>
 						<div class="col-md-8">
-							{!! Form::submit('Cargar', ['class' => 'btn btn-success']) !!}
+							{!! Form::submit('Cargar', ['class' => 'btn btn-outline-success']) !!}
 						</div>
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					<a href="{{ url('listaControl') }}" class="btn btn-danger pull-right">Volver</a>
-					{!! Form::submit("Cargar", ["class" => 'btn btn-success pull-right']) !!}
+					<a href="{{ url('listaControl') }}" class="btn btn-outline-danger pull-right">Volver</a>
+					{!! Form::submit("Cargar", ["class" => 'btn btn-outline-success pull-right']) !!}
 				</div>
 			</div>
 			{!! Form::close() !!}

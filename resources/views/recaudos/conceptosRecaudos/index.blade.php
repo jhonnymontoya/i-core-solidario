@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('conceptosRecaudos/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('conceptosRecaudos/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -51,7 +51,7 @@
 							{!! Form::select('pagaduria', $pagadurias, null, ['class' => 'form-control select2', 'placeholder' => 'Pagaduría', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -60,7 +60,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron conceptos de recaudos <a href="{{ url('conceptosRecaudos/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
+									No se encontraron conceptos de recaudos <a href="{{ url('conceptosRecaudos/create') }}" class="btn btn-outline-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -82,8 +82,8 @@
 											<td>{{ $concepto->nombre }}</td>
 											<td>{{ $concepto->pagaduria->nombre }}</td>
 											<td>
-												<a class="btn btn-info btn-sm" href="{{ route('conceptosRecaudosEdit', $concepto) }}"><i class="fa fa-edit"></i></a>
-												<a class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i></a>
+												<a class="btn btn-outline-info btn-sm" href="{{ route('conceptosRecaudosEdit', $concepto) }}"><i class="fa fa-edit"></i></a>
+												<a class="btn btn-outline-danger btn-sm disabled"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									@endforeach

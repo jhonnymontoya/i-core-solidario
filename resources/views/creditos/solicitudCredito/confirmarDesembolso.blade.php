@@ -250,9 +250,9 @@
 					@if(!$solicitud->tieneInconsistencias())
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
-								<a id="desembolsoPorTesoreria" class="btn btn-primary">Desembolso por tesorería</a>
-								<a id="desembolsoContable" class="btn btn-primary">Desembolso contable</a>
-								<a id="desembolsoATercero" class="btn btn-primary">Desembolso a tercero</a>
+								<a id="desembolsoPorTesoreria" class="btn btn-outline-primary">Desembolso por tesorería</a>
+								<a id="desembolsoContable" class="btn btn-outline-primary">Desembolso contable</a>
+								<a id="desembolsoATercero" class="btn btn-outline-primary">Desembolso a tercero</a>
 							</div>
 						</div>
 
@@ -298,10 +298,10 @@
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
 					@if(!$solicitud->tieneInconsistencias())
-					<a class="btn btn-success" id="procesar">Procesar</a>
-					{{--{!! Form::submit('Procesar', ['class' => 'btn btn-success', 'tabindex' => '1']) !!}--}}
+					<a class="btn btn-outline-success" id="procesar">Procesar</a>
+					{{--{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success', 'tabindex' => '1']) !!}--}}
 					@endif
-					<a href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" class="btn btn-danger pull-right" tabindex="2">Volver</a>
+					<a href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" class="btn btn-outline-danger pull-right" tabindex="2">Volver</a>
 				</div>
 			</div>
 		</div>

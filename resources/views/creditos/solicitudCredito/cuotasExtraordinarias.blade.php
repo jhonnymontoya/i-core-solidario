@@ -132,17 +132,17 @@
 								{
 									case 'BORRADOR':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									case 'RADICADO':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									case 'APROBADO':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									
@@ -155,7 +155,7 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-12">
-							<a class="btn btn-primary" data-toggle="modal" data-target="#agregarCuota">Agregar cuota</a>
+							<a class="btn btn-outline-primary" data-toggle="modal" data-target="#agregarCuota">Agregar cuota</a>
 						</div>
 					</div>
 					<br>
@@ -188,7 +188,7 @@
 												<td>{{ $cuota->periodicidad }}</td>
 												<td>{{ $cuota->inicio_descuento }}</td>
 												<td>
-													<a href="{{ route('solicitudCredito.delete.cuotasExtraordinarias', [$solicitud->id, $cuota->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+													<a href="{{ route('solicitudCredito.delete.cuotasExtraordinarias', [$solicitud->id, $cuota->id]) }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
 												</td>
 											</tr>
 										@endforeach
@@ -205,17 +205,17 @@
 						{
 							case 'BORRADOR':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							case 'RADICADO':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							case 'APROBADO':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							
@@ -324,8 +324,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				{!! Form::submit('Agregar', ['class' => 'btn btn-success']) !!}
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+				{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success']) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 			{!! Form::close() !!}
 		</div>

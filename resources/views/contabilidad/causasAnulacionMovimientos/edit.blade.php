@@ -66,10 +66,10 @@
 									</label>
 									<div class="col-sm-8">
 										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-primary {{ $causa->esta_activa ? 'active' : ''}}">
+											<label class="btn btn-outline-primary {{ $causa->esta_activa ? 'active' : ''}}">
 												{!! Form::radio('esta_activa', '1', $causa->esta_activa ? true : false) !!}ACTIVA
 											</label>
-											<label class="btn btn-danger {{ $causa->esta_activa ? '' : 'active'}}">
+											<label class="btn btn-outline-danger {{ $causa->esta_activa ? '' : 'active'}}">
 												{!! Form::radio('esta_activa', '0', $causa->esta_activa ? false : true) !!}INACTIVA
 											</label>
 										</div>
@@ -83,8 +83,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('causaAnulacionMovimiento') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('causaAnulacionMovimiento') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

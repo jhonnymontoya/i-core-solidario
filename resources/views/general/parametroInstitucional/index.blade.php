@@ -49,7 +49,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -97,7 +97,7 @@
 											<td>{{ str_limit($parametro->descripcion, 70) }}</td>
 											<td>{{ $parametro->valor }}</td>
 											<td>{{ $indicador }}</td>
-											<td><a class="btn btn-info btn-sm" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-outline-info btn-sm" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

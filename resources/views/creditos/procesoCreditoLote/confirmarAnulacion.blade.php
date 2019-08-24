@@ -96,8 +96,8 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					{!! Form::submit('Anular', ['class' => 'btn btn-danger']) !!}
-					<a href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}" class="btn btn-success pull-right">Volver</a>
+					{!! Form::submit('Anular', ['class' => 'btn btn-outline-danger']) !!}
+					<a href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}" class="btn btn-outline-success pull-right">Volver</a>
 				</div>
 			</div>
 		</div>

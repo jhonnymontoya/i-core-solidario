@@ -38,7 +38,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('comprobante/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('comprobante/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -70,7 +70,7 @@
 							{!! Form::select('estado', ['CONTABILIZADO' => 'CONTABILIZADO', 'SIN CONTABILIZAR' => 'SIN CONTABILIZAR', 'ANULADO' => 'ANULADO'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -79,7 +79,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron comprobantes <a href="{{ url('comprobante/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron comprobantes <a href="{{ url('comprobante/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -153,27 +153,27 @@
 												@endif
 											</td>
 											<td>
-												<a href="{{ ($estadoLabel == 'warning' ? route('comprobanteEdit', $comprobante->id) : '') }}" class="btn btn-default btn-sm {{ ($estadoLabel == 'warning') ? '' : 'disabled' }}" title="Editar">
+												<a href="{{ ($estadoLabel == 'warning' ? route('comprobanteEdit', $comprobante->id) : '') }}" class="btn btn-outline-secondary btn-sm {{ ($estadoLabel == 'warning') ? '' : 'disabled' }}" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
-												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $comprobante->tipoComprobante->codigo }}&numeroComprobante={{ $comprobante->numero_comprobante }}" class="btn btn-default btn-sm {{ ($estadoLabel == 'warning') ? 'disabled' : '' }}" title="Imprimir comprobante">
+												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $comprobante->tipoComprobante->codigo }}&numeroComprobante={{ $comprobante->numero_comprobante }}" class="btn btn-outline-secondary btn-sm {{ ($estadoLabel == 'warning') ? 'disabled' : '' }}" title="Imprimir comprobante">
 													<i class="fa fa-print"></i>
 												</a>
-												<a href="{{ route('comprobante.duplicar', $comprobante->id) }}" class="btn btn-default btn-sm {{ (($estadoLabel == 'success' || $estadoLabel == 'danger') && $comprobante->origen != 'PROCESO') ? '' : 'disabled' }}" title="Duplicar">
+												<a href="{{ route('comprobante.duplicar', $comprobante->id) }}" class="btn btn-outline-secondary btn-sm {{ (($estadoLabel == 'success' || $estadoLabel == 'danger') && $comprobante->origen != 'PROCESO') ? '' : 'disabled' }}" title="Duplicar">
 													<i class="fa fa-copy"></i>
 												</a>
 												@if ($estadoLabel != 'warning')
 													@if ($comprobante->origen == 'MANUAL' && is_null($comprobante->causa_anulado_id))
-														<a href="{{ route('comprobante.anular', $comprobante->id) }}" class="btn btn-default btn-sm" title="Anular">
+														<a href="{{ route('comprobante.anular', $comprobante->id) }}" class="btn btn-outline-secondary btn-sm" title="Anular">
 															<i class="fa fa-close"></i>
 														</a>
 													@else
-														<a href="" class="btn btn-default btn-sm disabled" title="Anular">
+														<a href="" class="btn btn-outline-secondary btn-sm disabled" title="Anular">
 															<i class="fa fa-close"></i>
 														</a>
 													@endif
 												@else
-													<a href="{{ route('comprobanteDelete', $comprobante->id) }}" class="btn btn-default btn-sm" title="Eliminar">
+													<a href="{{ route('comprobanteDelete', $comprobante->id) }}" class="btn btn-outline-secondary btn-sm" title="Eliminar">
 													<i class="fa fa-trash"></i>
 												</a>
 												@endif

@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('modulo/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('modulo/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -57,7 +57,7 @@
 							{!! Form::select('estado', ['1' => 'Activo', '0' => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -65,7 +65,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron módulos <a href="{{ url('modulo/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron módulos <a href="{{ url('modulo/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -93,7 +93,7 @@
 											<td>{{ $modulo->cuentasContables->where('entidad_id', Auth::getSession()->get('entidad')->id)->count() }}</td>
 											<td>{{ $modulo->tiposComprobantes->where('entidad_id', Auth::getSession()->get('entidad')->id)->count() }}</td>
 											<td>
-												<a class="btn btn-primary btn-sm" href="{{ route('moduloEdit', $modulo) }}"><i class="fa fa-edit"></i></a>
+												<a class="btn btn-outline-primary btn-sm" href="{{ route('moduloEdit', $modulo) }}"><i class="fa fa-edit"></i></a>
 											</td>
 										</tr>
 									@endforeach

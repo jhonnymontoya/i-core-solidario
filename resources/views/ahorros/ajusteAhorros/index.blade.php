@@ -70,7 +70,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -179,10 +179,10 @@
 											$naturaleza = trim(old('naturalezaAjusteAhorros')) == '' ? 'AUMENTO' : old('naturalezaAjusteAhorros');
 											$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
 										?>
-										<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
 											{!! Form::radio('naturalezaAjusteAhorros', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
 										</label>
-										<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
 											{!! Form::radio('naturalezaAjusteAhorros', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
 										</label>
 									</div>
@@ -238,10 +238,10 @@
 											$naturaleza = trim(old('naturalezaAjusteIntereses')) == '' ? 'AUMENTO' : old('naturalezaAjusteIntereses');
 											$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
 										?>
-										<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
 											{!! Form::radio('naturalezaAjusteIntereses', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
 										</label>
-										<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
 											{!! Form::radio('naturalezaAjusteIntereses', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
 										</label>
 									</div>
@@ -338,8 +338,8 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">							
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmacion">Continuar</button>
-								<a href="{{ url('ajusteAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
+								<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Continuar</button>
+								<a href="{{ url('ajusteAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 							</div>
 						</div>
 
@@ -406,9 +406,9 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<a class="btn btn-success" id="continuar">Ajustar</a>
-										{{--{!! Form::submit('Ajustar', ['class' => 'btn btn-success']) !!}--}}
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+										<a class="btn btn-outline-success" id="continuar">Ajustar</a>
+										{{--{!! Form::submit('Ajustar', ['class' => 'btn btn-outline-success']) !!}--}}
+										<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 									</div>
 								</div>
 							</div>

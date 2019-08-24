@@ -94,8 +94,8 @@
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-success" value="Procesar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        		<input type="submit" class="btn btn-outline-success" value="Procesar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 		</form>

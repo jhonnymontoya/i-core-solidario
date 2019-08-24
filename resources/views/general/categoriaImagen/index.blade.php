@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('categoriaImagen/create') }}" class="btn btn-primary">Crear nueva</a>
+				<a href="{{ url('categoriaImagen/create') }}" class="btn btn-outline-primary">Crear nueva</a>
 			</div>
 		</div>
 		<br>
@@ -52,7 +52,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron categorías de imágenes <a href="{{ url('categoriaImagen/create') }}" class="btn btn-primary btn-sm">crear uno nueva</a>
+									No se encontraron categorías de imágenes <a href="{{ url('categoriaImagen/create') }}" class="btn btn-outline-primary btn-sm">crear uno nueva</a>
 								</div>
 							</div>
 						</p>
@@ -76,7 +76,7 @@
 											<td>{{ $categoriaImagen->alto }}</td>
 											<td>{{ str_limit($categoriaImagen->descripcion, 20) }}</td>
 											<td>
-												<a class="btn btn-info btn-sm" href="{{ route('categoriaImagenEdit', $categoriaImagen) }}"><i class="fa fa-edit"></i></a></td>
+												<a class="btn btn-outline-info btn-sm" href="{{ route('categoriaImagenEdit', $categoriaImagen) }}"><i class="fa fa-edit"></i></a></td>
 											</td>
 										</tr>
 									@endforeach

@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('menu/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('menu/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -52,7 +52,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron menus <a href="{{ url('menu/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron menus <a href="{{ url('menu/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -77,7 +77,7 @@
 											<td>
 												<span class="badge bg-{{ $menu->perfiles->count()?'green':'red' }}">{{ $menu->perfiles->count() }}</span>
 											</td>
-											<td><a class="btn btn-info btn-sm" href="{{ route('menuEdit', $menu) }}"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn btn-outline-info btn-sm" href="{{ route('menuEdit', $menu) }}"><i class="fa fa-edit"></i></a></td>
 										</tr>
 
 										@foreach ($menu->hijos as $menuHijo)
@@ -88,7 +88,7 @@
 												<td>
 													<span class="badge bg-{{ $menu->perfiles->count()?'green':'red' }}">{{ $menu->perfiles->count() }}</span>
 												</td>
-												<td><a class="btn btn-info btn-sm" href="{{ route('menuEdit', $menuHijo) }}"><i class="fa fa-edit"></i></a></td>
+												<td><a class="btn btn-outline-info btn-sm" href="{{ route('menuEdit', $menuHijo) }}"><i class="fa fa-edit"></i></a></td>
 											</tr>
 
 											@foreach ($menuHijo->hijos as $menuSubHijo)
@@ -99,7 +99,7 @@
 													<td>
 														<span class="badge bg-{{ $menu->perfiles->count()?'green':'red' }}">{{ $menu->perfiles->count() }}</span>
 													</td>
-													<td><a class="btn btn-info btn-sm" href="{{ route('menuEdit', $menuSubHijo) }}"><i class="fa fa-edit"></i></a></td>
+													<td><a class="btn btn-outline-info btn-sm" href="{{ route('menuEdit', $menuSubHijo) }}"><i class="fa fa-edit"></i></a></td>
 												</tr>
 											@endforeach
 

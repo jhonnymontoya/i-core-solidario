@@ -25,8 +25,8 @@
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-primary" value="Guardar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        		<input type="submit" class="btn btn-outline-primary" value="Guardar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 		{!! Form::close() !!}

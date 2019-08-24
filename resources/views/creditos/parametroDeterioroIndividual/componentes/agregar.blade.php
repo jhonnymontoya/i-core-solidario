@@ -52,7 +52,7 @@
 	<div class="col-md-1">
 		<div class="form-group">
 			<label class="control-label">&nbsp;</label>
-			<input type="submit" class="btn btn-success" value="Agregar">
+			<input type="submit" class="btn btn-outline-success" value="Agregar">
 		</div>
 	</div>
 </div>
@@ -79,7 +79,7 @@
 						<td class="text-center">{{ $parametro->dias_desde }}</td>
 						<td class="text-center">{{ $parametro->dias_hasta }}</td>
 						<td class="text-center">{{ $parametro->deterioro }}%</td>
-						<td><a class="btn btn-danger btn-sm aLimpiar"><i class="fa fa-trash"></i></a></td>
+						<td><a class="btn btn-outline-danger btn-sm aLimpiar"><i class="fa fa-trash"></i></a></td>
 					</tr>
 				@endforeach
 			</tbody>

@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-1">
-				<a href="{{ url('cuentaAhorros/create') }}" class="btn btn-primary">Crear nueva</a>
+				<a href="{{ url('cuentaAhorros/create') }}" class="btn btn-outline-primary">Crear nueva</a>
 			</div>
 		</div>
 		<br>
@@ -54,7 +54,7 @@
 							{!! Form::select('estado', ['ACTIVA' => 'Activa', 'APERTURA' => 'Apertura', 'INACTIVA' => 'Inactiva', 'CERRADA' => 'Cerrada'], null, ['class' => 'form-control select2', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -62,7 +62,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron cuentas de ahorros <a href="{{ url('cuentaAhorros/create') }}" class="btn btn-primary btn-sm">crear uno nueva</a>
+									No se encontraron cuentas de ahorros <a href="{{ url('cuentaAhorros/create') }}" class="btn btn-outline-primary btn-sm">crear uno nueva</a>
 								</div>
 							</div>
 						</p>
@@ -102,7 +102,7 @@
 												</span>
 											</td>
 											<td>
-												<a href="{{ route('cuentaAhorros.edit', $cuentaAhorros->id) }}" class="btn btn-info btn-sm" title="Editar">
+												<a href="{{ route('cuentaAhorros.edit', $cuentaAhorros->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

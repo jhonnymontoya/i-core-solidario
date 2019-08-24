@@ -15,10 +15,10 @@
 			?>
 			<col class="col-md-8">
 				<div class="btn-group" data-toggle="buttons">
-					<label class="btn btn-primary {{ $esCondicionado ? 'active' : ''}}">
+					<label class="btn btn-outline-primary {{ $esCondicionado ? 'active' : ''}}">
 						{!! Form::radio('es_condicionado', 1, $esCondicionado ? true : false) !!}Sí
 					</label>
-					<label class="btn btn-primary {{ $esCondicionado ? '' : 'active'}}">
+					<label class="btn btn-outline-primary {{ $esCondicionado ? '' : 'active'}}">
 						{!! Form::radio('es_condicionado', 0, $esCondicionado ? false : true) !!}No
 					</label>
 					@if ($errors->has('es_condicionado'))
@@ -49,11 +49,11 @@
 				if($cobro->efecto == "ADICIONCREDITO")$baseCobro = 'VALORCREDITO';
 			?>
 			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary {{ $baseCobro == 'VALORCREDITO' ? 'active' : ''}}">
+				<label class="btn btn-outline-primary {{ $baseCobro == 'VALORCREDITO' ? 'active' : ''}}">
 					<input type="radio" name="base_cobro" value="VALORCREDITO" {{ $baseCobro == 'VALORCREDITO' ? 'checked' : '' }}>Valor crédito
 				</label>
 				@if ($cobro->efecto != "ADICIONCREDITO")
-					<label class="btn btn-primary {{ $baseCobro == 'VALORCREDITO' ? '' : 'active'}}">
+					<label class="btn btn-outline-primary {{ $baseCobro == 'VALORCREDITO' ? '' : 'active'}}">
 						<input type="radio" name="base_cobro" value="VAORDESCUBIERTO" {{ $baseCobro == 'VALORCREDITO' ? '' : 'checked' }}>Valor descubierto
 					</label>
 				@endif
@@ -79,10 +79,10 @@
 				}
 			?>
 			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary {{ $factorCalculo == 'VALORFIJO' ? 'active' : ''}}">
+				<label class="btn btn-outline-primary {{ $factorCalculo == 'VALORFIJO' ? 'active' : ''}}">
 					{!! Form::radio('factor_calculo', 'VALORFIJO', $factorCalculo == 'VALORFIJO' ? true : false) !!}Valor fijo
 				</label>
-				<label class="btn btn-primary {{ $factorCalculo == 'VALORFIJO' ? '' : 'active'}}">
+				<label class="btn btn-outline-primary {{ $factorCalculo == 'VALORFIJO' ? '' : 'active'}}">
 					{!! Form::radio('factor_calculo', 'PORCENTAJEBASE', $factorCalculo == 'VALORFIJO' ? false : true) !!}Porcentaje de base
 				</label>
 			</div>
@@ -133,7 +133,7 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			{!! Form::submit('Guardar y completar condición', ['class' => 'btn btn-success']) !!}
+			{!! Form::submit('Guardar y completar condición', ['class' => 'btn btn-outline-success']) !!}
 		</div>
 	</div>
 </div>

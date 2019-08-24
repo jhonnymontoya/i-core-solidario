@@ -97,9 +97,9 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a class="btn btn-success" id="continuar">Continuar</a>
-					{{--{!! Form::submit('Continuar', ['class' => 'btn btn-success', 'id' => 'continuar']) !!}--}}
-					<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right">Cancelar</a>
+					<a class="btn btn-outline-success" id="continuar">Continuar</a>
+					{{--{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success', 'id' => 'continuar']) !!}--}}
+					<a href="{{ url('comprobante') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

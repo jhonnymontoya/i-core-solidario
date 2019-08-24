@@ -38,7 +38,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('procesoCreditoLote/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('procesoCreditoLote/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -57,7 +57,7 @@
 							{!! Form::select('modalidad', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione uno', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -66,7 +66,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron procesos <a href="{{ url('procesoCreditoLote/create') }}" class="btn btn-primary btn-sm">crear una nueva</a>
+									No se encontraron procesos <a href="{{ url('procesoCreditoLote/create') }}" class="btn btn-outline-primary btn-sm">crear una nueva</a>
 								</div>
 							</div>
 						</p>
@@ -119,12 +119,12 @@
 											</td>
 											<td>
 												@if($proceso->estado == 'PRECARGA')
-													<a class="btn btn-info btn-sm" title="Editar" href="{{ route('procesoCreditoLoteCargarCreditos', $proceso->id) }}"><i class="fa fa-edit"></i></a>
+													<a class="btn btn-outline-info btn-sm" title="Editar" href="{{ route('procesoCreditoLoteCargarCreditos', $proceso->id) }}"><i class="fa fa-edit"></i></a>
 												@elseif($proceso->estado == 'CARGADO')
-													<a class="btn btn-info btn-sm" title="Editar" href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}"><i class="fa fa-edit"></i></a>
+													<a class="btn btn-outline-info btn-sm" title="Editar" href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}"><i class="fa fa-edit"></i></a>
 												@endif
 												@if($proceso->estado == 'PRECARGA' || $proceso->estado == 'CARGADO')
-													<a class="btn btn-danger btn-sm" title="Anular" href="{{ route('procesoCreditoLoteAnular', $proceso->id) }}"><i class="fa fa-close"></i></a>
+													<a class="btn btn-outline-danger btn-sm" title="Anular" href="{{ route('procesoCreditoLoteAnular', $proceso->id) }}"><i class="fa fa-close"></i></a>
 												@endif
 											</td>
 										</tr>

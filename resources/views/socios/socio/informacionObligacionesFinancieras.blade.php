@@ -204,7 +204,7 @@
 															<td>{{ $obligacion->fecha_inicial }} ({{ !empty($obligacion->fecha_inicial) ? $obligacion->fecha_inicial->diffForHumans() : 'No especificado'}})</td>
 															<td>${{ number_format($obligacion->monto) }}</td>
 															<td>
-																<a href="{{ route('socioEditObligacionesFinancierasEliminar', [$socio->id, $obligacion->id]) }}" class="btn btn-danger btn-sm">
+																<a href="{{ route('socioEditObligacionesFinancierasEliminar', [$socio->id, $obligacion->id]) }}" class="btn btn-outline-danger btn-sm">
 																	<i class="fa fa-trash"></i>
 																</a>
 															</td>
@@ -251,8 +251,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
+									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
 									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 								</div>
 							</div>

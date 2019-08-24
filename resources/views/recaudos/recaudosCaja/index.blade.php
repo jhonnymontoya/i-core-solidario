@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('recaudosCaja/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('recaudosCaja/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -48,7 +48,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -57,7 +57,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron recaudos <a href="{{ url('recaudosCaja/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron recaudos <a href="{{ url('recaudosCaja/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -85,7 +85,7 @@
 											<td>{{ $recaudo->contacto }}</td>
 											<td>${{ number_format($data->totalRecaudo) }}</td>
 											<td>
-												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-default btn-sm" title="Imprimir comprobante">
+												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-outline-secondary btn-sm" title="Imprimir comprobante">
 													<i class="fa fa-print"></i>
 												</a>
 											</td>

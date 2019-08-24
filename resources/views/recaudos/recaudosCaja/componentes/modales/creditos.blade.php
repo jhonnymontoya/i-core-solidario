@@ -23,16 +23,16 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<a class="btn btn-default cSugerirSaldo">Sugerir saldo: $0</a>
-						<a class="btn btn-default cSugerirCuota">Sugerir cuota: $0</a>
-						<a class="btn btn-default cSugerirIncluidoRecaudo">Incluido recaudo: $0</a>
+						<a class="btn btn-outline-secondary cSugerirSaldo">Sugerir saldo: $0</a>
+						<a class="btn btn-outline-secondary cSugerirCuota">Sugerir cuota: $0</a>
+						<a class="btn btn-outline-secondary cSugerirIncluidoRecaudo">Incluido recaudo: $0</a>
 					</div>
 				</div>
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-primary" value="Guardar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        		<input type="submit" class="btn btn-outline-primary" value="Guardar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 		</form>

@@ -53,7 +53,7 @@
 							{!! Form::select('modulo', $modulos, null, ['class' => 'form-control select2', 'placeholder' => 'Categoría']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -87,7 +87,7 @@
 											<td>{{ str_limit($reporte->descripcion, 50) }}</td>
 											<td>{{ $reporte->parametros->count() }}</td>
 											<td>
-												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-play"></i> Ver reporte</a>
+												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-play"></i> Ver reporte</a>
 											</td>
 										</tr>
 									@endforeach

@@ -84,7 +84,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="btn-group">
-								<button type="submit" class="btn btn-success"><i class="fa fa-play"></i> Procesar</button>
+								<button type="submit" class="btn btn-outline-success"><i class="fa fa-play"></i> Procesar</button>
 							</div>
 						</div>
 					</div>

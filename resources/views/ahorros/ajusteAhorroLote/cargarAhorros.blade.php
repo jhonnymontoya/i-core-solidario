@@ -148,8 +148,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a class="btn btn-success" id="cargar">Continuar</a>
-					<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-danger pull-right">Cancelar</a>
+					<a class="btn btn-outline-success" id="cargar">Continuar</a>
+					<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

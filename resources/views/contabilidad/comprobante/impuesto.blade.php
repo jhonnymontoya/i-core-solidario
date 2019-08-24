@@ -49,13 +49,13 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('tipoImpuesto', 'NACIONAL', true) !!}Nacional
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tipoImpuesto', 'REGIONAL', false) !!}Regional
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tipoImpuesto', 'DISTRITAL', false) !!}Distrital
 									</label>
 								</div>
@@ -180,7 +180,7 @@
 											<td class="text-right">${{ number_format($imp->valor_impuesto, 0) }}</td>
 											<td class="text-right">${{ number_format($imp->iva, 0) }}</td>
 											<td>
-												<a class="btn btn-danger btn-sm eliminarImpuesto">
+												<a class="btn btn-outline-danger btn-sm eliminarImpuesto">
 													<i class="fa fa-trash"></i>
 												</a>
 											</td>
@@ -192,8 +192,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Agregar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ route('comprobanteEdit', $movimiento->id) }}" class="btn btn-danger pull-right">Volver al comprobante</a>
+					{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ route('comprobanteEdit', $movimiento->id) }}" class="btn btn-outline-danger pull-right">Volver al comprobante</a>
 				</div>
 			</div>
 		</div>

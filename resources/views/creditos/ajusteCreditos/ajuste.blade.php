@@ -120,10 +120,10 @@
 										$naturaleza = trim(old('naturalezaAjusteCapital')) == '' ? 'AUMENTO' : old('naturalezaAjusteCapital');
 										$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
 									?>
-									<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
 										{!! Form::radio('naturalezaAjusteCapital', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
 									</label>
-									<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
 										{!! Form::radio('naturalezaAjusteCapital', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
 									</label>
 								</div>
@@ -185,10 +185,10 @@
 										$naturaleza = trim(old('naturalezaAjusteIntereses')) == '' ? 'AUMENTO' : old('naturalezaAjusteIntereses');
 										$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
 									?>
-									<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
 										{!! Form::radio('naturalezaAjusteIntereses', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
 									</label>
-									<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
 										{!! Form::radio('naturalezaAjusteIntereses', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
 									</label>
 								</div>
@@ -254,10 +254,10 @@
 										$naturaleza = trim(old('naturalezaAjusteSeguro')) == '' ? 'AUMENTO' : old('naturalezaAjusteSeguro');
 										$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
 									?>
-									<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
 										{!! Form::radio('naturalezaAjusteSeguro', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
 									</label>
-									<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
 										{!! Form::radio('naturalezaAjusteSeguro', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
 									</label>
 								</div>
@@ -407,9 +407,9 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<a class="btn btn-success" id="continuar">Ajustar</a>
-									{{--{!! Form::submit('Ajustar', ['class' => 'btn btn-success']) !!}--}}
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+									<a class="btn btn-outline-success" id="continuar">Ajustar</a>
+									{{--{!! Form::submit('Ajustar', ['class' => 'btn btn-outline-success']) !!}--}}
+									<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 								</div>
 							</div>
 						</div>
@@ -422,8 +422,8 @@
 							$url = sprintf("%s?tercero=%s&fechaAjuste=%s", url('ajusteCreditos'), $tercero->id, $fecha);
 						@endphp
 						<div class="col-md-12">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmacion">Ajustar</button>
-							<a href="{{ $url }}" class="btn btn-danger pull-right">Cancelar</a>
+							<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Ajustar</button>
+							<a href="{{ $url }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 						</div>
 					</div>
 				</div>

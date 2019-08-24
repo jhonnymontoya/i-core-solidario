@@ -118,8 +118,8 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					{!! Form::submit('Anular', ['class' => 'btn btn-danger', 'tabindex' => '2']) !!}
-					<a href="{{ url('comprobante') }}" class="btn btn-success pull-right" tabindex="1">Cancelar</a>
+					{!! Form::submit('Anular', ['class' => 'btn btn-outline-danger', 'tabindex' => '2']) !!}
+					<a href="{{ url('comprobante') }}" class="btn btn-outline-success pull-right" tabindex="1">Cancelar</a>
 				</div>
 			</div>
 		</div>

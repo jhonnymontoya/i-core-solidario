@@ -55,10 +55,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary{{ $tipoIdentificacion->aplicacion=='NATURAL'?' active':'' }}">
+									<label class="btn btn-outline-primary{{ $tipoIdentificacion->aplicacion=='NATURAL'?' active':'' }}">
 										{!! Form::radio('aplicacion', 'NATURAL', true) !!}Natural
 									</label>
-									<label class="btn btn-primary{{ $tipoIdentificacion->aplicacion=='JURÍDICA'?' active':'' }}">
+									<label class="btn btn-outline-primary{{ $tipoIdentificacion->aplicacion=='JURÍDICA'?' active':'' }}">
 										{!! Form::radio('aplicacion', 'JURÍDICA', false) !!}Jurídica
 									</label>
 								</div>
@@ -111,10 +111,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary{{ $tipoIdentificacion->esta_activo?' active':'' }}">
+									<label class="btn btn-outline-primary{{ $tipoIdentificacion->esta_activo?' active':'' }}">
 										{!! Form::radio('esta_activo', '1', true) !!}Sí
 									</label>
-									<label class="btn btn-danger{{ !$tipoIdentificacion->esta_activo?' active':'' }}">
+									<label class="btn btn-outline-danger{{ !$tipoIdentificacion->esta_activo?' active':'' }}">
 										{!! Form::radio('esta_activo', '0', false) !!}No
 									</label>
 								</div>
@@ -126,8 +126,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoIdentificacion') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoIdentificacion') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

@@ -94,10 +94,10 @@
 										$activo = empty(old('esta_activo')) ? $tipo->esta_activo : old('esta_activo');
 										$activo = $activo ? true : false;
 									?>
-									<label class="btn btn-primary {{ $activo ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activo', '1', $activo ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$activo ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activo', '0', !$activo ? true : false) !!}No
 									</label>
 								</div>
@@ -167,15 +167,15 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-							<a href="{{ url('tipoSDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
+							{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+							<a href="{{ url('tipoSDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 						</div>
 					</div>
 					{!! Form::close() !!}
 					<hr>
 
 					{{-- FORMULARIO DE AGREGAR CONDICIÓN PERIODO --}}
-					<a class="btn btn-success btn-add-per"><i class="fa fa-plus"></i> Agregar rango de tiempo</a>
+					<a class="btn btn-outline-success btn-add-per"><i class="fa fa-plus"></i> Agregar rango de tiempo</a>
 					<div id="conPer" style="display: none">
 						<form id="frmConPer" data-maskMoney-removeMask>
 						{{ csrf_field() }}
@@ -197,7 +197,7 @@
 							<div class="col-md-2">
 								<div class="form-group">
 									<label class="control-label">&nbsp;</label><br>
-									{!! Form::submit('Agregar', ['class' => 'btn btn-success']) !!}
+									{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success']) !!}
 								</div>
 							</div>
 						</div>
@@ -226,10 +226,10 @@
 													{{ $condicion["periodo"] }}
 												</a>
 												<div class="pull-right">
-													<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#mam" data-href="#con{{$id}}" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}">
+													<a class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#mam" data-href="#con{{$id}}" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}">
 														<font color="#fff"><i class="fa fa-plus"></i> agregar montos</font>
 													</a>
-													<a data-toggle="modal" data-target="#mdelPeriodo" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}" class="btn btn-danger btn-sm" title="Eliminar rango de tiempo"><font color="#fff"><i class="fa fa-trash"></i></font></a>
+													<a data-toggle="modal" data-target="#mdelPeriodo" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}" class="btn btn-outline-danger btn-sm" title="Eliminar rango de tiempo"><font color="#fff"><i class="fa fa-trash"></i></font></a>
 												</div>
 											</h4>
 										</div>
@@ -255,7 +255,7 @@
 																			<td class="text-right">{{ $monto["monto_maximo"] }}</td>
 																			<td class="text-right">{{ $monto["tasa"] }}</td>
 																			<td class="text-right">
-																				<a data-toggle="modal" data-target="#mdelMonto" data-id="{{ $monto["id"] }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+																				<a data-toggle="modal" data-target="#mdelMonto" data-id="{{ $monto["id"] }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
 																			</td>
 																		</tr>
 																	@endforeach
@@ -336,8 +336,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-				{!! Form::submit("Guardar", ["class" => "btn btn-success"]) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+				{!! Form::submit("Guardar", ["class" => "btn btn-outline-success"]) !!}
 			</div>
 		</div>
 	</div>
@@ -360,8 +360,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-				{!! Form::submit("Eliminar", ["class" => "btn btn-danger"]) !!}
+				<button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
+				{!! Form::submit("Eliminar", ["class" => "btn btn-outline-danger"]) !!}
 			</div>
 		</div>
 	</div>
@@ -386,8 +386,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-				{!! Form::submit("Eliminar", ["class" => "btn btn-danger"]) !!}
+				<button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
+				{!! Form::submit("Eliminar", ["class" => "btn btn-outline-danger"]) !!}
 			</div>
 		</div>
 	</div>

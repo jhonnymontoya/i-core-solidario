@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-1">
-				<a href="{{ url('tipoSDAT/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('tipoSDAT/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -51,7 +51,7 @@
 							{!! Form::select('estado', [true => 'Activa', false => 'Inactiva'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -59,7 +59,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron tipos de SDAT <a href="{{ url('tipoSDAT/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
+									No se encontraron tipos de SDAT <a href="{{ url('tipoSDAT/create') }}" class="btn btn-outline-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -94,7 +94,7 @@
 												<span class="label label-{{ $label }}">{{ $estado }}</span>
 											</td>
 											<td>
-												<a href="{{ route('tipoSDAT.edit', $tipo->id) }}" class="btn btn-info btn-sm" title="Editar">
+												<a href="{{ route('tipoSDAT.edit', $tipo->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

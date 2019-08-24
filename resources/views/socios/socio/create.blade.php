@@ -317,10 +317,10 @@
 										</label>
 										<div class="col-sm-8">
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary">
+												<label class="btn btn-outline-primary">
 													{!! Form::radio('mujer_cabeza_familia', '1', false) !!}Sí
 												</label>
-												<label class="btn btn-primary active">
+												<label class="btn btn-outline-primary active">
 													{!! Form::radio('mujer_cabeza_familia', '0', true) !!}No
 												</label>
 											</div>
@@ -393,10 +393,10 @@
 										</label>
 										<div class="col-sm-8">
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ !empty(old('transferencia_tipo_cuenta')) ? (old('transferencia_tipo_cuenta') == 'AHORROS' ? 'active' : '') : 'active'}}">
+												<label class="btn btn-outline-primary {{ !empty(old('transferencia_tipo_cuenta')) ? (old('transferencia_tipo_cuenta') == 'AHORROS' ? 'active' : '') : 'active'}}">
 													{!! Form::radio('transferencia_tipo_cuenta', 'AHORROS', !empty(old('transferencia_tipo_cuenta')) ? (old('transferencia_tipo_cuenta') == 'AHORROS' ? true : false) : true) !!}Ahorros
 												</label>
-												<label class="btn btn-primary {{ !empty(old('transferencia_tipo_cuenta')) ? (old('transferencia_tipo_cuenta') == 'CORRIENTE' ? 'active' : '') : ''}}">
+												<label class="btn btn-outline-primary {{ !empty(old('transferencia_tipo_cuenta')) ? (old('transferencia_tipo_cuenta') == 'CORRIENTE' ? 'active' : '') : ''}}">
 													{!! Form::radio('transferencia_tipo_cuenta', 'CORRIENTE', !empty(old('transferencia_tipo_cuenta')) ? (old('transferencia_tipo_cuenta') == 'CORRIENTE' ? true : false) : false) !!}Corriente
 												</label>
 											</div>
@@ -415,8 +415,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Cancelar</a>
+									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger">Cancelar</a>
 								</div>
 							</div>
 						</div>

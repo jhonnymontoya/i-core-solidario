@@ -141,10 +141,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('negativo', '1', true) !!}Sí
 									</label>
-									<label class="btn btn-danger">
+									<label class="btn btn-outline-danger">
 										{!! Form::radio('negativo', '0', false) !!}No
 									</label>
 								</div>
@@ -163,10 +163,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('resultado', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('resultado', '0', true) !!}No
 									</label>
 								</div>
@@ -187,10 +187,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ old('ordent') == true ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ old('ordent') == true ? 'active' : '' }}">
 										{!! Form::radio('ordent', '1', old('ordent') == true ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ empty(old('ordent')) | old('ordent')  == false ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ empty(old('ordent')) | old('ordent')  == false ? 'active' : '' }}">
 										{!! Form::radio('ordent', '0', empty(old('ordent')) | old('ordent')  == false ? true : false) !!}No
 									</label>
 								</div>
@@ -233,8 +233,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('cuentaContable') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('cuentaContable') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

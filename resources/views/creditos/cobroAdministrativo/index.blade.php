@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('cobrosAdministrativos/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('cobrosAdministrativos/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -48,7 +48,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -57,7 +57,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron cobros administrativos <a href="{{ url('cobrosAdministrativos/create') }}" class="btn btn-primary btn-sm">crear una nuevo</a>
+									No se encontraron cobros administrativos <a href="{{ url('cobrosAdministrativos/create') }}" class="btn btn-outline-primary btn-sm">crear una nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -108,8 +108,8 @@
 												</span>
 											</td>
 											<td>
-												<a href="{{ route('cobrosAdministrativos.edit', $cobro) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
-												<a href="{{ route('cobrosAdministrativos.modalidades', $cobro) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Asociar modalidades"><i class="fa fa-plus"></i></a>
+												<a href="{{ route('cobrosAdministrativos.edit', $cobro) }}" class="btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('cobrosAdministrativos.modalidades', $cobro) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="Asociar modalidades"><i class="fa fa-plus"></i></a>
 											</td>
 										</tr>
 									@endforeach

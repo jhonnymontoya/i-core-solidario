@@ -173,7 +173,7 @@
 						</div>
 
 						<div class="col-md-4">
-							<a href="{{ route('solicitudCreditoConsolidacion', $solicitud) }}" class="btn btn-primary">Recoger obligaciones vigentes</a>
+							<a href="{{ route('solicitudCreditoConsolidacion', $solicitud) }}" class="btn btn-outline-primary">Recoger obligaciones vigentes</a>
 						</div>
 					</div>
 
@@ -275,7 +275,7 @@
 
 						@if($solicitud->modalidadCredito->acepta_cuotas_extraordinarias)
 						<div class="col-md-4">
-							<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-primary">Agregar cuotas extraordinarias</a>
+							<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-outline-primary">Agregar cuotas extraordinarias</a>
 						</div>
 						@endif					
 
@@ -301,7 +301,7 @@
 						</div>
 						<div class="col-md-8">
 							{!! Form::submit('Aprobar solicitud', ['class' => 'btn bg-olive']) !!}
-							<a href="{{ url('solicitudCredito') }}" class="btn btn-danger pull-right">Volver</a>
+							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger pull-right">Volver</a>
 						</div>
 					</div>
 
@@ -327,10 +327,10 @@
 					<hr>
 					<div class="row form-horizontal">
 						<div class="col-md-12">
-							<a id="verCondiciones" class="btn btn-info btn-sm">Ver condiciones</a>
-							<a id="verAmortizacion" class="btn btn-info btn-sm">Ocultar amortización</a>
-							<a id="verDocumentacion" class="btn btn-info btn-sm">Actualizar documentación</a>
-							<a href="{{ route('solicitudCreditoGarantias', $solicitud->id) }}" class="btn btn-info btn-sm">Garantías</a>
+							<a id="verCondiciones" class="btn btn-outline-info btn-sm">Ver condiciones</a>
+							<a id="verAmortizacion" class="btn btn-outline-info btn-sm">Ocultar amortización</a>
+							<a id="verDocumentacion" class="btn btn-outline-info btn-sm">Actualizar documentación</a>
+							<a href="{{ route('solicitudCreditoGarantias', $solicitud->id) }}" class="btn btn-outline-info btn-sm">Garantías</a>
 						</div>
 					</div>
 
@@ -728,8 +728,8 @@
 			data: 'condicion=' + $obj.data('id')
 		}).done(function(data){
 			if(data.estado){
-				$obj.removeClass("btn-success");
-				$obj.addClass("btn-danger");
+				$obj.removeClass("btn-outline-success");
+				$obj.addClass("btn-outline-danger");
 				$obj.text("Desaprobar");
 				$(".label-" + $obj.data('id')).removeClass("label-danger");
 				$(".label-" + $obj.data('id')).addClass("label-success");
@@ -737,8 +737,8 @@
 			}
 			else
 			{
-				$obj.removeClass("btn-danger");
-				$obj.addClass("btn-success");
+				$obj.removeClass("btn-outline-danger");
+				$obj.addClass("btn-outline-success");
 				$obj.text("Aprobar");
 				$(".label-" + $obj.data('id')).removeClass("label-success");
 				$(".label-" + $obj.data('id')).addClass("label-danger");
@@ -756,8 +756,8 @@
 			data: 'documento=' + $obj.data('id')
 		}).done(function(data){
 			if(data.estado){
-				$obj.removeClass("btn-success");
-				$obj.addClass("btn-danger");
+				$obj.removeClass("btn-outline-success");
+				$obj.addClass("btn-outline-danger");
 				$obj.text("No cumple");
 				$(".label-documento-" + $obj.data('id')).removeClass("label-danger");
 				$(".label-documento-" + $obj.data('id')).addClass("label-success");
@@ -765,8 +765,8 @@
 			}
 			else
 			{
-				$obj.removeClass("btn-danger");
-				$obj.addClass("btn-success");
+				$obj.removeClass("btn-outline-danger");
+				$obj.addClass("btn-outline-success");
 				$obj.text("Cumple");
 				$(".label-documento-" + $obj.data('id')).removeClass("label-success");
 				$(".label-documento-" + $obj.data('id')).addClass("label-danger");

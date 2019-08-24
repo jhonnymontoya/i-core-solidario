@@ -55,21 +55,21 @@
 									<tr>
 										<td width="33%">
 											{!! Form::open(['url' => 'consulta/perfil', 'method' => 'get']) !!}
-											{!! Form::submit('Perfil', ['class' => 'btn btn-info btn-flat']) !!}
+											{!! Form::submit('Perfil', ['class' => 'btn btn-outline-info btn-flat']) !!}
 											{!! Form::close() !!}
 										</td>
 										<td width="33%" align="center">
 											{{--
 											@if (Auth::user()->perfiles()->count() > 1)
 												{!! Form::open(['url' => 'entidad/seleccion', 'method' => 'get']) !!}
-												{!! Form::submit('Cambiar entidad', ['class' => 'btn btn-warning btn-flat']) !!}
+												{!! Form::submit('Cambiar entidad', ['class' => 'btn btn-outline-warning btn-flat']) !!}
 												{!! Form::close() !!}
 											@endif
 											--}}
 										</td>
 										<td width="33%" align="right">
 											{!! Form::open(['url' => 'logout', 'method' => 'post']) !!}
-											{!! Form::submit('Salir', ['class' => 'btn btn-danger btn-flat']) !!}
+											{!! Form::submit('Salir', ['class' => 'btn btn-outline-danger btn-flat']) !!}
 											{!! Form::close() !!}
 										</td>
 									</tr>

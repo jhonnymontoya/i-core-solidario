@@ -186,8 +186,8 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					<a class="btn btn-success" id="duplicar">Duplicar</a>
-					<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right" tabindex="2">Cancelar</a>
+					<a class="btn btn-outline-success" id="duplicar">Duplicar</a>
+					<a href="{{ url('comprobante') }}" class="btn btn-outline-danger pull-right" tabindex="2">Cancelar</a>
 				</div>
 			</div>
 		</div>

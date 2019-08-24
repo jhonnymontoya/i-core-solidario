@@ -34,11 +34,11 @@
 			<label class="control-label">Base de cobro</label>
 			<br>
 			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary active">
+				<label class="btn btn-outline-primary active">
 					<input type="radio" name="bc" value="VALORCREDITO" checked="checked" form="adicionarCondicion">Crédito
 				</label>
 				@if ($cobro->efecto != "ADICIONCREDITO")
-					<label class="btn btn-primary">
+					<label class="btn btn-outline-primary">
 						<input type="radio" name="bc" value="VAORDESCUBIERTO" form="adicionarCondicion">Descubierto
 					</label>
 				@endif
@@ -50,10 +50,10 @@
 			<label class="control-label">Factor de cálculo</label>
 			<br>
 			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary active">
+				<label class="btn btn-outline-primary active">
 					{!! Form::radio('fc', 'VALORFIJO', true, ["form" => "adicionarCondicion"]) !!}Fijo
 				</label>
-				<label class="btn btn-primary">
+				<label class="btn btn-outline-primary">
 					{!! Form::radio('fc', 'PORCENTAJEBASE', false, ["form" => "adicionarCondicion"]) !!}Porcentaje
 				</label>
 			</div>
@@ -72,7 +72,7 @@
 	<div class="col-md-2">
 		<div class="form-group">
 			<label class="control-label">&nbsp;</label><br>
-			{!! Form::submit('Agregar', ['class' => 'btn btn-success', "form" => "adicionarCondicion"]) !!}
+			{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success', "form" => "adicionarCondicion"]) !!}
 		</div>
 	</div>
 </div>
@@ -105,7 +105,7 @@
 						<td>{{ $data["base_cobro"] }}</td>
 						<td>{{ $data["factor_calculo"] }}</td>
 						<td>{{ $data["valor"] }}</td>
-						<td><a class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a></td>
+						<td><a class="btn btn-outline-danger btn-sm eliminar"><i class="fa fa-trash"></i></a></td>
 					</tr>
 				@endforeach
 			</tbody>
@@ -136,7 +136,7 @@
 				dataType: 'json',
 				data: $data
 			}).done(function(data){
-				$eliminar = $("<a>").addClass("btn").addClass("btn-danger").addClass("btn-sm");
+				$eliminar = $("<a>").addClass("btn").addClass("btn-outline-danger").addClass("btn-sm");
 				$eliminar.html("<i class=\"fa fa-trash\"></i>");
 				$eliminar.click(function(event){eliminar(this);});
 				$rango = $("<tr>")

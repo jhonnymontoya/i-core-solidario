@@ -63,7 +63,7 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<a class="btn btn-primary disabled pull-right">
+							<a class="btn btn-outline-primary disabled pull-right">
 								<i class="fa fa-download"></i> Descargar
 							</a>
 						</div>

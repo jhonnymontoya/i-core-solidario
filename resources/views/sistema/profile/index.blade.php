@@ -23,7 +23,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 text-right">
-				<a href="{{ url('profile/edit') }}" class="btn btn-default btn-sm" title="Editar perfil"><i class="fas fa-edit"></i></a>
+				<a href="{{ url('profile/edit') }}" class="btn btn-outline-secondary btn-sm" title="Editar perfil"><i class="fas fa-edit"></i></a>
 			</div>
 		</div>
 	</div>

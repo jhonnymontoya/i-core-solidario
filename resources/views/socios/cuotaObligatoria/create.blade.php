@@ -116,8 +116,8 @@
 						<br>
 						<div class="row">
 							<div class="col-md-12">
-								{!! Form::submit('Confirmar', ['class' => 'btn btn-success']) !!}
-								&nbsp;<a href="{{ url('cuotaObligatoria?socio=' . $socio->id) }}" class="btn btn-danger">Cancelar</a>
+								{!! Form::submit('Confirmar', ['class' => 'btn btn-outline-success']) !!}
+								&nbsp;<a href="{{ url('cuotaObligatoria?socio=' . $socio->id) }}" class="btn btn-outline-danger">Cancelar</a>
 							</div>
 						</div>
 						{!! Form::close() !!}

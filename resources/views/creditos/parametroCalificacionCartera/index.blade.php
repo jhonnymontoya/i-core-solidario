@@ -53,16 +53,16 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
 									</label>
 								</div>
@@ -92,7 +92,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -104,7 +104,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -116,7 +116,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -128,7 +128,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -140,7 +140,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 								</tbody>

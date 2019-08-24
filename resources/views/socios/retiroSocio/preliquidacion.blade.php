@@ -107,7 +107,7 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label class="control-label">&nbsp;</label><br>
-								{!! Form::submit('Preliquidar', ['class' => 'btn btn-success']) !!}
+								{!! Form::submit('Preliquidar', ['class' => 'btn btn-outline-success']) !!}
 							</div>
 						</div>
 					</div>
@@ -309,8 +309,8 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<a class="btn btn-success" id="continuar">Liquidar</a>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+										<a class="btn btn-outline-success" id="continuar">Liquidar</a>
+										<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 									</div>
 								</div>
 							</div>
@@ -323,9 +323,9 @@
 						{!! Form::hidden('fecha_movimiento', $fechaMovimiento) !!}
 						{!! Form::hidden('fecha_saldo', $fechaSaldo) !!}
 						{!! Form::close() !!}
-						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmacion">Liquidar</button>
+						<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#confirmacion">Liquidar</button>
 					@endif
-					<a href="{{ url('retiroSocio') }}" class="btn btn-danger pull-right">Cancelar</a>
+					<a href="{{ url('retiroSocio') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

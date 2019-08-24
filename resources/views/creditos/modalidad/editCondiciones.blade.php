@@ -95,10 +95,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
 										{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
 										{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
 									</label>
 								</div>
@@ -128,10 +128,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $esta_activa ? 'active' : ''}}">
 										{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
 									</label>
-									<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $esta_activa ? '' : 'active'}}">
 										{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
 									</label>
 								</div>
@@ -211,10 +211,10 @@
 												}
 											?>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $requiereAntiguedadEntidad ? 'active' : ''}}">
+												<label class="btn btn-outline-primary {{ $requiereAntiguedadEntidad ? 'active' : ''}}">
 													{!! Form::radio('requiereAntiguedadEntidad', '1', $requiereAntiguedadEntidad ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-primary {{ $requiereAntiguedadEntidad ? '' : 'active'}}">
+												<label class="btn btn-outline-primary {{ $requiereAntiguedadEntidad ? '' : 'active'}}">
 													{!! Form::radio('requiereAntiguedadEntidad', '0', $requiereAntiguedadEntidad? false : true) !!}No
 												</label>
 											</div>
@@ -270,10 +270,10 @@
 												}
 											?>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $requiereAntiguedadLaboral ? 'active' : ''}}">
+												<label class="btn btn-outline-primary {{ $requiereAntiguedadLaboral ? 'active' : ''}}">
 													{!! Form::radio('requiereAntiguedadLaboral', '1', $requiereAntiguedadLaboral ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-primary {{ $requiereAntiguedadLaboral ? '' : 'active'}}">
+												<label class="btn btn-outline-primary {{ $requiereAntiguedadLaboral ? '' : 'active'}}">
 													{!! Form::radio('requiereAntiguedadLaboral', '0', $requiereAntiguedadLaboral? false : true) !!}No
 												</label>
 											</div>
@@ -329,10 +329,10 @@
 												}
 											?>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $limiteObligacionesModalidad ? 'active' : ''}}">
+												<label class="btn btn-outline-primary {{ $limiteObligacionesModalidad ? 'active' : ''}}">
 													{!! Form::radio('limiteObligacionesModalidad', '1', $limiteObligacionesModalidad ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-primary {{ $limiteObligacionesModalidad ? '' : 'active'}}">
+												<label class="btn btn-outline-primary {{ $limiteObligacionesModalidad ? '' : 'active'}}">
 													{!! Form::radio('limiteObligacionesModalidad', '0', $limiteObligacionesModalidad? false : true) !!}No
 												</label>
 											</div>
@@ -388,10 +388,10 @@
 												}
 											?>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $intervaloSolcitudes ? 'active' : ''}}">
+												<label class="btn btn-outline-primary {{ $intervaloSolcitudes ? 'active' : ''}}">
 													{!! Form::radio('intervaloSolcitudes', '1', $intervaloSolcitudes ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-primary {{ $intervaloSolcitudes ? '' : 'active'}}">
+												<label class="btn btn-outline-primary {{ $intervaloSolcitudes ? '' : 'active'}}">
 													{!! Form::radio('intervaloSolcitudes', '0', $intervaloSolcitudes? false : true) !!}No
 												</label>
 											</div>
@@ -427,8 +427,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('modalidadCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

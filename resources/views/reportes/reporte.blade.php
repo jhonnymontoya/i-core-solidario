@@ -53,7 +53,7 @@
 										<h4>PARÁMETROS</h4>	
 									</div>
 									<div class="col-md-5">
-										<button type="submit" class="btn btn-success btn-sm pull-right"><i class="fa fa-play"></i> Procesar</button>
+										<button type="submit" class="btn btn-outline-success btn-sm pull-right"><i class="fa fa-play"></i> Procesar</button>
 									</div>
 								</div>
 								<br>
@@ -81,13 +81,13 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="btn-group">
-								<button type="submit" class="btn btn-success"><i class="fa fa-play"></i> Procesar</button>
+								<button type="submit" class="btn btn-outline-success"><i class="fa fa-play"></i> Procesar</button>
 								@if($data)
 								<div class="btn-group">
-									<a target="_blank" href="{{ Request::fullUrlWithQuery(['print' => true]) }}" class="btn btn-primary">
+									<a target="_blank" href="{{ Request::fullUrlWithQuery(['print' => true]) }}" class="btn btn-outline-primary">
 										<i class="fa fa-print"></i> Imprimir
 									</a>
-									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									<button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 										<span class="caret"></span>
 										<span class="sr-only">Opciones</span>
 									</button>
@@ -98,7 +98,7 @@
 									</ul>
 								</div>
 								@endif
-								<a href="{{ url('reportes') }}" class="btn btn-danger">
+								<a href="{{ url('reportes') }}" class="btn btn-outline-danger">
 									<i class="fa fa-folder"></i> Ir a reportes
 								</a>
 							</div>

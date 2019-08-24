@@ -51,9 +51,9 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<h3>Previsualización información cierre cartera</h3>
-					<a class="btn btn-primary xlsx"><i class="fa fa-file-excel-o"></i> XLSX</a>
-					<a class="btn btn-primary csv"><i class="fa fa-file-excel-o"></i> CSV</a>
-					<a class="btn btn-primary txt"><i class="fa fa-file-text-o"></i> TXT</a>
+					<a class="btn btn-outline-primary xlsx"><i class="fa fa-file-excel-o"></i> XLSX</a>
+					<a class="btn btn-outline-primary csv"><i class="fa fa-file-excel-o"></i> CSV</a>
+					<a class="btn btn-outline-primary txt"><i class="fa fa-file-text-o"></i> TXT</a>
 					<div class="row">
 						<div class="col-md-12 table-responsive">
 							<table class="table table-striped precierre">
@@ -169,7 +169,7 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-danger pull-right">Volver</a>
+					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>

@@ -101,10 +101,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $es_exclusivo_de_socios ? 'active' : ''}}">
 										{!! Form::radio('es_exclusivo_de_socios', '1', $es_exclusivo_de_socios ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $es_exclusivo_de_socios ? '' : 'active'}}">
 										{!! Form::radio('es_exclusivo_de_socios', '0', $es_exclusivo_de_socios? false : true) !!}No
 									</label>
 								</div>
@@ -134,10 +134,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $esta_activa ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $esta_activa ? 'active' : ''}}">
 										{!! Form::radio('esta_activa', '1', $esta_activa ? true : false) !!}Activa
 									</label>
-									<label class="btn btn-danger {{ $esta_activa ? '' : 'active'}}">
+									<label class="btn btn-outline-danger {{ $esta_activa ? '' : 'active'}}">
 										{!! Form::radio('esta_activa', '0', $esta_activa? false : true) !!}Inactiva
 									</label>
 								</div>
@@ -218,10 +218,10 @@
 													$usoParaTarjeta = empty(old('uso_para_tarjeta')) ? $usoParaTarjeta : old('uso_para_tarjeta');
 												?>
 												<div class="btn-group" data-toggle="buttons">
-													<label class="btn btn-primary {{ $usoParaTarjeta ? 'active' : '' }}">
+													<label class="btn btn-outline-primary {{ $usoParaTarjeta ? 'active' : '' }}">
 														{!! Form::radio('uso_para_tarjeta', '1', ($usoParaTarjeta? true : false)) !!}Sí
 													</label>
-													<label class="btn btn-primary {{ !$usoParaTarjeta ? 'active' : '' }}">
+													<label class="btn btn-outline-primary {{ !$usoParaTarjeta ? 'active' : '' }}">
 														{!! Form::radio('uso_para_tarjeta', '0', (!$usoParaTarjeta ? true : false)) !!}No
 													</label>
 												</div>
@@ -239,8 +239,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('modalidadCredito') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('modalidadCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

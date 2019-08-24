@@ -142,8 +142,8 @@
 					<br>
 					<div class="row">
 						<div class="col-md-12">
-							{!! Form::submit('Continuar', ['class' => 'btn btn-primary']) !!}
-							<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
+							{!! Form::submit('Continuar', ['class' => 'btn btn-outline-primary']) !!}
+							<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 						</div>
 					</div>
 
@@ -177,7 +177,7 @@
 				</div>
 				<div class="card-footer">
 					@if (isset($dataTitulo))
-						{!! Form::submit('Radicar', ['class' => 'btn btn-success', 'name' => 'radicar']) !!}
+						{!! Form::submit('Radicar', ['class' => 'btn btn-outline-success', 'name' => 'radicar']) !!}
 					@endif
 				</div>
 			</div>

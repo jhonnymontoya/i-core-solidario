@@ -65,11 +65,11 @@
 							</div>
 						@endforeach
 					@else
-						No existen mosalidades de crédito para asociar, <a class="btn btn-success btn-sm" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
+						No existen mosalidades de crédito para asociar, <a class="btn btn-outline-success btn-sm" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
 					@endif
 				</div>
 				<div class="card-footer">
-					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Volver</a>
+					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>
@@ -90,13 +90,13 @@
 			$url = "{{ url('cobrosAdministrativos') . "/" . $cobro->id . "/" }}" + $modalidad;
 			$.get({url: $url, dataType: 'json'}).done(function(data){
 				if(data.asociado == true) {
-					$boton.removeClass("btn-success");
-					$boton.addClass("btn-danger");
+					$boton.removeClass("btn-outline-success");
+					$boton.addClass("btn-outline-danger");
 					$boton.text("Desasociar");
 				}
 				else {
-					$boton.removeClass("btn-danger");
-					$boton.addClass("btn-success");
+					$boton.removeClass("btn-outline-danger");
+					$boton.addClass("btn-outline-success");
 					$boton.text("Asociar");
 				}
 			});

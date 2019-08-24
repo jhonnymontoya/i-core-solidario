@@ -48,16 +48,16 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
 									</label>
-									<label class="btn btn-primary disabled">
+									<label class="btn btn-outline-primary disabled">
 										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
 									</label>
 								</div>
@@ -78,16 +78,16 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) CON LIBRANZA', true) !!}Garantía real con libranza
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) CON LIBRANZA', false) !!}Garantía personal con libranza
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) SIN LIBRANZA', false) !!}Garantía real sin libranza
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) SIN LIBRANZA', false) !!}Garantía personal sin libranza
 									</label>
 								</div>

@@ -126,12 +126,12 @@
 								{
 									case 'RADICADO':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									case 'APROBADO':
 										?>
-										<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
 									
@@ -192,9 +192,9 @@
 														<td class="text-right">${{ number_format($capital) }}</td>
 														<td class="text-right">${{ number_format($intereses) }}</td>
 														<td>
-															<a class="btn btn-default {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total del saldo a la fecha" data-toggle="modal" data-target="#confirmacion" data-opcion="saldoTotal" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Saldo total</a>
-															<a class="btn btn-default {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total teniendo en cuenta el recaudo en proceso" data-toggle="modal" data-target="#confirmacion" data-opcion="incluidoRecaudo" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}" data-recaudo="{{ $recaudo }}">Incluido recaudo</a>
-															{{-- <a class="btn btn-default {{ $consolidado ? 'disabled' : '' }}" title="Indicar valor parcial para el crédito" data-toggle="modal" data-target="#confirmacion" data-opcion="parcial" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Parcial</a> --}}
+															<a class="btn btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total del saldo a la fecha" data-toggle="modal" data-target="#confirmacion" data-opcion="saldoTotal" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Saldo total</a>
+															<a class="btn btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total teniendo en cuenta el recaudo en proceso" data-toggle="modal" data-target="#confirmacion" data-opcion="incluidoRecaudo" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}" data-recaudo="{{ $recaudo }}">Incluido recaudo</a>
+															{{-- <a class="btn btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Indicar valor parcial para el crédito" data-toggle="modal" data-target="#confirmacion" data-opcion="parcial" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Parcial</a> --}}
 														</td>
 													</tr>
 												@endforeach
@@ -250,7 +250,7 @@
 														<td>
 															{!! Form::open(['route' => ['solicitudCreditoDeleteConsolidacion', $solicitud], 'method' => 'delete', 'role' => 'form']) !!}
 															{!! Form::hidden('credito', $creditoRecogido->id) !!}
-															{!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-sm']) !!}
+															{!! Form::submit('Eliminar', ['class' => 'btn btn-outline-danger btn-sm']) !!}
 															{!! Form::close() !!}
 														</td>
 													</tr>
@@ -266,7 +266,7 @@
 													<th colspan="3"></th>
 													<th>Exedente para desembolso:</th>
 													<th class="text-right">${{ number_format($solicitud->valor_credito - $total) }}</th>
-													<th><a class="btn btn-success btn-sm" data-toggle="modal" data-target="#desembolso">Modificar</a></th>
+													<th><a class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#desembolso">Modificar</a></th>
 												</tr>
 											</tfoot>
 										</table>
@@ -289,12 +289,12 @@
 						{
 							case 'RADICADO':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							case 'APROBADO':
 								?>
-								<a class="btn btn-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
 								break;
 							
@@ -345,8 +345,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				{!! Form::submit('Recoger', ['class' => 'btn btn-success']) !!}
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+				{!! Form::submit('Recoger', ['class' => 'btn btn-outline-success']) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 			{!! Form::close() !!}
 		</div>
@@ -384,8 +384,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				{!! Form::submit('Modificar', ['class' => 'btn btn-success']) !!}
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+				{!! Form::submit('Modificar', ['class' => 'btn btn-outline-success']) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 			{!! Form::close() !!}
 		</div>

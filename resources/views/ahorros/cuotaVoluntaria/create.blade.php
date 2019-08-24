@@ -148,8 +148,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Agregar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('cuotaVoluntaria?socio=' . $socio->id) }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('cuotaVoluntaria?socio=' . $socio->id) }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

@@ -68,7 +68,7 @@
 											<td>{{ $lista->fecha_publicacion }}</td>
 											<td class="text-right">{{ $lista->cantidad_detalles }}</td>
 											<td>
-												<a href="{{ route('listaControl.edit', $lista->id) }}" class="btn btn-info btn-sm" title="Editar">
+												<a href="{{ route('listaControl.edit', $lista->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>

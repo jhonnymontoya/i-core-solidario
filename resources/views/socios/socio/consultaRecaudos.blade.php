@@ -81,7 +81,7 @@
 							<br>
 						</div>
 						<div class="col-md-2">
-							<a href="{{ url()->previous() }}" class="btn btn-info pull-right">Volver</a>
+							<a href="{{ url()->previous() }}" class="btn btn-outline-info pull-right">Volver</a>
 						</div>
 					</div>
 					<br>

@@ -55,10 +55,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('aplicacion', 'NATURAL', true) !!}Natural
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('aplicacion', 'JURÍDICA', false) !!}Jurídica
 									</label>
 								</div>
@@ -102,8 +102,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoIdentificacion') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoIdentificacion') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

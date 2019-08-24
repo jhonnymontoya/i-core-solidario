@@ -64,7 +64,7 @@
 									</div>
 								</div>
 							</div>
-							{!! Form::submit('Guardar', ['class' => 'btn btn-primary btn-block']) !!}
+							{!! Form::submit('Guardar', ['class' => 'btn btn-outline-primary btn-block']) !!}
 						</div>
 					</div>
 				</div>
@@ -268,8 +268,8 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-9">
-											{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-											<a href="{{ url('usuario') }}" class="btn btn-danger pull-right">Cancelar</a>
+											{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+											<a href="{{ url('usuario') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 										</div>
 									</div>
 								</div>

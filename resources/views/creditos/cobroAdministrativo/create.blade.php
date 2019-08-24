@@ -92,10 +92,10 @@
 									}
 								?>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? 'active' : ''}}">
+									<label class="btn btn-outline-primary {{ $efecto == 'DEDUCCIONCREDITO' ? 'active' : ''}}">
 										{!! Form::radio('efecto', 'DEDUCCIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? true : false) !!}Deducción de crédito
 									</label>
-									<label class="btn btn-primary {{ $efecto == 'DEDUCCIONCREDITO' ? '' : 'active'}}">
+									<label class="btn btn-outline-primary {{ $efecto == 'DEDUCCIONCREDITO' ? '' : 'active'}}">
 										{!! Form::radio('efecto', 'ADICIONCREDITO', $efecto == 'DEDUCCIONCREDITO' ? false : true) !!}Adición de crédito
 									</label>
 								</div>
@@ -124,8 +124,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

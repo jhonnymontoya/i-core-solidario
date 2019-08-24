@@ -141,10 +141,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $cuenta->acepta_saldo_negativo ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $cuenta->acepta_saldo_negativo ? 'active' : '' }}">
 										{!! Form::radio('negativo', '1', $cuenta->acepta_saldo_negativo ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$cuenta->acepta_saldo_negativo ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$cuenta->acepta_saldo_negativo ? 'active' : '' }}">
 										{!! Form::radio('negativo', '0', !$cuenta->acepta_saldo_negativo ? true : false) !!}No
 									</label>
 								</div>
@@ -220,10 +220,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary {{ $cuenta->esta_activo ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $cuenta->esta_activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activo', '1', $cuenta->esta_activo ? true : false) !!}Activa
 									</label>
-									<label class="btn btn-danger {{ !$cuenta->esta_activo ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$cuenta->esta_activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activo', '0', !$cuenta->esta_activo ? true : false) !!}Inactiva
 									</label>
 								</div>
@@ -251,8 +251,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('cuentaContable') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('cuentaContable') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

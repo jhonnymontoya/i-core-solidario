@@ -53,10 +53,10 @@
 										$tipoTercero = empty(old('tipo_tercero')) ? $tipoTercero : old('tipo_tercero');
 									@endphp
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary {{ $tipoTercero == 'NATURAL' ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $tipoTercero == 'NATURAL' ? 'active' : '' }}">
 											{!! Form::radio('tipo_tercero', 'NATURAL', $tipoTercero == 'NATURAL' ? true : false) !!}Natural
 										</label>
-										<label class="btn btn-primary {{ $tipoTercero != 'NATURAL' ? 'active' : '' }}">
+										<label class="btn btn-outline-primary {{ $tipoTercero != 'NATURAL' ? 'active' : '' }}">
 											{!! Form::radio('tipo_tercero', 'JURÍDICA', $tipoTercero != 'NATURAL' ? true : false ) !!}Jurídico
 										</label>
 									</div>
@@ -245,8 +245,8 @@
 					{{-- FIN JURÍDICA --}}
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tercero') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tercero') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

@@ -90,7 +90,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -139,7 +139,7 @@
 														<td class="text-right">${{ number_format($credito->valor_cuota, 0) }}</td>
 														<td class="text-right">${{ number_format($credito->saldoObligacion(Request::get("fechaAjuste")), 0) }}</td>
 														<td class="text-center">
-															<a href="{{ route('ajusteCredito', $credito->id) }}?fechaAjuste={{Request::get('fechaAjuste')}}" class="btn btn-info btn-sm">Ajustar</a>
+															<a href="{{ route('ajusteCredito', $credito->id) }}?fechaAjuste={{Request::get('fechaAjuste')}}" class="btn btn-outline-info btn-sm">Ajustar</a>
 														</td>
 													</tr>
 												@endforeach

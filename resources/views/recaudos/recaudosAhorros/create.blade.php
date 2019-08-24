@@ -119,7 +119,7 @@
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<label class="control-label">&nbsp;</label><br>
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -154,7 +154,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<a class="btn btn-success pull-right continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
+								<a class="btn btn-outline-success pull-right continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
 							</div>
 						</div>
 						<br>
@@ -176,10 +176,10 @@
 				</div>
 				<div class="card-footer">
 					@if ($tercero)
-						<a class="btn btn-success continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
-						<a href="{{ url('recaudosAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
+						<a class="btn btn-outline-success continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
+						<a href="{{ url('recaudosAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 					@else
-						<a href="{{ url('recaudosAhorros') }}" class="btn btn-danger pull-right">Volver</a>
+						<a href="{{ url('recaudosAhorros') }}" class="btn btn-outline-danger pull-right">Volver</a>
 					@endif
 				</div>
 			</div>

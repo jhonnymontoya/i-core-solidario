@@ -800,7 +800,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-4">
-										<a class="btn btn-primary simular">Simular</a>
+										<a class="btn btn-outline-primary simular">Simular</a>
 									</div>
 								</div>
 								<div class="row">
@@ -905,8 +905,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-				{!! Form::submit("Descargar", ["class" => "btn btn-success"]) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+				{!! Form::submit("Descargar", ["class" => "btn btn-outline-success"]) !!}
 			</div>
 		</div>
 	</div>

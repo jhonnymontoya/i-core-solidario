@@ -104,10 +104,10 @@
 										$pagaPrima = empty(old('paga_prima')) ? false : old('paga_prima');
 										$pagaPrima == '1' ? true : $pagaPrima;
 									?>
-									<label class="btn btn-primary {{ $pagaPrima ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $pagaPrima ? 'active' : '' }}">
 										{!! Form::radio('paga_prima', '1', $pagaPrima) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ $pagaPrima ? '' : 'active' }}">
+									<label class="btn btn-outline-danger {{ $pagaPrima ? '' : 'active' }}">
 										{!! Form::radio('paga_prima', '0', !$pagaPrima) !!}No
 									</label>
 								</div>
@@ -321,7 +321,7 @@
 									&nbsp;
 								</label>
 								<div>
-									<a class="btn btn-primary programar">Programar</a>
+									<a class="btn btn-outline-primary programar">Programar</a>
 								</div>
 							</div>
 						</div>
@@ -372,8 +372,8 @@
 					
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('pagaduria') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('pagaduria') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

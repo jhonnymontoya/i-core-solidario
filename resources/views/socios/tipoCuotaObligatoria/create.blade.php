@@ -101,10 +101,10 @@
 										$reintegro = trim(old('es_reintegrable')) == '' ? '1' : old('es_reintegrable');
 										$reintegro = $reintegro == '1' ? true : false;
 									?>
-									<label class="btn btn-primary {{ $reintegro ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $reintegro ? 'active' : '' }}">
 										{!! Form::radio('es_reintegrable', '1', $reintegro ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$reintegro ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$reintegro ? 'active' : '' }}">
 										{!! Form::radio('es_reintegrable', '0', !$reintegro ? true : false) !!}No
 									</label>
 								</div>
@@ -158,8 +158,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoCuotaObligatoria') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoCuotaObligatoria') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

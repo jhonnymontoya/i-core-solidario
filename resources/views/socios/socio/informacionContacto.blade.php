@@ -254,10 +254,10 @@
 										</label>
 										<div class="col-sm-8">
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $preferidoResidencial ? 'active' : '' }}">
+												<label class="btn btn-outline-primary {{ $preferidoResidencial ? 'active' : '' }}">
 													{!! Form::radio('preferencia_envio_residencia', '1', $preferidoResidencial ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-danger {{ $preferidoResidencial ? '' : 'active' }}">
+												<label class="btn btn-outline-danger {{ $preferidoResidencial ? '' : 'active' }}">
 													{!! Form::radio('preferencia_envio_residencia', '0', $preferidoResidencial ? false : true) !!}No
 												</label>
 											</div>
@@ -410,10 +410,10 @@
 										</label>
 										<div class="col-sm-8">
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-primary {{ $preferidoLaboral ? 'active' : '' }}">
+												<label class="btn btn-outline-primary {{ $preferidoLaboral ? 'active' : '' }}">
 													{!! Form::radio('preferencia_envio_laboral', '1', $preferidoLaboral ? true : false) !!}Sí
 												</label>
-												<label class="btn btn-danger {{ $preferidoLaboral ? '' : 'active' }}">
+												<label class="btn btn-outline-danger {{ $preferidoLaboral ? '' : 'active' }}">
 													{!! Form::radio('preferencia_envio_laboral', '0', $preferidoLaboral ? false : true) !!}No
 												</label>
 											</div>
@@ -432,8 +432,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
+									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
 									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 								</div>
 							</div>

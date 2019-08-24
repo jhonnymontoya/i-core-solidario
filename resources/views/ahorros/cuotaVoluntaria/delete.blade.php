@@ -119,8 +119,8 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						{!! Form::submit('Confirmar', ['class' => 'btn btn-danger']) !!}
-						<a href="{{ url('cuotaVoluntaria?socio=' . $cuota->socio->id) }}" class="btn btn-success pull-right">Volver</a>
+						{!! Form::submit('Confirmar', ['class' => 'btn btn-outline-danger']) !!}
+						<a href="{{ url('cuotaVoluntaria?socio=' . $cuota->socio->id) }}" class="btn btn-outline-success pull-right">Volver</a>
 					</div>
 					{!! Form::close() !!}
 				</div>

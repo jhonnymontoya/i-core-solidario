@@ -93,8 +93,8 @@
 					<br><br>
 					<div class="row">
 						<div class="col-md-12">
-							{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-							<a href="{{ url('conceptosRecaudos') }}" class="btn btn-danger pull-right">Volver</a>
+							{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+							<a href="{{ url('conceptosRecaudos') }}" class="btn btn-outline-danger pull-right">Volver</a>
 						</div>
 					</div>
 
@@ -146,7 +146,7 @@
 														<td>{{ $modalidad->nombre }}</td>
 														<td class="conceptoActual">{{ !empty($concepto) ? $concepto->codigo . ' - ' . $concepto->nombre : '' }}</td>
 														<td>
-															<a class="btn btn-sm btn-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadAhorros(this);">Asociar</a>
+															<a class="btn btn-sm btn-outline-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadAhorros(this);">Asociar</a>
 														</td>
 													</tr>
 												@endforeach
@@ -195,7 +195,7 @@
 														<td>{{ $modalidad->nombre }}</td>
 														<td class="conceptoActual">{{ !empty($concepto) ? $concepto->codigo . ' - ' . $concepto->nombre : '' }}</td>
 														<td>
-															<a class="btn btn-sm btn-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadCredito(this);">Asociar</a>
+															<a class="btn btn-sm btn-outline-success {{ $esConceptoActual ? 'disabled' : ''}}" onclick="javascript:asociarModalidadCredito(this);">Asociar</a>
 														</td>
 													</tr>
 												@endforeach

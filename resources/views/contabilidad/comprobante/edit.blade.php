@@ -234,7 +234,7 @@
 							<div class="form-group">
 								<label class="control-label">&nbsp;</label>
 								<br>
-								{!! Form::submit('Agregar', ['class' => 'btn btn-success', 'form' => 'detalle', 'tabIndex' => '10']) !!}
+								{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success', 'form' => 'detalle', 'tabIndex' => '10']) !!}
 							</div>
 						</div>
 					</div>
@@ -271,7 +271,7 @@
 									<td class="text-right">${{ number_format($detalle->debito, 0) }}</td>
 									<td class="text-right">${{ number_format($detalle->credito, 0) }}</td>
 									<td class="text-center">
-										<a href="#" onclick="javascript:return rowDelete(this);" title="Eliminar" class="btn btn-danger btn-sm">
+										<a href="#" onclick="javascript:return rowDelete(this);" title="Eliminar" class="btn btn-outline-danger btn-sm">
 											<i class="fa fa-trash"></i>
 										</a>
 									</td>
@@ -300,9 +300,9 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success', 'form' => 'comprobante']) !!}
-					<a href="{{ route('comprobanteContabilizar', $comprobante) }}" class="btn btn-info">Contabilizar</a>
-					<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right">Volver</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success', 'form' => 'comprobante']) !!}
+					<a href="{{ route('comprobanteContabilizar', $comprobante) }}" class="btn btn-outline-info">Contabilizar</a>
+					<a href="{{ url('comprobante') }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
 		</div>
@@ -392,7 +392,7 @@
 				$fila.append("<td>" + $data.item.referencia + "</td>");
 				$fila.append("<td class='text-right'>$" + $data.item.debito + "</td>");
 				$fila.append("<td class='text-right'>$" + $data.item.credito + "</td>");
-				$fila.append("<td class='text-center'><a href='#' onclick='javascript:return rowDelete(this);' title='Eliminar' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a></td>");
+				$fila.append("<td class='text-center'><a href='#' onclick='javascript:return rowDelete(this);' title='Eliminar' class='btn btn-outline-danger btn-sm'><i class='fa fa-trash'></i></a></td>");
 				$('#tablaRegistros').DataTable().destroy();
 				$("#id_registros").prepend($fila);
 				$('#tablaRegistros').DataTable({"scrollY": '340px', "scrollCollapse": true, "paging": false, "ordering": false, "info": false, "searching": false});

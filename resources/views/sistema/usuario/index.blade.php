@@ -32,7 +32,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('usuario/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('usuario/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -59,7 +59,7 @@
 						{!! Form::select('perfil', ['1' => 'Sí', '0' => 'No'], null, ['class' => 'form-control', 'placeholder' => 'Perfil completo']); !!}
 					</div>
 					<div class="col-md-1 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 					</div>
 					{!! Form::close() !!}
 				</div>
@@ -131,13 +131,13 @@
 						</ul>
 						<div class="row">
 							<div class="col-sm-6 col-xs-6 border-right text-center">
-								<a href="{{ route('usuarioEdit', $usuario) }}" class="btn btn-info btn-block">
+								<a href="{{ route('usuarioEdit', $usuario) }}" class="btn btn-outline-info btn-block">
 									<i class="fa fa-edit"></i>
 									Editar
 								</a>
 							</div>
 							<div class="col-sm-6 col-xs-6 border-right text-center">
-								<a href="{{ url('usuario', $usuario) }}" class="btn btn-info btn-block">
+								<a href="{{ url('usuario', $usuario) }}" class="btn btn-outline-info btn-block">
 									<i class="fa fa-external-link"></i>
 									Ver
 								</a>

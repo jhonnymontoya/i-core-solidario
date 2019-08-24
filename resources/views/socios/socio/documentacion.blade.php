@@ -53,7 +53,7 @@
 				<div class="card-header with-border">
 					<h3 class="card-title">Consulta</h3>
 					@if ($socio)
-						<a class="btn btn-sm btn-primary pull-right" href="{{ route('reportesReporte', 6) }}?numeroIdentificacion={{ $socio->tercero->numero_identificacion }}&fechaConsulta={{ implode('/', array_reverse(explode('/', $fecha))) }}" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
+						<a class="btn btn-sm btn-outline-primary pull-right" href="{{ route('reportesReporte', 6) }}?numeroIdentificacion={{ $socio->tercero->numero_identificacion }}&fechaConsulta={{ implode('/', array_reverse(explode('/', $fecha))) }}" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
 					@endif
 				</div>
 				<div class="card-body">
@@ -97,7 +97,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -810,7 +810,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-4">
-										<a class="btn btn-primary simular">Simular</a>
+										<a class="btn btn-outline-primary simular">Simular</a>
 									</div>
 								</div>
 								<div class="row">

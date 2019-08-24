@@ -115,16 +115,16 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary active">
+									<label class="btn btn-outline-primary active">
 										{!! Form::radio('condiciones', 'esPermanente', true) !!}Permanente
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('condiciones', 'esPermanenteConDescubierto', false) !!}Permanente con descubierto
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('condiciones', 'requiereGarantiaPorMonto', false) !!}Requerir por monto
 									</label>
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('condiciones', 'requiereGarantiaPorValorDescubierto', false) !!}Requerir por valor descubierto
 									</label>
 								</div>
@@ -182,10 +182,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('admite_codeudor_externo', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('admite_codeudor_externo', '0', true) !!}No
 									</label>
 								</div>
@@ -205,10 +205,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('valida_cupo_codeudor', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('valida_cupo_codeudor', '0', true) !!}No
 									</label>
 								</div>
@@ -230,10 +230,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tiene_limite_obligaciones_codeudor', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('tiene_limite_obligaciones_codeudor', '0', true) !!}No
 									</label>
 								</div>
@@ -270,10 +270,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('tiene_limite_saldo_codeudas', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('tiene_limite_saldo_codeudas', '0', true) !!}No
 									</label>
 								</div>
@@ -313,10 +313,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('valida_antiguedad_codeudor', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('valida_antiguedad_codeudor', '0', true) !!}No
 									</label>
 								</div>
@@ -353,10 +353,10 @@
 								</label>
 								<br>
 								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-primary">
+									<label class="btn btn-outline-primary">
 										{!! Form::radio('valida_calificacion_codeudor', '1', false) !!}Sí
 									</label>
-									<label class="btn btn-danger active">
+									<label class="btn btn-outline-danger active">
 										{!! Form::radio('valida_calificacion_codeudor', '0', true) !!}No
 									</label>
 								</div>
@@ -383,8 +383,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoGarantia') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoGarantia') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

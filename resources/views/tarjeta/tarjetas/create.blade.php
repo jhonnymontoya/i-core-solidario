@@ -102,9 +102,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tarjetas') }}" class="btn btn-danger pull-right">Cancelar</a>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tarjetas') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

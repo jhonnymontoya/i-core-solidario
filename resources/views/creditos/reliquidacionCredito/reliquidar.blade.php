@@ -238,10 +238,10 @@
 					<div class="row">
 						<div class="col-md-12 text-center">
 							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary {{ $formaReliquidar ? 'active' : ''}}">
+								<label class="btn btn-outline-primary {{ $formaReliquidar ? 'active' : ''}}">
 									<input {{ $formaReliquidar ? 'checked="checked"' : ''}} name="freliquidar" type="radio" value="1">Por plazo
 								</label>
-								<label class="btn btn-primary {{ !$formaReliquidar ? 'active' : ''}}">
+								<label class="btn btn-outline-primary {{ !$formaReliquidar ? 'active' : ''}}">
 									<input {{ !$formaReliquidar ? 'checked="checked"' : ''}} name="freliquidar" type="radio" value="2">Por cuota
 								</label>
 							</div>
@@ -421,9 +421,9 @@
 					<br>
 					<div class="row">
 						<div class="col-md-12">
-							{!! Form::submit('Previsualizar amortización', ['class' => 'btn btn-primary', 'name' => 'submit']) !!}
-							{!! Form::submit('Reliquidar', ['class' => 'btn btn-success', 'name' => 'submit']) !!}
-							<a href="{{ url(sprintf('reliquidarCredito?tercero=%s&fecha=%s', $credito->tercero_id, $fecha)) }}" class="btn btn-danger pull-right">Cancelar</a>
+							{!! Form::submit('Previsualizar amortización', ['class' => 'btn btn-outline-primary', 'name' => 'submit']) !!}
+							{!! Form::submit('Reliquidar', ['class' => 'btn btn-outline-success', 'name' => 'submit']) !!}
+							<a href="{{ url(sprintf('reliquidarCredito?tercero=%s&fecha=%s', $credito->tercero_id, $fecha)) }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 						</div>
 					</div>
 

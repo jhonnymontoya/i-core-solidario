@@ -47,7 +47,7 @@
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Procesar archivo ajuste créditos en lote</h3>
-					<a href="{{ url('ajusteCreditoLote') }}" class="btn btn-danger btn-sm pull-right">Volver</a>
+					<a href="{{ url('ajusteCreditoLote') }}" class="btn btn-outline-danger btn-sm pull-right">Volver</a>
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -151,9 +151,9 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-11 col-md-offset-1">
-							<a href="{{ route('ajusteCreditoLoteLimpiar', $proceso->id) }}" class="btn btn-warning">Limpiar carga</a>
-							<a href="{{ route('ajusteCreditoLoteContabilizar', $proceso->id) }}" class="btn btn-success">Procesar</a>
-							<a href="{{ route('ajusteCreditoLoteAnular', $proceso->id) }}" class="btn btn-danger pull-right">Anular</a>
+							<a href="{{ route('ajusteCreditoLoteLimpiar', $proceso->id) }}" class="btn btn-outline-warning">Limpiar carga</a>
+							<a href="{{ route('ajusteCreditoLoteContabilizar', $proceso->id) }}" class="btn btn-outline-success">Procesar</a>
+							<a href="{{ route('ajusteCreditoLoteAnular', $proceso->id) }}" class="btn btn-outline-danger pull-right">Anular</a>
 						</div>
 					</div>
 					<br>

@@ -95,10 +95,10 @@
 												$estado = (bool) old('esta_activo');
 											}
 										@endphp
-										<label class="btn btn-primary{{ $estado ? ' active' : '' }}">
+										<label class="btn btn-outline-primary{{ $estado ? ' active' : '' }}">
 											{!! Form::radio('esta_activo', '1', $estado) !!}Activo
 										</label>
-										<label class="btn btn-danger{{ $estado ? '' : ' active' }}">
+										<label class="btn btn-outline-danger{{ $estado ? '' : ' active' }}">
 											{!! Form::radio('esta_activo', '0', !$estado) !!}Inactivo
 										</label>
 									</div>
@@ -161,7 +161,7 @@
 							<div class="form-group">
 								<label class="control-label">&nbsp;</label>
 								<br>
-								{!! Form::submit('Agregar', ['class' => 'btn btn-success', 'form' => 'formConcepto']) !!}
+								{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success', 'form' => 'formConcepto']) !!}
 							</div>
 						</div>
 					</div>
@@ -210,8 +210,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('impuesto') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('impuesto') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

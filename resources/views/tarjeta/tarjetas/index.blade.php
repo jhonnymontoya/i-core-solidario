@@ -55,7 +55,7 @@
 						</div>
 					</div>
 					{!! Form::close() !!}
-					@if($tarjetas->total())
+					@if(!$tarjetas->total())
 						<p>
 							<div class="row">
 								<div class="col-md-12">

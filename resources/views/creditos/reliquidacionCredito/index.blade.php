@@ -90,7 +90,7 @@
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -135,7 +135,7 @@
 														<td class="text-right">{{ $credito->plazo }} {{ $credito->plazo == 1 ? 'cuota' : 'cuotas' }}</td>
 														<td class="text-right">${{ number_format($saldo, 0) }}</td>
 														<td class="text-center">
-															<a href="{{ route('reliquidarCreditoReliquidar', $credito->id) }}?fechaReliquidacion={{ $fecha }}" class="btn btn-info btn-sm">Reliquidar</a>
+															<a href="{{ route('reliquidarCreditoReliquidar', $credito->id) }}?fechaReliquidacion={{ $fecha }}" class="btn btn-outline-info btn-sm">Reliquidar</a>
 														</td>
 													</tr>
 												@endforeach

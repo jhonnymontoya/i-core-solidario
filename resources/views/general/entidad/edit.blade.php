@@ -153,10 +153,10 @@
 										</label>
 										<br>
 										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-primary{{ $entidad->usa_dependencia?' active':'' }}">
+											<label class="btn btn-outline-primary{{ $entidad->usa_dependencia?' active':'' }}">
 												{!! Form::radio('usa_dependencia', '1', false) !!}Sí
 											</label>
-											<label class="btn btn-danger{{ !$entidad->usa_dependencia?' active':'' }}">
+											<label class="btn btn-outline-danger{{ !$entidad->usa_dependencia?' active':'' }}">
 												{!! Form::radio('usa_dependencia', '0', true) !!}No
 											</label>
 										</div>
@@ -175,10 +175,10 @@
 										</label>
 										<br>
 										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-primary{{ $entidad->usa_centro_costos?' active':'' }}">
+											<label class="btn btn-outline-primary{{ $entidad->usa_centro_costos?' active':'' }}">
 												{!! Form::radio('usa_centro_costos', '1', false) !!}Sí
 											</label>
-											<label class="btn btn-danger{{ !$entidad->usa_centro_costos?' active':'' }}">
+											<label class="btn btn-outline-danger{{ !$entidad->usa_centro_costos?' active':'' }}">
 												{!! Form::radio('usa_centro_costos', '0', true) !!}No
 											</label>
 										</div>
@@ -197,10 +197,10 @@
 										</label>
 										<br>
 										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-primary{{ $entidad->terceroEntidad->esta_activo?' active':'' }}">
+											<label class="btn btn-outline-primary{{ $entidad->terceroEntidad->esta_activo?' active':'' }}">
 												{!! Form::radio('esta_activo', '1', $entidad->terceroEntidad->esta_activo?true:false) !!}Sí
 											</label>
-											<label class="btn btn-danger{{ !$entidad->terceroEntidad->esta_activo?' active':'' }}">
+											<label class="btn btn-outline-danger{{ !$entidad->terceroEntidad->esta_activo?' active':'' }}">
 												{!! Form::radio('esta_activo', '0', $entidad->terceroEntidad->esta_activo?false:true) !!}No
 											</label>
 										</div>
@@ -302,8 +302,8 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-9">
-											{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-											<a href="{{ url('entidad') }}" class="btn btn-danger pull-right">Cancelar</a>
+											{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+											<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 										</div>
 									</div>
 								</div>
@@ -354,10 +354,10 @@
 															</label>
 															<br>
 															<div class="btn-group" data-toggle="buttons">
-																<label class="btn btn-primary active">
+																<label class="btn btn-outline-primary active">
 																	{!! Form::radio('directivo_calidad', 'PRINCIPAL', true) !!}Principal
 																</label>
-																<label class="btn btn-primary">
+																<label class="btn btn-outline-primary">
 																	{!! Form::radio('directivo_calidad', 'SUPLENTE', false) !!}Suplente
 																</label>
 															</div>
@@ -380,7 +380,7 @@
 															<div class="form-group">
 																<label class="control-label">&nbsp;</label>
 																<br>
-																{!! Form::submit('Agregar', ['class' => 'btn btn-success btn-block pull-right']) !!}
+																{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success btn-block pull-right']) !!}
 															</div>
 														</div>
 													</div>
@@ -412,7 +412,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-outline-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -459,10 +459,10 @@
 															</label>
 															<br>
 															<div class="btn-group" data-toggle="buttons">
-																<label class="btn btn-primary active">
+																<label class="btn btn-outline-primary active">
 																	{!! Form::radio('legal_calidad', 'PRINCIPAL', true) !!}Principal
 																</label>
-																<label class="btn btn-primary">
+																<label class="btn btn-outline-primary">
 																	{!! Form::radio('legal_calidad', 'SUPLENTE', false) !!}Suplente
 																</label>
 															</div>
@@ -485,7 +485,7 @@
 															<div class="form-group">
 																<label class="control-label">&nbsp;</label>
 																<br>
-																{!! Form::submit('Agregar', ['class' => 'btn btn-success btn-block pull-right']) !!}
+																{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success btn-block pull-right']) !!}
 															</div>
 														</div>
 													</div>
@@ -515,7 +515,7 @@
 																	<td>{{ $organismo->fecha_nombramiento }}</td>
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-outline-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -561,10 +561,10 @@
 															</label>
 															<br>
 															<div class="btn-group" data-toggle="buttons">
-																<label class="btn btn-primary active">
+																<label class="btn btn-outline-primary active">
 																	{!! Form::radio('social_calidad', 'PRINCIPAL', true) !!}Principal
 																</label>
-																<label class="btn btn-primary">
+																<label class="btn btn-outline-primary">
 																	{!! Form::radio('social_calidad', 'SUPLENTE', false) !!}Suplente
 																</label>
 															</div>
@@ -587,7 +587,7 @@
 															<div class="form-group">
 																<label class="control-label">&nbsp;</label>
 																<br>
-																{!! Form::submit('Agregar', ['class' => 'btn btn-success btn-block pull-right']) !!}
+																{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success btn-block pull-right']) !!}
 															</div>
 														</div>
 													</div>
@@ -619,7 +619,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-outline-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -666,10 +666,10 @@
 															</label>
 															<br>
 															<div class="btn-group" data-toggle="buttons">
-																<label class="btn btn-primary active">
+																<label class="btn btn-outline-primary active">
 																	{!! Form::radio('comitecartera_calidad', 'PRINCIPAL', true) !!}Principal
 																</label>
-																<label class="btn btn-primary">
+																<label class="btn btn-outline-primary">
 																	{!! Form::radio('comitecartera_calidad', 'SUPLENTE', false) !!}Suplente
 																</label>
 															</div>
@@ -692,7 +692,7 @@
 															<div class="form-group">
 																<label class="control-label">&nbsp;</label>
 																<br>
-																{!! Form::submit('Agregar', ['class' => 'btn btn-success btn-block pull-right']) !!}
+																{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success btn-block pull-right']) !!}
 															</div>
 														</div>
 													</div>
@@ -724,7 +724,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-outline-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -771,10 +771,10 @@
 															</label>
 															<br>
 															<div class="btn-group" data-toggle="buttons">
-																<label class="btn btn-primary active">
+																<label class="btn btn-outline-primary active">
 																	{!! Form::radio('comiteriesgoliquidez_calidad', 'PRINCIPAL', true) !!}Principal
 																</label>
-																<label class="btn btn-primary">
+																<label class="btn btn-outline-primary">
 																	{!! Form::radio('comiteriesgoliquidez_calidad', 'SUPLENTE', false) !!}Suplente
 																</label>
 															</div>
@@ -797,7 +797,7 @@
 															<div class="form-group">
 																<label class="control-label">&nbsp;</label>
 																<br>
-																{!! Form::submit('Agregar', ['class' => 'btn btn-success btn-block pull-right']) !!}
+																{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success btn-block pull-right']) !!}
 															</div>
 														</div>
 													</div>
@@ -829,7 +829,7 @@
 																	<td>{{ $organismo->periodos }}</td>
 																	<td>{{ $organismo->tercero->socio->estado }}</td>
 																	<td>
-																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-danger btn-sm">
+																		<a href="#" onclick="javascript:return rowDelete(this);" class="btn btn-outline-danger btn-sm">
 																			<i class="fa fa-trash"></i>
 																		</a>
 																	</td>
@@ -876,7 +876,7 @@
 <p></p>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
 </div>
 </div>
 </div>
@@ -917,7 +917,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-outline-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_directivo > tbody").append(fila);
 			}).fail(function(data){
@@ -936,7 +936,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td>";
-				fila += "<td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
+				fila += "<td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-outline-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_legal > tbody").append(fila);
 			}).fail(function(data){
@@ -955,7 +955,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-outline-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_controlsocial > tbody").append(fila);
 			}).fail(function(data){
@@ -974,7 +974,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-outline-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_comiteCartera > tbody").append(fila);
 			}).fail(function(data){
@@ -993,7 +993,7 @@
 			}).done(function(data){
 				var fila = "<tr data-id='" + data.id + "'><td>" + data.identificacion + "</td><td>" + data.nombre + "</td><td>" + data.calidad;
 				fila += "</td><td>" + data.fecha_nombramiento + "</td><td>" + data.periodos + "</td><td>";
-				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-danger btn-sm'>";
+				fila += data.estado + "</td><td><a href='#' onclick='javascript:return rowDelete(this);' class='btn btn-outline-danger btn-sm'>";
 				fila += "<i class='fa fa-trash'></i></a></td></tr>";
 				$("#id_comiteRiesgoLiquidez > tbody").append(fila);
 			}).fail(function(data){

@@ -44,7 +44,7 @@
 							</div>
 						</div>
 						<div class="col-md-2">
-							<a href="{{ url('consulta') }}" class="btn btn-primary pull-right">Volver</a>
+							<a href="{{ url('consulta') }}" class="btn btn-outline-primary pull-right">Volver</a>
 						</div>
 					</div>
 					<br>

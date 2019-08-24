@@ -86,9 +86,9 @@
 				</div>
 				{{-- FIN card BODY --}}
 				<div class="card-footer">
-					<a class="btn btn-success" id="contabilizar">Contabilizar</a>
-					{{--{!! Form::submit('Contabilizar', ['class' => 'btn btn-success', 'tabindex' => '1']) !!}--}}
-					<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right" tabindex="2">Cancelar</a>
+					<a class="btn btn-outline-success" id="contabilizar">Contabilizar</a>
+					{{--{!! Form::submit('Contabilizar', ['class' => 'btn btn-outline-success', 'tabindex' => '1']) !!}--}}
+					<a href="{{ url('comprobante') }}" class="btn btn-outline-danger pull-right" tabindex="2">Cancelar</a>
 				</div>
 			</div>
 		</div>

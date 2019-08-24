@@ -39,7 +39,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('tipoComprobante/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('tipoComprobante/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -61,7 +61,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -70,7 +70,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron tipos de comprobantes <a href="{{ url('tipoComprobante/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron tipos de comprobantes <a href="{{ url('tipoComprobante/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -140,9 +140,9 @@
 											<td>{{ $tipoComprobante->movimientos->count() }}</td>
 											<td>
 												@if($tipoComprobante->es_uso_manual)
-													<a class="btn btn-info btn-sm" href="{{ route('tipoComprobanteEdit', $tipoComprobante) }}"><i class="fa fa-edit"></i></a>
+													<a class="btn btn-outline-info btn-sm" href="{{ route('tipoComprobanteEdit', $tipoComprobante) }}"><i class="fa fa-edit"></i></a>
 												@else
-													<a class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i></a>
+													<a class="btn btn-outline-info btn-sm disabled"><i class="fa fa-edit"></i></a>
 												@endif
 											</td>
 										</tr>

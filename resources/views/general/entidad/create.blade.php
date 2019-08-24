@@ -152,10 +152,10 @@
 									</label>
 									<br>
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary">
+										<label class="btn btn-outline-primary">
 											{!! Form::radio('usa_dependencia', '1', false) !!}Sí
 										</label>
-										<label class="btn btn-danger active">
+										<label class="btn btn-outline-danger active">
 											{!! Form::radio('usa_dependencia', '0', true) !!}No
 										</label>
 									</div>
@@ -174,10 +174,10 @@
 									</label>
 									<br>
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary">
+										<label class="btn btn-outline-primary">
 											{!! Form::radio('usa_centro_costos', '1', false) !!}Sí
 										</label>
-										<label class="btn btn-danger active">
+										<label class="btn btn-outline-danger active">
 											{!! Form::radio('usa_centro_costos', '0', true) !!}No
 										</label>
 									</div>
@@ -209,8 +209,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('entidad') }}" class="btn btn-danger pull-right">Cancelar</a>
+									{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 								</div>
 							</div>
 						</div>

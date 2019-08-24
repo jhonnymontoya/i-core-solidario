@@ -38,7 +38,7 @@
 		@endif
 		<div class="row">
 			<div class="col-md-1">
-				<a href="{{ url('SDAT/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('SDAT/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
@@ -57,7 +57,7 @@
 							{!! Form::select('estado', [true => 'Activa', false => 'Inactiva'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -65,7 +65,7 @@
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron SDAT <a href="{{ url('SDAT/create') }}" class="btn btn-primary btn-sm">crear uno nuevo</a>
+									No se encontraron SDAT <a href="{{ url('SDAT/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
 								</div>
 							</div>
 						</p>
@@ -130,22 +130,22 @@
 													<td><label class="label label-{{ $label }}"></span>{{ $sdat->estado }}</label></td>
 													<td>
 														@if ($sdat->estado == "SOLICITUD")
-															<a href="{{ route('SDAT.constituir', $sdat->id) }}" class="btn btn-success btn-sm" title="Constituir">
+															<a href="{{ route('SDAT.constituir', $sdat->id) }}" class="btn btn-outline-success btn-sm" title="Constituir">
 																<i class="fa fa-money"></i>
 															</a>
 														@endif
 														@if ($sdat->estado == "CONSTITUIDO")
-															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-sm" title="Saldar SDAT">
+															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-outline-primary btn-sm" title="Saldar SDAT">
 																<i class="fa fa-dollar"></i>
 															</a>
 														@endif
 														@if ($sdat->estado == "RENOVADO")
-															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-sm" title="Saldar SDAT">
+															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-outline-primary btn-sm" title="Saldar SDAT">
 																<i class="fa fa-dollar"></i>
 															</a>
 														@endif
 														@if ($sdat->estado == "PRORROGADO")
-															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-primary btn-sm" title="Saldar SDAT">
+															<a href="{{ route('SDAT.saldar', $sdat->id) }}" class="btn btn-outline-primary btn-sm" title="Saldar SDAT">
 																<i class="fa fa-dollar"></i>
 															</a>
 														@endif

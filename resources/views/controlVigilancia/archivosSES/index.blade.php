@@ -71,7 +71,7 @@
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<label class="control-label">&nbsp;</label>
-							<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
 						{!! Form::close() !!}
 					</div>
@@ -112,7 +112,7 @@
 														</a>
 													</td>
 													<td>
-														<a href="{{ $href }}"  target="_blank" class="btn btn-success btn-sm">
+														<a href="{{ $href }}"  target="_blank" class="btn btn-outline-success btn-sm">
 															<i class="fa fa-download"></i> Descargar
 														</a>
 													</td>

@@ -167,10 +167,10 @@
 										$activo = trim(old('esta_activa')) == '' ? $cuota->esta_activa : old('esta_activa');
 										$activo = $activo ? true : false;
 									?>
-									<label class="btn btn-primary {{ $activo ? 'active' : '' }}">
+									<label class="btn btn-outline-primary {{ $activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activa', '1', $activo ? true : false) !!}Sí
 									</label>
-									<label class="btn btn-danger {{ !$activo ? 'active' : '' }}">
+									<label class="btn btn-outline-danger {{ !$activo ? 'active' : '' }}">
 										{!! Form::radio('esta_activa', '0', !$activo ? true : false) !!}No
 									</label>
 								</div>
@@ -182,8 +182,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoCuotaObligatoria') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoCuotaObligatoria') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

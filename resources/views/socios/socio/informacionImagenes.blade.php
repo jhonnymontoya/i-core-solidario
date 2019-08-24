@@ -63,12 +63,12 @@
 										<div id="image-cropper">
 											<div class="cropit-preview"></div>
 											<input type="file" class="cropit-image-input" />
-											<a class="rotate-ccw-btn btn btn-default btn-sm"><i class="fa fa-rotate-left"></i></a>
-											<a class="rotate-cw-btn btn btn-default btn-sm"><i class="fa fa-rotate-right"></i></a>
-											<a class="zoom-in-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-											<a class="zoom-out-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
+											<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
+											<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
+											<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
+											<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
 											<br>
-											<a class="select-image-btn btn btn-primary">Seleccione una imagen</a>
+											<a class="select-image-btn btn btn-outline-primary">Seleccione una imagen</a>
 										</div>
 									</div>
 								</div>
@@ -81,12 +81,12 @@
 										<div id="image-cropper">
 											<div class="cropit-preview"></div>
 											<input type="file" class="cropit-image-input" />
-											<a class="rotate-ccw-btn btn btn-default btn-sm"><i class="fa fa-rotate-left"></i></a>
-											<a class="rotate-cw-btn btn btn-default btn-sm"><i class="fa fa-rotate-right"></i></a>
-											<a class="zoom-in-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-											<a class="zoom-out-btn btn btn-default btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
+											<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
+											<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
+											<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
+											<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
 											<br>
-											<a class="select-image-btn btn btn-primary">Seleccione una imagen</a>
+											<a class="select-image-btn btn btn-outline-primary">Seleccione una imagen</a>
 										</div>
 									</div>
 								</div>
@@ -97,8 +97,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
+									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
 									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 								</div>
 							</div>

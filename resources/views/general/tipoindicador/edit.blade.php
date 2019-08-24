@@ -124,12 +124,12 @@
 													break;
 											}
 										?>
-										<label class="btn btn-primary active">{{ $variable }}</label>
+										<label class="btn btn-outline-primary active">{{ $variable }}</label>
 									@else
-										<label class="btn btn-primary {{ $tipoVariable ? 'active' : ''}}">
+										<label class="btn btn-outline-primary {{ $tipoVariable ? 'active' : ''}}">
 											{!! Form::radio('variable', 'PORCENTAJE', $tipoVariable ? true : false) !!}%
 										</label>
-										<label class="btn btn-primary {{ !$tipoVariable ? 'active' : ''}}">
+										<label class="btn btn-outline-primary {{ !$tipoVariable ? 'active' : ''}}">
 											{!! Form::radio('variable', 'VALOR', !$tipoVariable ? true : false) !!}$
 										</label>
 									@endif
@@ -158,8 +158,8 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-					<a href="{{ url('tipoIndicador') }}" class="btn btn-danger pull-right">Cancelar</a>
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoIndicador') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>
