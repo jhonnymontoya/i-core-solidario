@@ -91,18 +91,24 @@
 											<tr>
 												<td>{{ $tipoCuotaObligatoria->codigo }} - {{ $tipoCuotaObligatoria->nombre }}</td>
 												<td>
-													<div class="form-group {{ ($errors->has('factor[]')?'has-error':'') }}">
-														{!! Form::select('factor[]', ['PORCENTAJESUELDO' => '% Sueldo', 'PORCENTAJESMMLV' => '% SMMLV', 'VALORFIJO' => 'Valor fijo'], $tipoCuotaObligatoria->tipo_calculo, ['class' => 'form-control', 'autocomplete' => 'off', 'data-id' => $tipoCuotaObligatoria->id, 'id' => 'factor' . $tipoCuotaObligatoria->id]) !!}
+													<div class="form-group">
+														@php
+															$valid = $errors->has('factor[]') ? 'is-invalid' : '';
+														@endphp
+														{!! Form::select('factor[]', ['PORCENTAJESUELDO' => '% Sueldo', 'PORCENTAJESMMLV' => '% SMMLV', 'VALORFIJO' => 'Valor fijo'], $tipoCuotaObligatoria->tipo_calculo, ['class' => [$valid, 'form-control', 'select2'], 'autocomplete' => 'off', 'data-id' => $tipoCuotaObligatoria->id, 'id' => 'factor' . $tipoCuotaObligatoria->id]) !!}
 														@if ($errors->has('factor[]'))
-															<span class="help-block">{{ $errors->first('factor[]') }}</span>
+															<div class="invalid-feedback">{{ $errors->first('factor[]') }}</div>
 														@endif
 													</div>
 												</td>
 												<td class="text-right">
-													<div class="form-group {{ ($errors->has('valor[]')?'has-error':'') }}">
-														{!! Form::text('valor[]', $valor, ['class' => 'form-control text-right', 'autocomplete' => 'off', 'placeholder' => 'Valor', 'data-id' => $tipoCuotaObligatoria->id, 'id' => 'valor' . $tipoCuotaObligatoria->id]) !!}
+													<div class="form-group">
+														@php
+															$valid = $errors->has('valor[]') ? 'is-invalid' : '';
+														@endphp
+														{!! Form::text('valor[]', $valor, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Valor', 'data-id' => $tipoCuotaObligatoria->id, 'id' => 'valor' . $tipoCuotaObligatoria->id]) !!}
 														@if ($errors->has('valor[]'))
-															<span class="help-block">{{ $errors->first('valor[]') }}</span>
+															<div class="invalid-feedback">{{ $errors->first('valor[]') }}</div>
 														@endif
 													</div>
 												</td>
@@ -115,7 +121,7 @@
 						</div>
 						<br>
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-12 text-right">
 								{!! Form::submit('Confirmar', ['class' => 'btn btn-outline-success']) !!}
 								&nbsp;<a href="{{ url('cuotaObligatoria?socio=' . $socio->id) }}" class="btn btn-outline-danger">Cancelar</a>
 							</div>

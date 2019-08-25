@@ -37,17 +37,17 @@
 					<h3 class="card-title">Cuotas obligatorias</h3>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						{!! Form::model(Request::only('socio'), ['url' => 'cuotaObligatoria', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+					{!! Form::model(Request::only('socio'), ['url' => 'cuotaObligatoria', 'method' => 'GET', 'role' => 'search']) !!}
+					<div class="row form-horizontal">
 						<div class="col-md-11">
-							<div class="form-group">
+							<div class="form-group row">
 								<label class="col-sm-2 control-label">
 									@if ($errors->has('tipo_comprobante_id'))
 										<i class="fa fa-times-circle-o"></i>
 									@endif
 									Seleccione socio
 								</label>
-								<div class="col-sm-8">
+								<div class="col-sm-10">
 									{!! Form::select('socio', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
 								</div>
 							</div>
@@ -55,14 +55,14 @@
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if($socio)
 						<br>
 						<div class="row">
 							<div class="col-md-12">
 								<label>Cuotas obligatorias para:</label> {{$socio->tercero->nombre_completo}}
-								<a href="{{ route('cuotaObligatoriaCreate', $socio) }}" class="btn btn-outline-success pull-right">Editar</a>
+								<a href="{{ route('cuotaObligatoriaCreate', $socio) }}" class="btn btn-outline-success float-right">Editar</a>
 							</div>
 						</div>
 						<br><br>
