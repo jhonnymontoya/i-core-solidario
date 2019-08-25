@@ -80,21 +80,21 @@
 					<h3>Tarjeta</h3>
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
-							<dl class="dl-horizontal">
+							<dl>
 								<dt>Número tarjeta</dt>
 								<dd>{{ $tarjetahabiente->tarjeta->numeroFormateado }}</dd>
 								<dt>Fecha asignación</dt>
 								<dd>{{ $tarjetahabiente->fecha_asignacion }}</dd>
 								<dt>Estado tarjeta</dt>
 								<dd>
-									<span class="label label-{{ $label }}">
+									<span class="badge badge-pill badge-{{ $label }}">
 										{{ $tarjetahabiente->estado }}
 									</span>
 								</dd>
 							</dl>
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<dl class="dl-horizontal">
+							<dl>
 								<dt>Producto</dt>
 								<dd>{{ $tarjetahabiente->producto->nombre }}</dd>
 								<dt>Tipo producto</dt>
@@ -150,19 +150,19 @@
 						<h3>Cuenta ahorros</h3>
 						<div class="row">
 							<div class="col-md-6 col-sm-12">
-								<dl class="dl-horizontal">
+								<dl>
 									<dt>Número cuenta</dt>
 									<dd>{{ $tarjetahabiente->cuentaAhorro->numero_cuenta }}</dd>
 									<dt>Estado cuenta</dt>
 									<dd>
-										<span class="label label-{{ $label }}">
+										<span class="badge badge-pill badge-{{ $label }}">
 											{{ $tarjetahabiente->cuentaAhorro->estado }}
 										</span>
 									</dd>
 								</dl>
 							</div>
 							<div class="col-md-6 col-sm-12">
-								<dl class="dl-horizontal">
+								<dl>
 									<dt>Tipo cuenta ahorros</dt>
 									<dd>{{ $tarjetahabiente->cuentaAhorro->tipoCuentaAhorro->nombre_producto }}</dd>
 									<dt>Saldo flexible</dt>
@@ -175,13 +175,13 @@
 						<h3>Ahorros vista</h3>
 						<div class="row">
 							<div class="col-md-6 col-sm-12">
-								<dl class="dl-horizontal">
+								<dl>
 									<dt>Número cuenta</dt>
 									<dd>{{ $tarjetahabiente->numero_cuenta_vista }}</dd>
 								</dl>
 							</div>
 							<div class="col-md-6 col-sm-12">
-								<dl class="dl-horizontal">
+								<dl>
 									<dt>Saldo disponible</dt>
 									<dd>${{ number_format($tarjetahabiente->tercero->cupoDisponibleVista('31/12/3000')) }}</dd>
 								</dl>
@@ -213,7 +213,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
+					<a href="{{ route('tarjetaHabiente.show', $tercero->id) }}" class="btn btn-outline-danger float-right">Volver</a>
 				</div>
 			</div>
 		</div>

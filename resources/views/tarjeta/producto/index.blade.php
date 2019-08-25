@@ -102,7 +102,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $productos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $productos->total()?'primary':'danger' }}">
 						{{ $productos->total() }}
 					</span>&nbsp;elementos.
 				</div>

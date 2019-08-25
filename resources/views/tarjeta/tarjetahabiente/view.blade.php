@@ -84,7 +84,7 @@
 												break;
 										}
 									@endphp
-									<dl class="dl-horizontal">
+									<dl>
 										<dt>Documento</dt>
 										<dd>
 											@if ($link)
@@ -103,7 +103,7 @@
 									</dl>
 								</div>
 								<div class="col-md-6 col-sm-12">
-									<dl class="dl-horizontal">
+									<dl>
 										<dt>Nombre</dt>
 										<dd>
 											@if ($link)
@@ -119,7 +119,7 @@
 										<dd>{{ $pagaduria->periodicidad_pago ?? " - "}}</dd>
 										<dt>Estado</dt>
 										<dd>
-											<span class="label {{ $label }}">
+											<span class="badge badge-pill {{ $label }}">
 												{{ $socio->estado ?? "No asociado" }}
 											</span>
 										</dd>
@@ -134,7 +134,7 @@
 					@else
 						<div class="row">
 							<div class="col-md-12">
-								<span class="label label-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
+								<span class="badge badge-pill badge-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
 							</div>
 						</div>
 						<div class="row">
@@ -181,7 +181,7 @@
 												<td>{{ $tarjetaHabiente->producto->nombre_completo }}</td>
 												<td>{{ $tarjetaHabiente->fecha_asignacion }}</td>
 												<td>
-													<span class="label label-{{ $label }}">
+													<span class="badge badge-pill badge-{{ $label }}">
 														{{ $tarjetaHabiente->estado }}
 													</span>
 												</td>
@@ -199,8 +199,8 @@
 					@endif
 				</div>
 				<div class="card-footer">
-					<span class="label label-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
-					<a href="{{ url('tarjetaHabiente') }}" class="btn btn-outline-danger pull-right">Volver</a>
+					<span class="badge badge-pill badge-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
+					<a href="{{ url('tarjetaHabiente') }}" class="btn btn-outline-danger float-right">Volver</a>
 				</div>
 			</div>
 		</div>

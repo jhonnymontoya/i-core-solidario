@@ -87,7 +87,7 @@
 											<td>{{ $tarjeta->numeroFormateado }}</td>
 											<td>{{ $tarjeta->vencimiento }}</td>
 											<td>
-												<span class="label label-{{ is_null($tercero) ? 'success' : 'primary' }}">
+												<span class="badge badge-pill badge-{{ is_null($tercero) ? 'success' : 'primary' }}">
 													{{ is_null($tercero) ? 'Disponible' : 'Asignada' }}
 												</span>
 											</td>
@@ -107,7 +107,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tarjetas->total()?'primary':'danger' }}">{{ $tarjetas->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $tarjetas->total()?'primary':'danger' }}">{{ $tarjetas->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

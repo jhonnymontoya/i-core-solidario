@@ -52,51 +52,53 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fechaVencimiento')?'has-error':'') }}">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fechaVencimiento') ? 'is-invalid' : '';
+								@endphp
 								<label class="control-label">
-									@if ($errors->has('fechaVencimiento'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
 									Fecha de vencimiento
 								</label>
 								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
 									</div>
-									{!! Form::text('fechaVencimiento', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'yyyy/mm']) !!}
+									{!! Form::text('fechaVencimiento', $fecha, ['class' => [$valid, 'form-control'], 'placeholder' => 'yyyy/mm']) !!}
+									@if ($errors->has('fechaVencimiento'))
+										<div class="invalid-feedback">{{ $errors->first('fechaVencimiento') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fechaVencimiento'))
-									<span class="help-block">{{ $errors->first('fechaVencimiento') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('numeroInicial')?'has-error':'') }}">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('numeroInicial') ? 'is-invalid' : '';
+								@endphp
 								<label class="control-label">
-									@if ($errors->has('numeroInicial'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
 									Número inicial
 								</label>
-								{!! Form::number('numeroInicial', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número inicial']) !!}
+								{!! Form::number('numeroInicial', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Número inicial']) !!}
 								@if ($errors->has('numeroInicial'))
-									<span class="help-block">{{ $errors->first('numeroInicial') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('numeroInicial') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('numeroFinal')?'has-error':'') }}">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('numeroFinal') ? 'is-invalid' : '';
+								@endphp
 								<label class="control-label">
-									@if ($errors->has('numeroFinal'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
 									Número final
 								</label>
-								{!! Form::number('numeroFinal', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número final']) !!}
+								{!! Form::number('numeroFinal', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Número final']) !!}
 								@if ($errors->has('numeroFinal'))
-									<span class="help-block">{{ $errors->first('numeroFinal') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('numeroFinal') }}</div>
 								@endif
 							</div>
 						</div>

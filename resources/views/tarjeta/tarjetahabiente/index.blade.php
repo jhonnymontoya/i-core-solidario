@@ -42,16 +42,16 @@
 					<h3 class="card-title">Tarjetahabientes</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => 'tarjetaHabiente', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => 'tarjetaHabiente', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-10 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$terceros->total())
 						<p>
 							<div class="row">
@@ -119,7 +119,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $terceros->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $terceros->total()?'primary':'danger' }}">
 						{{ $terceros->total() }}
 					</span>&nbsp;elementos.
 				</div>
