@@ -15,6 +15,8 @@ mix.scripts([
 		'resources/assets/js/jquery-3.4.1.js',
 		'resources/assets/js/jquery-migrate-3.1.0.js',
 		'resources/assets/js/bootstrap.bundle.js',
+		'resources/assets/js/bootstrap-datepicker.js',
+		'resources/assets/js/bootstrap-datepicker.es.js',
 		'resources/assets/js/fastclick.js',
 		'resources/assets/js/adminlte.js',
 		'resources/assets/js/tilt.jquery.js',
@@ -34,6 +36,7 @@ mix.scripts([
 		'resources/assets/css/adminlte.css',
 		'resources/assets/css/select2.css',
 		'resources/assets/css/morris.css',
+		'resources/assets/css/datepicker3.css',
 		'resources/assets/css/OverlayScrollbars.css',
 		'resources/assets/css/app.css'
 	], 'public/css/app.css');
