@@ -42,16 +42,16 @@
 					<h3 class="card-title">Productos</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => 'tarjetaProducto', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => 'tarjetaProducto', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-10 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$productos->total())
 						<p>
@@ -68,7 +68,9 @@
 									<tr>
 										<th>Código</th>
 										<th>Nombre</th>
-										<th>Tipo producto</th>
+										<th>Crédito</th>
+										<th>Ahorro</th>
+										<th>Vista</th>
 										<th class="text-center">Valor cuota manejo</th>
 										<th class="text-center">Retiros red</th>
 										<th class="text-center">Retiros otras redes</th>
@@ -77,31 +79,16 @@
 								</thead>
 								<tbody>
 									@foreach ($productos as $producto)
-										@php
-											$modalidad = '';
-											switch ($producto->modalidad) {
-												case 'CUENTAAHORROS':
-													$modalidad = 'Cuenta de ahorros';
-													break;
-												case 'CREDITO':
-													$modalidad = 'Crédito';
-													break;
-												case 'MIXTO':
-													$modalidad = 'Ahorro y Crédito';
-													break;
-												default:
-													$modalidad = '';
-													break;
-											}
-										@endphp
 										<tr>
 											<td><a href="{{ route('tarjetaProductoEdit', $producto) }}">{{ $producto->codigo }}</a></td>
 											<td><a href="{{ route('tarjetaProductoEdit', $producto) }}">{{ $producto->nombre }}</a></td>
-											<td>{{ $modalidad }}</td>
+											<td><span class="badge badge-pill badge-{{ ($producto->credito ? 'success' : 'danger') }}">{{ ($producto->credito ? 'Sí' : 'No') }}</span></td>
+											<td><span class="badge badge-pill badge-{{ ($producto->ahorro ? 'success' : 'danger') }}">{{ ($producto->ahorro ? 'Sí' : 'No') }}</span></td>
+											<td><span class="badge badge-pill badge-{{ ($producto->vista ? 'success' : 'danger') }}">{{ ($producto->vista ? 'Sí' : 'No') }}</span></td>
 											<td class="text-right">${{ number_format($producto->valor_cuota_manejo_mes, 0) }}</td>
 											<td class="text-right">{{ number_format($producto->numero_retiros_sin_cobro_red, 0) }}</td>
 											<td class="text-right">{{ number_format($producto->numero_retiros_sin_cobro_otra_red, 0) }}</td>
-											<td><span class="label label-{{ $producto->esta_activo ? 'primary' : 'danger' }}">{{ $producto->esta_activo ? 'Activo' : 'Inactivo' }}</span></td>
+											<td><span class="badge badge-pill badge-{{ $producto->esta_activo ? 'primary' : 'danger' }}">{{ $producto->esta_activo ? 'Activo' : 'Inactivo' }}</span></td>
 										</tr>
 									@endforeach
 								</tbody>
