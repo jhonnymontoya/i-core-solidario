@@ -51,7 +51,7 @@
 								<br>
 								<dl class="dl-horizontal">
 									<dt>Tipo de persona:</dt>
-									<dd><span class="label label-primary">{{ $tercero->tipo_tercero }}</span></dd>
+									<dd><span class="badge badge-pill badge-primary">{{ $tercero->tipo_tercero }}</span></dd>
 								</dl>
 							</div>
 						</div>

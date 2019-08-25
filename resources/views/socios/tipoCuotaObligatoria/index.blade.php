@@ -86,7 +86,7 @@
 											<td>{{ $cuota->nombre }}</td>
 											<td>{{ $cuota->cuenta->full }}</td>
 											<td class="text-center">
-												<span class="label label-{{ $cuota->es_reintegrable ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $cuota->es_reintegrable ? 'success' : 'danger' }}">
 													{{ $cuota->es_reintegrable ? 'Sí' : 'No' }}
 												</span>
 											</td>
@@ -125,7 +125,7 @@
 												{{ $valor }}
 											</td>
 											<td>
-												<span class="label label-{{ $cuota->esta_activa ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $cuota->esta_activa ? 'success' : 'danger' }}">
 													{{ $cuota->esta_activa ? 'ACTIVA' : 'INACTIVA' }}
 												</span>
 											</td>
@@ -147,7 +147,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $cuotas->total()?'primary':'danger' }}">{{ $cuotas->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $cuotas->total()?'primary':'danger' }}">{{ $cuotas->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

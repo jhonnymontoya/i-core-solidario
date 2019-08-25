@@ -91,7 +91,7 @@
 													$label = $tipo->esta_activo ? 'success' : 'danger';
 													$estado = $tipo->esta_activo ? 'Activo' : 'Inactivo';
 												@endphp
-												<span class="label label-{{ $label }}">{{ $estado }}</span>
+												<span class="badge badge-pill badge-{{ $label }}">{{ $estado }}</span>
 											</td>
 											<td>
 												<a href="{{ route('tipoSDAT.edit', $tipo->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
@@ -111,7 +111,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tipos->total()?'primary':'danger' }}">{{ $tipos->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $tipos->total()?'primary':'danger' }}">{{ $tipos->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

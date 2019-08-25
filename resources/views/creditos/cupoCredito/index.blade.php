@@ -51,10 +51,10 @@
 					<div class="row">
 						<div class="col-md-12">
 							<label>¿Incluye salario como cupo de crédito?</label>&nbsp;&nbsp;
-							<span class="label label-{{ $parametro->indicador ? 'success' : 'default' }}">{{ $parametro->indicador ? 'Sí' : 'No' }}</span>
+							<span class="badge badge-pill badge-{{ $parametro->indicador ? 'success' : 'default' }}">{{ $parametro->indicador ? 'Sí' : 'No' }}</span>
 							@if($parametro->indicador == true)
 								<label>Número de veces </label>
-								<span class="label label-success">{{ number_format($parametro->valor, 1) }}</span>&nbsp;&nbsp;
+								<span class="badge badge-pill badge-success">{{ number_format($parametro->valor, 1) }}</span>&nbsp;&nbsp;
 							@endif
 							<a href="{{ route('parametroInstitucionalEdit', $parametro->id) }}" class="btn btn-outline-primary btn-sm">Editar</a>
 						</div>
@@ -99,7 +99,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $modalidades->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $modalidades->total()?'primary':'danger' }}">
 						{{ $modalidades->total() }}
 					</span>&nbsp;elementos.
 				</div>

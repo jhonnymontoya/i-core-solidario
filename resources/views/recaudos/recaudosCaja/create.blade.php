@@ -135,10 +135,10 @@
 							<div class="col-md-8">
 								<strong>{{ $tercero->nombre_completo }}</strong>
 								@if(!is_null($socio) && $socio->estado != 'ACTIVO')
-									<span class="label label-warning">SOCIO NO ACTIVO</span>
+									<span class="badge badge-pill badge-warning">SOCIO NO ACTIVO</span>
 								@endif
 								@if(is_null($socio))
-									<span class="label label-default">TERCERO NO ASOCIADO</span>
+									<span class="badge badge-pill badge-default">TERCERO NO ASOCIADO</span>
 								@endif
 								@if ($cuenta)
 									<br>

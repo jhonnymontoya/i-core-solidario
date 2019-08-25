@@ -157,7 +157,7 @@
 								}
 								$label = $seguroCartera->modalidades->count() == 0 ? "warning" : "success";
 							@endphp
-							<span class="label label-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span> {{ $texto }}.
+							<span class="badge badge-pill badge-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span> {{ $texto }}.
 						</div>
 						<div class="col-md-8">
 							<a class="btn btn-outline-primary" href="{{ route('seguroCarteraModalidades', $seguroCartera) }}">Asociar modalidades de créditos</a>

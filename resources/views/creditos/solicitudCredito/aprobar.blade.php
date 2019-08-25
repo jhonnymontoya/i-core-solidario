@@ -372,7 +372,7 @@
 																$aprobado = $cumple;
 															}
 														?>
-														<span class="label label-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
+														<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 															<?php
 																$aprobar = false;
 																if($cumple)
@@ -432,7 +432,7 @@
 																$aprobado = $cumple;
 															}
 														?>
-														<span class="label label-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
+														<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 															<?php
 																$aprobar = false;
 																if($cumple)
@@ -573,7 +573,7 @@
 													<?php
 														$cumple = $documento->pivot->cumple;
 													?>
-													<span class="label label-documento-{{ $documento->id }} label-{{ $cumple ? 'success' : 'danger' }}">{{ $cumple ? 'Sí' : 'No' }}</span>
+													<span class="badge badge-pill badge-documento-{{ $documento->id }} label-{{ $cumple ? 'success' : 'danger' }}">{{ $cumple ? 'Sí' : 'No' }}</span>
 												</td>
 												<td>
 													<a data-id="{{ $documento->id }}" class="btn btn-{{ $cumple ? 'danger' : 'success' }} btn-sm" onclick="javascript:alternarDocumento(this)">{{ $cumple ? 'No cumple' : 'Cumple' }}</a>

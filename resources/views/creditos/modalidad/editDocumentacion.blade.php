@@ -253,7 +253,7 @@
 												<tr data-id="{{ $documento->id }}">
 													<td>{{ $documento->documento }}</td>
 													<td>
-														<span class="label label-primary">{{ ($documento->obligatorio ? 'Obligatorio' : 'Opcional') }}</span>
+														<span class="badge badge-pill badge-primary">{{ ($documento->obligatorio ? 'Obligatorio' : 'Opcional') }}</span>
 													</td>
 													<td>
 														<a class="btn btn-outline-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>

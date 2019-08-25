@@ -89,7 +89,7 @@
 											<td class="text-right">${{ number_format($proceso->total_valor_ajuste, 0) }}</td>
 											<td>
 												@php
-													$label = "label-";
+													$label = "badge-";
 													switch($proceso->estado) {
 														case 'PRECARGA':
 															$label .= 'default';
@@ -108,7 +108,7 @@
 															break;
 													}
 												@endphp
-												<span class="label {{ $label }}">{{ $proceso->estado }}</span>
+												<span class="badge badge-pill {{ $label }}">{{ $proceso->estado }}</span>
 											</td>
 											<td>
 												@if($proceso->estado == 'PRECARGA')
@@ -133,7 +133,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $procesos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $procesos->total()?'primary':'danger' }}">
 						{{ $procesos->total() }}
 					</span>&nbsp;elementos.
 				</div>

@@ -82,7 +82,7 @@
 											<td>{{ $pagaduria->contacto }}</td>
 											<td>{{ $pagaduria->contacto_email }}</td>
 											<td>
-												<span class="label label-{{ $pagaduria->esta_activa?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $pagaduria->esta_activa?'success':'danger' }}">
 													{{ $pagaduria->esta_activa?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $pagadurias->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $pagadurias->total()?'primary':'danger' }}">
 						{{ $pagadurias->total() }}
 					</span>&nbsp;elementos.
 				</div>

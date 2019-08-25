@@ -82,7 +82,7 @@
 							<div class="col-md-12">
 								<label>Ajuste para:</label> <strong>{{$socio->tercero->nombre_completo}}</strong>
 								@if($socio->estado != 'ACTIVO')
-									<span class="label label-warning">SOCIO NO ACTIVO</span>
+									<span class="badge badge-pill badge-warning">SOCIO NO ACTIVO</span>
 								@endif
 							</div>
 						</div>

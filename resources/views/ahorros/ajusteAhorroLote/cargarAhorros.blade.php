@@ -67,7 +67,7 @@
 								</label>
 								<br>
 								@php
-									$label = "label-";
+									$label = "badge-";
 									switch($proceso->estado) {
 										case 'PRECARGA':
 											$label .= 'default';
@@ -86,7 +86,7 @@
 											break;
 									}
 								@endphp
-								<span class="label {{ $label }}">{{ $proceso->estado }}</span>
+								<span class="badge badge-pill {{ $label }}">{{ $proceso->estado }}</span>
 							</div>
 						</div>
 					</div>

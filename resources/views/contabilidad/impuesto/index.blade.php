@@ -99,10 +99,10 @@
 												$estado = $activo ? "Activo" : "Inactivo";
 											?>
 											<td>
-												<span class="label label-{{ $conceptos ? "success" : "danger" }}">{{ $conceptos }}</span>
+												<span class="badge badge-pill badge-{{ $conceptos ? "success" : "danger" }}">{{ $conceptos }}</span>
 											</td>
 											<td>
-												<span class="label label-{{ $activo ? "success" : "danger" }}">{{ $estado }}</span>
+												<span class="badge badge-pill badge-{{ $activo ? "success" : "danger" }}">{{ $estado }}</span>
 											</td>
 											<td>
 												<a href="{{ route('impuesto.edit', $impuesto->id) }}" class="btn btn-sm btn-outline-info" title="Editar"><i class="fa fa-edit"></i></a>
@@ -120,7 +120,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $impuestos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $impuestos->total()?'primary':'danger' }}">
 						{{ $impuestos->total() }}
 					</span>&nbsp;elementos.
 				</div>

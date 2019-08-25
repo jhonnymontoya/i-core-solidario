@@ -107,7 +107,7 @@
 											<td>{{ str_limit($cuenta->nombre, 40) }}</td>
 											<td>{{ $cuenta->naturaleza }}</td>
 											<td>
-												<span class="label label-{{ $cuenta->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $cuenta->esta_activo?'success':'danger' }}">
 													{{ $cuenta->esta_activo?'activa':'inactiva' }}
 												</span>
 											</td>
@@ -128,7 +128,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $cuentas->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $cuentas->total()?'primary':'danger' }}">
 						{{ $cuentas->total() }}
 					</span>&nbsp;elementos.
 				</div>

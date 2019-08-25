@@ -93,15 +93,15 @@
 										<tr>
 											<td>{{ $tipoIndicador->codigo }}</td>
 											<td>{{ $tipoIndicador->periodicidad }}</td>
-											<td><span class="label label-primary">{{ $variable }}</span></td>
+											<td><span class="badge badge-pill badge-primary">{{ $variable }}</span></td>
 											<td>											
 												@if($tipoIndicador->esta_actualizado)
-													<span class="label label-success">
+													<span class="badge badge-pill badge-success">
 														actualizado
 													</span>
 												@else
 													<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}">
-														<span class="label label-warning">
+														<span class="badge badge-pill badge-warning">
 															por actualizar
 														</span>
 													</a>
@@ -121,7 +121,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tiposIndicadores->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $tiposIndicadores->total()?'primary':'danger' }}">
 						{{ $tiposIndicadores->total() }}
 					</span>&nbsp;elementos.
 				</div>

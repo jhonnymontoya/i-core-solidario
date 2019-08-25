@@ -90,9 +90,9 @@
 												$label = "warning";
 												$label = $seguroCartera->modalidades->count() == 0 ? "warning" : "success";
 											@endphp
-											<td class="text-center"><span class="label label-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span></td>
+											<td class="text-center"><span class="badge badge-pill badge-{{ $label }}">{{ $seguroCartera->modalidades->count() }}</span></td>
 											<td>
-												<span class="label label-{{ $seguroCartera->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $seguroCartera->esta_activo?'success':'danger' }}">
 													{{ $seguroCartera->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -110,7 +110,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $segurosCartera->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $segurosCartera->total()?'primary':'danger' }}">
 						{{ $segurosCartera->total() }}
 					</span>&nbsp;elementos.
 				</div>

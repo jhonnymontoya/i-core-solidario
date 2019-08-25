@@ -88,7 +88,7 @@
 											<td>{{ $tipoIdentificacion->nombre }}</td>
 											<td>{{ $tipoIdentificacion->aplicacion }}</td>
 											<td>
-												<span class="label label-{{ $tipoIdentificacion->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $tipoIdentificacion->esta_activo?'success':'danger' }}">
 													{{ $tipoIdentificacion->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -106,7 +106,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tiposIdentificacion->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $tiposIdentificacion->total()?'primary':'danger' }}">
 						{{ $tiposIdentificacion->total() }}
 					</span>&nbsp;elementos.
 				</div>

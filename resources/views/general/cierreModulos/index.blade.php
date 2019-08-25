@@ -141,7 +141,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $periodos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $periodos->total()?'primary':'danger' }}">
 						{{ $periodos->total() }}
 					</span>&nbsp;elementos.
 				</div>

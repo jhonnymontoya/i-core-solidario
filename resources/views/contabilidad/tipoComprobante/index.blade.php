@@ -158,7 +158,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tiposComprobantes->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $tiposComprobantes->total()?'primary':'danger' }}">
 						{{ $tiposComprobantes->total() }}
 					</span>&nbsp;elementos.
 				</div>

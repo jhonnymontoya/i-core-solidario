@@ -152,7 +152,7 @@
 				</div>
 				<div class="card-footer">
 					@if($socio)
-						<span class="label label-primary">{{ $socio->cuotasVoluntarias->count() }}</span>&nbsp;elementos.
+						<span class="badge badge-pill badge-primary">{{ $socio->cuotasVoluntarias->count() }}</span>&nbsp;elementos.
 					@endif
 				</div>
 			</div>

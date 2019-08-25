@@ -121,22 +121,22 @@
 													$estado = '';
 													switch ($solicitud->socio->estado) {
 														case 'ACTIVO':
-															$estado = 'label-success';
+															$estado = 'badge-success';
 															break;
 														case 'RETIRO':
-															$estado = 'label-warning';
+															$estado = 'badge-warning';
 															break;
 
 														case 'LIQUIDADO':
-															$estado = 'label-danger';
+															$estado = 'badge-danger';
 															break;
 														
 														default:
-															$estado = 'label-warning';
+															$estado = 'badge-warning';
 															break;
 													}
 												?>
-												<span class="label {{ $estado }}">{{ $solicitud->socio->estado }}</span>
+												<span class="badge badge-pill {{ $estado }}">{{ $solicitud->socio->estado }}</span>
 											</td>
 											<td>
 												@if($solicitud->socio->estado != 'LIQUIDADO' && $solicitud->socio->estado == 'RETIRO')
@@ -165,7 +165,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $solicitudesRetiros->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $solicitudesRetiros->total()?'primary':'danger' }}">
 						{{ $solicitudesRetiros->total() }}
 					</span>&nbsp;elementos.
 				</div>

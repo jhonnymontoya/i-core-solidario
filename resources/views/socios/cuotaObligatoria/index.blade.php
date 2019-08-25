@@ -119,9 +119,9 @@
 													<td class="text-right">${{ $montoCuota }}</td>
 													<td class="text-center">
 														@if($cuota->es_reglamentaria)
-															<label class="label label-success">Reglamentaria</label>
+															<label class="badge badge-pill badge-success">Reglamentaria</label>
 														@else
-															<label class="label label-danger">No reglamentaria</label>
+															<label class="badge badge-pill badge-danger">No reglamentaria</label>
 														@endif
 													</td>
 												</tr>
@@ -146,7 +146,7 @@
 				</div>
 				<div class="card-footer">
 					@if($socio)
-						<span class="label label-primary">{{ $socio->cuotasObligatorias->count() }}</span>&nbsp;elementos.
+						<span class="badge badge-pill badge-primary">{{ $socio->cuotasObligatorias->count() }}</span>&nbsp;elementos.
 					@endif
 				</div>
 			</div>

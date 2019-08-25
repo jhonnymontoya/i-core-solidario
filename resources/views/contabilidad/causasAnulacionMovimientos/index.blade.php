@@ -74,7 +74,7 @@
 										<tr>
 											<td>{{ $causa->nombre }}</td>
 											<td>
-												<span class="label label-{{ $causa->esta_activa ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $causa->esta_activa ? 'success' : 'danger' }}">
 													{{ $causa->esta_activa ? 'ACTIVA' : 'INACTIVA' }}
 												</span>
 											</td>
@@ -105,7 +105,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $causasAnulacion->total()?'primary':'danger' }}">{{ $causasAnulacion->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $causasAnulacion->total()?'primary':'danger' }}">{{ $causasAnulacion->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

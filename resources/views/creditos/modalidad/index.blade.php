@@ -82,7 +82,7 @@
 											<td>{{ $modalidad->afecta_cupo ? 'Sí' : 'No' }}</td>
 											<td>{{ $modalidad->tipo_cuota == 'FIJA' ? 'Fija compuesta' : 'Fija capital' }}</td>
 											<td>
-												<span class="label label-{{ $modalidad->esta_activa?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $modalidad->esta_activa?'success':'danger' }}">
 													{{ $modalidad->esta_activa?'activa':'inactiva' }}
 												</span>
 											</td>
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $modalidades->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $modalidades->total()?'primary':'danger' }}">
 						{{ $modalidades->total() }}
 					</span>&nbsp;elementos.
 				</div>

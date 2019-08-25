@@ -130,7 +130,7 @@
 							<div class="col-md-8">
 								<strong>{{ $tercero->nombre_completo }}</strong>
 								@if(!is_null($socio) && $socio->estado != 'ACTIVO')
-									<span class="label label-warning">SOCIO NO ACTIVO</span>
+									<span class="badge badge-pill badge-warning">SOCIO NO ACTIVO</span>
 								@endif
 								<br>
 								Fecha recaudo: {{ $fecha }}

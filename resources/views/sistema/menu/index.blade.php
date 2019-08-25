@@ -127,7 +127,7 @@
 				</div>
 				<div class="card-footer">
 					{{--
-					<span class="label label-{{ $menus->count()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $menus->count()?'primary':'danger' }}">
 						{{ $menus->count() }}
 					</span>&nbsp;elementos.
 					--}}

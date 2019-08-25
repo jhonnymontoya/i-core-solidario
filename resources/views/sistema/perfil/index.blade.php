@@ -95,12 +95,12 @@
 											<td>{{ $perfil->nombre }}</td>
 											<td>{{ str_limit($perfil->descripcion, 30) }}</td>
 											<td>
-												<span class="label bg-green">
+												<span class="badge badge-pill bg-green">
 													{{ $perfil->menus->count() }}
 												</span>
 											</td>
 											<td>
-												<span class="label label-{{ $perfil->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $perfil->esta_activo?'success':'danger' }}">
 													{{ $perfil->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -118,7 +118,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $perfiles->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $perfiles->total()?'primary':'danger' }}">
 						{{ $perfiles->total() }}
 					</span>&nbsp;elementos.
 				</div>

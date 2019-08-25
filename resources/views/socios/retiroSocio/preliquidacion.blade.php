@@ -146,7 +146,7 @@
 									}
 								?>
 								<label>Estado</label><br>
-								<span class="label bg-{{ $label }}">{{ $socio->estado }}</span>
+								<span class="badge badge-pill bg-{{ $label }}">{{ $socio->estado }}</span>
 							</div>
 							<div class="col-md-2">
 								<?php

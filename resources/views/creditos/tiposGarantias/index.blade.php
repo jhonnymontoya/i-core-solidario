@@ -87,7 +87,7 @@
 											<td>{{ $tipoGarantia->tipo_garantia }}</td>
 											<td>{{ $tipoGarantia->condicion }}</td>
 											<td>
-												<span class="label label-{{ $tipoGarantia->esta_activa?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $tipoGarantia->esta_activa?'success':'danger' }}">
 													{{ $tipoGarantia->esta_activa?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -105,7 +105,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tiposGarantias->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $tiposGarantias->total()?'primary':'danger' }}">
 						{{ $tiposGarantias->total() }}
 					</span>&nbsp;elementos.
 				</div>

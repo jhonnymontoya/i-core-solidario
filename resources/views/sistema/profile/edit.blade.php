@@ -71,7 +71,7 @@
 									@if ($errors->has('tipo_identificacion_id'))
 										<div class="invalid-feedback">{{ $errors->first('tipo_identificacion_id') }}</div>
 									@endif
-								</div>							
+								</div>
 							</div>
 						</div>
 					</div>

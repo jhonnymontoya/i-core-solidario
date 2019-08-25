@@ -142,12 +142,12 @@
 												?>
 												@if($estadoLabel == 'warning')
 													<a href="{{ route('comprobanteContabilizar', $comprobante->id) }}" title="Contabilizar">
-														<span class="label label-{{ $estadoLabel }}">
+														<span class="badge badge-pill badge-{{ $estadoLabel }}">
 															{{ $comprobante->estado }}
 														</span>
 													</a>
 												@else
-													<span class="label label-{{ $estadoLabel }}">
+													<span class="badge badge-pill badge-{{ $estadoLabel }}">
 														{{ $comprobante->estado }}
 													</span>
 												@endif
@@ -201,7 +201,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $comprobantes->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $comprobantes->total()?'primary':'danger' }}">
 						{{ $comprobantes->total() }}
 					</span>&nbsp;elementos.
 				</div>

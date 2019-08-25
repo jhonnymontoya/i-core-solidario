@@ -84,17 +84,17 @@
 											<td>{{ $entidad->terceroEntidad->sigla }}</td>
 											<td>{{ $entidad->fecha_inicio_contabilidad->toFormattedDateString() }}</td>
 											<td>
-												<span class="label label-{{ $entidad->usa_dependencia?'bg bg-purple':'bg bg-orange' }}">
+												<span class="badge badge-pill badge-{{ $entidad->usa_dependencia?'bg bg-purple':'bg bg-orange' }}">
 													{{ $entidad->usa_dependencia?'Sí':'No' }}
 												</span>
 											</td>
 											<td>
-												<span class="label label-{{ $entidad->usa_centro_costos?'bg bg-purple':'bg bg-orange' }}">
+												<span class="badge badge-pill badge-{{ $entidad->usa_centro_costos?'bg bg-purple':'bg bg-orange' }}">
 													{{ $entidad->usa_centro_costos?'Sí':'No' }}
 												</span>
 											</td>
 											<td>
-												<span class="label label-{{ $entidad->terceroEntidad->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $entidad->terceroEntidad->esta_activo?'success':'danger' }}">
 													{{ $entidad->terceroEntidad->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -112,7 +112,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $entidades->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $entidades->total()?'primary':'danger' }}">
 						{{ $entidades->total() }}
 					</span>&nbsp;elementos.
 				</div>

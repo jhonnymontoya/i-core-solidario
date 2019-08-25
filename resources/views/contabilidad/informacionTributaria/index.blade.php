@@ -123,7 +123,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $impuestos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $impuestos->total()?'primary':'danger' }}">
 						{{ $impuestos->total() }}
 					</span>&nbsp;elementos.
 				</div>

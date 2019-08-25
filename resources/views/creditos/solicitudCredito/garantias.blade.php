@@ -319,7 +319,7 @@
 																			break;
 																	}
 																@endphp
-																<span class="label label-{{ $color }}">{{ $codeudor['resultado'] }}</span>
+																<span class="badge badge-pill badge-{{ $color }}">{{ $codeudor['resultado'] }}</span>
 															</div>
 														</div>
 													</div>

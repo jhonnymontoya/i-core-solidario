@@ -83,7 +83,7 @@
 									<div class="col-md-5">{{ empty($contacto) ? 'Sin información' : $contacto->email }}</div>
 
 									<div class="col-md-2"><strong>Endeudamiento:</strong></div>
-									<div class="col-md-3"><span class="label {{ $label }}">{{ number_format($porcentaje, 2) }}%</span></div>
+									<div class="col-md-3"><span class="badge badge-pill {{ $label }}">{{ number_format($porcentaje, 2) }}%</span></div>
 								</div>
 
 								<div class="row">
@@ -109,7 +109,7 @@
 												<?php
 													if(!is_null($recaudoAplicado)) {
 														?>
-														<span class="label label-success">{{ $recaudoAplicado->numero_periodo }}</span> {{ $recaudoAplicado->fecha_recaudo }}
+														<span class="badge badge-pill badge-success">{{ $recaudoAplicado->numero_periodo }}</span> {{ $recaudoAplicado->fecha_recaudo }}
 														<?php
 													}
 												?>
@@ -473,7 +473,7 @@
 																<td class="text-right">{{ $sdat->tasa }}</td>
 																<td class="text-right">{{ $sdat->saldo }}</td>
 																<td class="text-right">{{ $sdat->rendimientos }}</td>
-																<td><span class="label label-{{ $label }}">{{ $sdat->estado }}</span></td>
+																<td><span class="badge badge-pill badge-{{ $label }}">{{ $sdat->estado }}</span></td>
 															</tr>
 															<?php
 														}
@@ -639,7 +639,7 @@
 																?>
 																${{ number_format($valorCuota, 0) }}
 															</td>
-															<td><span class="label label-default">{{ $credito->estado_solicitud }}</span></td>
+															<td><span class="badge badge-pill badge-default">{{ $credito->estado_solicitud }}</span></td>
 															<td>{{ $credito->fecha_cancelacion }}</td>
 														</tr>
 													@endforeach

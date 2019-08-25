@@ -92,7 +92,7 @@
 												@php
 													$parametrizado = $cobro->estaParametrizado();
 												@endphp
-												<span class="label label-{{ $parametrizado ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $parametrizado ? 'success' : 'danger' }}">
 													{{ $parametrizado ? 'Sí' : 'No' }}
 												</span>
 											</td>
@@ -103,7 +103,7 @@
 												<span class="badge label-{{ $modalidades > 0 ? 'success' : 'danger' }}">{{ $modalidades }}</span>
 											</td>
 											<td>
-												<span class="label label-{{ $cobro->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $cobro->esta_activo?'success':'danger' }}">
 													{{ $cobro->esta_activo?'activa':'inactiva' }}
 												</span>
 											</td>
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $cobrosAdministrativos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $cobrosAdministrativos->total()?'primary':'danger' }}">
 						{{ $cobrosAdministrativos->total() }}
 					</span>&nbsp;elementos.
 				</div>

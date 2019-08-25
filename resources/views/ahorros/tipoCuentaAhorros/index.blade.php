@@ -95,7 +95,7 @@
 												</a>
 											</td>
 											<td>
-												<span class="label label-{{ $tipoCuentaAhorros->esta_activa ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $tipoCuentaAhorros->esta_activa ? 'success' : 'danger' }}">
 													{{ $tipoCuentaAhorros->esta_activa ? 'ACTIVA' : 'INACTIVA' }}
 												</span>
 											</td>
@@ -117,7 +117,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tiposCuentasAhorros->total()?'primary':'danger' }}">{{ $tiposCuentasAhorros->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $tiposCuentasAhorros->total()?'primary':'danger' }}">{{ $tiposCuentasAhorros->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

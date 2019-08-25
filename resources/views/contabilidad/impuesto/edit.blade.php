@@ -195,7 +195,7 @@
 												<td>{{ number_format($concepto->tasa, 2) }}%</td>
 												<td>
 													<a href="#" title="Inactivar" class="toggle-estado">
-														<span class="label label-{{ $estado ? "success" : "danger" }}">
+														<span class="badge badge-pill badge-{{ $estado ? "success" : "danger" }}">
 															{{ $estado ? "Activo" : "Inactivo" }}
 														</span>
 													</a>

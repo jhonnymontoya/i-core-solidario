@@ -86,7 +86,7 @@
 										<tr>
 											<td>{{ $modulo->nombre }}</td>
 											<td>
-												<span class="label label-{{ $modulo->esta_activo?'success':'danger' }}">
+												<span class="badge badge-pill badge-{{ $modulo->esta_activo?'success':'danger' }}">
 													{{ $modulo->esta_activo?'activo':'inactivo' }}
 												</span>
 											</td>
@@ -108,7 +108,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $modulos->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $modulos->total()?'primary':'danger' }}">
 						{{ $modulos->total() }}
 					</span>&nbsp;elementos.
 				</div>

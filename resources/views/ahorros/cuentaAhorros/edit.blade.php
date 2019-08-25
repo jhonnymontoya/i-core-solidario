@@ -140,7 +140,7 @@
 							<div class="form-group">
 								<label class="control-label">Estado</label>
 								<br>
-								<span class="label label-{{ $cuentaAhorro->estado == 'ACTIVA' ? 'success' : 'danger' }}">
+								<span class="badge badge-pill badge-{{ $cuentaAhorro->estado == 'ACTIVA' ? 'success' : 'danger' }}">
 									{{ $cuentaAhorro->estado }}
 								</span>
 							</div>

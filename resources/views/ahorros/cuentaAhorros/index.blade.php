@@ -97,7 +97,7 @@
 											<td class="text-right">{{ $cuentaAhorros->fecha_apertura }}</td>
 											<td class="text-right">${{ number_format($cuentaAhorros->cupo_flexible) }}</td>
 											<td>
-												<span class="label label-default">
+												<span class="badge badge-pill badge-default">
 													{{ $cuentaAhorros->estado }}
 												</span>
 											</td>
@@ -119,7 +119,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $cuentasAhorros->total()?'primary':'danger' }}">{{ $cuentasAhorros->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $cuentasAhorros->total()?'primary':'danger' }}">{{ $cuentasAhorros->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

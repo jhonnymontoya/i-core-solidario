@@ -139,7 +139,7 @@
 																	$aprobado = $cumple;
 																}
 															?>
-															<span class="label label-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
+															<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 																<?php
 																	if($cumple)
 																	{
@@ -181,7 +181,7 @@
 																	$aprobado = $cumple;
 																}
 															?>
-															<span class="label label-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
+															<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 																<?php
 																	if($cumple)
 																	{
@@ -217,7 +217,7 @@
 																	$aprobado = $cumple;
 																}
 															?>
-															<span class="label label-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
+															<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 																<?php
 																	if($cumple)
 																	{

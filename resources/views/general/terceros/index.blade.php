@@ -127,9 +127,9 @@
 											</td>
 											<td class="text-center">
 												@if ($tercero->esta_activo)
-													<span class="label label-success">Activo</span>
+													<span class="badge badge-pill badge-success">Activo</span>
 												@else
-													<span class="label label-danger">Inactivo</span>
+													<span class="badge badge-pill badge-danger">Inactivo</span>
 												@endif
 											</td>
 											<td><a class="btn btn-outline-info btn-sm" href="{{ route('terceroEdit', $tercero) }}"><i class="fa fa-edit"></i></a></td>
@@ -146,7 +146,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $terceros->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $terceros->total()?'primary':'danger' }}">
 						{{ $terceros->total() }}
 					</span>&nbsp;elementos.
 				</div>

@@ -182,7 +182,7 @@
 															break;
 													}
 												?>
-												<span class="label label-{{ $label }}">{{ $solicitud->estado_solicitud }}</span>
+												<span class="badge badge-pill badge-{{ $label }}">{{ $solicitud->estado_solicitud }}</span>
 											</td>
 											<td>
 												<?php
@@ -228,7 +228,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $solicitudes->total()?'primary':'danger' }}">
+					<span class="badge badge-pill badge-{{ $solicitudes->total()?'primary':'danger' }}">
 						{{ $solicitudes->total() }}
 					</span>&nbsp;elementos.
 				</div>

@@ -202,7 +202,7 @@
 										{!! Form::hidden("uso_para_tarjeta", $modalidad->uso_para_tarjeta ? '1' : '0') !!}
 										<div class="row">
 											<div class="col-md-4 text-right"><strong>Modalidad para uso del modulo de tarjeta:</strong></div>
-											<div class="col-md-8"><span class="label label-{{ $modalidad->uso_para_tarjeta ? 'success' : 'default' }}">{{ $modalidad->uso_para_tarjeta ? 'Sí' : 'No' }}</span>, Se encontrarón <a href="{{ url('solicitudCredito?modalidad=' . $modalidad->id) }}">{{ $cantidadSolicitudes }}</a> solicitudes de crédito.</div>
+											<div class="col-md-8"><span class="badge badge-pill badge-{{ $modalidad->uso_para_tarjeta ? 'success' : 'default' }}">{{ $modalidad->uso_para_tarjeta ? 'Sí' : 'No' }}</span>, Se encontrarón <a href="{{ url('solicitudCredito?modalidad=' . $modalidad->id) }}">{{ $cantidadSolicitudes }}</a> solicitudes de crédito.</div>
 										</div>
 									@else
 										<div class="form-group {{ ($errors->has('uso_para_tarjeta')?'has-error':'') }}">

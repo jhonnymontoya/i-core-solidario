@@ -91,12 +91,12 @@
 											<td>{{ $cuota->cuenta->full }}</td>
 											<td class="text-right">{{ number_format($cuota->tasa, 0) }}%</td>
 											<td class="text-center">
-												<span class="label label-{{ $cuota->capitalizacion_simultanea ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $cuota->capitalizacion_simultanea ? 'success' : 'danger' }}">
 													{{ $cuota->capitalizacion_simultanea ? 'Sí' : 'No' }}
 												</span>
 											</td>
 											<td>
-												<span class="label label-{{ $cuota->esta_activa ? 'success' : 'danger' }}">
+												<span class="badge badge-pill badge-{{ $cuota->esta_activa ? 'success' : 'danger' }}">
 													{{ $cuota->esta_activa ? 'ACTIVA' : 'INACTIVA' }}
 												</span>
 											</td>
@@ -118,7 +118,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $tiposCuotasAhorros->total()?'primary':'danger' }}">{{ $tiposCuotasAhorros->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $tiposCuotasAhorros->total()?'primary':'danger' }}">{{ $tiposCuotasAhorros->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>

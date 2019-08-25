@@ -186,7 +186,7 @@
 												Estado
 											</label>
 											<div class="col-sm-8">
-												<label class="label label-{{ $usuario->esta_activo?'success':'danger' }}">{{ $usuario->esta_activo?'Activo':'Inactivo' }}</label>
+												<label class="badge badge-pill badge-{{ $usuario->esta_activo?'success':'danger' }}">{{ $usuario->esta_activo?'Activo':'Inactivo' }}</label>
 											</div>
 										</div>
 									</div>

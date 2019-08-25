@@ -70,7 +70,7 @@
 								<dd>{{ $proceso->fecha_proceso }}</dd>
 								<dt>Estado:</dt>
 								@php
-									$label = "label-";
+									$label = "badge-";
 									switch($proceso->estado) {
 										case 'PRECARGA':
 											$label .= 'default';
@@ -89,7 +89,7 @@
 											break;
 									}
 								@endphp
-								<dd><span class="label {{ $label }}">{{ $proceso->estado }}</span></dd>
+								<dd><span class="badge badge-pill {{ $label }}">{{ $proceso->estado }}</span></dd>
 								<dt>Número de ajustes:</dt>
 								<dd>{{ $proceso->cantidad_ajustes_creditos }}</dd>
 								<dt>Valor ajustes:</dt>

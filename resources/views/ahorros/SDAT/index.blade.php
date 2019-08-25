@@ -127,7 +127,7 @@
 													<td class="text-right">{{ number_format($sdat->tasa, 2) }}%</td>
 													<td>{{ $sdat->fecha_constitucion }}</td>
 													<td>{{ $sdat->fecha_vencimiento }}</td>
-													<td><label class="label label-{{ $label }}"></span>{{ $sdat->estado }}</label></td>
+													<td><label class="badge badge-pill badge-{{ $label }}"></span>{{ $sdat->estado }}</label></td>
 													<td>
 														@if ($sdat->estado == "SOLICITUD")
 															<a href="{{ route('SDAT.constituir', $sdat->id) }}" class="btn btn-outline-success btn-sm" title="Constituir">
@@ -165,7 +165,7 @@
 					</div>			
 				</div>
 				<div class="card-footer">
-					<span class="label label-{{ $sdats->total()?'primary':'danger' }}">{{ $sdats->total() }}</span> elementos.
+					<span class="badge badge-pill badge-{{ $sdats->total()?'primary':'danger' }}">{{ $sdats->total() }}</span> elementos.
 				</div>
 			</div>
 		</div>
