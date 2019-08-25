@@ -317,6 +317,7 @@
 								<label class="control-label">¿Activo?</label>
 								<div>
 									@php
+										$valid = $errors->has('esta_activo') ? 'is-invalid' : '';
 										$estaActivo = empty(old('esta_activo')) ? $producto->esta_activo : old('esta_activo');
 									@endphp
 									<div class="btn-group btn-group-toggle" data-toggle="buttons">
