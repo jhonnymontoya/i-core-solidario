@@ -49,7 +49,7 @@
 						<div class="col-md-10 col-md-offset-1">
 							<div class="alert alert-warning">
 								<h4>
-									<i class="fa fa-warning"></i>&nbsp;Alerta!
+									<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
 								</h4>
 								Esta a punto de contabilizar el comprobante, esta acción no puede ser reversada....
 							</div>

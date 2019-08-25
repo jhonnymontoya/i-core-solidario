@@ -150,7 +150,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-warning alert-dismissible">
-					<h4><i class="icon fa fa-warning"></i> Alerta</h4>
+					<h4><i class="icon fa fa-exclamation-triangle"></i> Alerta</h4>
 					¿Desea anular la generación del recaudo?
 				</div>
 				<div class="row">

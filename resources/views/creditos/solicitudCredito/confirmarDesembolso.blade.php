@@ -165,7 +165,7 @@
 														<td>{{ $condicion->condicion }}</td>
 														<td>
 															@if(empty($condicion->valor_parametro))
-																<i data-toggle="tooltip" title="Modalidad inconsistente, revisar parámetros" class="fa fa-warning" style="color:#FF851b;"></i>
+																<i data-toggle="tooltip" title="Modalidad inconsistente, revisar parámetros" class="fa fa-exclamation-triangle" style="color:#FF851b;"></i>
 															@else
 																{{ number_format($condicion->valor_parametro, 0) }}
 															@endif

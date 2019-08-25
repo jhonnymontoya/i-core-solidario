@@ -159,7 +159,7 @@
 						</div>
 						<br>
 						@if ($errors->has('data'))
-							<p class="text-danger"><i class="fa fa-warning"></i> {{ $errors->first('data') }}</p>
+							<p class="text-danger"><i class="fa fa-exclamation-triangle"></i> {{ $errors->first('data') }}</p>
 						@endif
 						<h3>Ahorros</h3>
 						{{-- Componente de ahorros --}}

@@ -105,7 +105,7 @@
 					</ul>
 					<br>
 
-					<div class="alert alert-warning"><h4><i class="fa fa-warning"></i> Alertas tipo B</h4></div>
+					<div class="alert alert-warning"><h4><i class="fa fa-exclamation-triangle"></i> Alertas tipo B</h4></div>
 					<ul>
 					@if (count($ahorrosNegativos['B']))
 						<?php $tieneAlertasTipoB = true; ?>

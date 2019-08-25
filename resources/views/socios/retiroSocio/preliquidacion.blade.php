@@ -54,54 +54,60 @@
 					{!! Form::hidden("preliquidar", true) !!}
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('socio_id')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('socio_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Socio</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fas fa-male"></i>
+										</span>
+									</div>
+									{!! Form::select('socio_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('socio_id'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('socio_id') }}</div>
 									@endif
-									Socio
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-male"></i></span>
-									{!! Form::select('socio_id', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
 								</div>
-								@if ($errors->has('socio_id'))
-									<span class="help-block">{{ $errors->first('socio_id') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('fechaMovimiento')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fechaMovimiento') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha movimiento</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fechaMovimiento', Request::has('fechaMovimiento') ? Request::get('fechaMovimiento') : date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fechaMovimiento'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('fechaMovimiento') }}</div>
 									@endif
-									Fecha movimiento
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fechaMovimiento', Request::has('fechaMovimiento') ? Request::get('fechaMovimiento') : date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
-								@if ($errors->has('fechaMovimiento'))
-									<span class="help-block">{{ $errors->first('fechaMovimiento') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('fechaSaldo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fechaSaldo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha saldo
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fechaSaldo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha saldo</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fechaSaldo', Request::has('fechaSaldo') ? Request::get('fechaSaldo') : date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fechaSaldo', Request::has('fechaSaldo') ? Request::get('fechaSaldo') : date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fechaSaldo'))
+										<div class="invalid-feedback">{{ $errors->first('fechaSaldo') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fechaSaldo'))
-									<span class="help-block">{{ $errors->first('fechaSaldo') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-2">
@@ -238,7 +244,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-3 table-responsive">
+							<div class="col-md-5 table-responsive">
 								<table class="table">
 									<tbody>
 										<tr>
@@ -249,7 +255,7 @@
 											<th>Total saldo en contra</th>
 											<td class="text-right">${{ number_format($creditos, 0) }}</td>
 										</tr>
-										<tr><td></td></tr>
+										<tr><td colspan="2"></td></tr>
 										<tr>
 											<th>Total liquidación</th>
 											<td class="text-right">
@@ -281,32 +287,22 @@
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										<h4 class="modal-title" id="tituloConfirmacion">Liquidación de usuario</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 									</div>
 									<div class="modal-body">
-										<div class="row">
-											<div class="col-md-10 col-md-offset-1">
-												<div class="alert alert-warning">
-													<h4>
-														<i class="fa fa-warning"></i>&nbsp;Alerta!
-													</h4>
-													Confirme los datos antes de ejecutar el proceso de liquidación
-												</div>
-											</div>
+										<div class="alert alert-warning">
+											<h4><i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!</h4>
+											Confirme los datos antes de ejecutar el proceso de liquidación
 										</div>
-										<div class="row">
-											<div class="col-md-10 col-md-offset-1">
-												<dl class="dl-horizontal">
-													<dt>Socio:</dt>
-													<dd>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->numero_identificacion }} {{ $socio->tercero->nombre }}</dd>
-													<dt>Fecha movimiento:</dt>
-													<dd>{{ $fechaMovimiento }}</dd>
-													<dt>Fecha saldos:</dt>
-													<dd>{{ $fechaSaldo }}</dd>
-												</dl>
-											</div>
-										</div>
+										<dl>
+											<dt>Socio:</dt>
+											<dd>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->numero_identificacion }} {{ $socio->tercero->nombre }}</dd>
+											<dt>Fecha movimiento:</dt>
+											<dd>{{ $fechaMovimiento }}</dd>
+											<dt>Fecha saldos:</dt>
+											<dd>{{ $fechaSaldo }}</dd>
+										</dl>
 									</div>
 									<div class="modal-footer">
 										<a class="btn btn-outline-success" id="continuar">Liquidar</a>
@@ -317,7 +313,7 @@
 						</div>
 					@endif
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					@if($preliquidacion->count())
 						{!! Form::model($socio, ['route' => ['retiroSocioLiquidar', $socio], 'method' => 'put', 'role' => 'form', 'id' => 'formProcesar']) !!}
 						{!! Form::hidden('fecha_movimiento', $fechaMovimiento) !!}

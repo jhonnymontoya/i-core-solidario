@@ -56,7 +56,7 @@
 							<div class="col-md-10 col-md-offset-1">
 								<div class="alert alert-warning">
 									<h4>
-										<i class="fa fa-warning"></i>&nbsp;Alerta!
+										<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
 									</h4>
 									Hay registros con error
 								</div>

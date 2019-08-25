@@ -47,73 +47,73 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('socio_id')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('socio_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Socio</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fas fa-male"></i>
+										</span>
+									</div>
+									{!! Form::select('socio_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('socio_id'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('socio_id') }}</div>
 									@endif
-									Socio
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-male"></i></span>
-									{!! Form::select('socio_id', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
 								</div>
-								@if ($errors->has('socio_id'))
-									<span class="help-block">{{ $errors->first('socio_id') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('causa_retiro_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('causa_retiro_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Causa de retiro
-								</label>
-								{!! Form::select('causa_retiro_id', $causasRetiros, null, ['class' => 'form-control select2', 'placeholder' => 'Causa de retiro', 'autocomplete' => 'off', 'autofocus']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('causa_retiro_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Causa de retiro</label>
+								{!! Form::select('causa_retiro_id', $causasRetiros, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Causa de retiro']) !!}
 								@if ($errors->has('causa_retiro_id'))
-									<span class="help-block">{{ $errors->first('causa_retiro_id') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('causa_retiro_id') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_solicitud_retiro')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_solicitud_retiro'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha solicitud retiro
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_solicitud_retiro') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha Solicitud retiro</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fecha_solicitud_retiro', date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::text('fecha_solicitud_retiro',  date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha_solicitud_retiro'))
+										<div class="invalid-feedback">{{ $errors->first('fecha_solicitud_retiro') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fecha_solicitud_retiro'))
-									<span class="help-block">{{ $errors->first('fecha_solicitud_retiro') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('observacion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('observacion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Observaciones
-								</label>
-								{!! Form::textarea('observacion', null, ['class' => 'form-control', 'placeholder' => 'Observaciones', 'autocomplete' => 'off']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('observacion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Observaciones</label>
+								{!! Form::textarea('observacion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Observaciones']) !!}
 								@if ($errors->has('observacion'))
-									<span class="help-block">{{ $errors->first('observacion') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('observacion') }}</div>
 								@endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('retiroSocio') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

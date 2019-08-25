@@ -55,19 +55,19 @@
 					<h3 class="card-title">Retiros</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'estado'), ['url' => '/retiroSocio', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'estado'), ['url' => '/retiroSocio', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-6 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-4 col-sm-12">
+						<div class="col-md-5 col-sm-12">
 							{!! Form::select('estado', $estados, null, ['class' => 'form-control select2', 'placeholder' => 'Estado', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$solicitudesRetiros->total())
 						<p>
@@ -138,16 +138,16 @@
 												?>
 												<span class="badge badge-pill {{ $estado }}">{{ $solicitud->socio->estado }}</span>
 											</td>
-											<td>
+											<td style="width: 100px;">
 												@if($solicitud->socio->estado != 'LIQUIDADO' && $solicitud->socio->estado == 'RETIRO')
 													<a href="{{ url('retiroSocio/preliquidacion') }}?preliquidar=1&socio_id={{ $solicitud->socio->id }}&fechaMovimiento={{ $solicitud->fecha_solicitud_retiro }}&fechaSaldo={{ $solicitud->fecha_solicitud_retiro }}" class="btn btn-outline-danger btn-sm" title="Liquidar asociado"><i class="fa fa-user-times"></i></a>
-													<a href="#" data-toggle="modal" data-target="#mAnular" data-nombre="{{ $nombre }}" data-fecha="{{ $fecha }}" data-id="{{ $solicitud->id }}" class="btn btn-outline-secondary btn-sm" title="Anular retiro"><i class="fa fa-close"></i></a>
+													<a href="#" data-toggle="modal" data-target="#mAnular" data-nombre="{{ $nombre }}" data-fecha="{{ $fecha }}" data-id="{{ $solicitud->id }}" class="btn btn-outline-secondary btn-sm" title="Anular retiro"><i class="fa fa-times"></i></a>
 												@endif
 												@if($solicitud->movimiento)
 													<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $solicitud->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $solicitud->movimiento->numero_comprobante }}" class="btn btn-outline-secondary btn-sm" title="Imprimir comprobante" target="_blank">
 														<i class="fa fa-print"></i>
 													</a>
-													<a href="#" data-toggle="modal" data-target="#mAnularLiquidacion" data-nombre="{{ $nombre }}" data-fecha="{{ $fechaLiquidacion }}" data-id="{{ $solicitud->id }}" class="btn btn-outline-secondary btn-sm" title="Anular liquidación"><i class="fa fa-close"></i></a>
+													<a href="#" data-toggle="modal" data-target="#mAnularLiquidacion" data-nombre="{{ $nombre }}" data-fecha="{{ $fechaLiquidacion }}" data-id="{{ $solicitud->id }}" class="btn btn-outline-secondary btn-sm" title="Anular liquidación"><i class="fa fa-times"></i></a>
 												@endif
 											</td>
 										</tr>
@@ -177,20 +177,20 @@
 
 <div class="modal fade" id="mAnular" tabindex="-1" role="dialog" aria-labelledby="mLabel">
 	{!! Form::open(["route" => ["retiroSocio.anular", ":id"], "method" => "delete", "id" => "frmManular"]) !!}
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="mLabel">Anular retiro</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-warning alert-dismissible">
-					<h4><i class="icon fa fa-warning"></i> Alerta</h4>
+				<div class="alert alert-warning">
+					<h4><i class="icon fas fa-exclamation-triangle"></i> Alerta</h4>
 					¿Desea anular el retiro?
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<dl class="dl-horizontal">
+						<dl>
 							<dt>Nombre</dt>
 							<dd id="mAnularNombre"></dd>
 
@@ -201,8 +201,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
 				{!! Form::submit("Anular", ["class" => "btn btn-outline-success"]) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
@@ -210,16 +210,16 @@
 </div>
 
 <div class="modal fade" id="mAnularLiquidacion" tabindex="-1" role="dialog" aria-labelledby="mLabel">
-	{!! Form::open(["route" => ["retiroSocio.anular", ":id"], "method" => "put", "id" => "frmManularLiquidacion"]) !!}
-	<div class="modal-dialog" role="document">
+	{!! Form::open(["route" => ["retiroSocio.anularLiquidacion", ":id"], "method" => "put", "id" => "frmManularLiquidacion"]) !!}
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="mLabel">Anular liquidación</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-warning alert-dismissible">
-					<h4><i class="icon fa fa-warning"></i> Alerta</h4>
+				<div class="alert alert-warning">
+					<h4><i class="icon fa fa-exclamation-triangle"></i> Alerta</h4>
 					Está a punto de anular la liquidación y el asociado pasará a estado 'RETIRO'
 				</div>
 				<div class="row">
@@ -235,8 +235,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
 				{!! Form::submit("Anular", ["class" => "btn btn-outline-success"]) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
