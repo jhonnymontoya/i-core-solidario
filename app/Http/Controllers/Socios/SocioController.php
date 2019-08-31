@@ -758,7 +758,7 @@ class SocioController extends Controller
 
 		//Validamos que la fecha de afiliación sea menor a la fecha fin de contrato, si esta existe
 		if(!empty($obj->fecha_fin_contrato)) {
-			if($request->fecha_afiliacion > $obj->fecha_fin_contrato) {
+			if($obj->fecha_afiliacion > $obj->fecha_fin_contrato) {
 				return redirect()->back()
 					->withErrors(['fecha_afiliacion' => 'La fecha de afiliación no puede ser mayor a la fecha de fin contrato (' . $obj->fecha_fin_contrato . ')'])
 					->withInput();
