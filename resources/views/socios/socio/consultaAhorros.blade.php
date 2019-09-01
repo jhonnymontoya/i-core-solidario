@@ -43,7 +43,18 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<br>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<a href="{{ route('socio.consulta.ahorros.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<h5>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</h5>
+			<dl class="row">
+				<dt class="col-md-2 col-sm-6">Movimientos de:</dt>
+				<dd class="col-md-4 col-sm-6">{{ $modalidad->codigo }} - {{ $modalidad->nombre }}</dd>
+			</dl>
+		</div>
 		<div class="container-fluid">
 			<div class="card card-primary card-outline">
 				<div class="card-header with-border">
@@ -51,29 +62,9 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-9 col-md-offset-1">
-							<div class="row">
-								<div class="col-md-5">
-									<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
-								</div>
-							</div>
-							<br>
-							<div class="row">
-								<div class="col-md-12"><strong>Movimientos de:</strong> {{ $modalidad->codigo }} - {{ $modalidad->nombre }}</div>
-							</div>
-						</div>
-						<div class="col-md-2">
-							<a class="btn btn-outline-primary disabled pull-right">
-								<i class="fa fa-download"></i> Descargar
-							</a>
-						</div>
-					</div>
-					<br>
-					<hr>
-					<div class="row">
-						<div class="col-md-10 col-md-offset-1 table-responsive">
+						<div class="col-md-12 table-responsive">
 							@if($movimientos->count())
-								<table class="table table-hover">
+								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Fecha</th>
@@ -108,9 +99,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{{ route('socio.consulta.ahorros.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
 				</div>
 			</div>
+			<br>
 		</div>
 	</section>
 </div>

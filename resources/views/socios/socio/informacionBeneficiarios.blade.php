@@ -100,17 +100,10 @@
 											$valid = $errors->has('identificacion') ? 'is-invalid' : '';
 										@endphp
 										<label class="control-label">Identificación</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text">
-													<i class="fa fa-table"></i>
-												</span>
-											</div>
-											{!! Form::text('identificacion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Identificación', 'autofocus']) !!}
-											@if ($errors->has('identificacion'))
-												<div class="invalid-feedback">{{ $errors->first('identificacion') }}</div>
-											@endif
-										</div>
+										{!! Form::text('identificacion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Identificación', 'autofocus']) !!}
+										@if ($errors->has('identificacion'))
+											<div class="invalid-feedback">{{ $errors->first('identificacion') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
@@ -125,17 +118,10 @@
 											$valid = $errors->has('nombres') ? 'is-invalid' : '';
 										@endphp
 										<label class="control-label">Nombres</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text">
-													<i class="fa fa-table"></i>
-												</span>
-											</div>
-											{!! Form::text('nombres', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombres']) !!}
-											@if ($errors->has('nombres'))
-												<div class="invalid-feedback">{{ $errors->first('nombres') }}</div>
-											@endif
-										</div>
+										{!! Form::text('nombres', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombres']) !!}
+										@if ($errors->has('nombres'))
+											<div class="invalid-feedback">{{ $errors->first('nombres') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
@@ -146,17 +132,10 @@
 											$valid = $errors->has('apellidos') ? 'is-invalid' : '';
 										@endphp
 										<label class="control-label">Apellidos</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text">
-													<i class="fa fa-table"></i>
-												</span>
-											</div>
-											{!! Form::text('apellidos', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Apellidos']) !!}
-											@if ($errors->has('apellidos'))
-												<div class="invalid-feedback">{{ $errors->first('apellidos') }}</div>
-											@endif
-										</div>
+										{!! Form::text('apellidos', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Apellidos']) !!}
+										@if ($errors->has('apellidos'))
+											<div class="invalid-feedback">{{ $errors->first('apellidos') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
@@ -186,12 +165,10 @@
 										@endphp
 										<label class="control-label">Porcentaje beneficio</label>
 										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text">
-													<i class="fa fa-table"></i>
-												</span>
-											</div>
 											{!! Form::text('beneficio', 100 - $total, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '%', 'data-mask' => '000']) !!}
+											<div class="input-group-append">
+												<span class="input-group-text">%</span>
+											</div>
 											@if ($errors->has('beneficio'))
 												<div class="invalid-feedback">{{ $errors->first('beneficio') }}</div>
 											@endif

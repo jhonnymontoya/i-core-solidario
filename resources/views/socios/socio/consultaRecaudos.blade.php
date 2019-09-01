@@ -43,6 +43,11 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<a href="{{ route('socio.consulta.recaudos.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
+			</div>
+		</div>
 		<br>
 		<div class="container-fluid">
 			<div class="card card-primary card-outline">
@@ -51,7 +56,7 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-9 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-5">
 									<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
@@ -59,33 +64,42 @@
 							</div>
 							<br>
 							<div class="row">
-								<div class="col-md-12">
-									<dl class="dl-horizontal">
+								<div class="col-md-4">
+									<dl>
 										<dt>Periodo:</dt>
 										<dd>{{ $periodo }}</dd>
-
+									</dl>
+								</div>
+								<div class="col-md-4">
+									<dl>
 										<dt>Periodicidad:</dt>
 										<dd>{{ $periodicidad }}</dd>
-
+									</dl>
+								</div>
+								<div class="col-md-4">
+									<dl>
 										<dt>Pagaduria:</dt>
 										<dd>{{ $proceso->pagaduria->nombre }}</dd>
-
+									</dl>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<dl>
 										<dt>Número proceso:</dt>
 										<dd>{{ $proceso->id }}</dd>
+									</dl>
+								</div>
 
+								<div class="col-md-4">
+									<dl>
 										<dt>Estado proceso:</dt>
 										<dd>{{ $proceso->estado }}</dd>
 									</dl>
 								</div>
 							</div>
-							<br>
-						</div>
-						<div class="col-md-2">
-							<a href="{{ url()->previous() }}" class="btn btn-outline-info pull-right">Volver</a>
 						</div>
 					</div>
-					<br>
-					<hr>
 					<div class="row">
 						<div class="col-md-12 table-responsive">
 							@if($recaudos->count())
@@ -166,7 +180,7 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<th>Totales:</td>
+											<th>Totales:</th>
 
 											<th class="text-right">${{ number_format($totales->gc) }}</th>
 											<th class="text-right">${{ number_format($totales->gi) }}</th>
@@ -183,7 +197,6 @@
 											<th class="text-right">${{ number_format($totales->ajs) }}</th>
 											<th class="text-right">${{ number_format($totales->ajt) }}</th>
 										</tr>
-									</tfoot>
 								</table>
 							@else
 								<strong>No existen registros para mostrar</strong>
@@ -191,10 +204,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
-				</div>
 			</div>
-		</th>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<a href="{{ route('socio.consulta.recaudos.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
+			</div>
+		</div>
+		<br>
 	</section>
 </div>
 {{-- Fin de contenido principal de la página --}}

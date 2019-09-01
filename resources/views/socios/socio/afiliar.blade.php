@@ -68,22 +68,20 @@
 					<div class="row form-horizontal">
 						{{-- INICIO CAMPO --}}
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('fecha_afiliacion')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('fecha_afiliacion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de afiliación
-								</label>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<div class="input-group-addon">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_afiliacion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha de afiliación</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
 											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fecha_afiliacion', date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+										</span>
 									</div>
+									{!! Form::text('fecha_afiliacion', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fecha_afiliacion'))
-										<span class="help-block">{{ $errors->first('fecha_afiliacion') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('fecha_afiliacion') }}</div>
 									@endif
 								</div>
 							</div>
@@ -91,22 +89,20 @@
 						{{-- FIN CAMPO --}}
 						{{-- INICIO CAMPO --}}
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('fecha_antiguedad')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('fecha_antiguedad'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de antigüedad
-								</label>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<div class="input-group-addon">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_antiguedad') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha de antigüedad</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
 											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fecha_antiguedad', date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+										</span>
 									</div>
+									{!! Form::text('fecha_antiguedad', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fecha_antiguedad'))
-										<span class="help-block">{{ $errors->first('fecha_antiguedad') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('fecha_antiguedad') }}</div>
 									@endif
 								</div>
 							</div>
@@ -118,22 +114,20 @@
 					<div class="row form-horizontal">
 						{{-- INICIO CAMPO --}}
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('referido')?'has-error':'') }}">
-								<label class="col-sm-2 control-label">
-									@if ($errors->has('referido'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Referido por
-								</label>
-								<div class="col-sm-9">
-									<div class="input-group">
-										<div class="input-group-addon">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('referido') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Referido por</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
 											<i class="fa fa-child"></i>
-										</div>
-										{!! Form::select('referido', [], null, ['class' => 'form-control']) !!}
+										</span>
 									</div>
+									{!! Form::select('referido', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('referido'))
-										<span class="help-block">{{ $errors->first('referido') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('referido') }}</div>
 									@endif
 								</div>
 							</div>
@@ -145,17 +139,15 @@
 					<div class="row">
 						{{-- INICIO CAMPO --}}
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('comentario')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('comentario'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Comentario
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('comentario') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Comentario</label>
 								<div>
-									{!! Form::textarea('comentario', null, ['class' => 'form-control']) !!}
+									{!! Form::textarea('comentario', null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Comentario']) !!}
 									@if ($errors->has('comentario'))
-										<span class="help-block">{{ $errors->first('comentario') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('comentario') }}</div>
 									@endif
 								</div>
 							</div>
@@ -165,17 +157,9 @@
 					{{-- FIN FILA --}}
 					<br>
 				</div>
-				<div class="card-footer">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('socio') }}" class="btn btn-outline-danger">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

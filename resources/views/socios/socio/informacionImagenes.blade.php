@@ -46,7 +46,7 @@
 				<div class="card-body">
 					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" href="{{ route('socioEdit', $socio->id) }}">General</a>
+							<a class="nav-link" href="{{ route('socioEdit', $socio->id) }}">General</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('socioEditLaboral', $socio->id) }}">Laboral</a>
@@ -58,7 +58,7 @@
 							<a class="nav-link" href="{{ route('socioEditBeneficiarios', $socio->id) }}">Beneficiarios</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{ route('socioEditImagenes', $socio->id) }}">Imagen</a>
+							<a class="nav-link active" href="{{ route('socioEditImagenes', $socio->id) }}">Imagen</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('socioEditFinanciera', $socio->id) }}">Financiera</a>
@@ -79,12 +79,13 @@
 										<div id="image-cropper">
 											<div class="cropit-preview"></div>
 											<input type="file" class="cropit-image-input" />
-											<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
-											<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
-											<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-											<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
-											<br>
-											<a class="select-image-btn btn btn-outline-primary">Seleccione una imagen</a>
+											<div class="col-12 text-center">
+												<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-undo"></i></a>
+												<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-redo"></i></a>
+												<a class="btn btn-outline-secondary btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
+												<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
+												<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -97,12 +98,13 @@
 										<div id="image-cropper">
 											<div class="cropit-preview"></div>
 											<input type="file" class="cropit-image-input" />
-											<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
-											<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
-											<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-											<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
-											<br>
-											<a class="select-image-btn btn btn-outline-primary">Seleccione una imagen</a>
+											<div class="col-12 text-center">
+												<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-undo"></i></a>
+												<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-redo"></i></a>
+												<a class="btn btn-outline-secondary btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
+												<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
+												<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -134,9 +136,6 @@
 		background-size: cover;
 		width: 250px;
 		height: 250px;
-	}
-	.select-image-btn{
-		margin-top: 5px;
 	}
 	#imagen .cropit-preview-image-container{
 		background-image: url('{{ asset('storage/avatars/avatar-160x160.png') }}');

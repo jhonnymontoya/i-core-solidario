@@ -43,8 +43,13 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<br>
 		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{{ route('socio.consulta.creditos.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
+				</div>
+			</div>
+			<br>
 			<div class="card card-primary card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Consulta movimientos</h3>
@@ -52,7 +57,7 @@
 				<div class="card-body">
 					<br>
 					<div class="row">
-						<div class="col-md-9 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-5">
 									<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
@@ -62,11 +67,6 @@
 							<div class="row">
 								<div class="col-md-12"><strong>Detalles de:</strong> {{ $credito->numero_obligacion }} {{ $credito->modalidadCredito->nombre }}</div>
 							</div>
-						</div>
-						<div class="col-md-2">
-							<a class="btn btn-outline-primary disabled pull-right">
-								<i class="fa fa-download"></i> Descargar
-							</a>
 						</div>
 					</div>
 					<br>
@@ -197,14 +197,14 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
-								<div class="col-md-1 col-sm-12 text-right"><strong>Observaciones:</strong></div>
-								<div class="col-md-11 col-sm-12">{{ $credito->observaciones }}</div>
+								<div class="col-md-2 col-sm-12 text-right"><strong>Observaciones:</strong></div>
+								<div class="col-md-10 col-sm-12">{{ $credito->observaciones }}</div>
 							</div>
 						</div>
 					</div>
 					<br>
-					<a id="verAmortizacion" class="btn btn-outline-info btn-sm">Ver amortización</a>
-					<a id="verCodeudores" class="btn btn-outline-info btn-sm">Ver codeudores</a>
+					<a href="#" id="verAmortizacion" class="btn btn-outline-info btn-sm">Ver amortización</a>
+					<a href="#" id="verCodeudores" class="btn btn-outline-info btn-sm">Ver codeudores</a>
 					@if($credito->amortizaciones->count())
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>
@@ -327,9 +327,9 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1 table-responsive">
+						<div class="col-md-12 table-responsive">
 							@if($movimientos->count())
-								<table class="table table-hover">
+								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Fecha</th>
@@ -376,10 +376,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{{ route('socio.consulta.creditos.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
 				</div>
 			</div>
 		</div>
+		<br>
 	</section>
 </div>
 {{-- Fin de contenido principal de la página --}}
@@ -392,6 +396,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#verAmortizacion").click(function(e){
+			e.preventDefault();
 			if($("#amortizacion").data("visible")){
 				$(this).text('Ver amortización');
 				$("#amortizacion").data("visible", false);
@@ -406,6 +411,7 @@
 		});
 
 		$("#verCodeudores").click(function(e){
+			e.preventDefault();
 			if($("#codeudores").data("visible")){
 				$(this).text('Ver codeudores');
 				$("#codeudores").data("visible", false);

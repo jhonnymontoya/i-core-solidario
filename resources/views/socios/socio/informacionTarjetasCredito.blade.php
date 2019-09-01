@@ -87,37 +87,29 @@
 							<div class="row">
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-6">
-									<div class="form-group {{ ($errors->has('franquicia')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('franquicia'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Franquicia
-										</label>
-										<div class="col-sm-8">
-											{!! Form::select('franquicia', $franquicias, null, ['class' => 'form-control select2']) !!}
-											@if ($errors->has('franquicia'))
-												<span class="help-block">{{ $errors->first('franquicia') }}</span>
-											@endif
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('franquicia') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Franquicia</label>
+										{!! Form::select('franquicia', $franquicias, null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+										@if ($errors->has('franquicia'))
+											<div class="invalid-feedback">{{ $errors->first('franquicia') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-6">
-									<div class="form-group {{ ($errors->has('banco')?'has-error':'') }}">
-										<label class="col-sm-3 control-label">
-											@if ($errors->has('banco'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Banco
-										</label>
-										<div class="col-sm-9">
-											{!! Form::select('banco', [], null, ['class' => 'form-control select2']) !!}
-											@if ($errors->has('banco'))
-												<span class="help-block">{{ $errors->first('banco') }}</span>
-											@endif
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('banco') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Banco</label>
+										{!! Form::select('banco', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+										@if ($errors->has('banco'))
+											<div class="invalid-feedback">{{ $errors->first('banco') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
@@ -127,56 +119,46 @@
 							<div class="row">
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-3">
-									<div class="form-group {{ ($errors->has('anio')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('anio'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Año vencimiento
-										</label>
-										<div class="col-sm-8">
-											{!! Form::text('anio', null, ['class' => 'form-control', 'placeholder' => 'Año vencimiento', 'autocomplete' => 'off', 'data-mask' => '0000', 'autofocus']) !!}
-											@if ($errors->has('anio'))
-												<span class="help-block">{{ $errors->first('anio') }}</span>
-											@endif
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('anio') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Año vencimiento</label>
+										{!! Form::text('anio', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Año vencimiento', 'data-mask' => '0000', 'autofocus']) !!}
+										@if ($errors->has('anio'))
+											<div class="invalid-feedback">{{ $errors->first('anio') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-3">
-									<div class="form-group {{ ($errors->has('mes')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('mes'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Mes vencimiento
-										</label>
-										<div class="col-sm-8">
-											{!! Form::text('mes', null, ['class' => 'form-control', 'placeholder' => 'Mes vencimiento', 'autocomplete' => 'off', 'data-mask' => '00']) !!}
-											@if ($errors->has('mes'))
-												<span class="help-block">{{ $errors->first('mes') }}</span>
-											@endif
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('mes') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Mes vencimiento</label>
+										{!! Form::text('mes', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Mes vencimiento', 'data-mask' => '00']) !!}
+										@if ($errors->has('mes'))
+											<div class="invalid-feedback">{{ $errors->first('mes') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-3">
-									<div class="form-group {{ ($errors->has('cupo')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('cupo'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Cupo
-										</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<span class="input-group-addon">$</span>
-												{!! Form::text('cupo', null, ['class' => 'form-control', 'placeholder' => 'Cupo', 'autocomplete' => 'off', 'data-maskMoney', 'autofocus']) !!}
+									<div class="form-group">
+										@php
+											$valid = $errors->has('cupo') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Cupo</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">$</span>
 											</div>
+											{!! Form::text('cupo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Cupo', 'data-maskMoney', 'autofocus']) !!}
 											@if ($errors->has('cupo'))
-												<span class="help-block">{{ $errors->first('cupo') }}</span>
+												<div class="invalid-feedback">{{ $errors->first('cupo') }}</div>
 											@endif
 										</div>
 									</div>
@@ -184,20 +166,18 @@
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-3">
-									<div class="form-group {{ ($errors->has('saldo')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('saldo'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Saldo
-										</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<span class="input-group-addon">$</span>
-												{!! Form::text('saldo', null, ['class' => 'form-control', 'placeholder' => 'Saldo', 'autocomplete' => 'off', 'data-maskMoney']) !!}
+									<div class="form-group">
+										@php
+											$valid = $errors->has('saldo') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Saldo</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">$</span>
 											</div>
+											{!! Form::text('saldo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Saldo', 'data-maskMoney']) !!}
 											@if ($errors->has('saldo'))
-												<span class="help-block">{{ $errors->first('saldo') }}</span>
+												<div class="invalid-feedback">{{ $errors->first('saldo') }}</div>
 											@endif
 										</div>
 									</div>
