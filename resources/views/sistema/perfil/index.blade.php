@@ -40,30 +40,24 @@
 			<div class="card card-{{ $perfiles->total()?'primary':'danger' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Perfiles</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-4 col-sm-12">
 							{!! Form::select('entidad', $entidades, null, ['class' => 'form-control select2', 'placeholder' => 'Entidad']); !!}
 						</div>
-						<div class="col-md-3 col-sm-12">
+						<div class="col-md-4 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
 						<div class="col-md-3 col-sm-12">
 							{!! Form::select('estado', [true => 'Activo', false => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 
 					@if(!$perfiles->total())
 						<br><br>

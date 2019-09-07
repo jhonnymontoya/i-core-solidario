@@ -40,12 +40,6 @@
 			<div class="card card-{{ $menus->count()?'primary':'danger' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Menús</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
 					@if(!$menus->count())

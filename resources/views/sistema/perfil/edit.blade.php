@@ -34,29 +34,19 @@
 		<div class="container-fluid">
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
 				{!! Form::model($perfil, ['url' => ['perfil', $perfil], 'method' => 'PUT', 'role' => 'form']) !!}
-				<div class="card-header with-border">
-					<h3 class="card-title">Editar perfil</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
-				</div>
+				<div class="card-header with-border"><h3 class="card-title">Editar perfil</h3></div>
 				<div class="card-body">
 
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('entidad_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('entidad_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Entidad
-								</label>
-								{!! Form::select('entidad_id', $entidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una entidad', 'required']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('entidad_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Entidad</label>
+								{!! Form::select('entidad_id', $entidades, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una entidad', 'required']) !!}
 								@if ($errors->has('entidad_id'))
-									<span class="help-block">{{ $errors->first('entidad_id') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('entidad_id') }}</div>
 								@endif
 							</div>
 						</div>
@@ -64,55 +54,51 @@
 
 					<div class="row">
 						<div class="col-md-10">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del perfil', 'required']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre del perfil', 'required']) !!}
 								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-2">
-							<div class="form-group {{ ($errors->has('esta_activo')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								<label class="control-label">¿Activo?</label>
+								<div>
+									@php
+										$valid = $errors->has('esta_activo') ? 'is-invalid' : '';
+										$estaActivo = empty(old('esta_activo')) ? $perfil->esta_activo : old('esta_activo');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $estaActivo ? 'active' : '' }}">
+											{!! Form::radio('esta_activo', 1, ($estaActivo ? true : false), ['class' => [$valid]]) !!}Sí
+										</label>
+										<label class="btn btn-danger {{ !$estaActivo ? 'active' : '' }}">
+											{!! Form::radio('esta_activo', 0, (!$estaActivo ? true : false ), ['class' => [$valid]]) !!}No
+										</label>
+									</div>
 									@if ($errors->has('esta_activo'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('esta_activo') }}</div>
 									@endif
-									¿Activo?
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary{{ $perfil->esta_activo?' active':'' }}">
-										{!! Form::radio('esta_activo', '1', true) !!}Sí
-									</label>
-									<label class="btn btn-outline-danger{{ !$perfil->esta_activo?' active':'' }}">
-										{!! Form::radio('esta_activo', '0', false) !!}No
-									</label>
 								</div>
-								@if ($errors->has('esta_activo'))
-									<span class="help-block">{{ $errors->first('esta_activo') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('descripcion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Descripción
-								</label>
-								{!! Form::textarea('descripcion', null, ['class' => 'form-control', 'placeholder' => 'Descripción']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('descripcion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Descripción</label>
+								{!! Form::textarea('descripcion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
 								@if ($errors->has('descripcion'))
-									<span class="help-block">{{ $errors->first('descripcion') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('descripcion') }}</div>
 								@endif
 							</div>
 						</div>
@@ -120,22 +106,20 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('menus')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('menus'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Menús
-								</label>
-								{!! Form::select('menus[]', $menuList, $perfil->menus->pluck('id')->toArray(), ['class' => 'form-control', 'multiple', 'style' => 'height:200px;', 'required']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('menus') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Menús</label>
+								{!! Form::select('menus[]', $menuList, $perfil->menus->pluck('id')->toArray(), ['class' => [$valid, 'form-control'], 'multiple', 'style' => 'height:200px;', 'required']) !!}
 								@if ($errors->has('menus'))
-									<span class="help-block">{{ $errors->first('menus') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('menus') }}</div>
 								@endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('perfil') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
@@ -154,7 +138,6 @@
 <script type="text/javascript">
 	$(function(){
 		$("input[name='nombre']").enfocar();
-		$(".select2").select2();
 	});
 </script>
 @endpush
