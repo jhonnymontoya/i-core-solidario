@@ -46,75 +46,68 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('pagaduria_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('pagaduria_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Pagaduria
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('pagaduria_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Pagaduría</label>
 								{!! Form::text('pagaduria_id', $conceptoRecaudo->pagaduria->nombre, ['class' => 'form-control', 'placeholder' => 'Seleccione pagaduría', 'readonly']) !!}
 								@if ($errors->has('pagaduria_id'))
-									<span class="help-block">{{ $errors->first('pagaduria_id') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('pagaduria_id') }}</div>
 								@endif
 							</div>
 						</div>
 
-						<div class="col-md-2">
-							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('codigo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código concepto
-								</label>
-								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Código del concepto', 'autofocus']) !!}
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('codigo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Código concepto</label>
+								{!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Código concepto', 'autofocus']) !!}
 								@if ($errors->has('codigo'))
-									<span class="help-block">{{ $errors->first('codigo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
 								@endif
 							</div>
 						</div>
 
-						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del concepto']) !!}
+						<div class="col-md-5">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
 								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
 								@endif
 							</div>
 						</div>
 					</div>
 					<br><br>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 text-right">
 							{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
-							<a href="{{ url('conceptosRecaudos') }}" class="btn btn-outline-danger pull-right">Volver</a>
+							<a href="{{ url('conceptosRecaudos') }}" class="btn btn-outline-danger">Volver</a>
 						</div>
 					</div>
 
 					<br>
-					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active">
-							<a href="#ahorros" aria-controls="ahorros" role="tab" data-toggle="tab">Ahorros</a>
+					<ul class="nav nav-pills mb-3" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="pill" href="#ahorros" role="tab">Ahorros</a>
 						</li>
-						<li role="presentation">
-							<a href="#creditos" aria-controls="creditos" role="tab" data-toggle="tab">Créditos</a>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="pill" href="#creditos" role="tab">Crédito</a>
 						</li>
 					</ul>
-
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="ahorros">
+					<div class="tab-content" id="pills-tabContent">
+						<div class="tab-pane fade show active" id="ahorros" role="tabpanel">
 							<br>
 							<div class="row">
-								<div class="col-md-10 col-md-offset-1 table-responsive">
+								<div class="col-md-12 table-responsive">
 									@if($modalidadesAhorros->count())
-										<table class="table">
+										<table class="table table-striped table-hover">
 											<thead>
 												<tr>
 													<th>Código</th>
@@ -158,12 +151,12 @@
 								</div>
 							</div>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="creditos">
+						<div class="tab-pane fade" id="creditos" role="tabpanel">
 							<br>
 							<div class="row">
-								<div class="col-md-10 col-md-offset-1 table-responsive">
+								<div class="col-md-12 table-responsive">
 									@if($modalidadesCreditos->count())
-										<table class="table">
+										<table class="table table-striped table-hover">
 											<thead>
 												<tr>
 													<th>Código</th>
@@ -208,8 +201,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="card-footer">
 				</div>
 				{!! Form::close() !!}
 			</div>

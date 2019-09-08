@@ -42,16 +42,16 @@
 					<h3 class="card-title">Recaudos</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => '/recaudosCaja', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => '/recaudosCaja', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-11 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$recaudos->total())
 						<p>
@@ -63,7 +63,7 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Tercero</th>
@@ -82,7 +82,6 @@
 											<td>{{ $recaudo->tercero->nombre_completo }}</td>
 											<td>{{ $recaudo->cuif->codigo }} - {{ $recaudo->cuif->nombre }}</td>
 											<td>{{ $recaudo->fecha_recaudo }}</td>
-											<td>{{ $recaudo->contacto }}</td>
 											<td>${{ number_format($data->totalRecaudo) }}</td>
 											<td>
 												<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ $recaudo->movimiento->tipoComprobante->codigo }}&numeroComprobante={{ $recaudo->movimiento->numero_comprobante }}" class="btn btn-outline-secondary btn-sm" title="Imprimir comprobante">

@@ -68,61 +68,57 @@
 					<h3 class="card-title">Abonos con ahorros</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('socio', 'fecha', 'modalidad'), ['url' => 'recaudosAhorros/create', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('socio', 'fecha', 'modalidad'), ['url' => 'recaudosAhorros/create', 'method' => 'GET', 'role' => 'search']) !!}
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('socio')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('socio'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione socio
-								</label>
-								{!! Form::select('socio', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('socio') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Seleccione socio</label>
+								{!! Form::select('socio', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('socio'))
-									<span class="help-block">{{ $errors->first('socio') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('socio') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('modalidad'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione modalidad
-								</label>
-								{!! Form::select('modalidad', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione modalidad']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('modalidad') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Seleccione modalidad</label>
+								{!! Form::select('modalidad', $modalidades, null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Seleccione modalidad']) !!}
 								@if ($errors->has('modalidad'))
-									<span class="help-block">{{ $errors->first('modalidad') }}</span>
-								@endif								
+									<div class="invalid-feedback">{{ $errors->first('modalidad') }}</div>
+								@endif
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('fecha')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">NombreElemento</label>
 								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
 									</div>
-									{!! Form::text('fecha', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+									{!! Form::text('fecha', $fecha, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha'))
+										<div class="invalid-feedback">{{ $errors->first('fecha') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fecha'))
-									<span class="help-block">{{ $errors->first('fecha') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<label class="control-label">&nbsp;</label><br>
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 
 					@if ($tercero)
 						<br>
@@ -153,8 +149,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
-								<a class="btn btn-outline-success pull-right continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
+							<div class="col-md-12 text-right">
+								<a href="#" class="btn btn-outline-success pull-right continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
 							</div>
 						</div>
 						<br>
@@ -174,9 +170,9 @@
 						<br>
 					@endif
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					@if ($tercero)
-						<a class="btn btn-outline-success continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
+						<a href="#" class="btn btn-outline-success continuar" data-toggle="modal" data-target="#mResumen">Continuar</a>
 						<a href="{{ url('recaudosAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 					@else
 						<a href="{{ url('recaudosAhorros') }}" class="btn btn-outline-danger pull-right">Volver</a>

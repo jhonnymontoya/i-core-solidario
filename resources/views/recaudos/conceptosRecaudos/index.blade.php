@@ -42,8 +42,8 @@
 					<h3 class="card-title">Conceptos de recaudo</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only(['name', 'pagaduria']), ['url' => '/conceptosRecaudos', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only(['name', 'pagaduria']), ['url' => '/conceptosRecaudos', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-5 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
@@ -53,8 +53,8 @@
 						<div class="col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$conceptosRecaudos->total())
 						<p>
@@ -66,7 +66,7 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Código</th>
@@ -83,7 +83,6 @@
 											<td>{{ $concepto->pagaduria->nombre }}</td>
 											<td>
 												<a class="btn btn-outline-info btn-sm" href="{{ route('conceptosRecaudosEdit', $concepto) }}"><i class="fa fa-edit"></i></a>
-												<a class="btn btn-outline-danger btn-sm disabled"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									@endforeach

@@ -68,66 +68,68 @@
 					<h3 class="card-title">Recaudo por caja</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('tercero', 'fecha', 'cuenta'), ['url' => 'recaudosCaja/create', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('tercero', 'fecha', 'cuenta'), ['url' => 'recaudosCaja/create', 'method' => 'GET', 'role' => 'search']) !!}
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('tercero')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('tercero'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione tercero
-								</label>
-								{!! Form::select('tercero', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tercero') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Seleccione tercero</label>
+								{!! Form::select('tercero', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione un tercero']) !!}
 								@if ($errors->has('tercero'))
-									<span class="help-block">{{ $errors->first('tercero') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('tercero') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('cuenta'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione cuenta
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuenta') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Seleccione cuenta</label>
 								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-table"></i>
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
 									</div>
-									{!! Form::select('cuenta', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
+									{!! Form::select('cuenta', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+									@if ($errors->has('cuenta'))
+										<div class="invalid-feedback">{{ $errors->first('cuenta') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('cuenta'))
-									<span class="help-block">{{ $errors->first('cuenta') }}</span>
-								@endif								
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('fecha')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha</label>
 								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
 									</div>
-									{!! Form::text('fecha', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+									<?php
+										$fecha = date('d/m/Y');
+										$fecha = Request::has("fecha") ? Request::get("fecha") : $fecha;
+									?>
+									{!! Form::text('fecha', $fecha, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha'))
+										<div class="invalid-feedback">{{ $errors->first('fecha') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fecha'))
-									<span class="help-block">{{ $errors->first('fecha') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<label class="control-label">&nbsp;</label><br>
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 
 					@if ($tercero)
 						<br>
@@ -157,8 +159,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
-								<a class="btn btn-outline-success pull-right" data-toggle="modal" data-target="#mResumen">Continuar</a>
+							<div class="col-md-12 text-right">
+								<a href="#" class="btn btn-outline-success pull-right" data-toggle="modal" data-target="#mResumen">Continuar</a>
 							</div>
 						</div>
 						<br>
@@ -178,9 +180,9 @@
 						<br>
 					@endif
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					@if ($tercero)
-						<a class="btn btn-outline-success" data-toggle="modal" data-target="#mResumen">Continuar</a>
+						<a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#mResumen">Continuar</a>
 						<a href="{{ url('recaudosCaja') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 					@else
 						<a href="{{ url('recaudosCaja') }}" class="btn btn-outline-danger pull-right">Volver</a>

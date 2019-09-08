@@ -50,20 +50,18 @@
 					<h3 class="card-title">Recaudos</h3>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						{!! Form::model(Request::only('pagaduria'), ['url' => 'recaudosNomina', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+					{!! Form::model(Request::only('pagaduria'), ['url' => 'recaudosNomina', 'method' => 'GET', 'role' => 'search']) !!}
+					<div class="row form-horizontal">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('pagaduria')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('pagaduria'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione pagaduría
-								</label>
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('pagaduria') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-sm-4 control-label">Seleccione pagaduría</label>
 								<div class="col-sm-8">
-									{!! Form::select('pagaduria', $pagadurias, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione pagaduria']) !!}
+									{!! Form::select('pagaduria', $pagadurias, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione pagaduria']) !!}
 									@if ($errors->has('pagaduria'))
-										<span class="help-block">{{ $errors->first('pagaduria') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('pagaduria') }}</div>
 									@endif
 								</div>
 							</div>
@@ -71,18 +69,18 @@
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 
 					@if($pagaduria)
 						<br>
 						<div class="row">
-							<div class="col-md-12 col-md-offset-1">
+							<div class="col-md-12">
 								<div class="row">
 									<div class="col-md-1"><strong>Pagaduría:</strong></div>
 									<div class="col-md-2">{{ $pagaduria->nombre }}</div>
 
-									<div class="col-md-1"><strong>Periodicidad:</strong></div>
+									<div class="col-md-2"><strong>Periodicidad:</strong></div>
 									<div class="col-md-2">{{ title_case($pagaduria->periodicidad_pago) }}</div>
 
 									<?php
@@ -100,16 +98,16 @@
 
 						<br>
 						<div class="row">
-							<div class="col-md-11 col-md-offset-1">
+							<div class="col-md-12">
 								<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Procesar periodo</button>
 							</div>
 						</div>
 
 						<div class="row">
-							<div class="col-md-10 col-md-offset-1 table-responsive">
+							<div class="col-md-12 table-responsive">
 								<br>
 								@if($pagaduria->controlProceso->count())
-								<table class="table">
+								<table class="table table-striped table-hover">
 									<thead>
 										<th>Periodo</th>
 										<th>Estado</th>
@@ -124,7 +122,7 @@
 												<td>{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</td>
 												<td>{{ title_case($controlProceso->estado) }}</td>
 												<td>
-													<a class="btn btn-outline-primary btn-sm" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fa fa-external-link"></i></a>
+													<a class="btn btn-outline-primary btn-sm" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fas fa-external-link-alt"></i></a>
 												</td>
 											</tr>
 										@endforeach
@@ -139,12 +137,12 @@
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										<h4 class="modal-title" id="tituloConfirmacion">Generación recaudos</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 									</div>
 									<div class="modal-body">
 										<div class="row">
-											<div class="col-md-10 col-md-offset-1">
+											<div class="col-md-12">
 												<div class="alert alert-warning">
 													<h4>
 														<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
@@ -165,7 +163,7 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<a class="btn btn-outline-success" id="procesar">Procesar</a>
+										<a href="#" class="btn btn-outline-success" id="procesar">Procesar</a>
 										{{--{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success disabled', 'id' => 'procesar']) !!}--}}
 										<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 									</div>
@@ -192,7 +190,8 @@
 	$(function(){
 		$(".select2").select2();
 	});
-	$("#procesar").click(function(){
+	$("#procesar").click(function(e){
+		e.preventDefault();
 		$("#procesar").addClass("disabled");
 		$("#formProcesar").submit();
 	});

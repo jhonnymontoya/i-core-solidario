@@ -7,15 +7,15 @@
 		{!! Form::hidden('data', "") !!}
 		<div class="modal-content">
 			<div class="modal-header">
+				<h3 class="modal-title" id="mResumenLabel">Resumen de abono</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
 					<span aria-hiden="true">&times;</span>
 				</button>
-				<h3 class="modal-title" id="mResumenLabel">Resumen de abono</h3>
 			</div>
 
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
+					<div class="col-md-12">
 						<div class="alert alert-warning">
 							<h4>
 								<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
