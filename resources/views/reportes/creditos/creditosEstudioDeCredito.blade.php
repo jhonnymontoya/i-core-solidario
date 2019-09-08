@@ -3,10 +3,10 @@
 	$tercero = $entidad->terceroEntidad;
 @endphp
 <div class="row">
-	<div class="col-xs-2 text-center">
+	<div class="col-2 text-center">
 		<img src="{{ asset('storage/entidad/' . $imagen) }}">
 	</div>
-	<div class="col-xs-10 text-center">
+	<div class="col-10 text-center">
 		<br>
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
@@ -23,42 +23,42 @@
 		<div class="card-header with-border"><strong>SOLICITUD</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1">
+				<div class="col-md-12">
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Nombre:</strong></div>
-						<div class="col-md-9 col-xs-9">{{ $ter->tipoIdentificacion->codigo }} {{ $ter->nombre_completo }}</div>
+						<div class="col-md-3 col-3"><strong>Nombre:</strong></div>
+						<div class="col-md-9 col-9">{{ $ter->tipoIdentificacion->codigo }} {{ $ter->nombre_completo }}</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Valor solicitud:</strong></div>
-						<div class="col-md-2 col-xs-2">${{ number_format($solicitud->valor_credito) }}</div>
+						<div class="col-md-3 col-3"><strong>Valor solicitud:</strong></div>
+						<div class="col-md-2 col-2">${{ number_format($solicitud->valor_credito) }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Modalidad:</strong></div>
-						<div class="col-md-4 col-xs-4">{{ $solicitud->modalidadCredito->nombre }}</div>
+						<div class="col-md-3 col-3"><strong>Modalidad:</strong></div>
+						<div class="col-md-4 col-4">{{ $solicitud->modalidadCredito->nombre }}</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Fecha solicitud:</strong></div>
-						<div class="col-md-2 col-xs-2">{{ $solicitud->fecha_solicitud }}</div>
+						<div class="col-md-3 col-3"><strong>Fecha solicitud:</strong></div>
+						<div class="col-md-2 col-2">{{ $solicitud->fecha_solicitud }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Tasa M.V.:</strong></div>
-						<div class="col-md-4 col-xs-4">{{ number_format($solicitud->tasa, 2) }}%</div>
+						<div class="col-md-3 col-3"><strong>Tasa M.V.:</strong></div>
+						<div class="col-md-4 col-4">{{ number_format($solicitud->tasa, 2) }}%</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Radicado:</strong></div>
-						<div class="col-md-2 col-xs-2">{{ $solicitud->id }}</div>
+						<div class="col-md-3 col-3"><strong>Radicado:</strong></div>
+						<div class="col-md-2 col-2">{{ $solicitud->id }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Fecha aprobación:</strong></div>
-						<div class="col-md-4 col-xs-4">{{ $solicitud->fecha_aprobacion }}</div>
+						<div class="col-md-3 col-3"><strong>Fecha aprobación:</strong></div>
+						<div class="col-md-4 col-4">{{ $solicitud->fecha_aprobacion }}</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Estado:</strong></div>
-						<div class="col-md-2 col-xs-2">{{ $solicitud->estado_solicitud }}</div>
+						<div class="col-md-3 col-3"><strong>Estado:</strong></div>
+						<div class="col-md-2 col-2">{{ $solicitud->estado_solicitud }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Fecha desembolso:</strong></div>
-						<div class="col-md-4 col-xs-4">{{ $solicitud->fecha_desembolso }}</div>
+						<div class="col-md-3 col-3"><strong>Fecha desembolso:</strong></div>
+						<div class="col-md-4 col-4">{{ $solicitud->fecha_desembolso }}</div>
 					</div>
 
 				</div>
@@ -71,7 +71,7 @@
 		<div class="card-header with-border"><strong>RESUMEN CONDICIONES</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1 table_responsive">
+				<div class="col-md-12 table_responsive">
 					@if ($solicitud->cumplimientoCondiciones->count())
 						<table class="table table-striped">
 							<thead>
@@ -173,29 +173,29 @@
 		<div class="card-header with-border"><strong>AMORTIZACIÓN</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1">
+				<div class="col-md-12">
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>No. cuotas:</strong></div>
-						<div class="col-md-2 col-xs-2">{{ $solicitud->plazo }}</div>
+						<div class="col-md-3 col-3"><strong>No. cuotas:</strong></div>
+						<div class="col-md-2 col-2">{{ $solicitud->plazo }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Forma pago:</strong></div>
-						<div class="col-md-4 col-xs-4">{{ $solicitud->forma_pago }}</div>
+						<div class="col-md-3 col-3"><strong>Forma pago:</strong></div>
+						<div class="col-md-4 col-4">{{ $solicitud->forma_pago }}</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Periodicidad:</strong></div>
-						<div class="col-md-2 col-xs-2">{{ $solicitud->periodicidad }}</div>
+						<div class="col-md-3 col-3"><strong>Periodicidad:</strong></div>
+						<div class="col-md-2 col-2">{{ $solicitud->periodicidad }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Valor cuota:</strong></div>
-						<div class="col-md-4 col-xs-4">${{ number_format($solicitud->valor_cuota, 0) }}</div>
+						<div class="col-md-3 col-3"><strong>Valor cuota:</strong></div>
+						<div class="col-md-4 col-4">${{ number_format($solicitud->valor_cuota, 0) }}</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-3 col-xs-3"><strong>Primer pago:</strong></div>
-						<div class="col-md-2 col-xs-2">{{ $solicitud->fecha_primer_pago }}</div>
+						<div class="col-md-3 col-3"><strong>Primer pago:</strong></div>
+						<div class="col-md-2 col-2">{{ $solicitud->fecha_primer_pago }}</div>
 
-						<div class="col-md-3 col-xs-3"><strong>Tipo:</strong></div>
-						<div class="col-md-4 col-xs-4">{{ $solicitud->tipo_amortizacion }}</div>
+						<div class="col-md-3 col-3"><strong>Tipo:</strong></div>
+						<div class="col-md-4 col-4">{{ $solicitud->tipo_amortizacion }}</div>
 					</div>
 				</div>
 			</div>
@@ -207,7 +207,7 @@
 		<div class="card-header with-border"><strong>CRÉDITOS RECOGIDOS</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1 table_responsive">
+				<div class="col-md-12 table_responsive">
 					@if($creditosRecogidos->count())
 						<table class="table table-striped table-hover">
 							<thead>
@@ -260,7 +260,7 @@
 		<div class="card-header with-border"><strong>GARANTÍAS - CODEUDORES</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1">
+				<div class="col-md-12">
 					<ul>
 						@foreach ($codeudores['garantias'] as $key => $garantia)
 							<li>
@@ -298,7 +298,7 @@
 		<div class="card-header with-border"><strong>GARANTÍAS - REAL</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1">
+				<div class="col-md-12">
 					Sin datos
 				</div>
 			</div>
@@ -310,7 +310,7 @@
 		<div class="card-header with-border"><strong>GARANTÍAS - FONDO DE GARANTÍAS</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1">
+				<div class="col-md-12">
 					Sin datos
 				</div>
 			</div>
@@ -322,7 +322,7 @@
 		<div class="card-header with-border"><strong>CUPO</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1 table_responsive">
+				<div class="col-md-12 table_responsive">
 					@if($modalidades->count() || $creditos->count())
 						<table class="table table-striped table-hover">
 							<thead>
@@ -401,7 +401,7 @@
 		<div class="card-header with-border"><strong>ENDEUDAMIENTO MENSUAL</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-7 col-md-offset-1 table_responsive">
+				<div class="col-md-8 table_responsive">
 					@if ($endeudamientos->count())
 						<table class="table table-striped">
 							<thead>
@@ -458,7 +458,7 @@
 			<div class="card-header with-border"><strong>DOCUMENTACIÓN</strong></div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-11 col-md-offset-1 table_responsive">
+					<div class="col-md-12 table_responsive">
 						@if ($solicitud->documentos->count())
 							<table class="table table-striped">
 								<thead>
@@ -497,7 +497,7 @@
 		<div class="card-header with-border"><strong>OBSERVACIONES</strong></div>
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-11 col-md-offset-1 table_responsive">
+				<div class="col-md-12 table_responsive">
 					@if ($solicitud->observaciones)
 						<p>{{ $solicitud->observaciones }}</p>
 					@else
@@ -509,36 +509,36 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-4">
+	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
 			<div class="text-center" style="border-bottom:1px solid #000;">
 				<strong>Radicado</strong>
 			</div>
-			<div style="height: 55px;"></div>
+			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
 				<strong>Usuario:</strong> I-Core
 			</div>
 		</div>
 	</div>
 
-	<div class="col-xs-4">
+	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
 			<div class="text-center" style="border-bottom:1px solid #000;">
 				<strong>Aprobado</strong>
 			</div>
-			<div style="height: 55px;"></div>
+			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
 				<strong>Usuario:</strong> I-Core
 			</div>
 		</div>
 	</div>
 
-	<div class="col-xs-4">
+	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
 			<div class="text-center" style="border-bottom:1px solid #000;">
 				<strong>Desembolsado</strong>
 			</div>
-			<div style="height: 55px;"></div>
+			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
 				<strong>Usuario:</strong> I-Core
 			</div>

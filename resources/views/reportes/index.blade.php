@@ -44,8 +44,8 @@
 					<h3 class="card-title">Menú reportes</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'modulo'), ['url' => 'reportes', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'modulo'), ['url' => 'reportes', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-8 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
@@ -55,8 +55,8 @@
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$reportes->total())
 						<p>
 							<div class="row">
@@ -69,7 +69,7 @@
 					@else
 						<br>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-hover table-striped">
 								<thead>
 									<tr>
 										<th>Nombre</th>
@@ -87,7 +87,7 @@
 											<td>{{ str_limit($reporte->descripcion, 50) }}</td>
 											<td>{{ $reporte->parametros->count() }}</td>
 											<td>
-												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-outline-primary btn-sm"><i class="fa fa-play"></i> Ver reporte</a>
+												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-outline-primary btn-sm"><i class="far fa-play-circle"></i></a>
 											</td>
 										</tr>
 									@endforeach

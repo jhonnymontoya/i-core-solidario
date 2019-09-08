@@ -3,10 +3,10 @@
 	$tercero = $entidad->terceroEntidad;
 @endphp
 <div class="row">
-	<div class="col-xs-2 text-center">
+	<div class="col-2 text-center">
 		<img src="{{ asset('storage/entidad/' . $imagen) }}">
 	</div>
-	<div class="col-xs-10 text-center">
+	<div class="col-10 text-center">
 		<br>
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>

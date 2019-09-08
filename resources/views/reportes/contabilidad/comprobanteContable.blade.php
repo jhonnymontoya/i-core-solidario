@@ -3,10 +3,10 @@
 	$tercero = $entidad->terceroEntidad;
 @endphp
 <div class="row">
-	<div class="col-xs-2 text-center">
+	<div class="col-2 text-center">
 		<img src="{{ asset('storage/entidad/' . $imagen) }}">
 	</div>
-	<div class="col-xs-5">
+	<div class="col-5">
 		<div style="border:1px solid #400; height: 100px; padding:5px;">
 			<strong>
 				<label class="text-primary">{{ $tercero->nombre }}</label>
@@ -18,7 +18,7 @@
 			@endif
 		</div>
 	</div>
-	<div class="col-xs-5">
+	<div class="col-5">
 		<div style="border:1px solid #400; height: 100px; padding:5px;">
 			<strong>
 				<label class="text-primary">{{ $cabecera->TipoDeComprobante }}</label>
@@ -36,7 +36,7 @@
 </div>
 <br>
 <div class="row">
-	<div class="col-xs-12">
+	<div class="col-12">
 		<div style="border:1px solid #400; height: 100px; padding:5px;">
 			<strong>Detalle:</strong> {{ $cabecera->Descripcion }}
 		</div>
@@ -44,7 +44,7 @@
 </div>
 <br>
 <div class="row">
-	<div class="col-xs-12 table-responsive">
+	<div class="col-12 table-responsive">
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -86,19 +86,19 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-4">
+	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
 			<div class="text-center" style="border-bottom:1px solid #000;">
 				<strong>Elaborado</strong>
 			</div>
-			<div style="height: 55px;"></div>
+			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
 				<strong>Usuario:</strong> I-Core
 			</div>
 		</div>
 	</div>
 
-	<div class="col-xs-4">
+	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
 			<div class="text-center" style="border-bottom:1px solid #000;">
 				<strong>Revisado</strong>
@@ -107,7 +107,7 @@
 		</div>
 	</div>
 
-	<div class="col-xs-4">
+	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
 			<div class="text-center" style="border-bottom:1px solid #000;">
 				<strong>Aprobado</strong>

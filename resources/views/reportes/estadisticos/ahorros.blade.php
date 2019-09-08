@@ -3,10 +3,10 @@
 	$tercero = $entidad->terceroEntidad;
 @endphp
 <div class="row">
-	<div class="col-xs-2 text-center">
+	<div class="col-2 text-center">
 		<img src="{{ asset('storage/entidad/' . $imagen) }}">
 	</div>
-	<div class="col-xs-10 text-center">
+	<div class="col-10 text-center">
 		<br>
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
@@ -152,10 +152,10 @@
 		{!! Form::select("modalidad", $keys, 0, ["size" => 8, "style" => "width: 100%"]) !!}
 	</div>
 	<div class="col-md-8 col-sm-12 table-responsive">
-		<table class="table table-responsive" id="topDiez">
+		<table class="table table-striped table-hover" id="topDiez">
 			<thead>
 				<tr>
-					<th>Nombre</th>
+					<th>Nombres</th>
 					<th class="text-center">Saldo</th>
 					<th class="text-center">Participación</th>
 				</tr>

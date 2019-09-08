@@ -3,10 +3,10 @@
 	$tercero = $entidad->terceroEntidad;
 @endphp
 <div class="row">
-	<div class="col-xs-2 text-center">
+	<div class="col-2 text-center">
 		<img src="{{ asset('storage/entidad/' . $imagen) }}">
 	</div>
-	<div class="col-xs-10 text-center">
+	<div class="col-10 text-center">
 		<br>
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
@@ -23,18 +23,18 @@
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-body">
-			<div class="col-md-9 col-md-offset-1">
+			<div class="col-md-12">
 				<div class="row">
-					<div class="col-md-2 col-xs-2"><strong>Nombre:</strong></div>
-					<div class="col-md-5 col-xs-10">{{ $ter->tipoIdentificacion->codigo }} {{ $ter->nombre_completo }}</div>
+					<div class="col-md-2 col-2"><strong>Nombre:</strong></div>
+					<div class="col-md-5 col-10">{{ $ter->tipoIdentificacion->codigo }} {{ $ter->nombre_completo }}</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-2 col-xs-2"><strong>Pagaduría:</strong></div>
-					<div class="col-md-5 col-xs-5">{{ $socio != null ?optional($socio->pagaduria)->nombre : '' }}</div>
+					<div class="col-md-2 col-2"><strong>Pagaduría:</strong></div>
+					<div class="col-md-5 col-5">{{ $socio != null ?optional($socio->pagaduria)->nombre : '' }}</div>
 
-					<div class="col-md-2 col-xs-2"><strong>Afiliación:</strong></div>
-					<div class="col-md-3 col-xs-3">{{ optional($socio)->fecha_afiliacion }}</div>
+					<div class="col-md-2 col-2"><strong>Afiliación:</strong></div>
+					<div class="col-md-3 col-3">{{ optional($socio)->fecha_afiliacion }}</div>
 				</div>
 				<?php
 					$endeudamiento = 0;
@@ -43,35 +43,35 @@
 					}
 				?>
 				<div class="row">
-					<div class="col-md-2 col-xs-2"><strong>Estado:</strong></div>
-					<div class="col-md-5 col-xs-5">{{ optional($socio)->estado }}</div>
+					<div class="col-md-2 col-2"><strong>Estado:</strong></div>
+					<div class="col-md-5 col-5">{{ optional($socio)->estado }}</div>
 
-					<div class="col-md-2 col-xs-2"><strong>Ingreso empresa:</strong></div>
-					<div class="col-md-3 col-xs-3">{{ optional($socio)->fecha_ingreso }}</div>
+					<div class="col-md-2 col-2"><strong>Ingreso empresa:</strong></div>
+					<div class="col-md-3 col-3">{{ optional($socio)->fecha_ingreso }}</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-2 col-xs-2"><strong>Sueldo:</strong></div>
-					<div class="col-md-5 col-xs-5">${{ number_format(optional($socio)->sueldo_mes) }}</div>
+					<div class="col-md-2 col-2"><strong>Sueldo:</strong></div>
+					<div class="col-md-5 col-5">${{ number_format(optional($socio)->sueldo_mes) }}</div>
 
-					<div class="col-md-2 col-xs-2"><strong>Nacimiento:</strong></div>
-					<div class="col-md-3 col-xs-3">{{ optional($ter)->fecha_nacimiento }}</div>
+					<div class="col-md-2 col-2"><strong>Nacimiento:</strong></div>
+					<div class="col-md-3 col-3">{{ optional($ter)->fecha_nacimiento }}</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-2 col-xs-2"><strong>Email:</strong></div>
-					<div class="col-md-5 col-xs-5">{{ empty($contacto) ? '' : $contacto->email }}</div>
+					<div class="col-md-2 col-2"><strong>Email:</strong></div>
+					<div class="col-md-5 col-5">{{ empty($contacto) ? '' : $contacto->email }}</div>
 
-					<div class="col-md-2 col-xs-2"><strong>Teléfono:</strong></div>
-					<div class="col-md-3 col-xs-3">{{ empty($contacto) ? '' : ($contacto->movil ?: $contacto->telefono) }}</div>
+					<div class="col-md-2 col-2"><strong>Teléfono:</strong></div>
+					<div class="col-md-3 col-3">{{ empty($contacto) ? '' : ($contacto->movil ?: $contacto->telefono) }}</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-2 col-xs-2"><strong>Cupo:</strong></div>
-					<div class="col-md-5 col-xs-5">${{ number_format($cupo) }}</div>
+					<div class="col-md-2 col-2"><strong>Cupo:</strong></div>
+					<div class="col-md-5 col-5">${{ number_format($cupo) }}</div>
 
-					<div class="col-md-2 col-xs-2"><strong>Endeudamiento:</strong></div>
-					<div class="col-md-3 col-xs-3">{{ $endeudamiento }}%</div>
+					<div class="col-md-2 col-2"><strong>Endeudamiento:</strong></div>
+					<div class="col-md-3 col-3">{{ $endeudamiento }}%</div>
 				</div>
 			</div>
 		</div>
@@ -82,7 +82,7 @@
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>AHORROS</strong></div>
 		<div class="card-body">
-			<div class="col-md-9 col-md-offset-1 table-responsive">
+			<div class="col-md-12 table-responsive">
 				@if($ahorros->count())
 					<table class="table table-striped">
 						<thead>
@@ -131,7 +131,7 @@
 	<div class="card card-default">
 		<div class="card-header with-border"><strong>CRÉDITOS</strong></div>
 		<div class="card-body">
-			<div class="col-md-9 col-md-offset-1 table-responsive">
+			<div class="col-md-12 table-responsive">
 				@if($creditos->count())
 					<table class="table table-striped">
 						<thead>
