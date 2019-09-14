@@ -40,62 +40,54 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-2">
-							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('codigo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código
-								</label>
-								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Código']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('codigo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Código</label>
+								{!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Código']) !!}
 								@if ($errors->has('codigo'))
-									<span class="help-block">{{ $errors->first('codigo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'autofocus']) !!}
 								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('plantilla_impresion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('plantilla_impresion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Formato de impresión
-								</label>
-								{!! Form::select('plantilla_impresion', $formatos, null, ['class' => 'form-control', 'placeholder' => 'Seleccione']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('plantilla_impresion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Formato de impresión</label>
+								{!! Form::select('plantilla_impresion', $formatos, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione']) !!}
 								@if ($errors->has('plantilla_impresion'))
-									<span class="help-block">{{ $errors->first('plantilla_impresion') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('plantilla_impresion') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('comprobante_diario')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('comprobante_diario'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Comprobante diario
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('comprobante_diario') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Comprobante diario</label>
 								@if(!$tipoComprobante->movimientos->count())
 									{!! Form::select('comprobante_diario', $comprobantes, null, ['class' => 'form-control', 'placeholder' => 'Seleccione']) !!}
 								@else
 									{!! Form::text('comprobante_diario', null, ['class' => 'form-control', 'placeholder' => 'Seleccione', 'readonly']) !!}
 								@endif
 								@if ($errors->has('comprobante_diario'))
-									<span class="help-block">{{ $errors->first('comprobante_diario') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('comprobante_diario') }}</div>
 								@endif
 							</div>
 						</div>
@@ -112,29 +104,30 @@
 								</label>
 								<div>
 									@if(!$tipoComprobante->movimientos->count())
-										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-outline-primary {{ $tipoComprobante->tipo_consecutivo == 'A' | old('tipo_consecutivo') == 'A' ? 'active' : '' }}">
-												{!! Form::radio('tipo_consecutivo', 'A', $tipoComprobante->tipo_consecutivo == 'A' | old('tipo_consecutivo') == 'A' ? true : false) !!}Año + Consecutivo
+										@php
+											$valid = $errors->has('tipo_consecutivo') ? 'is-invalid' : '';
+											$tioConsecutivo = empty(old('tipo_consecutivo')) ? 'C' : old('tipo_consecutivo');
+										@endphp
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn btn-primary {{ $tioConsecutivo == 'A' ? 'active' : '' }}">
+												{!! Form::radio('tipo_consecutivo', 'A', ($tioConsecutivo == 'A' ? true : false), ['class' => [$valid]]) !!}Año + Consecutivo
 											</label>
-											<label class="btn btn-outline-primary {{ $tipoComprobante->tipo_consecutivo == 'B' | old('tipo_consecutivo') == 'B' ? 'active' : '' }}">
-												{!! Form::radio('tipo_consecutivo', 'B', $tipoComprobante->tipo_consecutivo == 'B' | old('tipo_consecutivo') == 'B' ? true : false ) !!}Año + Mes + Consecutivo
+											<label class="btn btn-primary {{ $tioConsecutivo == 'B' ? 'active' : '' }}">
+												{!! Form::radio('tipo_consecutivo', 'B', (!$tioConsecutivo == 'B' ? true : false ), ['class' => [$valid]]) !!}Año + Mes + Consecutivo
 											</label>
-											<label class="btn btn-outline-primary {{ $tipoComprobante->tipoConsecutivo == 'C' | old('tipo_consecutivo') == 'C' ? 'active' : '' }}">
-												{!! Form::radio('tipo_consecutivo', 'C', $tipoComprobante->tipo_consecutivo == 'C' | old('tipo_consecutivo') == 'C' ? true : false) !!}Secuencia Continua
+											<label class="btn btn-primary {{ $tioConsecutivo == 'C' ? 'active' : '' }}">
+												{!! Form::radio('tipo_consecutivo', 'C', (!$tioConsecutivo == 'C' ? true : false ), ['class' => [$valid]]) !!}Secuencia continua
 											</label>
 										</div>
 									@else
 										<?php
-											switch($tipoComprobante->tipo_consecutivo)
-											{
+											switch($tipoComprobante->tipo_consecutivo) {
 												case 'A':
 													echo 'Año + Consecutivo';
 													break;
-
 												case 'B':
 													echo 'Año + Mes + Consecutivo';
 													break;
-
 												case 'C':
 												default:
 													echo 'Secuencia continua';
@@ -180,7 +173,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('tipoComprobante') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

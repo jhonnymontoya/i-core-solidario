@@ -40,40 +40,32 @@
 				<div class="card-body">
 					<div class="row form-horizontal">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								<div class="col-sm-8">
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del impuesto', 'autofocus']) !!}
-									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre del impuesto']) !!}
+								@if ($errors->has('nombre'))
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
+								@endif
 							</div>
 						</div>
-						<div class="col-md-5">
-							<div class="form-group {{ ($errors->has('tipo')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('tipo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo de impuesto
-								</label>
-								<div class="col-sm-8">
-									{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tipo de impuesto']) !!}
-									@if ($errors->has('tipo'))
-										<span class="help-block">{{ $errors->first('tipo') }}</span>
-									@endif
-								</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo de impuesto</label>
+								{!! Form::select('tipo', $tiposImpuestos, null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('tipo'))
+									<div class="invalid-feedback">{{ $errors->first('tipo') }}</div>
+								@endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('impuesto') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

@@ -48,8 +48,8 @@
 					</div>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'estado'), ['url' => '/modulo', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'estado'), ['url' => '/modulo', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-5 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
 						</div>
@@ -59,8 +59,8 @@
 						<div class="col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$modulos->total())
 						<p>
 							<div class="row">

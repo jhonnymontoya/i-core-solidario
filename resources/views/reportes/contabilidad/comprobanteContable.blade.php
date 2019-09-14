@@ -7,7 +7,7 @@
 		<img src="{{ asset('storage/entidad/' . $imagen) }}">
 	</div>
 	<div class="col-5">
-		<div style="border:1px solid #400; height: 100px; padding:5px;">
+		<div style="border:1px solid #400; height: {{ (!is_null($causaAnulacion) ? 140 : 100) }}px; padding:5px;">
 			<strong>
 				<label class="text-primary">{{ $tercero->nombre }}</label>
 				<br>
@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	<div class="col-5">
-		<div style="border:1px solid #400; height: 100px; padding:5px;">
+		<div style="border:1px solid #400; height: {{ (!is_null($causaAnulacion) ? 140 : 100) }}px; padding:5px;">
 			<strong>
 				<label class="text-primary">{{ $cabecera->TipoDeComprobante }}</label>
 			</strong>

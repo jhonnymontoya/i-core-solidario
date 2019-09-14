@@ -47,24 +47,18 @@
 			<div class="card card-{{ $tiposComprobantes->total()?'primary':'danger' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Comprobantes</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => '/tipoComprobante', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => '/tipoComprobante', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-11 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$tiposComprobantes->total())
 						<p>
@@ -76,7 +70,7 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Código</th>

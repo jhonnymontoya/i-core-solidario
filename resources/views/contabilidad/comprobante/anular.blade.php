@@ -61,7 +61,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-danger">
 								<h4>
 									<i class="fa fa-ban"></i>&nbsp;Alerta!
@@ -71,45 +71,44 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<dl class="dl-horizontal">
-								<dt>Tipo comprobante:</dt>
-								<dd>{{ $comprobante->tipoComprobante->nombre_completo }}</dd>
-								<dt>Fecha del comprobante:</dt>
-								<dd>{{ $comprobante->fecha_movimiento }} ({{ $comprobante->fecha_movimiento->diffForHumans() }})</dd>
-								<dt>Descripción:</dt>
-								<dd>{{ $comprobante->descripcion }}</dd>
+						<div class="col-md-12">
+							<dl class="row">
+								<dt class="col-md-3">Tipo comprobante:</dt>
+								<dd class="col-md-9">{{ $comprobante->tipoComprobante->nombre_completo }}</dd>
+								<dt class="col-md-3">Fecha del comprobante:</dt>
+								<dd class="col-md-9">{{ $comprobante->fecha_movimiento }} ({{ $comprobante->fecha_movimiento->diffForHumans() }})</dd>
+								<dt class="col-md-3">Descripción:</dt>
+								<dd class="col-md-9">{{ $comprobante->descripcion }}</dd>
 							</dl>
-							<dl class="dl-horizontal">
-								<dt>Registros:</dt>
-								<dd>{{ $comprobante->detalleMovimientos->count() }}</dd>
+							<dl class="row">
+								<dt class="col-md-3">Registros:</dt>
+								<dd class="col-md-9">{{ $comprobante->detalleMovimientos->count() }}</dd>
 							</dl>
 							<div class="row">
-								<div class="col-md-4">
-									<dl class="dl-horizontal">
-										<dt>Total débitos:</dt>
-										<dd>${{ number_format($comprobante->debitos, 0) }}</dd>
-										<dt>Total créditos:</dt>
-										<dd>${{ number_format($comprobante->creditos, 0) }}</dd>
-										<dt>Total diferencia:</dt>
-										<dd>${{ number_format($comprobante->debitos - $comprobante->creditos, 0) }}</dd>
+								<div class="col-md-12">
+									<dl class="row">
+										<dt class="col-md-3">Total débitos:</dt>
+										<dd class="col-md-9">${{ number_format($comprobante->debitos, 0) }}</dd>
+										<dt class="col-md-3">Total créditos:</dt>
+										<dd class="col-md-9">${{ number_format($comprobante->creditos, 0) }}</dd>
+										<dt class="col-md-3">Total diferencia:</dt>
+										<dd class="col-md-9">${{ number_format($comprobante->debitos - $comprobante->creditos, 0) }}</dd>
 									</dl>
 								</div>
 							</div>
 
 							<br>
-							<div class="row form-horizontal">
+							<div class="row">
 								<div class="col-md-6">
-									<div class="form-group {{ ($errors->has('causa_anulacion_id')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('causa_anulacion_id'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Causa anulación:
-										</label>
-										<div class="col-sm-8">
-											{!! Form::select('causa_anulacion_id', $causasAnulacion, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una causa de anulación']) !!}
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('causa_anulacion_id') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Causa anulación</label>
+										{!! Form::select('causa_anulacion_id', $causasAnulacion, null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+										@if ($errors->has('causa_anulacion_id'))
+											<div class="invalid-feedback">{{ $errors->first('causa_anulacion_id') }}</div>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -117,7 +116,7 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Anular', ['class' => 'btn btn-outline-danger', 'tabindex' => '2']) !!}
 					<a href="{{ url('comprobante') }}" class="btn btn-outline-success pull-right" tabindex="1">Cancelar</a>
 				</div>

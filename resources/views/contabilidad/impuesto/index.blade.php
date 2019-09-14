@@ -48,8 +48,8 @@
 					<h3 class="card-title">Impuestos</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'impuesto', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'impuesto', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-5 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
@@ -62,8 +62,8 @@
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$impuestos->total())
 						<br>
 						<p>
@@ -76,7 +76,7 @@
 					@else
 						<br><br>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Nombre</th>

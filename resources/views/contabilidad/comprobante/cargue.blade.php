@@ -51,98 +51,71 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					{{-- INICIO FILA --}}
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('tipo_comprobante_id')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('tipo_comprobante_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo de Comprobante
-								</label>
-								<div class="col-sm-8">
-									{!! Form::text('tipo_comprobante_id', $comprobante->tipoComprobante->nombre_completo, ['class' => 'form-control', 'form' => 'comprobante', 'readonly']) !!}
-									@if ($errors->has('tipo_comprobante_id'))
-										<span class="help-block">{{ $errors->first('tipo_comprobante_id') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								<label class="control-label">Tipo de Comprobante</label>
+								{!! Form::text('tipo_comprobante_id', $comprobante->tipoComprobante->nombre_completo, ['class' => 'form-control', 'form' => 'comprobante', 'readonly']) !!}
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('fecha_movimiento')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('fecha_movimiento'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha
-								</label>
-								<div class="col-sm-9">
-									<div class="input-group">
-										<div class="input-group-addon">
+							<div class="form-group">
+								<label class="control-label">Fecha</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
 											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fecha_movimiento', $comprobante->fecha_movimiento->format('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'form' => 'comprobante', 'readonly']) !!}
+										</span>
 									</div>
-									@if ($errors->has('fecha_movimiento'))
-										<span class="help-block">{{ $errors->first('fecha_movimiento') }}</span>
-									@endif
+									{!! Form::text('fecha_movimiento', $comprobante->fecha_movimiento->format('d/m/Y'), ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
 								</div>
 							</div>
 						</div>
 					</div>
 					{{-- FIN FILA --}}
 					{{-- INICIO FILA --}}
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-								<label class="col-sm-2 control-label">
-									@if ($errors->has('descripcion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Descripción
-								</label>
-								<div class="col-sm-10">
-									{!! Form::text('descripcion', $comprobante->descripcion, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Descripción', 'form' => 'comprobante', 'readonly']) !!}
-									@if ($errors->has('descripcion'))
-										<span class="help-block">{{ $errors->first('descripcion') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('descripcion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Descripción</label>
+								{!! Form::text('descripcion', $comprobante->descripcion, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Descripción', 'form' => 'comprobante', 'readonly']) !!}
+								@if ($errors->has('descripcion'))
+									<div class="invalid-feedback">{{ $errors->first('descripcion') }}</div>
+								@endif
 							</div>
 						</div>
 					</div>
 					{{-- FIN FILA --}}
 					<div class="row">
-						<div class="col-md-12">
-							<div class="pull-right">
-								<a href="{{ url('/plantillas/contabilidad/PlantillaCargueMovimientosContables.csv') }}" download="PlantillaCargueMovimientosContables.csv" class="btn bg-purple">Descargar plantilla</a>
-								<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-outline-danger">Volver al comprobante</a>
-							</div>
+						<div class="col-md-12 text-right">
+							<a href="{{ url('/plantillas/contabilidad/PlantillaCargueMovimientosContables.csv') }}" download="PlantillaCargueMovimientosContables.csv" class="btn bg-purple">Descargar plantilla</a>
 						</div>
 					</div>
 					<br><br>
-					<div class="row form-horizontal">
-						{!! Form::model($comprobante, ['url' => ['comprobante', $comprobante, 'cargue'], 'method' => 'put', 'role' => 'form', 'files' => true, 'id' => 'cargarArchivo']) !!}
-						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('archivo')?'has-error':'') }}">
-								<label class="col-md-5 control-label">
-									@if ($errors->has('archivo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione archivo
-								</label>
-								<div class="col-md-7">
-									{!! Form::file('archivo', ['class' => 'form-control', ]) !!}
-									@if ($errors->has('archivo'))
-										<span class="help-block">{{ $errors->first('archivo') }}</span>
-									@endif
-								</div>
+					{!! Form::model($comprobante, ['url' => ['comprobante', $comprobante, 'cargue'], 'method' => 'put', 'role' => 'form', 'files' => true, 'id' => 'cargarArchivo']) !!}
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('archivo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Seleccione archivo</label>
+								{!! Form::file('archivo', ['class' => [$valid, 'form-control']]) !!}
+								@if ($errors->has('archivo'))
+									<div class="invalid-feedback">{{ $errors->first('archivo') }}</div>
+								@endif
 							</div>
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-6">
+							<label class="control-label">&nbsp;</label>
+							<br>
 							{!! Form::submit('Cargar', ['class' => 'btn btn-outline-success']) !!}
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 
 					@if (!empty($resumen))
 						<div class="row">
@@ -188,7 +161,7 @@
 					@endif
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					<a href="{{ route('comprobanteEdit', $comprobante) }}" class="btn btn-outline-danger pull-right">Volver al comprobante</a>
 				</div>
 			</div>

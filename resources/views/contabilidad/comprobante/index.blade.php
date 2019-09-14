@@ -48,8 +48,8 @@
 					<h3 class="card-title">Comprobantes</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'tipo', 'inicio', 'fin', 'estado', 'origen'), ['url' => 'comprobante', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'tipo', 'inicio', 'fin', 'estado', 'origen'), ['url' => 'comprobante', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-2 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
@@ -72,8 +72,8 @@
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$comprobantes->total())
 						<br>
 						<p>
@@ -86,7 +86,7 @@
 					@else
 						<br><br>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Comprobante</th>
@@ -165,16 +165,16 @@
 												@if ($estadoLabel != 'warning')
 													@if ($comprobante->origen == 'MANUAL' && is_null($comprobante->causa_anulado_id))
 														<a href="{{ route('comprobante.anular', $comprobante->id) }}" class="btn btn-outline-secondary btn-sm" title="Anular">
-															<i class="fa fa-close"></i>
+															<i class="far fa-times-circle"></i>
 														</a>
 													@else
 														<a href="" class="btn btn-outline-secondary btn-sm disabled" title="Anular">
-															<i class="fa fa-close"></i>
+															<i class="far fa-times-circle"></i>
 														</a>
 													@endif
 												@else
 													<a href="{{ route('comprobanteDelete', $comprobante->id) }}" class="btn btn-outline-secondary btn-sm" title="Eliminar">
-													<i class="fa fa-trash"></i>
+													<i class="far fa-trash-alt"></i>
 												</a>
 												@endif
 											</td>

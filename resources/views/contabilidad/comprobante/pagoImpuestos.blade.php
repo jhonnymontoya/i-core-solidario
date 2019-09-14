@@ -38,63 +38,57 @@
 				</div>
 				<div class="card-body">
 					{!! Form::open(['route' => ['comprobante.pagoImpuesto', $movimientoTemporal], 'method' => 'get', 'role' => 'form']) !!}
-					<div class="row form-horizontal">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('impuesto') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Impuesto</label>
+								@php
+									$impuesto = null;
+									if(Request::has('impuesto')) {
+										$impuesto = Request::get('impuesto');
+									}
+								@endphp
+								{!! Form::select('impuesto', $impuestos, $impuesto, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('impuesto'))
+									<div class="invalid-feedback">{{ $errors->first('impuesto') }}</div>
+								@endif
+							</div>
+						</div>
 						<div class="col-md-5 col-sm-12">
-							<div class="form-group {{ ($errors->has('impuesto')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('impuesto'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Impuesto
-								</label>
-								<div class="col-sm-8">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fechaCorte') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha de corte</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
 									@php
-										$impuesto = null;
-										if(Request::has('impuesto')) {
-											$impuesto = Request::get('impuesto');
+										$fechaCorte = "";
+										if(Request::has('fechaCorte')) {
+											$fechaCorte = Request::get('fechaCorte');
+										}
+										else {
+											$fechaCorte = \Carbon\Carbon::now()->startOfMonth()->subDay()->format('d/m/Y');
 										}
 									@endphp
-									{!! Form::select('impuesto', $impuestos, $impuesto, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un impuesto']) !!}
-									@if ($errors->has('impuesto'))
-										<span class="help-block">{{ $errors->first('impuesto') }}</span>
+									{!! Form::text('fechaCorte', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fechaCorte'))
+										<div class="invalid-feedback">{{ $errors->first('fechaCorte') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
-						<div class="col-md-5 col-sm-12">
-							<div class="form-group {{ ($errors->has('fechaCorte')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('fechaCorte'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de corte
-								</label>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										@php
-											$fechaCorte = "";
-											if(Request::has('fechaCorte')) {
-												$fechaCorte = Request::get('fechaCorte');
-											}
-											else {
-												$fechaCorte = \Carbon\Carbon::now()->startOfMonth()->subDay()->format('d/m/Y');
-											}
-										@endphp
-										{!! Form::text('fechaCorte', $fechaCorte, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
-									@if ($errors->has('fechaCorte'))
-										<span class="help-block">{{ $errors->first('fechaCorte') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2 col-sm-12">
-								{!! Form::submit('Buscar', ['class' => 'btn btn-outline-success']) !!}
-							</div>
+						<div class="col-md-1 col-sm-12">
+							<label class="control-label">&nbsp;</label>
+							<br>
+							{!! Form::submit('Buscar', ['class' => 'btn btn-outline-success']) !!}
 						</div>
 					</div>
 					{!! Form::close() !!}
@@ -164,7 +158,7 @@
 				</div>
 				<div class="card-footer">
 					<div class="row">
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-6 col-sm-12 text-right">
 							@if (!empty($req) && !empty($infPagImp))
 								{!! Form::open(['route' => ['comprobante.cargarImpuesto', $movimientoTemporal], 'method' => 'put']) !!}
 								{!! Form::hidden('impuesto', $impuesto) !!}
@@ -173,7 +167,7 @@
 								{!! Form::close() !!}
 							@endif
 						</div>
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-6 col-sm-12 text-right">
 							<a href="{{ route('comprobanteEdit', $movimientoTemporal->id) }}" class="btn btn-outline-danger pull-right">Volver al comprobante</a>
 						</div>
 					</div>

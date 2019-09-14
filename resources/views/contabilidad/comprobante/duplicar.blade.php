@@ -59,26 +59,26 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-4 col-md-offset-1">
-							<dl class="dl-horizontal">
-								<dt>Tipo comprobante:</dt>
-								<dd>{{ $tipoComprobante->nombre_completo }}</dd>
+						<div class="col-md-6">
+							<dl class="row">
+								<dt class="col-md-4">Tipo comprobante:</dt>
+								<dd class="col-md-8">{{ $tipoComprobante->nombre_completo }}</dd>
 
-								<dt>Fecha comprobante:</dt>
-								<dd>{{ $comprobante->fecha_movimiento }} ({{ $comprobante->fecha_movimiento->diffForHumans() }})</dd>
+								<dt class="col-md-4">Fecha comprobante:</dt>
+								<dd class="col-md-8">{{ $comprobante->fecha_movimiento }} ({{ $comprobante->fecha_movimiento->diffForHumans() }})</dd>
 
-								<dt>Número registros:</dt>
-								<dd>{{ number_format($comprobante->detalleMovimientos->count()) }}</dd>
+								<dt class="col-md-4">Número registros:</dt>
+								<dd class="col-md-8">{{ number_format($comprobante->detalleMovimientos->count()) }}</dd>
 							</dl>
 						</div>
 
-						<div class="col-md-3">
-							<dl class="dl-horizontal">
-								<dt>Numero comprobante:</dt>
-								<dd>{{ $comprobante->numero_comprobante }}</dd>
+						<div class="col-md-6">
+							<dl class="row">
+								<dt class="col-md-5">Numero comprobante:</dt>
+								<dd class="col-md-7">{{ $comprobante->numero_comprobante }}</dd>
 
-								<dt>Valor:</dt>
-								<dd>${{ number_format($comprobante->debitos) }}</dd>
+								<dt class="col-md-5">Valor:</dt>
+								<dd class="col-md-7">${{ number_format($comprobante->debitos) }}</dd>
 							</dl>
 						</div>
 					</div>
@@ -91,38 +91,32 @@
 					<br>
 					<div class="row form-horizontal">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('tipo_comprobante_id')?'has-error':'') }}">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('tipo_comprobante_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo de Comprobante
-								</label>
-								<div class="col-sm-8">
-									{!! Form::select('tipo_comprobante_id', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tipo de comprobante']) !!}
-									@if ($errors->has('tipo_comprobante_id'))
-										<span class="help-block">{{ $errors->first('tipo_comprobante_id') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_comprobante_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo de comprobante</label>
+								{!! Form::select('tipo_comprobante_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('tipo_comprobante_id'))
+									<div class="invalid-feedback">{{ $errors->first('tipo_comprobante_id') }}</div>
+								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('fecha_movimiento')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('fecha_movimiento'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha
-								</label>
-								<div class="col-sm-9">
-									<div class="input-group">
-										<div class="input-group-addon">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_movimiento') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
 											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fecha_movimiento', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+										</span>
 									</div>
+									{!! Form::text('fecha_movimiento', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fecha_movimiento'))
-										<span class="help-block">{{ $errors->first('fecha_movimiento') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('fecha_movimiento') }}</div>
 									@endif
 								</div>
 							</div>
@@ -130,19 +124,15 @@
 					</div>
 					<div class="row form-horizontal">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-								<label class="col-sm-2 control-label">
-									@if ($errors->has('descripcion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Descripción
-								</label>
-								<div class="col-sm-10">
-									{!! Form::text('descripcion', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
-									@if ($errors->has('descripcion'))
-										<span class="help-block">{{ $errors->first('descripcion') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('descripcion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Descripción</label>
+								{!! Form::text('descripcion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
+								@if ($errors->has('descripcion'))
+									<div class="invalid-feedback">{{ $errors->first('descripcion') }}</div>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -150,8 +140,8 @@
 					<br>
 					<h3>Registros</h3>
 					<div class="row">
-						<div class="col-md-12">
-							<table class="table table-responsive" id="tablaRegistros">
+						<div class="col-md-12 table-responsive">
+							<table class="table table-striped table-hover" id="tablaRegistros">
 								<thead>
 									<tr>
 										<th>Tercero</th>
@@ -185,8 +175,8 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
-					<a class="btn btn-outline-success" id="duplicar">Duplicar</a>
+				<div class="card-footer text-right">
+					<a href="#" class="btn btn-outline-success" id="duplicar">Duplicar</a>
 					<a href="{{ url('comprobante') }}" class="btn btn-outline-danger pull-right" tabindex="2">Cancelar</a>
 				</div>
 			</div>
@@ -210,7 +200,8 @@
 			}
 		@endphp
 		$("select[name='tipo_comprobante_id']").selectAjax("{{ url('api/tipoComprobante') }}", {entidad: {{ Auth::getSession()->get('entidad')->id }}, id:"{{ $tipoComprobante }}"});
-		$("#duplicar").click(function(){
+		$("#duplicar").click(function(e){
+			e.preventDefault();
 			$("#duplicar").addClass("disabled");
 			$("#duplicar").text("Duplicando...");
 			$("#formDuplicar").submit();

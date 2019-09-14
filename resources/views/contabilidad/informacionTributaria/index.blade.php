@@ -36,44 +36,38 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-2">
-				<a href="{{ url('impuesto/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
-			</div>
-		</div>
-		<br>
 		<div class="container-fluid">
 			<div class="card card-{{ $impuestos->total()?'primary':'danger' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Impuestos</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'informacionTributaria', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'tipo', 'estado'), ['url' => 'impuesto', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-6 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-						<div class="col-md-3 col-sm-12">
+						<div class="col-md-5 col-sm-12">
 							{!! Form::select('tipo', $tiposImpuestos, null, ['class' => 'form-control select2', 'placeholder' => 'Tipo', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$impuestos->total())
 						<br>
 						<p>
 							<div class="row">
 								<div class="col-md-12">
-									No se encontraron impuestos <a href="{{ url('impuesto/create') }}" class="btn btn-outline-primary btn-sm">crear uno nuevo</a>
+									No se encontraron impuestos
 								</div>
 							</div>
 						</p>
 					@else
 						<br>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Nombre</th>
@@ -89,7 +83,7 @@
 											<?php
 												$activo = $impuesto->esta_activo;
 											?>
-											<td>
+											<td class="text-right">
 												@php
 													$pt = "%s?impuesto=%s&fechaInicio=%s&fechaFinal=%s";
 													$if = sprintf(
@@ -140,7 +134,6 @@
 @push('scripts')
 <script type="text/javascript">
 	$(function() {
-		$(window).formularioCrear("{{ url('impuesto/create') }}");
 		$(".select2").select2();
 	});
 </script>

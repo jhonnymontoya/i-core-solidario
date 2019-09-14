@@ -40,59 +40,53 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4 col-sm-12">
-							<div class="form-group {{ ($errors->has('tipoImpuesto')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								<label class="control-label">Tipo Impuesto</label>
+								<div>
+									@php
+										$valid = $errors->has('tipoImpuesto') ? 'is-invalid' : '';
+										$tipoImpuesto = empty(old('tipoImpuesto')) ? 'NACIONAL' : old('tipoImpuesto');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $tipoImpuesto ? 'active' : '' }}">
+											{!! Form::radio('tipoImpuesto', 'NACIONAL', ($tipoImpuesto ? true : false), ['class' => [$valid]]) !!}Nacional
+										</label>
+										<label class="btn btn-primary {{ !$tipoImpuesto ? 'active' : '' }}">
+											{!! Form::radio('tipoImpuesto', 'REGIONAL', (!$tipoImpuesto ? true : false ), ['class' => [$valid]]) !!}Regional
+										</label>
+										<label class="btn btn-primary {{ !$tipoImpuesto ? 'active' : '' }}">
+											{!! Form::radio('tipoImpuesto', 'DISTRITAL', (!$tipoImpuesto ? true : false ), ['class' => [$valid]]) !!}Distrital
+										</label>
+									</div>
 									@if ($errors->has('tipoImpuesto'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('tipoImpuesto') }}</div>
 									@endif
-									Tipo impuesto
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
-										{!! Form::radio('tipoImpuesto', 'NACIONAL', true) !!}Nacional
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('tipoImpuesto', 'REGIONAL', false) !!}Regional
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('tipoImpuesto', 'DISTRITAL', false) !!}Distrital
-									</label>
 								</div>
-								@if ($errors->has('tipoImpuesto'))
-									<span class="help-block">{{ $errors->first('tipoImpuesto') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4 col-sm-12">
-							<div class="form-group {{ ($errors->has('impuesto')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('impuesto'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Impuesto
-								</label>
-								<br>
-								{!! Form::select('impuesto', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un impuesto']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('impuesto') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Impuesto</label>
+								{!! Form::select('impuesto', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('impuesto'))
-									<span class="help-block">{{ $errors->first('impuesto') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('impuesto') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4 col-sm-12">
-							<div class="form-group {{ ($errors->has('concepto')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('concepto'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Concepto
-								</label>
-								<br>
-								{!! Form::select('concepto', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un concepto']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('concepto') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Concepto</label>
+								{!! Form::select('concepto', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('concepto'))
-									<span class="help-block">{{ $errors->first('concepto') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('concepto') }}</div>
 								@endif
 							</div>
 						</div>
@@ -100,63 +94,65 @@
 
 					<div class="row">
 						<div class="col-md-4 col-sm-12">
-							<div class="form-group {{ ($errors->has('tercero')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tercero') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tercero</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-male"></i>
+										</span>
+									</div>
+									{!! Form::select('tercero', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('tercero'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('tercero') }}</div>
 									@endif
-									Tercero
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-male"></i></span>
-									{!! Form::select('tercero', [], null, ['class' => 'form-control select2']) !!}
 								</div>
-								@if ($errors->has('tercero'))
-									<span class="help-block">{{ $errors->first('tercero') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4 col-sm-12">
-							<div class="form-group {{ ($errors->has('base')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('base') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Base</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									{!! Form::text('base', null, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Base', 'data-maskMoney', 'data-allownegative' => 'true', 'data-allowzero' => 'false']) !!}
 									@if ($errors->has('base'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('base') }}</div>
 									@endif
-									Base
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('base', null, ['class' => 'form-control text-right', 'placeholder' => 'Base', 'data-maskMoney', 'data-allownegative' => 'true', 'data-allowzero' => 'false']) !!}
 								</div>
-								@if ($errors->has('base'))
-									<span class="help-block">{{ $errors->first('base') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4 col-sm-12">
-							<div class="form-group {{ ($errors->has('iva')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('iva'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									I.V.A.
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('iva') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">I.V.A.</label>
 								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('iva', null, ['class' => 'form-control text-right', 'placeholder' => 'IVA', 'data-maskMoney', 'data-allownegative' => 'true', 'data-allowzero' => 'true']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									{!! Form::text('iva', null, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'I.V.A.', 'data-maskMoney', 'data-allownegative' => 'true', 'data-allowzero' => 'true']) !!}
+									@if ($errors->has('iva'))
+										<div class="invalid-feedback">{{ $errors->first('iva') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('iva'))
-									<span class="help-block">{{ $errors->first('iva') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 						<div class="col-md-12 table-responsive">
-							<table class="table">
+							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th>Tercero</th>
@@ -180,8 +176,8 @@
 											<td class="text-right">${{ number_format($imp->valor_impuesto, 0) }}</td>
 											<td class="text-right">${{ number_format($imp->iva, 0) }}</td>
 											<td>
-												<a class="btn btn-outline-danger btn-sm eliminarImpuesto">
-													<i class="fa fa-trash"></i>
+												<a href="#" class="btn btn-outline-danger btn-sm eliminarImpuesto">
+													<i class="far fa-trash-alt"></i>
 												</a>
 											</td>
 										</tr>
@@ -191,7 +187,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ route('comprobanteEdit', $movimiento->id) }}" class="btn btn-outline-danger pull-right">Volver al comprobante</a>
 				</div>

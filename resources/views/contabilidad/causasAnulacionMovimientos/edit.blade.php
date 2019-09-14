@@ -39,50 +39,45 @@
 				</div>
 				<div class="card-body">
 					<div class="row form-horizontal">
-						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="col-sm-1 control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								<div class="col-sm-11">
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'autofocus']) !!}
-									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
+						<div class="col-md-10">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'autofocus']) !!}
+								@if ($errors->has('nombre'))
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
+								@endif
+							</div>
+						</div>
+						{{-- INICIO CAMPO --}}
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">¿Activa?</label>
+								<div>
+									@php
+										$valid = $errors->has('esta_activa') ? 'is-invalid' : '';
+										$estaActiva = empty(old('esta_activa')) ? $causa->esta_activa : old('esta_activa');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $estaActiva ? 'active' : '' }}">
+											{!! Form::radio('esta_activa', 1, ($estaActiva ? true : false), ['class' => [$valid]]) !!}Sí
+										</label>
+										<label class="btn btn-danger {{ !$estaActiva ? 'active' : '' }}">
+											{!! Form::radio('esta_activa', 0, (!$estaActiva ? true : false ), ['class' => [$valid]]) !!}No
+										</label>
+									</div>
+									@if ($errors->has('esta_activa'))
+										<div class="invalid-feedback">{{ $errors->first('esta_activa') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
-						{{-- INICIO CAMPO --}}
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('esta_activa')?'has-error':'') }}">
-									<label class="col-sm-4 control-label">
-										@if ($errors->has('esta_activa'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Estado
-									</label>
-									<div class="col-sm-8">
-										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-outline-primary {{ $causa->esta_activa ? 'active' : ''}}">
-												{!! Form::radio('esta_activa', '1', $causa->esta_activa ? true : false) !!}ACTIVA
-											</label>
-											<label class="btn btn-outline-danger {{ $causa->esta_activa ? '' : 'active'}}">
-												{!! Form::radio('esta_activa', '0', $causa->esta_activa ? false : true) !!}INACTIVA
-											</label>
-										</div>
-										@if ($errors->has('esta_activa'))
-											<span class="help-block">{{ $errors->first('esta_activa') }}</span>
-										@endif
-									</div>
-								</div>
-							</div>
-							{{-- FIN CAMPO --}}
+						{{-- FIN CAMPO --}}
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('causaAnulacionMovimiento') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
@@ -98,8 +93,4 @@
 @endpush
 
 @push('scripts')
-<script type="text/javascript">
-	$(function(){
-	});
-</script>
 @endpush
