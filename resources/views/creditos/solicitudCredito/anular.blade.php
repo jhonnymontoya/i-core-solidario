@@ -46,7 +46,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-danger">
 								<h4>
 									<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
@@ -56,8 +56,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<dl class="dl-horizontal">
+						<div class="col-md-12">
+							<dl>
 								<dt>Para:</dt>
 								<dd>{{ $solicitud->tercero->tipoIdentificacion->codigo }} {{ $solicitud->tercero->numero_identificacion }} - {{ $solicitud->tercero->nombre_corto }}</dd>
 								<dt>Fecha de solicitud:</dt>
@@ -73,7 +73,7 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Anular', ['class' => 'btn btn-outline-danger', 'tabindex' => '2']) !!}
 					<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-success pull-right" tabindex="1">Cancelar</a>
 				</div>

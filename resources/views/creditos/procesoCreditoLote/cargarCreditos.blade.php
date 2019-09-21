@@ -162,9 +162,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
-					{{--{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}--}}
-					<a class="btn btn-outline-success" id="cargar">Continuar</a>
+				<div class="card-footer text-right">
+					<a href="#" class="btn btn-outline-success" id="cargar">Continuar</a>
 					<a href="{{ url('procesoCreditoLote') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
@@ -181,7 +180,8 @@
 @push('scripts')
 <script type="text/javascript">
 	$(function(){
-		$("#cargar").click(function(){
+		$("#cargar").click(function(e){
+			e.preventDefault();
 			$("#cargar").addClass("disabled");
 			$("#cargar").text("Cargando archivo...");
 			$("#cargaCreditosLote").submit();

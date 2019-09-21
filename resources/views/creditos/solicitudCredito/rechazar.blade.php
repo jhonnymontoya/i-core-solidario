@@ -46,7 +46,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-danger">
 								<h4>
 									<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
@@ -56,41 +56,43 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<dl class="dl-horizontal">
+						<div class="col-md-6">
+							<dl>
 								<dt>Para:</dt>
 								<dd>{{ $solicitud->tercero->tipoIdentificacion->codigo }} {{ $solicitud->tercero->numero_identificacion }} - {{ $solicitud->tercero->nombre_corto }}</dd>
-								<dt>Fecha de solicitud:</dt>
-								<dd>{{ $solicitud->fecha_solicitud }} ({{ $solicitud->fecha_solicitud->diffForHumans() }})</dd>
 								<dt>Modalidad de crédito:</dt>
 								<dd>{{ $solicitud->modalidadCredito->codigo }} - {{ $solicitud->modalidadCredito->nombre }}</dd>
-								<dt>Valor:</dt>
-								<dd>${{ number_format($solicitud->valor_credito) }}</dd>
 								<dt>Cuotas:</dt>
 								<dd>{{ $solicitud->plazo }} ({{ $solicitud->periodicidad }})</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>Fecha de solicitud:</dt>
+								<dd>{{ $solicitud->fecha_solicitud }} ({{ $solicitud->fecha_solicitud->diffForHumans() }})</dd>
+								<dt>Valor:</dt>
+								<dd>${{ number_format($solicitud->valor_credito) }}</dd>
 							</dl>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<div class="form-group {{ ($errors->has('observaciones')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('observaciones'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Observaciones
-								</label>
-								{!! Form::textarea('observaciones', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
+						<div class="col-md-12">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('observaciones') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Observaciones</label>
+								{!! Form::textarea('observaciones', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Observaciones']) !!}
 								@if ($errors->has('observaciones'))
-									<span class="help-block">{{ $errors->first('observaciones') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('observaciones') }}</div>
 								@endif
 							</div>
 						</div>
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Rechazar', ['class' => 'btn btn-outline-danger', 'tabindex' => '2']) !!}
 					<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-success pull-right" tabindex="1">Cancelar</a>
 				</div>

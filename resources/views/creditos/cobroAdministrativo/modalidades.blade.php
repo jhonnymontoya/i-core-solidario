@@ -58,9 +58,9 @@
 								}
 							@endphp
 							<div class="row">
-								<div class="col-md-3 col-md-offset-1"><p>{{ $modalidad->nombre }}</p></div>
+								<div class="col-md-4"><p>{{ $modalidad->nombre }}</p></div>
 								<div class="col-md-8">
-									<a data-modalidad="{{ $modalidad->id }}" class="btn btn-sm asociar btn-{{ $asociado ? 'danger' : 'success' }}">{{ $asociado ? (empty($cobroAsociado) ? 'Desasociar' : 'Asociado en seguro ' . $cobroAsociado->codigo . ' - ' . $cobroAsociado->nombre . ' ¿Desasociar?') : 'Asociar' }}</a>
+									<a href="#" data-modalidad="{{ $modalidad->id }}" class="btn btn-sm asociar btn-outline-{{ $asociado ? 'danger' : 'success' }}">{{ $asociado ? (empty($cobroAsociado) ? 'Desasociar' : 'Asociado en seguro ' . $cobroAsociado->codigo . ' - ' . $cobroAsociado->nombre . ' ¿Desasociar?') : 'Asociar' }}</a>
 								</div>
 							</div>
 						@endforeach
@@ -68,7 +68,7 @@
 						No existen mosalidades de crédito para asociar, <a class="btn btn-outline-success btn-sm" href="{{ url('modalidadCredito/create') }}">Crear nueva modalidad de crédito</a>
 					@endif
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					<a href="{{ url('cobrosAdministrativos') }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
@@ -85,6 +85,7 @@
 <script type="text/javascript">
 	$(function(){
 		$(".asociar").click(function(e){
+			e.preventDefault();
 			$boton = $(this);
 			$modalidad = $boton.data("modalidad");
 			$url = "{{ url('cobrosAdministrativos') . "/" . $cobro->id . "/" }}" + $modalidad;

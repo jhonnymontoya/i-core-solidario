@@ -1,138 +1,115 @@
 <div class="row form-horizontal">
 	<div class="col-md-12">
-		<div class="form-group {{ ($errors->has('es_condicionado')?'has-error':'') }}">
-			<label class="control-label col-md-4">
-				@if ($errors->has('es_condicionado'))
-					<i class="fa fa-times-circle-o"></i>
-				@endif
-				¿Cobro condicionado?
-			</label>
-			<?php
-				$esCondicionado = $cobro->es_condicionado;
-				if(strlen(old('es_condicionado')) > 0) {
-					$esCondicionado = old('es_condicionado') == "1" ? true : false;
-				}
-			?>
-			<col class="col-md-8">
-				<div class="btn-group" data-toggle="buttons">
-					<label class="btn btn-outline-primary {{ $esCondicionado ? 'active' : ''}}">
-						{!! Form::radio('es_condicionado', 1, $esCondicionado ? true : false) !!}Sí
+		<div class="form-group">
+			<label class="control-label">¿Cobro condicionado?</label>
+			<div>
+				@php
+					$valid = $errors->has('es_condicionado') ? 'is-invalid' : '';
+					$cobroCondicionado = empty(old('es_condicionado')) ? $cobro->es_condicionado : old('es_condicionado');
+				@endphp
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary {{ $cobroCondicionado ? 'active' : '' }}">
+						{!! Form::radio('es_condicionado', 1, ($cobroCondicionado ? true : false), ['class' => [$valid]]) !!}Sí
 					</label>
-					<label class="btn btn-outline-primary {{ $esCondicionado ? '' : 'active'}}">
-						{!! Form::radio('es_condicionado', 0, $esCondicionado ? false : true) !!}No
+					<label class="btn btn-primary {{ !$cobroCondicionado ? 'active' : '' }}">
+						{!! Form::radio('es_condicionado', 0, (!$cobroCondicionado ? true : false ), ['class' => [$valid]]) !!}No
 					</label>
-					@if ($errors->has('es_condicionado'))
-						<br><br>
-						<span class="help-block">{{ $errors->first('es_condicionado') }}</span>
-					@endif
 				</div>
-			</col>
+				@if ($errors->has('es_condicionado'))
+					<div class="invalid-feedback">{{ $errors->first('es_condicionado') }}</div>
+				@endif
+			</div>
 		</div>
 	</div>
 </div>
 
-<div class="row sin-condicion" style="display: {{ $esCondicionado ? 'none' : 'block' }};">
-	<div class="col-md-3 col-md-offset-1">
-		<div class="form-group {{ ($errors->has('base_cobro')?'has-error':'') }}">
-			<label class="control-label">
-				@if ($errors->has('base_cobro'))
-					<i class="fa fa-times-circle-o"></i>
-				@endif
-				Base de cobro
-			</label>
-			<br>
-			<?php
-				$baseCobro = $cobro->base_cobro;
-				if(!empty(old('base_cobro'))) {
-					$baseCobro = old('base_cobro');
-				}
-				if($cobro->efecto == "ADICIONCREDITO")$baseCobro = 'VALORCREDITO';
-			?>
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-outline-primary {{ $baseCobro == 'VALORCREDITO' ? 'active' : ''}}">
-					<input type="radio" name="base_cobro" value="VALORCREDITO" {{ $baseCobro == 'VALORCREDITO' ? 'checked' : '' }}>Valor crédito
-				</label>
-				@if ($cobro->efecto != "ADICIONCREDITO")
-					<label class="btn btn-outline-primary {{ $baseCobro == 'VALORCREDITO' ? '' : 'active'}}">
-						<input type="radio" name="base_cobro" value="VAORDESCUBIERTO" {{ $baseCobro == 'VALORCREDITO' ? '' : 'checked' }}>Valor descubierto
+<div class="row sin-condicion" style="display: {{ $cobroCondicionado ? 'none' : 'block' }};">
+	<div class="col-4">
+		<div class="form-group">
+			<label class="control-label">Base de cobro</label>
+			<div>
+				@php
+					$valid = $errors->has('base_cobro') ? 'is-invalid' : '';
+					$baseCobro = empty(old('base_cobro')) ? $cobro->base_cobro : old('base_cobro');
+				@endphp
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary {{ $baseCobro == 'VALORCREDITO' ? 'active' : '' }}">
+						{!! Form::radio('base_cobro', 'VALORCREDITO', ($baseCobro == 'VALORCREDITO' ? true : false), ['class' => [$valid]]) !!}Valor crédito
 					</label>
+					<label class="btn btn-primary {{ $baseCobro == 'ADICIONCREDITO' ? 'active' : '' }}">
+						{!! Form::radio('base_cobro', 'ADICIONCREDITO', ($baseCobro == 'ADICIONCREDITO' ? true : false ), ['class' => [$valid]]) !!}Valor descubierto
+					</label>
+				</div>
+				@if ($errors->has('base_cobro'))
+					<div class="invalid-feedback">{{ $errors->first('base_cobro') }}</div>
 				@endif
 			</div>
-			@if ($errors->has('base_cobro'))
-				<span class="help-block">{{ $errors->first('base_cobro') }}</span>
-			@endif
 		</div>
 	</div>
-	<div class="col-md-3">
-		<div class="form-group {{ ($errors->has('factor_calculo')?'has-error':'') }}">
-			<label class="control-label">
+	<div class="col-4">
+		<div class="form-group">
+			<label class="control-label">Factor de cálculo</label>
+			<div>
+				@php
+					$valid = $errors->has('factor_calculo') ? 'is-invalid' : '';
+					$factorCalculo = empty(old('factor_calculo')) ? $cobro->factor_calculo : old('factor_calculo');
+				@endphp
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary {{ $factorCalculo == 'VALORFIJO' ? 'active' : '' }}">
+						{!! Form::radio('factor_calculo', 'VALORFIJO', ($factorCalculo == 'VALORFIJO' ? true : false), ['class' => [$valid]]) !!}Valor fijo
+					</label>
+					<label class="btn btn-primary {{ $factorCalculo == 'PORCENTAJEBASE' ? 'active' : '' }}">
+						{!! Form::radio('factor_calculo', 'PORCENTAJEBASE', ($factorCalculo == 'PORCENTAJEBASE' ? true : false ), ['class' => [$valid]]) !!}Porcentaje de base
+					</label>
+				</div>
 				@if ($errors->has('factor_calculo'))
-					<i class="fa fa-times-circle-o"></i>
+					<div class="invalid-feedback">{{ $errors->first('factor_calculo') }}</div>
 				@endif
-				Factor de cálculo
-			</label>
-			<br>
-			<?php
-				$factorCalculo = $cobro->factor_calculo;
-				if(!empty(old('factor_calculo'))) {
-					$factorCalculo = old('factor_calculo');
-				}
-			?>
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-outline-primary {{ $factorCalculo == 'VALORFIJO' ? 'active' : ''}}">
-					{!! Form::radio('factor_calculo', 'VALORFIJO', $factorCalculo == 'VALORFIJO' ? true : false) !!}Valor fijo
-				</label>
-				<label class="btn btn-outline-primary {{ $factorCalculo == 'VALORFIJO' ? '' : 'active'}}">
-					{!! Form::radio('factor_calculo', 'PORCENTAJEBASE', $factorCalculo == 'VALORFIJO' ? false : true) !!}Porcentaje de base
-				</label>
 			</div>
-			@if ($errors->has('factor_calculo'))
-				<span class="help-block">{{ $errors->first('factor_calculo') }}</span>
-			@endif
 		</div>
 	</div>
-	<div class="col-md-2">
-		<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-			<label class="control-label">
-				@if ($errors->has('valor'))
-					<i class="fa fa-times-circle-o"></i>
-				@endif
-				Valor
-			</label>
+	<div class="col-2">
+		<div class="form-group">
+			@php
+				$valid = $errors->has('valor') ? 'is-invalid' : '';
+			@endphp
+			<label class="control-label">Valor</label>
 			<div class="input-group">
+				<div class="input-group-prepend valor" style="display: {{ $factorCalculo == 'VALORFIJO' ? 'table-cell' : 'none' }};">
+					<span class="input-group-text">$</span>
+				</div>
 				@php
 					$valor = is_null(old("valor")) ? $cobro->valor : old("valor");
 					$valor = floatval($valor);
 				@endphp
-				<div class="input-group-addon valor" style="display: {{ $factorCalculo == 'VALORFIJO' ? 'table-cell' : 'none' }};">$</div>
-				{!! Form::number('valor', $valor, ['class' => 'form-control text-right', 'placeholder' => 'Valor', 'autocomplete' => 'off', 'step' => '0.01', 'min' => 0]) !!}
-				<div class="input-group-addon porcentaje" style="display: {{ $factorCalculo == 'VALORFIJO' ? 'none' : 'table-cell' }};">%</div>
+				{!! Form::text('valor', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Valor']) !!}
+				<div class="input-group-append porcentaje" style="display: {{ $factorCalculo == 'VALORFIJO' ? 'none' : 'table-cell' }};">
+					<span class="input-group-text">%</span>
+				</div>
+				@if ($errors->has('valor'))
+					<div class="invalid-feedback">{{ $errors->first('valor') }}</div>
+				@endif
 			</div>
-			@if ($errors->has('valor'))
-				<span class="help-block">{{ $errors->first('valor') }}</span>
-			@endif
 		</div>
 	</div>
 </div>
-<div class="con-condicion" style="display: {{ $esCondicionado ? 'block' : 'none' }};">
+<div class="con-condicion" style="display: {{ $cobroCondicionado ? 'block' : 'none' }};">
 	<div class="row form-horizontal">
 		<div class="col-md-5">
-			<div class="form-group {{ ($errors->has('condicion')?'has-error':'') }}">
-				<label class="control-label col-md-4">
-					@if ($errors->has('condicion'))
-						<i class="fa fa-times-circle-o"></i>
-					@endif
-					Condicionado por
-				</label>
-				<div class="col-md-8">
-					{!! Form::select('condicion', ['MONTO' => 'Monto', 'PLAZO' => 'Plazo'], null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
-				</div>
+			<div class="form-group">
+				@php
+					$valid = $errors->has('condicion') ? 'is-invalid' : '';
+				@endphp
+				<label class="control-label">Condicionado por</label>
+				{!! Form::select('condicion', ['MONTO' => 'Monto', 'PLAZO' => 'Plazo'], null, ['class' => [$valid, 'form-control']]) !!}
 				@if ($errors->has('condicion'))
-					<span class="help-block">{{ $errors->first('condicion') }}</span>
+					<div class="invalid-feedback">{{ $errors->first('condicion') }}</div>
 				@endif
 			</div>
 		</div>
 		<div class="col-md-3">
+			<label class="control-label">&nbsp;</label>
+			<br>
 			{!! Form::submit('Guardar y completar condición', ['class' => 'btn btn-outline-success']) !!}
 		</div>
 	</div>

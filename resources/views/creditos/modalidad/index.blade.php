@@ -42,16 +42,16 @@
 					<h3 class="card-title">Modalidades de créditos</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => '/modalidadCredito', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => '/modalidadCredito', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-11 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$modalidades->total())
 						<p>
@@ -63,7 +63,7 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Código</th>

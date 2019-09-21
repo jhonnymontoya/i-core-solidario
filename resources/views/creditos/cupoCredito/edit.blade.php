@@ -47,50 +47,44 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-2">
-							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('codigo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código
-								</label>
-								{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autocomplete' => 'off', 'readonly']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('codigo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Código</label>
+								{!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Código', 'readonly']) !!}
 								@if ($errors->has('codigo'))
-									<span class="help-block">{{ $errors->first('codigo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autocomplete' => 'off', 'readonly']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'readonly']) !!}
 								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('apalancamiento_cupo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('apalancamiento_cupo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Veces apalancamiento
-								</label>
-								{!! Form::text('apalancamiento_cupo', null, ['class' => 'form-control', 'placeholder' => 'Veces apalncamiento', 'autocomplete' => 'off', 'autofocus']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('apalancamiento_cupo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Veces apalancamiento</label>
+								{!! Form::text('apalancamiento_cupo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Veces apalancamiento']) !!}
 								@if ($errors->has('apalancamiento_cupo'))
-									<span class="help-block">{{ $errors->first('apalancamiento_cupo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('apalancamiento_cupo') }}</div>
 								@endif
 							</div>
 						</div>							
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('cupoCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

@@ -41,46 +41,40 @@
 
 					<div class="row">
 						<div class="col-md-2">
-							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('codigo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código
-								</label>
-								{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'autofocus']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('codigo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Codigo</label>
+								{!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'autofocus']) !!}
 								@if ($errors->has('codigo'))
-									<span class="help-block">{{ $errors->first('codigo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-7">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
 								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('base_prima')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('base_prima'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Base para prima
-								</label>
-								{!! Form::select('base_prima', ['SALDO' => 'Saldo', 'VALORINICIAL' => 'Valor inicial'], null, ['class' => 'form-control']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('base_prima') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Base para prima</label>
+								{!! Form::select('base_prima', ['SALDO' => 'Saldo', 'VALORINICIAL' => 'Valor inicial'], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('base_prima'))
-									<span class="help-block">{{ $errors->first('base_prima') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('base_prima') }}</div>
 								@endif
 							</div>
 						</div>
@@ -88,40 +82,36 @@
 
 					<div class="row">
 						<div class="col-md-9">
-							<div class="form-group {{ ($errors->has('aseguradora_tercero_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('aseguradora_tercero_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Aseguradora
-								</label>
-								{!! Form::select('aseguradora_tercero_id', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione aseguradora']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('aseguradora_tercero_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Aseguradora</label>
+								{!! Form::select('aseguradora_tercero_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('aseguradora_tercero_id'))
-									<span class="help-block">{{ $errors->first('aseguradora_tercero_id') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('aseguradora_tercero_id') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('tasa_mes')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('tasa_mes'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tasa mensual
-								</label>
-								{!! Form::number('tasa_mes', null, ['class' => 'form-control', 'placeholder' => 'Tasa mensual', 'autocomplete' => 'off', 'step' => '0.0001']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tasa_mes') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tasa mensual</label>
+								{!! Form::number('tasa_mes', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa mensual', 'step' => '0.0001']) !!}
 								@if ($errors->has('tasa_mes'))
-									<span class="help-block">{{ $errors->first('tasa_mes') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('tasa_mes') }}</div>
 								@endif
 							</div>
 						</div>
 					</div>
 
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
-					<a href="{{ url('seguroCartera') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
+					<a href="{{ url('seguroCartera') }}" class="btn btn-outline-danger">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

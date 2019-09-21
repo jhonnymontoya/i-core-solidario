@@ -47,56 +47,58 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('modalidad'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Modalidad de crédito
-								</label>
-								{!! Form::select('modalidad', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'autofocus']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('modalidad') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Modalidad de crédito</label>
+								{!! Form::select('modalidad', $modalidades, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Modalidad de crédito']) !!}
 								@if ($errors->has('modalidad'))
-									<span class="help-block">{{ $errors->first('modalidad') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('modalidad') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('solicitante')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('solicitante') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Solicitante</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-male"></i>
+										</span>
+									</div>
+									{!! Form::select('solicitante', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('solicitante'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('solicitante') }}</div>
 									@endif
-									Solicitante
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-male"></i></span>
-									{!! Form::select('solicitante', [], null, ['class' => 'form-control select2', 'tabIndex' => '6']) !!}
 								</div>
-								@if ($errors->has('solicitante'))
-									<span class="help-block">{{ $errors->first('solicitante') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_solicitud')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_solicitud'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha solicitud
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_solicitud') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha solicitud</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fecha_solicitud', date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fecha_solicitud', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha_solicitud'))
+										<div class="invalid-feedback">{{ $errors->first('fecha_solicitud') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fecha_solicitud'))
-									<span class="help-block">{{ $errors->first('fecha_solicitud') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

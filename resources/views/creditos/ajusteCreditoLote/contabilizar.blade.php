@@ -47,7 +47,9 @@
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Procesar archivo ajuste créditos en lote</h3>
-					<a href="{{ url('ajusteCreditoLote') }}" class="btn btn-outline-danger btn-sm pull-right">Volver</a>
+					<div class="card-tools">
+						<a href="{{ url('ajusteCreditoLote') }}" class="btn btn-outline-danger btn-sm float-right">Volver</a>
+					</div>					
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -159,7 +161,7 @@
 					<br>
 					<div class="row">
 						<div class="col-md-12 table-responsive">
-							<table class="table" id="solicitudes">
+							<table class="table table-striped table-hover" id="solicitudes">
 								<thead>
 									<tr>
 										<th>Deudor</th>

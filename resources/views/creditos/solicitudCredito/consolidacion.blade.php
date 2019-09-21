@@ -53,34 +53,36 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class="control-label">
-									Modalidad de crédito
-								</label>
-								{!! Form::text('modalidad', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => 'form-control', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'readonly']) !!}
+								<label class="control-label">Modalidad de crédito</label>
+								{!! Form::text('mod', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'Modalidad de crédito', 'readonly']) !!}
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class="control-label">
-									Solicitante
-								</label>
+								<label class="control-label">Solicitante</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-male"></i></span>
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-male"></i>
+										</span>
+									</div>
 									@php
 										$nombreMostar = $solicitud->tercero->tipoIdentificacion->codigo . ' ' . $solicitud->tercero->numero_identificacion . ' - ' . $solicitud->tercero->nombre_corto;
 									@endphp
-									<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fa fa-external-link"></i></small></a>
+									<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fas fa-external-link-alt"></i></small></a>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class="control-label">
-									Fecha solicitud
-								</label>
+								<label class="control-label">Fecha solicitud</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
 								</div>
 							</div>
 						</div>
@@ -94,36 +96,42 @@
 					{{-- FIN FILA --}}
 					<hr>
 
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class="col-md-6 control-label">
-									Valor solicitud
-								</label>
-								<div class="col-md-6 input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('valor_credito', $solicitud->valor_credito, ['class' => 'form-control text-right', 'autofocus', 'data-maskMoney', 'readonly']) !!}
+								@php
+									$valid = $errors->has('valor_credito') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Valor solicitud</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><span class="input-group-text">$</span></div>
+									{!! Form::text('valor_credito', $solicitud->valor_credito, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Valor solicitud', 'data-maskMoney', 'readonly']) !!}
+									@if ($errors->has('valor_credito'))
+										<div class="invalid-feedback">{{ $errors->first('valor_credito') }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
 
 						<div class="col-md-4">
 							<div class="form-group">
-								<label class="col-md-6 control-label">
-									Tasa M.V.
-								</label>
-								<div class="col-md-6 input-group">
-									<span class="input-group-addon">%</span>
-									{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => 'form-control', 'readonly']) !!}
+								<label class="control-label">Tasa M.V.</label>
+								<div class="input-group">
+									{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => ['form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Tasa M.V.', 'readonly']) !!}
+									<div class="input-group-append"><span class="input-group-text">%</span></div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 text-right">
 							<?php
-								switch($solicitud->estado_solicitud)
-								{
+								switch($solicitud->estado_solicitud) {
+									case 'BORRADOR':
+										?>
+										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
+										<?php
+										break;
 									case 'RADICADO':
 										?>
 										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
@@ -142,17 +150,17 @@
 						</div>
 					</div>
 					<hr>
-					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active">
-							<a href="#creditosVigentes" aria-controls="creditosVigentes" role="tab" data-toggle="tab">Créditos vigentes</a>
+					<ul class="nav nav-pills mb-3" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="pill" href="#creditosVigentes" role="tab" aria-selected="true">Créditos vigentes</a>
 						</li>
-						<li role="presentation">
-							<a href="#resumenLiquidacion" aria-controls="resumenLiquidacion" role="tab" data-toggle="tab">Resumen liquidación</a>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="pill" href="#resumenLiquidacion" role="tab" aria-selected="false">Resumen liquidación</a>
 						</li>
 					</ul>
 
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="creditosVigentes">
+						<div role="tabpanel" class="tab-pane fade show active" id="creditosVigentes">
 							<br>
 							@if($creditosVigentes->count())
 								<div class="row">
@@ -192,9 +200,8 @@
 														<td class="text-right">${{ number_format($capital) }}</td>
 														<td class="text-right">${{ number_format($intereses) }}</td>
 														<td>
-															<a class="btn btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total del saldo a la fecha" data-toggle="modal" data-target="#confirmacion" data-opcion="saldoTotal" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Saldo total</a>
-															<a class="btn btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total teniendo en cuenta el recaudo en proceso" data-toggle="modal" data-target="#confirmacion" data-opcion="incluidoRecaudo" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}" data-recaudo="{{ $recaudo }}">Incluido recaudo</a>
-															{{-- <a class="btn btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Indicar valor parcial para el crédito" data-toggle="modal" data-target="#confirmacion" data-opcion="parcial" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Parcial</a> --}}
+															<a href="#" class="btn btn-sm btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total del saldo a la fecha" data-toggle="modal" data-target="#confirmacion" data-opcion="saldoTotal" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}">Saldo total</a>
+															<a href="#" class="btn btn-sm btn-outline-secondary {{ $consolidado ? 'disabled' : '' }}" title="Cancelación total teniendo en cuenta el recaudo en proceso" data-toggle="modal" data-target="#confirmacion" data-opcion="incluidoRecaudo" data-credito="{{ $creditoVigente->id }}" data-capital="{{ $capital }}" data-intereses="{{ $intereses }}" data-recaudo="{{ $recaudo }}">Incluido recaudo</a>
 														</td>
 													</tr>
 												@endforeach
@@ -210,7 +217,7 @@
 								</div>
 							@endif
 						</div>
-						<div role="tabpanel" class="tab-pane fade in" id="resumenLiquidacion">
+						<div role="tabpanel" class="tab-pane fade" id="resumenLiquidacion">
 							<br>
 							<br>
 							@if($creditosRecogidos->count())
@@ -266,7 +273,7 @@
 													<th colspan="3"></th>
 													<th>Exedente para desembolso:</th>
 													<th class="text-right">${{ number_format($solicitud->valor_credito - $total) }}</th>
-													<th><a class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#desembolso">Modificar</a></th>
+													<th><a href="#" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#desembolso">Modificar</a></th>
 												</tr>
 											</tfoot>
 										</table>
@@ -283,10 +290,9 @@
 					</div>
 				</div>
 
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					<?php
-						switch($solicitud->estado_solicitud)
-						{
+						switch($solicitud->estado_solicitud) {
 							case 'RADICADO':
 								?>
 								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
@@ -296,8 +302,7 @@
 								?>
 								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
-								break;
-							
+								break;							
 							default:
 								break;
 						}
@@ -309,11 +314,11 @@
 </div>
 {{-- Fin de contenido principal de la página --}}
 <div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="titulo">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="titulo"><strong>tipoCredito</strong></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			{!! Form::open(['route' => ['solicitudCreditoPutConsolidacion', $solicitud], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
 			{!! Form::hidden('credito', 0) !!}
@@ -356,34 +361,32 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="titulo"><strong>Nuevo valor a desembolsar</strong></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			{!! Form::open(['route' => ['solicitudCredito.put.consolidacion.modificar', $solicitud], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
 			<div class="modal-body">
-				<div class="row form-horizontal">
+				<div class="row">
 					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('valorDesembolso')?'has-error':'') }}">
-							<label class="control-label col-md-4">
-								@if ($errors->has('valorDesembolso'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Ingresar nuevo valor
-							</label>
-							<div class="col-md-6">
-								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('valorDesembolso', 0, ['class' => 'form-control text-right', 'autofocus', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
+						<div class="form-group">
+							@php
+								$valid = $errors->has('valorDesembolso') ? 'is-invalid' : '';
+							@endphp
+							<label class="control-label">Ingresar nuevo valor</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
 								</div>
+								{!! Form::text('valorDesembolso', null, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Ingresar nuevo valor', 'autofocus', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
+								@if ($errors->has('valorDesembolso'))
+									<div class="invalid-feedback">{{ $errors->first('valorDesembolso') }}</div>
+								@endif
 							</div>
-							@if ($errors->has('valorDesembolso'))
-								<span class="help-block">{{ $errors->first('valorDesembolso') }}</span>
-							@endif
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer text-right">
 				{!! Form::submit('Modificar', ['class' => 'btn btn-outline-success']) !!}
 				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 			</div>

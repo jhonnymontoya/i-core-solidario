@@ -2,50 +2,46 @@
 <br>
 <div class="row">
 	<div class="col-md-4">
-		<div class="form-group {{ ($errors->has('dias_desde')?'has-error':'') }}">
-			<label class="control-label">
-				@if ($errors->has('dias_desde'))
-					<i class="fa fa-times-circle-o"></i>
-				@endif
-				Días mora desde
-			</label>
-			{!! Form::number('dias_desde', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Desde', 'autofocus']) !!}
+		<div class="form-group">
+			@php
+				$valid = $errors->has('dias_desde') ? 'is-invalid' : '';
+			@endphp
+			<label class="control-label">Días de mora</label>
+			{!! Form::number('dias_desde', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Desde']) !!}
 			@if ($errors->has('dias_desde'))
-				<span class="help-block">{{ $errors->first('dias_desde') }}</span>
+				<div class="invalid-feedback">{{ $errors->first('dias_desde') }}</div>
 			@endif
 		</div>
 	</div>
 
 	<div class="col-md-4">
-		<div class="form-group {{ ($errors->has('dias_hasta')?'has-error':'') }}">
-			<label class="control-label">
-				@if ($errors->has('dias_hasta'))
-					<i class="fa fa-times-circle-o"></i>
-				@endif
-				Días mora hasta
-			</label>
-			{!! Form::number('dias_hasta', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Hasta']) !!}
+		<div class="form-group">
+			@php
+				$valid = $errors->has('dias_hasta') ? 'is-invalid' : '';
+			@endphp
+			<label class="control-label">Días mora hasta</label>
+			{!! Form::number('dias_hasta', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Hasta']) !!}
 			@if ($errors->has('dias_hasta'))
-				<span class="help-block">{{ $errors->first('dias_hasta') }}</span>
+				<div class="invalid-feedback">{{ $errors->first('dias_hasta') }}</div>
 			@endif
 		</div>
 	</div>
 
 	<div class="col-md-3">
-		<div class="form-group {{ ($errors->has('deterioro')?'has-error':'') }}">
-			<label class="control-label">
-				@if ($errors->has('deterioro'))
-					<i class="fa fa-times-circle-o"></i>
-				@endif
-				Porcentaje deterioro
-			</label>
+		<div class="form-group">
+			@php
+				$valid = $errors->has('deterioro') ? 'is-invalid' : '';
+			@endphp
+			<label class="control-label">Porcentaje deterioro</label>
 			<div class="input-group">
-				{!! Form::number('deterioro', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Porcentaje']) !!}
-				<span class="input-group-addon">%</span>
+				{!! Form::number('deterioro', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Porcentaje']) !!}
+				<div class="input-group-append">
+					<span class="input-group-text">%</span>
+				</div>
+				@if ($errors->has('deterioro'))
+					<div class="invalid-feedback">{{ $errors->first('deterioro') }}</div>
+				@endif
 			</div>
-			@if ($errors->has('deterioro'))
-				<span class="help-block">{{ $errors->first('deterioro') }}</span>
-			@endif
 		</div>
 	</div>
 
@@ -63,8 +59,8 @@
 </div>
 
 <div class="row">
-	<div class="col-md-10 col-md-offset-1 table-responsive">
-		<table class="table table-striped">
+	<div class="col-md-12 table-responsive">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th class="text-center">Desde</th>
@@ -79,7 +75,7 @@
 						<td class="text-center">{{ $parametro->dias_desde }}</td>
 						<td class="text-center">{{ $parametro->dias_hasta }}</td>
 						<td class="text-center">{{ $parametro->deterioro }}%</td>
-						<td><a class="btn btn-outline-danger btn-sm aLimpiar"><i class="fa fa-trash"></i></a></td>
+						<td><a href="#" class="btn btn-outline-danger btn-sm aLimpiar"><i class="far fa-trash-alt"></i></a></td>
 					</tr>
 				@endforeach
 			</tbody>

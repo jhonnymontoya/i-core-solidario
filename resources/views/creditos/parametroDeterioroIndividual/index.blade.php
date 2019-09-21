@@ -42,52 +42,45 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">
-									@if ($errors->has('tipo_cartera'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo de cartera
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
-										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
-									</label>
-									<label class="btn btn-outline-primary disabled">
-										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
-									</label>
-									<label class="btn btn-outline-primary disabled">
-										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
-									</label>
-									<label class="btn btn-outline-primary disabled">
-										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
-									</label>
+								<label class="control-label">Tipo de cartera</label>
+								<div>
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary active">
+											{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
+										</label>
+										<label class="btn btn-primary disabled">
+											{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
+										</label>
+										<label class="btn btn-primary disabled">
+											{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
+										</label>
+										<label class="btn btn-primary disabled">
+											{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Micricrédito
+										</label>
+									</div>
 								</div>
-								@if ($errors->has('tipo_cartera'))
-									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">
+								<label class="control-label">Clase</label>
+								<div>
+									@php
+										$valid = $errors->has('clase') ? 'is-invalid' : '';
+										$clase = empty(old('clase')) ? 'CAPITAL' : old('clase');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $clase == 'CAPITAL' ? 'active' : '' }}">
+											{!! Form::radio('clase', 'CAPITAL', ($clase == 'CAPITAL' ? true : false), ['class' => [$valid]]) !!}Capital
+										</label>
+										<label class="btn btn-primary {{ $clase == 'INTERES' ? 'active' : '' }}">
+											{!! Form::radio('clase', 'INTERES', ($clase == 'INTERES' ? true : false ), ['class' => [$valid]]) !!}Interes
+										</label>
+									</div>
 									@if ($errors->has('clase'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('clase') }}</div>
 									@endif
-									Clase
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
-										{!! Form::radio('clase', 'CAPITAL', true) !!}Capital
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('clase', 'INTERES', false) !!}Interes
-									</label>
 								</div>
-								@if ($errors->has('clase'))
-									<span class="help-block">{{ $errors->first('clase') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
@@ -107,6 +100,11 @@
 @endsection
 
 @push('style')
+<style type="text/css">
+	.disabled {
+		cursor: not-allowed;
+	}
+</style>
 @endpush
 
 @push('scripts')
@@ -155,10 +153,11 @@
 		$parametro.append($("<td>").addClass("text-center").text(data.dias_hasta));
 		$parametro.append($("<td>").addClass("text-center").text(data.deterioro + "%"));
 		$parametro.append($("<td>").html(
-			"<a class=\"btn btn-outline-danger btn-sm aLimpiar\"><i class=\"fa fa-trash\"></i></a>"
+			"<a href=\"#\" class=\"btn btn-outline-danger btn-sm aLimpiar\"><i class=\"far fa-trash-alt\"></i></a>"
 		));
 		$("#res").append($parametro);
 		$(".aLimpiar").click(function(event){
+			event.preventDefault();
 			var $parametro = $(this).parent().parent();
 			var $id = $parametro.data("id");
 			var $data = "_token={{ csrf_token() }}";

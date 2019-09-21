@@ -46,7 +46,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-warning">
 								<h4>
 									<i class="fa fa-info-circle"></i>&nbsp;Confirmar desembolso
@@ -69,7 +69,7 @@
 									$label = "badge-";
 									switch($proceso->estado) {
 										case 'PRECARGA':
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 										case 'CARGADO':
 											$label .= 'info';
@@ -81,7 +81,7 @@
 											$label .= 'danger';
 											break;
 										default:
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 									}
 								@endphp
@@ -95,9 +95,9 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{{--{!! Form::submit('Desembolsar', ['class' => 'btn btn-outline-success']) !!}--}}
-					<a class="btn btn-outline-success" id="desembolsar">Desembolsar</a>
+					<a href="#" class="btn btn-outline-success" id="desembolsar">Desembolsar</a>
 					<a href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>
@@ -114,7 +114,8 @@
 @push('scripts')
 <script type="text/javascript">
 	$(function(){
-		$("#desembolsar").click(function(){
+		$("#desembolsar").click(function(e){
+			e.preventDefault();
 			$("#desembolsar").addClass("disabled");
 			$("#desembolsar").text("Procesando...");
 			$("#desembolsarCreditosLote").submit();

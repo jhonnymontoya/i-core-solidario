@@ -42,19 +42,19 @@
 					<h3 class="card-title">Tipos de garantías</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => 'perfil', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-3 col-sm-12">
+						<div class="col-md-8 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
 						<div class="col-md-3 col-sm-12">
 							{!! Form::select('estado', [true => 'Activo', false => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 
 					@if(!$tiposGarantias->total())
 						<br><br>
@@ -68,7 +68,7 @@
 					@else
 						<br><br>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Código</th>

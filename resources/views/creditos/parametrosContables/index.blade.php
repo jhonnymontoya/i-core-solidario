@@ -40,60 +40,60 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label class="control-label">
+								<label class="control-label">Tipo de cartera</label>
+								<div>
+									@php
+										$valid = $errors->has('tipo_cartera') ? 'is-invalid' : '';
+										$tipoCartera = empty(old('tipo_cartera')) ?'CONSUMO' : old('tipo_cartera');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $tipoCartera ? 'active' : '' }}">
+											{!! Form::radio('tipo_cartera', 'CONSUMO', ($tipoCartera ? true : false), ['class' => [$valid]]) !!}Consumo
+										</label>
+										<label class="btn btn-primary {{ !$tipoCartera ? 'active' : '' }} disabled">
+											{!! Form::radio('tipo_cartera', 'VIVIENDA', (!$tipoCartera ? true : false ), ['class' => [$valid]]) !!}Vivienda
+										</label>
+										<label class="btn btn-primary {{ !$tipoCartera ? 'active' : '' }} disabled">
+											{!! Form::radio('tipo_cartera', 'COMERCIAL', (!$tipoCartera ? true : false ), ['class' => [$valid]]) !!}Comercial
+										</label>
+										<label class="btn btn-primary {{ !$tipoCartera ? 'active' : '' }} disabled">
+											{!! Form::radio('tipo_cartera', 'MICROCREDITO', (!$tipoCartera ? true : false ), ['class' => [$valid]]) !!}Microcrédido
+										</label>
+									</div>
 									@if ($errors->has('tipo_cartera'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('tipo_cartera') }}</div>
 									@endif
-									Tipo de cartera
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
-										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
-									</label>
-									<label class="btn btn-outline-primary disabled">
-										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
-									</label>
-									<label class="btn btn-outline-primary disabled">
-										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
-									</label>
-									<label class="btn btn-outline-primary disabled">
-										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
-									</label>
 								</div>
-								@if ($errors->has('tipo_cartera'))
-									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label class="control-label">
+								<label class="control-label">Tipo de garantía</label>
+								<div>
+									@php
+										$valid = $errors->has('tipo_garantia') ? 'is-invalid' : '';
+										$tipoGarantia = empty(old('tipo_garantia')) ? 'GARANTIA ADMISIBLE (REAL) CON LIBRANZA' : old('tipo_garantia');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $tipoGarantia ? 'active' : '' }}">
+											{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) CON LIBRANZA', ($tipoGarantia ? true : false), ['class' => [$valid]]) !!}Real con libranza
+										</label>
+										<label class="btn btn-primary {{ !$tipoGarantia ? 'active' : '' }}">
+											{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) CON LIBRANZA', (!$tipoGarantia ? true : false ), ['class' => [$valid]]) !!}Personal con libranza
+										</label>
+										<label class="btn btn-primary {{ !$tipoGarantia ? 'active' : '' }}">
+											{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) SIN LIBRANZA', (!$tipoGarantia ? true : false ), ['class' => [$valid]]) !!}Real sin libranza
+										</label>
+										<label class="btn btn-primary {{ !$tipoGarantia ? 'active' : '' }}">
+											{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) SIN LIBRANZA', (!$tipoGarantia ? true : false ), ['class' => [$valid]]) !!}Personal sin libranza
+										</label>
+									</div>
 									@if ($errors->has('tipo_garantia'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('tipo_garantia') }}</div>
 									@endif
-									Tipo de garantía
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
-										{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) CON LIBRANZA', true) !!}Garantía real con libranza
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) CON LIBRANZA', false) !!}Garantía personal con libranza
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('tipo_garantia', 'GARANTIA ADMISIBLE (REAL) SIN LIBRANZA', false) !!}Garantía real sin libranza
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('tipo_garantia', 'OTRAS GARANTIAS (PERSONAL) SIN LIBRANZA', false) !!}Garantía personal sin libranza
-									</label>
 								</div>
-								@if ($errors->has('tipo_cartera'))
-									<span class="help-block">{{ $errors->first('tipo_cartera') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
@@ -172,6 +172,11 @@
 @endsection
 
 @push('style')
+<style type="text/css">
+	.disabled {
+		cursor: not-allowed;
+	}
+</style>
 @endpush
 
 @push('scripts')

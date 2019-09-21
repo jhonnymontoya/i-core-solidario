@@ -47,7 +47,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-success">
 								<h4>
 									<i class="fa fa-info-circle"></i>&nbsp;Confirmación desembolso
@@ -57,46 +57,54 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-5 col-md-offset-1">
-							<dl class="dl-horizontal">
+						<div class="col-md-6">
+							<dl>
 								<dt>Solicitante:</dt>
 								<dd>{{ $solicitud->tercero->tipoIdentificacion->codigo }} {{ $solicitud->tercero->numero_identificacion }} - {{ $solicitud->tercero->nombre_corto }}</dd>
-								<dt>Fecha de solicitud:</dt>
-								<dd>{{ $solicitud->fecha_solicitud }} ({{ $solicitud->fecha_solicitud->diffForHumans() }})</dd>
 								<dt>Fecha de aprobación:</dt>
 								<dd>{{ $solicitud->fecha_aprobacion }} ({{ $solicitud->fecha_aprobacion->diffForHumans() }})</dd>
-								<dt>Fecha de desembolso:</dt>
-								<dd><strong>{{ $solicitud->fecha_desembolso }}</strong></dd>
 								<dt>Modalidad de crédito:</dt>
 								<dd>{{ $solicitud->modalidadCredito->codigo }} - {{ $solicitud->modalidadCredito->nombre }}</dd>
-								<dt>Valor solicitado:</dt>
-								<dd>${{ number_format($solicitud->valor_solicitud) }}</dd>
 								<dt>Valor aprobado:</dt>
 								<dd>${{ number_format($solicitud->valor_credito) }}</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>Fecha de solicitud:</dt>
+								<dd>{{ $solicitud->fecha_solicitud }} ({{ $solicitud->fecha_solicitud->diffForHumans() }})</dd>
+								<dt>Fecha de desembolso:</dt>
+								<dd>{{ $solicitud->fecha_desembolso }}</dd>
+								<dt>Valor solicitado:</dt>
+								<dd>${{ number_format($solicitud->valor_solicitud) }}</dd>
 								<dt>Cuotas:</dt>
 								<dd>{{ $solicitud->plazo }} ({{ $solicitud->periodicidad }})</dd>
 							</dl>
 						</div>
 					</div>
 
+					<h4>Liquidación</h4>
 					<div class="row">
-						<div class="col-md-5 col-md-offset-1">
+						<div class="col-md-6">
 							<dl class="dl-horizontal">
-								<h4 class="text-center">Liquidación</h4 class="text-center">
 								<dt>Valor final crédito:</dt>
 								<dd>${{ number_format($liquidacion->valorFinalCredito) }}</dd>
-								<dt>Créditos consolidados:</dt>
-								<dd>${{ number_format($liquidacion->valorCreditoRecogidos) }}</dd>
 								<dt>Cobro administrativo:</dt>
 								<dd>{{ !is_null($liquidacion->nombreCobro) ? $liquidacion->nombreCobro : 'no aplica' }}</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl class="dl-horizontal">
+								<dt>Créditos consolidados:</dt>
+								<dd>${{ number_format($liquidacion->valorCreditoRecogidos) }}</dd>
 								<dt>Valor cobro:</dt>
 								<dd>${{ number_format($liquidacion->valorCobro) }}</dd>
-								<dt><h4>Total desembolso:</h4></dt>
-								<dd><strong><h4>${{ number_format($liquidacion->desembolso) }}</h4></strong></dd>
 							</dl>
 						</div>
 					</div>
-
+					<h4>Total desembolso:</h4>
+					<strong><h4>${{ number_format($liquidacion->desembolso) }}</h4></strong>
+					<br>
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
 							@if($solicitud->tieneInconsistencias())
@@ -106,11 +114,11 @@
 							@endif
 						</div>
 					</div>
-
+					<br>
 					@if($solicitud->tieneInconsistencias())
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1 table-responsive">
-								<table class="table table-hover">
+								<table class="tabl table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Condición</th>
@@ -133,27 +141,22 @@
 															<?php
 																$cumple = $condicion->cumple_parametro;
 																$aprobado = false;
-																if(!$cumple)
-																{
+																if(!$cumple) {
 																	$cumple = empty($condicion->es_aprobada) ? false : true;
 																	$aprobado = $cumple;
 																}
 															?>
 															<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 																<?php
-																	if($cumple)
-																	{
-																		if($aprobado)
-																		{
+																	if($cumple) {
+																		if($aprobado) {
 																			echo "aprobado";
 																		}
-																		else
-																		{
+																		else {
 																			echo "Sí";
 																		}
 																	}
-																	else
-																	{
+																	else {
 																		echo "No";
 																	}
 																?>
@@ -175,27 +178,22 @@
 															<?php
 																$cumple = $condicion->cumple_parametro;
 																$aprobado = false;
-																if(!$cumple)
-																{
+																if(!$cumple) {
 																	$cumple = empty($condicion->es_aprobada) ? false : true;
 																	$aprobado = $cumple;
 																}
 															?>
 															<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 																<?php
-																	if($cumple)
-																	{
-																		if($aprobado)
-																		{
+																	if($cumple) {
+																		if($aprobado) {
 																			echo "aprobado";
 																		}
-																		else
-																		{
+																		else {
 																			echo "Sí";
 																		}
 																	}
-																	else
-																	{
+																	else {
 																		echo "No";
 																	}
 																?>
@@ -211,27 +209,22 @@
 															<?php
 																$cumple = $condicion->cumple_parametro;
 																$aprobado = false;
-																if(!$cumple)
-																{
+																if(!$cumple) {
 																	$cumple = empty($condicion->es_aprobada) ? false : true;
 																	$aprobado = $cumple;
 																}
 															?>
 															<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 																<?php
-																	if($cumple)
-																	{
-																		if($aprobado)
-																		{
+																	if($cumple) {
+																		if($aprobado) {
 																			echo "aprobado";
 																		}
-																		else
-																		{
+																		else {
 																			echo "Sí";
 																		}
 																	}
-																	else
-																	{
+																	else {
 																		echo "No";
 																	}
 																?>
@@ -250,9 +243,9 @@
 					@if(!$solicitud->tieneInconsistencias())
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
-								<a id="desembolsoPorTesoreria" class="btn btn-outline-primary">Desembolso por tesorería</a>
-								<a id="desembolsoContable" class="btn btn-outline-primary">Desembolso contable</a>
-								<a id="desembolsoATercero" class="btn btn-outline-primary">Desembolso a tercero</a>
+								<a href="#" id="desembolsoPorTesoreria" class="btn btn-outline-primary">Desembolso por tesorería</a>
+								<a href="#" id="desembolsoContable" class="btn btn-outline-primary">Desembolso contable</a>
+								<a href="#" id="desembolsoATercero" class="btn btn-outline-primary">Desembolso a tercero</a>
 							</div>
 						</div>
 
@@ -296,10 +289,9 @@
 					@endif
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					@if(!$solicitud->tieneInconsistencias())
-					<a class="btn btn-outline-success" id="procesar">Procesar</a>
-					{{--{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success', 'tabindex' => '1']) !!}--}}
+					<a href="#" class="btn btn-outline-success" id="procesar">Procesar</a>
 					@endif
 					<a href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" class="btn btn-outline-danger pull-right" tabindex="2">Volver</a>
 				</div>
@@ -318,8 +310,7 @@
 <script type="text/javascript">
 	$(function(){
 
-		function limpiar()
-		{
+		function limpiar() {
 			$("select[name='cuenta']").val(null).trigger("change");
 			$("select[name='tercero']").val(null).trigger("change");
 			$(".tercero").hide();
@@ -329,7 +320,8 @@
 			limpiar();
 		});
 
-		$("#desembolsoPorTesoreria").click(function(){
+		$("#desembolsoPorTesoreria").click(function(e){
+			e.preventDefault();
 			$("input[name='metodo']").val("tesoreria");
 			$("select[name='cuenta']").select2("destroy");
 			$("#desembolso").text("Desembolso por tesorería");
@@ -364,7 +356,8 @@
 			});
 		});
 
-		$("#desembolsoContable").click(function(){
+		$("#desembolsoContable").click(function(e){
+			e.preventDefault();
 			$("input[name='metodo']").val("contable");
 			$("select[name='cuenta']").select2("destroy");
 			$("#desembolso").text("Desembolso contable");
@@ -399,7 +392,8 @@
 			});
 		});
 
-		$("#desembolsoATercero").click(function(){
+		$("#desembolsoATercero").click(function(e){
+			e.preventDefault();
 			$("input[name='metodo']").val("tercero");
 			$("select[name='cuenta']").select2("destroy");
 			$("#desembolso").text("Desembolso a tercero");
@@ -512,7 +506,8 @@
 			});
 		@endif
 
-		$("#procesar").click(function(){
+		$("#procesar").click(function(e){
+			e.preventDefault();
 			$("#procesar").addClass("disabled");
 			$("#formProcesar").submit();
 		});

@@ -104,7 +104,7 @@
 						</div>
 					</div>
 					{{-- FIN card BODY --}}
-					<div class="card-footer">
+					<div class="card-footer text-right">
 						@if($cantidadCorrectos == 0)
 							<a class="btn btn-outline-success" href="{{ route('ajusteCreditoLoteCargarCreditos', $proceso->id) }}">Continuar</a>
 						@else

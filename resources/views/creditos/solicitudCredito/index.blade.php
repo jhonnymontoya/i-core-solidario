@@ -48,9 +48,9 @@
 					<h3 class="card-title">Solicitudes de crédito</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'inicio', 'fin', 'modalidad', 'estado'), ['url' => '/solicitudCredito', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'inicio', 'fin', 'modalidad', 'estado'), ['url' => '/solicitudCredito', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-3 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-3 col-sm-12">
@@ -69,8 +69,8 @@
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$solicitudes->total())
 						<p>
@@ -101,8 +101,7 @@
 										<tr>
 											<?php
 												$link = "";
-												switch($solicitud->estado_solicitud)
-												{
+												switch($solicitud->estado_solicitud) {
 													case 'BORRADOR':
 														$link = route('solicitudCreditoEdit', $solicitud);
 														break;
@@ -125,13 +124,10 @@
 											<td><a href="{{ $link }}">{{ $nombre }}</a></td>
 											<td>{{ $solicitud->modalidadCredito->codigo }} - {{ $solicitud->modalidadCredito->nombre }}</td>
 											<td>{{ $solicitud->id }}</td>										
-											<td>
-												{{ empty($solicitud->numero_obligacion) ? '-' : $solicitud->numero_obligacion }}
-											</td>
+											<td>{{ empty($solicitud->numero_obligacion) ? '-' : $solicitud->numero_obligacion }}</td>
 											<td>
 												<?php
-													switch($solicitud->estado_solicitud)
-													{
+													switch($solicitud->estado_solicitud) {
 														case 'BORRADOR':
 														case 'RADICADO':
 														case 'RECHAZADO':
@@ -157,12 +153,11 @@
 											<td>{{ number_format($solicitud->tasa, 2) }}%</td>
 											<td>
 												<?php
-													$label = 'default';
-													switch($solicitud->estado_solicitud)
-													{
+													$label = 'secondary';
+													switch($solicitud->estado_solicitud) {
 														case 'BORRADOR':
 														case 'RADICADO':
-															$label = 'default';
+															$label = 'secondary';
 															break;
 														case 'RECHAZADO':
 														case 'ANULADO':
@@ -178,7 +173,7 @@
 															$label = 'success';
 															break;
 														default:
-															$label = 'default';
+															$label = 'secondary';
 															break;
 													}
 												?>
@@ -186,26 +181,25 @@
 											</td>
 											<td>
 												<?php
-													switch($solicitud->estado_solicitud)
-													{
+													switch($solicitud->estado_solicitud) {
 														case 'BORRADOR':
 															?>
 															<a class="btn btn-outline-info btn-sm" href="{{ route('solicitudCreditoEdit', $solicitud) }}" title="Editar"><i class="fa fa-edit"></i></a>
-															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
+															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="far fa-times-circle"></i></a>
 															<?php
 															break;
 														case 'RADICADO':
 															?>
-															<a class="btn btn-outline-success btn-sm" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Aprobar"><i class="fa fa-thumbs-o-up"></i></a>
-															<a class="btn btn-outline-danger btn-sm" href="{{ route('solicitudCreditoRechazar', $solicitud) }}" title="Rechazar"><i class="fa fa-thumbs-o-down"></i></a>
-															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
+															<a class="btn btn-outline-success btn-sm" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Aprobar"><i class="far fa-thumbs-up"></i></a>
+															<a class="btn btn-outline-danger btn-sm" href="{{ route('solicitudCreditoRechazar', $solicitud) }}" title="Rechazar"><i class="far fa-thumbs-down"></i></a>
+															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="far fa-times-circle"></i></a>
 															<a class="btn btn-outline-secondary btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
 															<?php
 															break;
 														case 'APROBADO':
 															?>
-															<a class="btn btn-outline-success btn-sm" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Desembolsar"><i class="fa fa-money"></i></a>
-															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="fa fa-close"></i></a>
+															<a class="btn btn-outline-success btn-sm" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Desembolsar"><i class="fas fa-money-bill"></i></a>
+															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="far fa-times-circle"></i></a>
 															<a class="btn btn-outline-secondary btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
 															<?php
 															break;

@@ -6,10 +6,10 @@
 		{{ csrf_field() }}
 		<div class="modal-content">
 			<div class="modal-header">
+				<h3 class="modal-title" id="mLabel">Actualizar</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
 					<span aria-hiden="true">&times;</span>
 				</button>
-				<h3 class="modal-title" id="mLabel">Actualizar</h3>
 			</div>
 
 			<div class="modal-body">

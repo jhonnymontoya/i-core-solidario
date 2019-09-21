@@ -49,63 +49,45 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('modalidad')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('modalidad'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Modalidad de crédito
-								</label>
-								{!! Form::text('modalidad_nombre', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => 'form-control', 'placeholder' => 'Modalidad de crédito', 'autocomplete' => 'off', 'readonly']) !!}
-								@if ($errors->has('modalidad'))
-									<span class="help-block">{{ $errors->first('modalidad') }}</span>
-								@endif
+							<div class="form-group">
+								<label class="control-label">Modalidad de crédito</label>
+								{!! Form::text('mod', $solicitud->modalidadCredito->codigo . ' - ' . $solicitud->modalidadCredito->nombre, ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'Modalidad de crédito', 'readonly']) !!}
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('solicitante')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('solicitante'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Solicitante
-								</label>
+							<div class="form-group">
+								<label class="control-label">Solicitante</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-male"></i></span>
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-male"></i>
+										</span>
+									</div>
 									@php
 										$nombreMostar = $solicitud->tercero->tipoIdentificacion->codigo . ' ' . $solicitud->tercero->numero_identificacion . ' - ' . $solicitud->tercero->nombre_corto;
 									@endphp
-									<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fa fa-external-link"></i></small></a>
+									<a href="{{ url('socio/consulta') }}?socio={{ $solicitud->tercero->socio->id }}&fecha={{ $solicitud->fecha_solicitud }}" target="_blank" class="form-control" style="background-color: #eee;" >{{ $nombreMostar }} <small><i class="fas fa-external-link-alt"></i></small></a>
 								</div>
-								@if ($errors->has('solicitante'))
-									<span class="help-block">{{ $errors->first('solicitante') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_solicitud')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_solicitud'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha solicitud
-								</label>
+							<div class="form-group">
+								<label class="control-label">Fecha solicitud</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fecha_solicitud', $solicitud->fecha_solicitud, ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
 								</div>
-								@if ($errors->has('fecha_solicitud'))
-									<span class="help-block">{{ $errors->first('fecha_solicitud') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">
-									Pagaduría
-								</label>
+								<label class="control-label">Pagaduría</label>
 								@php
 									$socio = optional($solicitud->tercero)->socio;
 									$pagaduria = empty($socio) ? '' : $socio->pagaduria->nombre;
@@ -116,9 +98,7 @@
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">
-									Periodicidad pagaduría
-								</label>
+								<label class="control-label">Periodicidad pagaduría</label>
 								@php
 									$periodicidad = empty($socio) ? '' : $socio->pagaduria->periodicidad_pago;
 								@endphp
@@ -135,44 +115,36 @@
 					{{-- FIN FILA --}}
 					<hr>
 
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('valor_credito')?'has-error':'') }}">
-								<label class="col-md-6 control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('valor_credito') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Valor solicitud</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><span class="input-group-text">$</span></div>
+									{!! Form::text('valor_credito', $solicitud->valor_credito, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Valor solicitud', 'data-maskMoney', 'readonly']) !!}
 									@if ($errors->has('valor_credito'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('valor_credito') }}</div>
 									@endif
-									Valor solicitud
-								</label>
-								<div class="col-md-6 input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('valor_credito', null, ['class' => 'form-control text-right', 'autofocus', 'data-maskMoney', 'readonly']) !!}
 								</div>
-								@if ($errors->has('valor_credito'))
-									<span class="help-block">{{ $errors->first('valor_credito') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('tasa')?'has-error':'') }}">
-								<label class="col-md-6 control-label">
-									@if ($errors->has('tasa'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tasa M.V.
-								</label>
-								<div class="col-md-6 input-group">
-									<span class="input-group-addon">%</span>
-									{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => 'form-control', 'readonly']) !!}
+							<div class="form-group">
+								<label class="control-label">Tasa M.V.</label>
+								<div class="input-group">
+									{!! Form::text('tasa', number_format($solicitud->tasa, 2), ['class' => ['form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Tasa M.V.', 'readonly']) !!}
+									<div class="input-group-append"><span class="input-group-text">%</span></div>
 								</div>
-								@if ($errors->has('tasa'))
-									<span class="help-block">{{ $errors->first('tasa') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
+							<label class="control-label">&nbsp;</label>
+							<br>
 							<a href="{{ route('solicitudCreditoConsolidacion', $solicitud) }}" class="btn btn-outline-primary">Recoger obligaciones vigentes</a>
 						</div>
 					</div>
@@ -180,127 +152,123 @@
 					<div></div>
 					<br>
 					<hr>
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
-								<label class="col-md-7 control-label">
-									@if ($errors->has('plazo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Número de cuotas
-								</label>
-								<div class="col-md-5">
-									{!! Form::text('plazo', null, ['class' => 'form-control', 'autofocus', 'min' => '1', 'step' => '1']) !!}
-									@if ($errors->has('plazo'))
-										<span class="help-block">{{ $errors->first('plazo') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('plazo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Número de cuotas</label>
+								{!! Form::number('plazo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Número de cuotas', 'min' => '1', 'step' => '1']) !!}
+								@if ($errors->has('plazo'))
+									<div class="invalid-feedback">{{ $errors->first('plazo') }}</div>
+								@endif
 							</div>
 						</div>
 
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('forma_pago')?'has-error':'') }}">
-								<label class="col-md-6 control-label">
-									@if ($errors->has('forma_pago'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Forma de pago
-								</label>
-								<div class="col-md-6">
-									{!! Form::select('forma_pago', ['NOMINA' => 'Nómina', 'PRIMA' => 'Prima', 'CAJA' => 'Caja'], null, ['class' => 'form-control select2']) !!}
-									@if ($errors->has('forma_pago'))
-										<span class="help-block">{{ $errors->first('forma_pago') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('forma_pago') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Forma de pago</label>
+								{!! Form::select('forma_pago', ['NOMINA' => 'Nómina', 'PRIMA' => 'Prima', 'CAJA' => 'Caja'], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('forma_pago'))
+									<div class="invalid-feedback">{{ $errors->first('forma_pago') }}</div>
+								@endif
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('periodicidad')?'has-error':'') }}">
-								<label class="col-md-4 control-label">
-									@if ($errors->has('periodicidad'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Periodicidad de pago
-								</label>
-								<div class="col-md-8">
-									{!! Form::select('periodicidad', $periodicidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una periodicidad']) !!}
-									@if ($errors->has('periodicidad'))
-										<span class="help-block">{{ $errors->first('periodicidad') }}</span>
-									@endif
-								</div>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('periodicidad') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Periodicidad de pago</label>
+								{!! Form::select('periodicidad', $periodicidades, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una periodicidad']) !!}
+								@if ($errors->has('periodicidad'))
+									<div class="invalid-feedback">{{ $errors->first('periodicidad') }}</div>
+								@endif
 							</div>
 						</div>
-
 					</div>
 
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_primer_pago')?'has-error':'') }}">
-								<label class="col-md-6 control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_primer_pago') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha primer pago</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::select('fecha_primer_pago', $programaciones, null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('fecha_primer_pago'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('fecha_primer_pago') }}</div>
 									@endif
-									Fecha primer pago
-								</label>
-								<div class="col-md-6 input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::select('fecha_primer_pago', $programaciones, null, ['class' => 'form-control pull-right select2']) !!}
 								</div>
-								@if ($errors->has('fecha_primer_pago'))
-									<span class="help-block">{{ $errors->first('fecha_primer_pago') }}</span>
-								@endif
 							</div>
 						</div>
 
 						@if($solicitud->modalidadCredito->tipo_cuota == 'CAPITAL')
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_primer_pago_intereses')?'has-error':'') }}">
-								<label class="col-md-7 control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_primer_pago_intereses') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">fecha primer pago intereses</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::select('fecha_primer_pago_intereses', $programaciones, null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('fecha_primer_pago_intereses'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('fecha_primer_pago_intereses') }}</div>
 									@endif
-									Fecha primer pago intereses
-								</label>
-								<div class="col-md-5 input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::select('fecha_primer_pago_intereses', $programaciones, null, ['class' => 'form-control pull-right select2']) !!}
 								</div>
-								@if ($errors->has('fecha_primer_pago_intereses'))
-									<span class="help-block">{{ $errors->first('fecha_primer_pago_intereses') }}</span>
-								@endif
 							</div>
 						</div>
 						@endif
 
 						@if($solicitud->modalidadCredito->acepta_cuotas_extraordinarias)
 						<div class="col-md-4">
+							<label class="control-label">&nbsp;</label>
+							<br>
 							<a href="{{ route('solicitudCredito.cuotasExtraordinarias', $solicitud->id) }}" class="btn btn-outline-primary">Agregar cuotas extraordinarias</a>
 						</div>
-						@endif					
-
+						@endif
 					</div>
 
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_aprobacion')?'has-error':'') }}">
-								<label class="col-md-6 control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_aprobacion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha aprobación</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fecha_aprobacion', $solicitud->fecha_solicitud, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fecha_aprobacion'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('fecha_aprobacion') }}</div>
 									@endif
-									Fecha aprobación
-								</label>
-								<div class="col-md-6 input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fecha_aprobacion', $solicitud->fecha_solicitud, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
-								@if ($errors->has('fecha_aprobacion'))
-									<span class="help-block">{{ $errors->first('fecha_aprobacion') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-8">
-							{!! Form::submit('Aprobar solicitud', ['class' => 'btn bg-olive']) !!}
+							<label class="control-label">&nbsp;</label>
+							<br>
+							{!! Form::submit('Aprobar solicitud', ['class' => 'btn btn-outline-success']) !!}
 							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger pull-right">Volver</a>
 						</div>
 					</div>
@@ -308,16 +276,14 @@
 					@if($solicitud->amortizaciones->count())
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('observaciones')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('observaciones'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Observaciones
-								</label>
-								{!! Form::textarea('observaciones', null, ['class' => 'form-control', 'placeholder' => 'Observaciones', 'style' => 'height:100px;']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('observaciones') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Observaciones</label>
+								{!! Form::textarea('observaciones', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Observaciones', 'style' => 'height:100px;']) !!}
 								@if ($errors->has('observaciones'))
-									<span class="help-block">{{ $errors->first('observaciones') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('observaciones') }}</div>
 								@endif
 							</div>
 						</div>
@@ -325,11 +291,11 @@
 					@endif
 
 					<hr>
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-12">
-							<a id="verCondiciones" class="btn btn-outline-info btn-sm">Ver condiciones</a>
-							<a id="verAmortizacion" class="btn btn-outline-info btn-sm">Ocultar amortización</a>
-							<a id="verDocumentacion" class="btn btn-outline-info btn-sm">Actualizar documentación</a>
+							<a href="#" id="verCondiciones" class="btn btn-outline-info btn-sm">Ver condiciones</a>
+							<a href="#" id="verAmortizacion" class="btn btn-outline-info btn-sm">Ocultar amortización</a>
+							<a href="#" id="verDocumentacion" class="btn btn-outline-info btn-sm">Actualizar documentación</a>
 							<a href="{{ route('solicitudCreditoGarantias', $solicitud->id) }}" class="btn btn-outline-info btn-sm">Garantías</a>
 						</div>
 					</div>
@@ -343,7 +309,7 @@
 						</div>
 						<div class="row" style="margin-left:20px; margin-right:20px;">
 							<div class="col-md-12 table-responsive">
-								<table class="table table-hover">
+								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Condición</th>
@@ -358,16 +324,13 @@
 											@if($condicion->condicion == 'Cupo')
 												<tr>
 													<td>{{ $condicion->condicion }}</td>
-													<td>
-														{{ number_format($condicion->valor_parametro, 0) }}
-													</td>
+													<td>{{ number_format($condicion->valor_parametro, 0) }}</td>
 													<td>{{ number_format($condicion->valor_solicitud, 0) }}</td>
 													<td>
 														<?php
 															$cumple = $condicion->cumple_parametro;
 															$aprobado = false;
-															if(!$cumple)
-															{
+															if(!$cumple) {
 																$cumple = empty($condicion->es_aprobada) ? false : true;
 																$aprobado = $cumple;
 															}
@@ -375,20 +338,16 @@
 														<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 															<?php
 																$aprobar = false;
-																if($cumple)
-																{
-																	if($aprobado)
-																	{
+																if($cumple) {
+																	if($aprobado) {
 																		$aprobar = true;
 																		echo "aprobado";
 																	}
-																	else
-																	{
+																	else {
 																		echo "Sí";
 																	}
 																}
-																else
-																{
+																else {
 																	$aprobar = true;
 																	echo "No";
 																}
@@ -397,7 +356,7 @@
 													</td>
 													<td>
 														@if($aprobar)
-															<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success' }} btn-sm" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
+															<a href="#" data-id="{{ $condicion->id }}" class="btn btn-outline-{{ $aprobado ? 'danger' : 'success' }} btn-sm b-accion" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
 														@endif
 													</td>
 												</tr>
@@ -426,8 +385,7 @@
 														<?php
 															$cumple = $condicion->cumple_parametro;
 															$aprobado = false;
-															if(!$cumple)
-															{
+															if(!$cumple) {
 																$cumple = empty($condicion->es_aprobada) ? false : true;
 																$aprobado = $cumple;
 															}
@@ -435,20 +393,16 @@
 														<span class="badge badge-pill badge-{{$condicion->id }} label-{{ $cumple ? 'success' : 'danger' }}">
 															<?php
 																$aprobar = false;
-																if($cumple)
-																{
-																	if($aprobado)
-																	{
+																if($cumple) {
+																	if($aprobado) {
 																		$aprobar = true;
 																		echo "aprobado";
 																	}
-																	else
-																	{
+																	else {
 																		echo "Sí";
 																	}
 																}
-																else
-																{
+																else {
 																	$aprobar = true;
 																	echo "No";
 																}
@@ -458,9 +412,9 @@
 													<td>
 														@if($aprobar)
 															@if($condicion->condicion != 'Documentación')
-																<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success' }} btn-sm" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
+																<a href="#" data-id="{{ $condicion->id }}" class="btn btn-outline-{{ $aprobado ? 'danger' : 'success' }} btn-sm b-accion" onclick="alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar' }}</a>
 															@else
-																<a data-id="{{ $condicion->id }}" class="btn btn-{{ $aprobado ? 'danger' : 'success'}} btn-sm" onclick="javascript:alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar'}}</a>
+																<a href="#" data-id="{{ $condicion->id }}" class="btn btn-outline-{{ $aprobado ? 'danger' : 'success'}} btn-sm b-accion" onclick="javascript:alternarCondicion(this);">{{ $aprobado ? 'Desaprobar' : 'Aprobar'}}</a>
 															@endif
 														@endif
 													</td>
@@ -511,7 +465,7 @@
 						<br>
 						<div class="row" style="margin-left:20px; margin-right:20px;">
 							<div class="col-md-12 table-responsive">
-								<table id="tablaAmortizacion" class="table table-hover">
+								<table id="tablaAmortizacion" class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Cuota</th>
@@ -555,7 +509,7 @@
 						</div>
 						<div class="row" style="margin-left:20px; margin-right:20px;">
 							<div class="col-md-12 table-responsive">
-								<table class="table table-hover">
+								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Documento</th>
@@ -576,7 +530,7 @@
 													<span class="badge badge-pill badge-documento-{{ $documento->id }} label-{{ $cumple ? 'success' : 'danger' }}">{{ $cumple ? 'Sí' : 'No' }}</span>
 												</td>
 												<td>
-													<a data-id="{{ $documento->id }}" class="btn btn-{{ $cumple ? 'danger' : 'success' }} btn-sm" onclick="javascript:alternarDocumento(this)">{{ $cumple ? 'No cumple' : 'Cumple' }}</a>
+													<a href="#" data-id="{{ $documento->id }}" class="btn btn-outline-{{ $cumple ? 'danger' : 'success' }} btn-sm b-accion" onclick="javascript:alternarDocumento(this)">{{ $cumple ? 'No cumple' : 'Cumple' }}</a>
 												</td>
 											</tr>
 										@endforeach
@@ -605,21 +559,18 @@
 	$(function(){
 		$(window).load(function(){
 			$("input[name='valor_credito']").maskMoney('mask');
-			@if($solicitud->amortizaciones->count())
-			$('#tablaAmortizacion').DataTable({"scrollY": '340px', "scrollCollapse": true, "paging": false, "ordering": false, "info": false, "searching": false});
-			@endif
 		});
 
 		$(".select2").select2();
 
 		$("#verAmortizacion").click(function(e){
+			e.preventDefault();
 			if($("#amortizacion").data("visible")){
 				$(this).text('Ver amortización');
 				$("#amortizacion").data("visible", false);
 				$("#amortizacion").hide();
 			}
-			else
-			{
+			else {
 				$(this).text('Ocultar amortización');
 				$("#amortizacion").data("visible", true);
 				$("#amortizacion").show();
@@ -627,13 +578,13 @@
 		});
 
 		$("#verCondiciones").click(function(e){
+			e.preventDefault();
 			if($("#condiciones").data("visible")){
 				$(this).text('Ver condiciones');
 				$("#condiciones").data("visible", false);
 				$("#condiciones").hide();
 			}
-			else
-			{
+			else {
 				$(this).text('Ocultar condiciones');
 				$("#condiciones").data("visible", true);
 				$("#condiciones").show();
@@ -641,13 +592,13 @@
 		});
 
 		$("#verDocumentacion").click(function(e){
+			e.preventDefault();
 			if($("#documentacion").data("visible")){
 				$(this).text('Actualizar documentacion');
 				$("#documentacion").data("visible", false);
 				$("#documentacion").hide();
 			}
-			else
-			{
+			else {
 				$(this).text('Ocultar documentacion');
 				$("#documentacion").data("visible", true);
 				$("#documentacion").show();
@@ -655,6 +606,7 @@
 		});
 
 		$("#calcularAmortizacion").click(function(e){
+			e.preventDefault();
 			$("input[name='valor_solicitud']").maskMoney('unmask');
 			var $data = $("form[name='solicitud_credito']").serialize();
 			$("input[name='valor_solicitud']").maskMoney('mask');
@@ -669,15 +621,15 @@
 				error($error);
 			});
 		});
+		$(".b-accion").click(function(e){
+			e.preventDefault();
+		});
 		<?php
-			if($solicitud->modalidadCredito->es_tasa_condicionada)
-			{
+			if($solicitud->modalidadCredito->es_tasa_condicionada) {
 				$condicion = $solicitud->modalidadCredito->condicionesModalidad()->whereTipoCondicion('TASA')->first();
 
-				if(!empty($condicion))
-				{
-					if($condicion->condicionado_por == 'MONTO')
-					{
+				if(!empty($condicion)) {
+					if($condicion->condicionado_por == 'MONTO') {
 						?>
 						$("input[name='valor_credito']").on("keyup", function(e){
 							$valor = $(this).maskMoney('cleanvalue');
@@ -685,8 +637,7 @@
 						});
 						<?php
 					}
-					elseif($condicion->condicionado_por == 'PLAZO')
-					{
+					elseif($condicion->condicionado_por == 'PLAZO') {
 						?>
 						$("input[name='plazo']").on("keyup", function(e){
 							$valor = $(this).val();
@@ -719,8 +670,7 @@
 			}
 		?>
 	});
-	function alternarCondicion(obj)
-	{
+	function alternarCondicion(obj) {
 		var $obj = $(obj);
 		$.ajax({
 			url: '{{ route('solicitudCreditoAlternarCondicion', $solicitud->id) }}',
@@ -735,8 +685,7 @@
 				$(".label-" + $obj.data('id')).addClass("label-success");
 				$(".label-" + $obj.data('id')).text("Aprobado");
 			}
-			else
-			{
+			else {
 				$obj.removeClass("btn-outline-danger");
 				$obj.addClass("btn-outline-success");
 				$obj.text("Aprobar");
@@ -747,15 +696,14 @@
 		}).fail(function(data){});
 	}
 
-	function alternarDocumento(obj)
-	{
+	function alternarDocumento(obj) {
 		var $obj = $(obj);
 		$.ajax({
 			url: '{{ route('solicitudCreditoAlternarDocumento', $solicitud->id) }}',
 			type: 'GET',
 			data: 'documento=' + $obj.data('id')
 		}).done(function(data){
-			if(data.estado){
+			if(data.estado) {
 				$obj.removeClass("btn-outline-success");
 				$obj.addClass("btn-outline-danger");
 				$obj.text("No cumple");
@@ -763,8 +711,7 @@
 				$(".label-documento-" + $obj.data('id')).addClass("label-success");
 				$(".label-documento-" + $obj.data('id')).text("Sí");
 			}
-			else
-			{
+			else {
 				$obj.removeClass("btn-outline-danger");
 				$obj.addClass("btn-outline-success");
 				$obj.text("Cumple");

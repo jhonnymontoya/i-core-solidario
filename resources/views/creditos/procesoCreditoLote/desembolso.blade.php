@@ -47,7 +47,9 @@
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Procesar archivo créditos en lote</h3>
-					<a href="{{ url('procesoCreditoLote') }}" class="btn btn-outline-danger btn-sm pull-right">Volver</a>
+					<div class="card-tools">
+						<a href="{{ url('procesoCreditoLote') }}" class="btn btn-outline-danger btn-sm pull-right">Volver</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">

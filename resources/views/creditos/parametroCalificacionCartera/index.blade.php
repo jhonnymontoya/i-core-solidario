@@ -52,17 +52,17 @@
 									Tipo de cartera
 								</label>
 								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-primary active">
 										{!! Form::radio('tipo_cartera', 'CONSUMO', true) !!}Consumo
 									</label>
-									<label class="btn btn-outline-primary disabled">
+									<label class="btn btn-primary disabled">
 										{!! Form::radio('tipo_cartera', 'VIVIENDA', false) !!}Vivienda
 									</label>
-									<label class="btn btn-outline-primary disabled">
+									<label class="btn btn-primary disabled">
 										{!! Form::radio('tipo_cartera', 'COMERCIAL', false) !!}Comercial
 									</label>
-									<label class="btn btn-outline-primary disabled">
+									<label class="btn btn-primary disabled">
 										{!! Form::radio('tipo_cartera', 'MICROCREDITO', false) !!}Microcredito
 									</label>
 								</div>
@@ -73,7 +73,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1 table-responsive">
+						<div class="col-md-12 table-responsive">
 							<table class="table table-hover table-striped">
 								<thead>
 									<tr>
@@ -92,7 +92,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a href="#" class="btn btn-outline-primary btn-sm hide act" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -104,7 +104,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a href="#" class="btn btn-outline-primary btn-sm hide act" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -116,7 +116,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a href="#" class="btn btn-outline-primary btn-sm hide act" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -128,7 +128,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a href="#" class="btn btn-outline-primary btn-sm hide act" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 
@@ -140,7 +140,7 @@
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_desde }}</td>
 										<td class="text-center">{{ is_null($c) ? 'No parametrizado' : $c->dias_hasta }}</td>
 										<td class="text-center">
-											<a class="btn btn-outline-primary btn-sm hide" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
+											<a href="#" class="btn btn-outline-primary btn-sm hide act" data-toggle="modal" data-target="#mActualizar">Actualizar</a>
 										</td>
 									</tr>
 								</tbody>
@@ -158,11 +158,19 @@
 @endsection
 
 @push('style')
+<style type="text/css">
+	.disabled {
+		cursor: not-allowed;
+	}
+</style>
 @endpush
 
 @push('scripts')
 <script type="text/javascript">
 	$(function(){
+		$(".act").click(function(e){
+			e.preventDefault();
+		});
 		$(".actualizar").hover(function() {
 			$(this).find(".btn").removeClass("hide");
 		}, function() {
