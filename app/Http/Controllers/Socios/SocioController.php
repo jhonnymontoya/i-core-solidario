@@ -946,7 +946,12 @@ class SocioController extends Controller
 			if($res) {
 				$saldoAnterior = $res[0]->saldo_anterior;
 				$saldo = $res[0]->saldo;
-				$ahorros->variacionAhorro = intval(($saldo * 100) / $saldoAnterior) - 100;
+				try{
+					$ahorros->variacionAhorro = intval(($saldo * 100) / $saldoAnterior) - 100;
+				}
+				catch(\ErrorException $e) {
+					$ahorros->variacionAhorro = 0;
+				}
 				$ahorros->saldo = $saldo;
 			}
 			//Se obtiene los valores de créditos del socio

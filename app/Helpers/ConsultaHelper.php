@@ -39,7 +39,12 @@ class ConsultaHelper {
 		if($res) {
 			$saldoAnterior = $res[0]->saldo_anterior;
 			$saldo = $res[0]->saldo;
-			$this->ahorros->variacionAhorro = intval(($saldo * 100) / $saldoAnterior) - 100;
+			try{
+				$ahorros->variacionAhorro = intval(($saldo * 100) / $saldoAnterior) - 100;
+			}
+			catch(\ErrorException $e) {
+				$ahorros->variacionAhorro = 0;
+			}
 			$this->ahorros->saldo = $saldo;
 		}
 	}
