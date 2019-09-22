@@ -383,9 +383,7 @@
 				$fila.append("<td class='text-right'>$" + $data.item.debito + "</td>");
 				$fila.append("<td class='text-right'>$" + $data.item.credito + "</td>");
 				$fila.append("<td class='text-center'><a href='#' onclick='javascript:return rowDelete(this);' title='Eliminar' class='btn btn-outline-danger btn-sm'><i class='far fa-trash-alt'></i></a></td>");
-				$('#tablaRegistros').DataTable().destroy();
 				$("#id_registros").prepend($fila);
-				$('#tablaRegistros').DataTable({"scrollY": '340px', "scrollCollapse": true, "paging": false, "ordering": false, "info": false, "searching": false});
 
 
 				$("#totalDebitos").text("$" + $data.debitos);
@@ -411,20 +409,6 @@
 			$("#error").show();
 			$("#error").fadeOut(5000);
 		}
-		$("input[name='referencia']").autocomplete({
-			source: "referencia",
-			minLength: 2
-		});
-
-		$('#tablaRegistros').DataTable({
-			"scrollY": '350px',
-			"scrollCollapse": true,
-			"paging": false,
-			"ordering": false,
-			"info": false,
-			"autoWidth": false,
-			"searching": false
-		});
 	});
 
 	function rowDelete(row){
