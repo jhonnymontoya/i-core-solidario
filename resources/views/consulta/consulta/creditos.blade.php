@@ -24,16 +24,19 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<br>
 		<div class="container-fluid">
+			<br>
 			<div class="card card-primary card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Consulta movimientos</h3>
+					<div class="card-tools">
+						<a class="btn btn-sm btn-outline-danger float-right" href="{{ url('consulta/creditos/lista') }}">Volver</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<br>
 					<div class="row">
-						<div class="col-md-9 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-5">
 									<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
@@ -43,9 +46,6 @@
 							<div class="row">
 								<div class="col-md-12"><strong>Detalles de:</strong> {{ $credito->numero_obligacion }} {{ $credito->modalidadCredito->nombre }}</div>
 							</div>
-						</div>
-						<div class="col-md-2">
-							<a href="{{ url('consulta') }}" class="btn btn-outline-primary pull-right">Volver</a>
 						</div>
 					</div>
 					<br>
@@ -106,8 +106,75 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Saldo seguro:</strong></div>
+								<div class="col-md-6 text-left">${{ number_format($credito->saldoSeguroObligacion(Request::get('fecha')), 0) }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Plazo:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->plazo }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Periodicidad:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->periodicidad }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Forma pago:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->forma_pago }}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Altura:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->alturaObligacion(Request::get('fecha')) }} de {{ $credito->plazo }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Inicio de pago:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->fecha_primer_pago }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Fecha fin pago:</strong></div>
+								<div class="col-md-6 text-left">{{ $fechaUltimoPago }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Tipo cuota:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->tipo_amortizacion }}</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Último movimiento:</strong></div>
+								<div class="col-md-6 text-left">{{ $ultimoMovimiento }}</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6 text-right"><strong>Calificación:</strong></div>
+								<div class="col-md-6 text-left">{{ $credito->calificacion_obligacion }}</div>
+							</div>
+						</div>
+					</div>
 					<br>
-					<a id="verAmortizacion" class="btn btn-outline-info btn-sm">Plan de pagos</a>
+					<a href="#" id="verAmortizacion" class="btn btn-outline-info btn-sm">Ver amortización</a>
+					<a href="#" id="verCodeudores" class="btn btn-outline-info btn-sm">Ver codeudores</a>
 					@if($credito->amortizaciones->count())
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>
@@ -180,11 +247,59 @@
 						</div>
 					</div>
 					@endif
+					<div id="codeudores" style="display: none;" data-visible="false">
+						<br>
+						<div class="row">
+							<div class="col-md-12">
+								<h3>Codeudores</h3>
+							</div>
+						</div>
+						<br>
+						<div class="row" style="margin-left:20px; margin-right:20px;">
+							<div class="col-md-12 table-responsive">
+								@if ($codeudores->count())
+									<table id="tablaCodeudores" class="table table-hover">
+										<thead>
+											<tr>
+												<th>Codeudor</th>
+												<th>Estado</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach ($codeudores as $codeudor)
+												@php
+													$codeudorSocio = false;
+													$url = "";
+													if(isset($codeudor->socioId)) {
+														$codeudorSocio = true;
+														$url = "%s?socio=%s&fecha=%s";
+														$url = sprintf($url, url('socio/consulta'), $codeudor->socioId, Request::get('fecha'));
+													}
+												@endphp
+												<tr>
+													<td>
+														@if ($codeudorSocio)
+															<a href="{{ $url }}" target="_blank">{{ $codeudor->nombre }}</a>
+														@else
+															{{ $codeudor->nombre }}
+														@endif
+													</td>
+													<td>{{ $codeudor->estado }}</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
+								@else
+									<h3>Obligación sin codeudores</h3>
+								@endif
+							</div>
+						</div>
+					</div>
 					<hr>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1 table-responsive">
+						<div class="col-md-12 table-responsive">
 							@if($movimientos->count())
-								<table class="table table-hover">
+								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Fecha</th>
@@ -231,10 +346,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
-				</div>
 			</div>
 		</div>
+		<br>
 	</section>
 </div>
 {{-- Fin de contenido principal de la página --}}
@@ -247,16 +361,32 @@
 <script type="text/javascript">
 	$(function(){
 		$("#verAmortizacion").click(function(e){
+			e.preventDefault();
 			if($("#amortizacion").data("visible")){
-				$(this).text('Plan de pagos');
+				$(this).text('Ver amortización');
 				$("#amortizacion").data("visible", false);
 				$("#amortizacion").hide();
 			}
 			else
 			{
-				$(this).text('Ocultar plan de pagos');
+				$(this).text('Ocultar amortización');
 				$("#amortizacion").data("visible", true);
 				$("#amortizacion").show();
+			}
+		});
+
+		$("#verCodeudores").click(function(e){
+			e.preventDefault();
+			if($("#codeudores").data("visible")){
+				$(this).text('Ver codeudores');
+				$("#codeudores").data("visible", false);
+				$("#codeudores").hide();
+			}
+			else
+			{
+				$(this).text('Ocultar codeudores');
+				$("#codeudores").data("visible", true);
+				$("#codeudores").show();
 			}
 		});
 	});

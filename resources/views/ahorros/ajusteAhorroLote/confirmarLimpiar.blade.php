@@ -46,7 +46,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-warning">
 								<h4>
 									<i class="fa fa-info-circle"></i>&nbsp;Confirmar limpiar archivo cargado
@@ -93,7 +93,7 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Limpiar', ['class' => 'btn btn-outline-danger']) !!}
 					<a href="{{ route('ajusteAhorrosLoteResumen', $proceso->id) }}" class="btn btn-outline-success pull-right">Volver</a>
 				</div>

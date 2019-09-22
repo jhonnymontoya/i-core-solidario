@@ -37,39 +37,39 @@
 					<h3 class="card-title">Cuotas voluntarias</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('socio'), ['url' => 'cuotaVoluntaria', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('socio'), ['url' => 'cuotaVoluntaria', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-11">
 							<div class="form-group">
-								<label class="col-sm-2 control-label">
+								<label class="control-label">
 									@if ($errors->has('tipo_comprobante_id'))
 										<i class="fa fa-times-circle-o"></i>
 									@endif
 									Seleccione socio
 								</label>
-								<div class="col-sm-8">
-									{!! Form::select('socio', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
-								</div>
+								{!! Form::select('socio', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
+							<label class="control-label">&nbsp;</label>
+							<br>
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if($socio)
 						<br>
 						<div class="row">
 							<div class="col-md-12">
 								<label>Cuotas voluntarias para:</label> {{$socio->tercero->nombre_completo}}
-								<a href="{{ route('cuotaVoluntariaCreate', $socio) }}" class="btn btn-outline-success pull-right">Agregar</a>
+								<a href="{{ route('cuotaVoluntariaCreate', $socio) }}" class="btn btn-outline-success float-right">Agregar</a>
 							</div>
 						</div>
 						<br><br>
 						@if($socio->cuotasVoluntarias->count())
 							<div class="row">
 								<div class="col-md-12 table-responsive">
-									<table class="table">
+									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th>Modalidad</th>
@@ -133,7 +133,7 @@
 													<td>{{ empty($cuota->periodo_inicial) ? '' : $cuota->periodo_inicial->toFormattedDateString() }}</td>
 													<td>{{ empty($cuota->periodo_final) ? '' : $cuota->periodo_final->toFormattedDateString() }}</td>
 													<td>
-														<a href="{{ route('cuotaVoluntariaDelete', $cuota->id) }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
+														<a href="{{ route('cuotaVoluntariaDelete', $cuota->id) }}" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
 													</td>
 												</tr>
 											@endforeach

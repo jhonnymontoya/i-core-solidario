@@ -31,7 +31,7 @@
 			</div>
 		@endif
 		<div class="row">
-			<div class="col-md-1">
+			<div class="col-md-12">
 				<a href="{{ url('tipoCuentaAhorros/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
@@ -42,19 +42,19 @@
 					<h3 class="card-title">Tipo cuentas de ahorros</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'estado'), ['url' => 'tipoCuentaAhorros', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'estado'), ['url' => 'tipoCuentaAhorros', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-6 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
-						<div class="col-md-3 col-sm-12">
+						<div class="col-md-5 col-sm-12">
 							{!! Form::select('estado', [true => 'Activa', false => 'Inactiva'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$tiposCuentasAhorros->total())
 						<p>
 							<div class="row">

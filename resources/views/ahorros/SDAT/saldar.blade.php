@@ -56,28 +56,32 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-12">
-							<dl class="dl-horizontal">
-								<dt>No. deposito:</dt>
-								<dd>{{ $sdat->id }}</dd>
-
+						<div class="col-md-6">
+							<dl>
 								<dt>Tipo:</dt>
 								<dd>{{ $sdat->tipoSdat->codigo }}</dd>
 
 								<dt>Valor contituido:</dt>
 								<dd>${{ number_format($sdat->valor) }}</dd>
 
-								<dt>Tasa E.A.:</dt>
-								<dd>{{ number_format($sdat->tasa, 2) }}%</dd>
-
 								<dt>Fecha constitución:</dt>
 								<dd>{{ $sdat->fecha_constitucion }} ({{ $sdat->fecha_constitucion->diffForHumans() }})</dd>
+
+								<dt>Fecha vencimiento:</dt>
+								<dd>{{ $sdat->fecha_vencimiento }} ({{ $sdat->fecha_vencimiento->diffForHumans() }})</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>No. deposito:</dt>
+								<dd>{{ $sdat->id }}</dd>
+
+								<dt>Tasa E.A.:</dt>
+								<dd>{{ number_format($sdat->tasa, 2) }}%</dd>
 
 								<dt>Plazo (días):</dt>
 								<dd>{{ number_format($sdat->plazo) }}</dd>
 
-								<dt>Fecha vencimiento:</dt>
-								<dd>{{ $sdat->fecha_vencimiento }} ({{ $sdat->fecha_vencimiento->diffForHumans() }})</dd>
 								@php
 									$tercero = $sdat->socio->tercero;
 									$nombre = sprintf(
@@ -90,45 +94,44 @@
 
 								<dt>Nombre:</dt>
 								<dd>{{ $nombre }}</dd>
-
 							</dl>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('fechaDevolucion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fechaDevolucion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha devolución
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fechaDevolucion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha devolución</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									{!! Form::text('fechaDevolucion', $fechaDevolucion, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => false, 'readOnly']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+									</div>
+									{!! Form::text('fechaDevolucion', $fechaDevolucion, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Fecha devolución', 'readOnly']) !!}
+									@if ($errors->has('fechaDevolucion'))
+										<div class="invalid-feedback">{{ $errors->first('fechaDevolucion') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('fechaDevolucion'))
-									<span class="help-block">{{ $errors->first('fechaDevolucion') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('cuentaNombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('cuentaNombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Cuenta
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuentaNombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-table"></i></span>
-									{!! Form::text('cuentaNombre', $cuenta->codigo . " - " . $cuenta->nombre, ['class' => 'form-control', 'readOnly']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fa fa-table"></i></span>
+									</div>
+									{!! Form::text('cuentaNombre', $cuenta->codigo . " - " . $cuenta->nombre, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Cuenta', 'readonly']) !!}
+									@if ($errors->has('cuentaNombre'))
+										<div class="invalid-feedback">{{ $errors->first('cuentaNombre') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('cuentaNombre'))
-									<span class="help-block">{{ $errors->first('cuentaNombre') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
@@ -140,23 +143,25 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-12">
-							<dl class="dl-horizontal">
+						<div class="col-md-6">
+							<dl>
 								<dt>Saldo depósito:</dt>
 								<dd>${{ number_format($datosDevolucion->saldo, 0) }}</dd>
-
-								<dt>Total intereses:</dt>
-								<dd>${{ number_format($datosDevolucion->interes_total, 0) }}</dd>
 
 								<dt>Total retefuente:</dt>
 								<dd>${{ number_format($datosDevolucion->retefuente_total, 0) }}</dd>
 
-								<dt>Intereses pendientes:</dt>
-								<dd>${{ number_format($datosDevolucion->interes_pendiente, 0) }}</dd>
-
 								<dt>Retefuente pendiente:</dt>
 								<dd>${{ number_format($datosDevolucion->retefuente_pendiente, 0) }}</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>Total intereses:</dt>
+								<dd>${{ number_format($datosDevolucion->interes_total, 0) }}</dd>
 
+								<dt>Intereses pendientes:</dt>
+								<dd>${{ number_format($datosDevolucion->interes_pendiente, 0) }}</dd>
 							</dl>
 						</div>
 					</div>
@@ -169,7 +174,7 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<dl class="dl-horizontal">
+							<dl>
 								<dt class="text-primary">Saldo depósito:</dt>
 								<dd class="text-primary">${{ number_format($datosDevolucion->saldo, 0) }}</dd>
 
@@ -182,15 +187,13 @@
 								<dt class="text-danger">Retefuente pendiente:</dt>
 								<dd class="text-danger">${{ number_format($datosDevolucion->retefuente_pendiente, 0) }}</dd>
 
-								<br>
 								<dt class="text-success">Total a reintegrar:</dt>
 								<dd class="text-success"><strong>${{ number_format($datosDevolucion->total_devolucion, 0) }}</strong></dd>
-
 							</dl>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Saldar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

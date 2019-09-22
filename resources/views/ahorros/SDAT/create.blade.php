@@ -51,31 +51,27 @@
 					<div class="row">
 
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('tipo_sdat')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('tipo_sdat'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo SDAT
-								</label>
-								{!! Form::select('tipo_sdat', $tiposSDAT, null, ['class' => 'form-control select2']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_sdat') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo SDAT</label>
+								{!! Form::select('tipo_sdat', $tiposSDAT, null, ['class' => [$valid, 'form-control']]) !!}
 								@if ($errors->has('tipo_sdat'))
-									<span class="help-block">{{ $errors->first('tipo_sdat') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('tipo_sdat') }}</div>
 								@endif
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('socio')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('socio'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Socio
-								</label>
-								{!! Form::select('socio', [], null, ['class' => 'form-control select2']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('socio') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Socio</label>
+								{!! Form::select('socio', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('socio'))
-									<span class="help-block">{{ $errors->first('socio') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('socio') }}</div>
 								@endif
 							</div>
 						</div>
@@ -84,56 +80,52 @@
 					<div class="row">
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('valor') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Valor</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									{!! Form::text('valor', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Valor', 'data-maskMoney']) !!}
 									@if ($errors->has('valor'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('valor') }}</div>
 									@endif
-									Valor
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('valor', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'valor', 'data-maskMoney']) !!}
 								</div>
-								@if ($errors->has('valor'))
-									<span class="help-block">{{ $errors->first('valor') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha constitución</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									{!! Form::text('fecha', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fecha'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('fecha') }}</div>
 									@endif
-									Fecha constitución
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									@php
-										$fecha = date('d/m/Y');
-										$fecha = !empty(old($fecha)) ? old($fecha) : $fecha;
-									@endphp
-									{!! Form::text('fecha', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
 								</div>
-								@if ($errors->has('fecha'))
-									<span class="help-block">{{ $errors->first('fecha') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('plazo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Plazo (días)
-								</label>
-								{!! Form::text('plazo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'plazo', 'data-maskMoney']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('plazo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Plazo (días)</label>
+								{!! Form::text('plazo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Plazo (días)', 'data-maskMoney']) !!}
 								@if ($errors->has('plazo'))
-									<span class="help-block">{{ $errors->first('plazo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('plazo') }}</div>
 								@endif
 							</div>
 						</div>
@@ -141,7 +133,7 @@
 
 					<br>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 text-right">
 							{!! Form::submit('Continuar', ['class' => 'btn btn-outline-primary']) !!}
 							<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 						</div>
@@ -151,31 +143,37 @@
 					<br>
 					<hr>
 					<div class="row">
-						<div class="col-md-12">
-							<dl class="dl-horizontal">
+						<div class="col-md-6">
+							<dl>
 								<dt>Fecha vencimiento</dt>
 								<dd>{{ $dataTitulo["fechaVencimiento"] }}</dd>
-
-								<dt>Tasa E.A.</dt>
-								<dd>{{ number_format($dataTitulo["tasaEA"], 2) }}%</dd>
 
 								<dt>Tasa M.V.</dt>
 								<dd>{{ number_format($dataTitulo["tasa"], 2) }}%</dd>
 
-								<dt>Interes estimado</dt>
-								<dd>${{ number_format($dataTitulo["interesEstimado"]) }}</dd>
-
 								<dt>Retefuente estimado</dt>
 								<dd>${{ number_format($dataTitulo["retefuenteEstimado"]) }}</dd>
 							</dl>
-							<br>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>Tasa E.A.</dt>
+								<dd>{{ number_format($dataTitulo["tasaEA"], 2) }}%</dd>
+
+								<dt>Interes estimado</dt>
+								<dd>${{ number_format($dataTitulo["interesEstimado"]) }}</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
 							<strong>TOTAL AL VENCIMIENTO: ${{ number_format($dataTitulo["total"]) }}</strong>
 						</div>
 					</div>
 				@endif
 
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					@if (isset($dataTitulo))
 						{!! Form::submit('Radicar', ['class' => 'btn btn-outline-success', 'name' => 'radicar']) !!}
 					@endif

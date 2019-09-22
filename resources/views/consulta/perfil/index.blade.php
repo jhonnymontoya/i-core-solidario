@@ -19,200 +19,93 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
+
 		<div class="container-fluid">
-			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
-				{!! Form::model($usuario, ['url' => 'consulta/perfil', 'method' => 'PUT', 'role' => 'form', 'id' => 'profile']) !!}
-				{!! Form::hidden('avatar', null) !!}
+			<br>
+			<div class="card">
 				<div class="card-header with-border">
-					<h3 class="card-title">Editar perfil</h3>
+					<h3 class="card-title">Perfil</h3>
+					<div class="card-tools">
+						<a href="{{ url('consulta/perfil/editar') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-edit"></i> Editar</a>
+					</div>
 				</div>
 				<div class="card-body">
-
 					<div class="row">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div id="image-cropper">
-								<div class="cropit-preview"></div>
-								<input type="file" class="cropit-image-input" />
-								<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
-								<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
-								<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-								<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
-								<br>
-								<a class="select-image-btn btn btn-outline-primary">Seleccione una imagen</a>
-							</div>
+						<?php
+							$antiguedad = 'No aplica';
+							if($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') {
+								$antiguedad = $socio->fecha_antiguedad != null? $socio->fecha_antiguedad->diffForHumans() : 'Sin antigüedad';
+							}
+							$contacto = $socio->tercero->getContacto();
+							$label = "bg-";
+							$porcentaje = $socio->endeudamiento();
+							if($porcentaje <= $porcentajeMaximoEndeudamientoPermitido) $label .= 'green';
+							else $label .= 'red';
+							$saldo = $socio->tercero->cupoDisponible($fecha);
+						?>
+						<div class="col-md-6">
+							<dl>
+								<dt>Nombre</dt>
+								<dd>{{ $tercero->tipoIdentificacion->codigo }} {{ $tercero->nombre_completo }}</dd>
+
+								<dt>Antigüedad</dt>
+								<dd>{{ $antiguedad }}</dd>
+
+								<dt>Fecha afiliación</dt>
+								<dd>{{ $socio->fecha_afiliacion }}</dd>
+
+								<dt>Email</dt>
+								<dd>{{ empty($contacto) ? 'Sin información' : $contacto->email }}</dd>
+
+								<dt>Teléfono</dt>
+								<dd>{{ empty($contacto) ? 'Sin información' : ($contacto->movil ?: $contacto->telefono) }}</dd>
+							</dl>
+						</div>
+
+						<div class="col-md-6">
+							<dl>
+								<dt>Empresa</dt>
+								<dd>{{ empty($socio->pagaduria) ? '' : $socio->pagaduria->nombre }}</dd>
+
+								<dt>Fecha nacimiento</dt>
+								<dd>{{ empty($socio->tercero->fecha_nacimiento) ? '' : $socio->tercero->fecha_nacimiento }}</dd>
+
+								<dt>Ingreso empresa</dt>
+								<dd>{{ $socio->fecha_ingreso }}</dd>
+
+								<dt>Endeudamiento</dt>
+								<dd><span class="badge badge-pill {{ $label }}">{{ number_format($porcentaje, 2) }}%</span></dd>
+
+								<dt>Sueldo</dt>
+								<dd>${{ number_format($socio->sueldo_mes) }}</dd>
+							</dl>
 						</div>
 					</div>
 
+					<br>
 					<div class="row">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<hr>
+						<div class="col-md-6">
+							@php
+								$saldo = $socio->tercero->cupoDisponible($fecha);
+							@endphp
+							<h4 class="text-{{ $saldo <= 0 ? 'danger' : 'primary' }}"><strong>Cupo disponible: ${{ number_format($saldo) }}</strong>&nbsp;<small data-toggle="tooltip" data-original-title="Sujeto a políticas de crédito"><i class="fa fa-info-circle"></i></small></h4>
 						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('tipoIdentifcacion')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('tipoIdentifcacion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo identificación
-								</label>
-								<div class="col-sm-9">
-									{!! Form::text('tipoIdentifcacion', $tercero->tipoIdentificacion->nombre, ['class' => 'form-control', 'placeholder' => 'tipoIdentifcacion', 'readonly']) !!}
-									@if ($errors->has('tipoIdentifcacion'))
-										<span class="help-block">{{ $errors->first('tipoIdentifcacion') }}</span>
-									@endif
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6"><strong>Último periodo aplicado:</strong></div>
+								<div class="col-md-6">
+									<?php
+										if(!is_null($recaudoAplicado)) {
+											?>
+											<span class="badge badge-success">{{ $recaudoAplicado->numero_periodo }}</span> {{ $recaudoAplicado->fecha_recaudo }}
+											<?php
+										}
+									?>
 								</div>
 							</div>
 						</div>
 					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('numeroIdentifcacion')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('numeroIdentifcacion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Número identifcacion
-								</label>
-								<div class="col-sm-9">
-									{!! Form::text('numeroIdentifcacion', $usuario->usuario, ['class' => 'form-control', 'placeholder' => 'Número Identifcacion', 'readonly']) !!}
-									@if ($errors->has('numeroIdentifcacion'))
-										<span class="help-block">{{ $errors->first('numeroIdentifcacion') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('primerNombre')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('primerNombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Primer nombre
-								</label>
-								<div class="col-sm-9">
-									{!! Form::text('primerNombre', $tercero->primer_nombre, ['class' => 'form-control', 'placeholder' => 'Primer nombre', 'readonly']) !!}
-									@if ($errors->has('primerNombre'))
-										<span class="help-block">{{ $errors->first('primerNombre') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('segundoNombre')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('segundoNombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Segundo nombre
-								</label>
-								<div class="col-sm-9">
-									{!! Form::text('segundoNombre', $tercero->segundo_nombre, ['class' => 'form-control', 'placeholder' => 'Segundo nombre', 'readonly']) !!}
-									@if ($errors->has('segundoNombre'))
-										<span class="help-block">{{ $errors->first('segundoNombre') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('primerApellido')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('primerApellido'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Primer apellido
-								</label>
-								<div class="col-sm-9">
-									{!! Form::text('primerApellido', $tercero->primer_apellido, ['class' => 'form-control', 'placeholder' => 'Primer apellido', 'readonly']) !!}
-									@if ($errors->has('primerApellido'))
-										<span class="help-block">{{ $errors->first('primerApellido') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('segundoApellido')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('segundoApellido'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Segundo apellido
-								</label>
-								<div class="col-sm-9">
-									{!! Form::text('segundoApellido', $tercero->segundo_apellido, ['class' => 'form-control', 'placeholder' => 'Segundo apellido', 'readonly']) !!}
-									@if ($errors->has('segundoApellido'))
-										<span class="help-block">{{ $errors->first('segundoApellido') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<hr>
-						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('password')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('password'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Contraseña
-								</label>
-								<div class="col-sm-9">
-									{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña']) !!}
-									@if ($errors->has('password'))
-										<span class="help-block">{{ $errors->first('password') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row form-horizontal">
-						<div class="col-md-8 col-md-offset-2 text-center">
-							<div class="form-group {{ ($errors->has('confirmar_password')?'has-error':'') }}">
-								<label class="col-sm-3 control-label">
-									@if ($errors->has('confirmar_password'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Confirmar contraseña
-								</label>
-								<div class="col-sm-9">
-									{!! Form::password('confirmar_password', ['class' => 'form-control', 'placeholder' => 'Confirmar contraseña']) !!}
-									@if ($errors->has('confirmar_password'))
-										<span class="help-block">{{ $errors->first('confirmar_password') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-
 				</div>
-				<div class="card-footer">
-					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
-					<a href="{{ url('consulta') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
-				</div>
-				{!! Form::close() !!}
 			</div>
 		</div>
 	</section>
@@ -221,65 +114,7 @@
 @endsection
 
 @push('style')
-<style type="text/css">
-	input.cropit-image-input {
-	  visibility: hidden;
-	}
-	.cropit-preview {
-		margin-left: auto;
-		margin-right: auto;
-		background-size: cover;
-		width: 250px;
-		height: 250px;
-	}
-	.select-image-btn{
-		margin-top: 5px;
-	}
-	.cropit-preview-image-container{
-		background-image: url('{{ asset('storage/avatars/avatar-160x160.png') }}');
-		background-size: cover;
-		border-radius: 50%;
-	}
-</style>
 @endpush
 
 @push('scripts')
-<script type="text/javascript">
-	$(function(){
-		$("input[name='identificacion']").enfocar();
-		$imageCropper = $('#image-cropper').cropit();
-		<?php
-			$imagen = $socio->avatar;
-			if(!empty($imagen)) {
-				$imagen = sprintf("storage/asociados/%s", $imagen);
-				?>
-				$imageCropper.cropit('imageSrc', '{{ asset($imagen) }}');
-				<?php
-			}
-		?>
-		$('.select-image-btn').click(function(event) {
-			event.preventDefault();
-			$('.cropit-image-input').click();
-		});
-		$('.rotate-cw-btn').click(function() {
-			$imageCropper.cropit('rotateCW');
-		});
-		$('.rotate-ccw-btn').click(function() {
-			$imageCropper.cropit('rotateCCW');
-		});
-		$('.zoom-in-btn').click(function() {
-			$imageCropper.cropit('zoom', $imageCropper.cropit('zoom') + .03);
-		});
-		$('.zoom-out-btn').click(function() {
-			$imageCropper.cropit('zoom', $imageCropper.cropit('zoom') - .03);
-		});
-
-		$(".select2").select2();
-
-		$("#profile").submit(function(){
-			$("input[name='avatar']").val($imageCropper.cropit('export'));
-		});
-
-	});
-</script>
 @endpush

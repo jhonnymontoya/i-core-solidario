@@ -46,7 +46,7 @@
 				{{-- INICIO card BODY --}}
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="alert alert-warning">
 								<h4>
 									<i class="fa fa-info-circle"></i>&nbsp;Confirmar anulación
@@ -67,7 +67,7 @@
 									$label = "badge-";
 									switch($proceso->estado) {
 										case 'PRECARGA':
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 										case 'CARGADO':
 											$label .= 'info';
@@ -79,7 +79,7 @@
 											$label .= 'danger';
 											break;
 										default:
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 									}
 								@endphp
@@ -93,7 +93,7 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Anular', ['class' => 'btn btn-outline-danger']) !!}
 					<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-outline-success pull-right">Volver</a>
 				</div>

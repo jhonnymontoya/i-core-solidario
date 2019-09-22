@@ -103,33 +103,33 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('cupo_flexible')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('cupo_flexible'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Saldo flexible
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cupo_flexible') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Saldo flexible</label>
 								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									{!! Form::text('cupo_flexible', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Saldo flexible', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::text('cupo_flexible', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Saldo flexible', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
+									@if ($errors->has('cupo_flexible'))
+										<div class="invalid-feedback">{{ $errors->first('cupo_flexible') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('cupo_flexible'))
-									<span class="help-block">{{ $errors->first('cupo_flexible') }}</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('nombre_deposito')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre_deposito'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre deposito
-								</label>
-								{!! Form::text('nombre_deposito', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del deposito', 'autofocus']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre_deposito') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre deposito</label>
+								{!! Form::text('nombre_deposito', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre deposito']) !!}
 								@if ($errors->has('nombre_deposito'))
-									<span class="help-block">{{ $errors->first('nombre_deposito') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre_deposito') }}</div>
 								@endif
 							</div>
 						</div>
@@ -155,7 +155,7 @@
 						@endif
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('cuentaAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

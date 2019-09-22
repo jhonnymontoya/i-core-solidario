@@ -80,7 +80,7 @@
 							@if($cantidadErrores > 0)
 							<div class="row">
 								<div class="col-md-12 table-responsive">
-									<table class="table">
+									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th>Lista de errores</th>
@@ -103,7 +103,7 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					@if($cantidadCorrectos == 0)
 						<a class="btn btn-outline-success" href="{{ route('ajusteAhorrosLoteCargarAhorros', $proceso->id) }}">Continuar</a>
 					@else

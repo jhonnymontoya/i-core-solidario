@@ -52,11 +52,14 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-12">
-							<dl class="dl-horizontal">
+						<div class="col-md-4">
+							<dl>
 								<dt>No. Radicado:</dt>
 								<dd>{{ $sdat->id }}</dd>
-
+							</dl>
+						</div>
+						<div class="col-md-4">
+							<dl>
 								@php
 									$tercero = $sdat->socio->tercero;
 									$nombre = sprintf(
@@ -69,29 +72,32 @@
 
 								<dt>Nombre:</dt>
 								<dd>{{ $nombre }}</dd>
-
+							</dl>
+						</div>
+						<div class="col-md-4">
+							<dl>
 								<dt>Valor:</dt>
 								<dd>${{ number_format($sdat->valor) }}</dd>
 							</dl>
 						</div>
 					</div>
 
-					<div class="row form-horizontal">
+					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
-								<label class="control-label col-md-2">
-									@if ($errors->has('cuenta'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Cuenta
-								</label>
-								<div class="col-md-8">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuenta') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
 									</div>
+									{!! Form::select('cuenta', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('cuenta'))
-										<span class="help-block">{{ $errors->first('cuenta') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('cuenta') }}</div>
 									@endif
 								</div>
 							</div>
@@ -99,7 +105,7 @@
 					</div>
 
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Constituir', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

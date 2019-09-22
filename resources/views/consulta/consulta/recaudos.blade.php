@@ -29,36 +29,50 @@
 			<div class="card card-primary card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Detalle recaudos</h3>
+					<div class="card-tools">
+						<a class="btn btn-sm btn-outline-danger float-right" href="{{ url('consulta/recaudos/lista') }}">Volver</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-9 col-md-offset-1">
+						<div class="col-md-12">
 							<div class="row">
-								<div class="col-md-5">
-									<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
-								</div>
-							</div>
-							<br>
-							<div class="col-md-12">
-									<dl class="dl-horizontal">
+								<div class="col-md-4">
+									<dl>
 										<dt>Periodo:</dt>
 										<dd>{{ $periodo }}</dd>
-
+									</dl>
+								</div>
+								<div class="col-md-4">
+									<dl>
 										<dt>Periodicidad:</dt>
 										<dd>{{ $periodicidad }}</dd>
+									</dl>
+								</div>
+								<div class="col-md-4">
+									<dl>
+										<dt>Pagaduria:</dt>
+										<dd>{{ $proceso->pagaduria->nombre }}</dd>
+									</dl>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<dl>
+										<dt>Número proceso:</dt>
+										<dd>{{ $proceso->id }}</dd>
+									</dl>
+								</div>
 
-										<dt>Estado recaudo:</dt>
+								<div class="col-md-4">
+									<dl>
+										<dt>Estado proceso:</dt>
 										<dd>{{ $proceso->estado }}</dd>
 									</dl>
 								</div>
-							<br>
-						</div>
-						<div class="col-md-2">
-							<a href="{{ url('consulta') }}" class="btn btn-outline-primary pull-right">Volver</a>
+							</div>
 						</div>
 					</div>
-					<br>
-					<hr>
 					<div class="row">
 						<div class="col-md-12 table-responsive">
 							@if($recaudos->count())
@@ -139,7 +153,7 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<th>Totales:</td>
+											<th>Totales:</th>
 
 											<th class="text-right">${{ number_format($totales->gc) }}</th>
 											<th class="text-right">${{ number_format($totales->gi) }}</th>
@@ -156,15 +170,12 @@
 											<th class="text-right">${{ number_format($totales->ajs) }}</th>
 											<th class="text-right">${{ number_format($totales->ajt) }}</th>
 										</tr>
-									</tfoot>
 								</table>
 							@else
 								<strong>No existen registros para mostrar</strong>
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="card-footer">
 				</div>
 			</div>
 		</div>
@@ -185,8 +196,4 @@
 @endpush
 
 @push('scripts')
-<script type="text/javascript">
-	$(function(){
-	});
-</script>
 @endpush

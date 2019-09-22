@@ -28,31 +28,16 @@
 		<div class="container-fluid">
 			<div class="card card-primary card-outline">
 				<div class="card-header with-border">
-					<h3 class="card-title">Consulta movimientos</h3>
+					<h3 class="card-title">{{ $modalidad->codigo }} - {{ $modalidad->nombre }}</h3>
+					<div class="card-tools">
+						<a class="btn btn-sm btn-outline-danger float-right" href="{{ url('consulta/ahorros/lista') }}">Volver</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-9 col-md-offset-1">
-							<div class="row">
-								<div class="col-md-5">
-									<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
-								</div>
-							</div>
-							<br>
-							<div class="row">
-								<div class="col-md-12"><strong>Movimientos de:</strong> {{ $modalidad->codigo }} - {{ $modalidad->nombre }}</div>
-							</div>
-						</div>
-						<div class="col-md-2">
-							<a href="{{ url('consulta') }}" class="btn btn-outline-primary pull-right">Volver</a>
-						</div>
-					</div>
-					<br>
-					<hr>
-					<div class="row">
-						<div class="col-md-10 col-md-offset-1 table-responsive">
+						<div class="col-md-12 table-responsive">
 							@if($movimientos->count())
-								<table class="table table-hover">
+								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th>Fecha</th>
@@ -87,8 +72,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
-				</div>
 			</div>
 		</div>
 	</section>
@@ -100,8 +83,4 @@
 @endpush
 
 @push('scripts')
-<script type="text/javascript">
-	$(function(){
-	});
-</script>
 @endpush

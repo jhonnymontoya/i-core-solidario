@@ -51,29 +51,29 @@
 					<h3 class="card-title">Ajuste ahorros</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('socio'), ['url' => 'ajusteAhorros', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('socio'), ['url' => 'ajusteAhorros', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-11">
 							<div class="form-group {{ ($errors->has('socio')?'has-error':'') }}">
-								<label class="col-sm-2 control-label">
+								<label class="control-label">
 									@if ($errors->has('socio'))
 										<i class="fa fa-times-circle-o"></i>
 									@endif
 									Seleccione socio
 								</label>
-								<div class="col-sm-8">
-									{!! Form::select('socio', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
-									@if ($errors->has('socio'))
-										<span class="help-block">{{ $errors->first('socio') }}</span>
-									@endif
-								</div>
+								{!! Form::select('socio', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione socio']) !!}
+								@if ($errors->has('socio'))
+									<span class="help-block">{{ $errors->first('socio') }}</span>
+								@endif
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
+							<label class="control-label">&nbsp;</label>
+							<br>
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if($socio)
 						<br>
 						{!! Form::model(Request::only('socio'), ['url' => 'ajusteAhorros/ajuste', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask', 'id' => 'formProcesar']) !!}
@@ -89,40 +89,38 @@
 						<br><br>
 						<div class="row">
 							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('fechaAjuste')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fechaAjuste'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha ajuste
-									</label>
+								<div class="form-group">
+									@php
+										$valid = $errors->has('fechaAjuste') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Fecha ajuste</label>
 									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="fa fa-calendar"></i>
+											</span>
 										</div>
 										@php
 											$fechaAjuste = date('d/m/Y');
 											$fechaAjuste = Request::has('fechaAjuste') ? Request::get('fechaAjuste') : $fechaAjuste;
 											$fechaAjuste = empty(old('fechaAjuste')) ? $fechaAjuste : old('fechaAjuste');
 										@endphp
-										{!! Form::text('fechaAjuste', $fechaAjuste, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+										{!! Form::text('fechaAjuste', $fechaAjuste, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+										@if ($errors->has('fechaAjuste'))
+											<div class="invalid-feedback">{{ $errors->first('fechaAjuste') }}</div>
+										@endif
 									</div>
-									@if ($errors->has('fechaAjuste'))
-										<span class="help-block">{{ $errors->first('fechaAjuste') }}</span>
-									@endif
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('modalidadId')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('modalidadId'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Seleccione modalidad
-									</label>
-									{!! Form::select('modalidadId', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione modalidad']) !!}
+								<div class="form-group">
+									@php
+										$valid = $errors->has('modalidadId') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Seleccione modalidad</label>
+									{!! Form::select('modalidadId', $modalidades, null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Seleccione modalidad']) !!}
 									@if ($errors->has('modalidadId'))
-										<span class="help-block">{{ $errors->first('modalidadId') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('modalidadId') }}</div>
 									@endif
 								</div>
 							</div>
@@ -143,178 +141,169 @@
 							</div>
 						</div>
 						<br><br>
-						<div class="row form-horizontal">
-
+						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class="col-md-8 text-right">
+									<label class="text-right">
 										Saldo ahorro
 									</label>
-									<div class="col-md-4 text-right" id="saldo">$0</div>
-								</div>
-							</div>
-
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('valorAjuste')?'has-error':'') }}">
-									<label class="col-md-4 control-label">
-										@if ($errors->has('valorAjuste'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Ajuste
-									</label>
-									<div class="col-md-8 input-group">
-										<div class="input-group-addon">$</div>
-										{!! Form::text('valorAjuste', 0, ['class' => 'form-control text-right', 'placeholder' => '0', 'autocomplete' => 'off', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
-									</div>
-									@if ($errors->has('valorAjuste'))
-										<span class="help-block">{{ $errors->first('valorAjuste') }}</span>
-									@endif
-								</div>
-							</div>
-
-							<div class="col-md-1 col-md-offset-1">
-								<div class="form-group {{ ($errors->has('naturalezaAjusteAhorros')?'has-error':'') }}">
-									<div class="btn-group" data-toggle="buttons">
-										<?php
-											$naturaleza = trim(old('naturalezaAjusteAhorros')) == '' ? 'AUMENTO' : old('naturalezaAjusteAhorros');
-											$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
-										?>
-										<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
-											{!! Form::radio('naturalezaAjusteAhorros', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
-										</label>
-										<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
-											{!! Form::radio('naturalezaAjusteAhorros', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
-										</label>
-									</div>
-									@if ($errors->has('naturalezaAjusteAhorros'))
-										<span class="help-block">{{ $errors->first('naturalezaAjusteAhorros') }}</span>
-									@endif
+									<div class="text-right" id="saldo">$0</div>
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class="col-md-6 text-right">
+									@php
+										$valid = $errors->has('valorAjuste') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Ajuste</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">$</span></div>
+										{!! Form::text('valorAjuste', null, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Ajuste', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
+										@if ($errors->has('valorAjuste'))
+											<div class="invalid-feedback">{{ $errors->first('valorAjuste') }}</div>
+										@endif
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">&nbsp;</label>
+									<div>
+										@php
+											$valid = $errors->has('naturalezaAjusteAhorros') ? 'is-invalid' : '';
+											$naturaleza = empty(old('naturalezaAjusteAhorros')) ? 'AUMENTO' : old('naturalezaAjusteAhorros');
+										@endphp
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn btn-primary {{ $naturaleza == 'AUMENTO' ? 'active' : '' }}">
+												{!! Form::radio('naturalezaAjusteAhorros', 'AUMENTO', ($naturaleza == 'AUMENTO' ? true : false), ['class' => [$valid]]) !!}<i class="fa fa-arrow-up"></i>
+											</label>
+											<label class="btn btn-primary {{ $naturaleza == 'DECREMENTO' ? 'active' : '' }}">
+												{!! Form::radio('naturalezaAjusteAhorros', 'DECREMENTO', ($naturaleza == 'DECREMENTO' ? true : false ), ['class' => [$valid]]) !!}<i class="fa fa-arrow-down"></i>
+											</label>
+										</div>
+										@if ($errors->has('naturalezaAjusteAhorros'))
+											<div class="invalid-feedback">{{ $errors->first('naturalezaAjusteAhorros') }}</div>
+										@endif
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="text-right">
 										Nuevo saldo
 									</label>
-									<div class="col-md-3 text-right nuevoSaldoAhorros">$0</div>
+									<div class="text-right nuevoSaldoAhorros">$0</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="row form-horizontal">
+						<div class="row">
 
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class="col-md-8 text-right">
+									<label class="text-right">
 										Saldo intereses
 									</label>
-									<div class="col-md-4 text-right" id="saldoIntereses">$0</div>
+									<div class="text-right" id="saldoIntereses">$0</div>
 								</div>
 							</div>
 
 							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('valorAjusteIntereses')?'has-error':'') }}">
-									<label class="col-md-4 control-label">
+								<div class="form-group">
+									@php
+										$valid = $errors->has('valorAjusteIntereses') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Ajuste</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">$</span></div>
+										{!! Form::text('valorAjusteIntereses', 0, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => '0', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
 										@if ($errors->has('valorAjusteIntereses'))
-											<i class="fa fa-times-circle-o"></i>
+											<div class="invalid-feedback">{{ $errors->first('valorAjusteIntereses') }}</div>
 										@endif
-										Ajuste
-									</label>
-									<div class="col-md-8 input-group">
-										<div class="input-group-addon">$</div>
-										{!! Form::text('valorAjusteIntereses', 0, ['class' => 'form-control text-right', 'placeholder' => '0', 'autocomplete' => 'off', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
 									</div>
-									@if ($errors->has('valorAjusteIntereses'))
-										<span class="help-block">{{ $errors->first('valorAjusteIntereses') }}</span>
-									@endif
 								</div>
 							</div>
 
-							<div class="col-md-1 col-md-offset-1">
-								<div class="form-group {{ ($errors->has('naturalezaAjusteIntereses')?'has-error':'') }}">
-									<div class="btn-group" data-toggle="buttons">
-										<?php
-											$naturaleza = trim(old('naturalezaAjusteIntereses')) == '' ? 'AUMENTO' : old('naturalezaAjusteIntereses');
-											$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
-										?>
-										<label class="btn btn-outline-primary {{ $naturaleza ? 'active' : '' }}">
-											{!! Form::radio('naturalezaAjusteIntereses', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
-										</label>
-										<label class="btn btn-outline-primary {{ !$naturaleza ? 'active' : '' }}">
-											{!! Form::radio('naturalezaAjusteIntereses', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
-										</label>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">&nbsp;</label>
+									<div>
+										@php
+											$valid = $errors->has('naturalezaAjusteIntereses') ? 'is-invalid' : '';
+											$naturaleza = empty(old('naturalezaAjusteIntereses')) ? 'AUMENTO' : old('naturalezaAjusteIntereses');
+										@endphp
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn btn-primary {{ $naturaleza == 'AUMENTO' ? 'active' : '' }}">
+												{!! Form::radio('naturalezaAjusteIntereses', 'AUMENTO', ($naturaleza == 'AUMENTO' ? true : false), ['class' => [$valid]]) !!}<i class="fa fa-arrow-up"></i>
+											</label>
+											<label class="btn btn-primary {{ $naturaleza == 'DECREMENTO' ? 'active' : '' }}">
+												{!! Form::radio('naturalezaAjusteIntereses', 'DECREMENTO', ($naturaleza == 'DECREMENTO' ? true : false ), ['class' => [$valid]]) !!}<i class="fa fa-arrow-down"></i>
+											</label>
+										</div>
+										@if ($errors->has('naturalezaAjusteIntereses'))
+											<div class="invalid-feedback">{{ $errors->first('naturalezaAjusteIntereses') }}</div>
+										@endif
 									</div>
-									@if ($errors->has('naturalezaAjusteIntereses'))
-										<span class="help-block">{{ $errors->first('naturalezaAjusteIntereses') }}</span>
-									@endif
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="form-group">
-									<label class="col-md-6 text-right">
-										Nuevo saldo
-									</label>
-									<div class="col-md-3 text-right nuevoSaldoIntereses">$0</div>
+									<label class="text-right">Nuevo saldo</label>
+									<div class="text-right nuevoSaldoIntereses">$0</div>
 								</div>
 							</div>
 						</div>
-						<div class="row form-horizontal">
 
-							<div class="col-md-3">
-								<div class="form-group">
-									<label class="col-md-8 text-right">
-										Total ajuste:
-									</label>
-									<div class="col-md-4 text-right totalAjuste">
-										$0
-									</div>
+						<br>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group row">
+									<label class="col-md-3 text-right">Total ajuste:</label>
+									<div class="col-md-4 text-right totalAjuste">$0</div>
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('cuifId')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cuifId'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta contrapartida
-									</label>
-									{!! Form::select('cuifId', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione modalidad']) !!}
+								<div class="form-group">
+									@php
+										$valid = $errors->has('cuifId') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Cuenta contrapartida</label>
+									{!! Form::select('cuifId', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('cuifId'))
-										<span class="help-block">{{ $errors->first('cuifId') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('cuifId') }}</div>
 									@endif
 								</div>
 							</div>
 
 							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('terceroContrapartidaId')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('terceroContrapartidaId'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tercero contrapartida
-									</label>
-									{!! Form::select('terceroContrapartidaId', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tercero']) !!}
+								<div class="form-group">
+									@php
+										$valid = $errors->has('terceroContrapartidaId') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Tercero contrapartida</label>
+									{!! Form::select('terceroContrapartidaId', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione un tercero']) !!}
 									@if ($errors->has('terceroContrapartidaId'))
-										<span class="help-block">{{ $errors->first('terceroContrapartidaId') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('terceroContrapartidaId') }}</div>
 									@endif
 								</div>
 							</div>
 
 							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('referencia')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('referencia'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Referencia
-									</label>
-									{!! Form::text('referencia', null, ['class' => 'form-control', 'placeholder' => 'Referencia']) !!}
+								<div class="form-group">
+									@php
+										$valid = $errors->has('referencia') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Referencia</label>
+									{!! Form::text('referencia', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Referencia']) !!}
 									@if ($errors->has('referencia'))
-										<span class="help-block">{{ $errors->first('referencia') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('referencia') }}</div>
 									@endif
 								</div>
 							</div>
@@ -322,22 +311,20 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<div class="form-group {{ ($errors->has('observaciones')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('observaciones'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Observaciones
-									</label>
-									{!! Form::textarea('observaciones', null, ['class' => 'form-control', 'placeholder' => 'Observaciones']) !!}
+								<div class="form-group">
+									@php
+										$valid = $errors->has('observaciones') ? 'is-invalid' : '';
+									@endphp
+									<label class="control-label">Observaciones</label>
+									{!! Form::textarea('observaciones', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Observaciones']) !!}
 									@if ($errors->has('observaciones'))
-										<span class="help-block">{{ $errors->first('observaciones') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('observaciones') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">							
+							<div class="col-md-12 text-right">							
 								<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Continuar</button>
 								<a href="{{ url('ajusteAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 							</div>
@@ -348,12 +335,12 @@
 							<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 										<h4 class="modal-title" id="tituloConfirmacion">Ajuste ahorro</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 									</div>
 									<div class="modal-body">
 										<div class="row">
-											<div class="col-md-10 col-md-offset-1">
+											<div class="col-md-12">
 												<div class="alert alert-warning">
 													<h4>
 														<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
@@ -406,8 +393,7 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<a class="btn btn-outline-success" id="continuar">Ajustar</a>
-										{{--{!! Form::submit('Ajustar', ['class' => 'btn btn-outline-success']) !!}--}}
+										<a href="#" class="btn btn-outline-success" id="continuar">Ajustar</a>
 										<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 									</div>
 								</div>
@@ -431,7 +417,8 @@
 @push('scripts')
 <script type="text/javascript">
 	$(function(){
-		$("#continuar").click(function(){
+		$("#continuar").click(function(e){
+			e.preventDefault();
 			$("#continuar").addClass("disabled");
 			$("#formProcesar").submit();
 		});

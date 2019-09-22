@@ -35,71 +35,50 @@ class ConsultaController extends Controller
 
 	public function index(Request $request) {
 		$this->logActividad("Ingresó a consulta de socios", $request);
-		$entidad = $this->getEntidad();
 		
 		$socio = \Auth::user()->socios[0];
-		$fechaConsulta = Carbon::now()->endOfMonth()->startOfDay();
+		$tercero = $socio->tercero;
+		$genero = (object)["masculino" => true, "femenino" => false];
+		if($tercero->sexo->codigo == 2) {
+			//femenino
+			$genero->masculino = false;
+			$genero->femenino = true;
+		}
+		else {
+			//masculino
+			$genero->masculino = true;
+			$genero->femenino = false;
+		}
+		return view('consulta.consulta.index')->withSocio($socio)->withGenero($genero);
+	}
 
-		$modalidadesCredito = Modalidad::entidadId()->activa()->get();
-		$modalidades = array();
-		foreach($modalidadesCredito as $modalidad)$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+	public function ahorrosLista() {
+		$this->log("Ingresó a lista de ahorros de la consulta del socio");
+		
+		$socio = \Auth::user()->socios[0];
+		$tercero = $socio->tercero;
 
+		$fechaConsulta = Carbon::now()->startOfDay();
 		$ahorros = collect();
-		$creditos = collect();
-		$recaudos = collect();
 		$SDATs = collect();
-		$porcentajeMaximoEndeudamientoPermitido = 0;
-		$recaudoAplicado = null;
 
 		//Se obtiene los ahorros del socio
 		$res = DB::select("exec ahorros.sp_estado_cuenta_ahorros ?, ?", [$socio->id, $fechaConsulta]);
 		$ahorros = collect($res);
 		$ahorros->transform(function($item, $key) {
+			$item->cuotaMes = ConversionHelper::conversionValorPeriodicidad($item->cuota, $item->periodicidad, 'MENSUAL');
 			if(!empty($item->vencimiento)) {
 				$item->vencimiento = Carbon::createFromFormat('Y/m/d', $item->vencimiento)->startOfDay();
 			}
 			return $item;
 		});
 
-		$recaudos = $socio->tercero->recaudosNomina()
-							->select(
-									'control_proceso_id',
-									'concepto_recaudo_id',
-									DB::raw('SUM(capital_generado) + SUM(intereses_generado) + SUM(seguro_generado) as total_generado'),
-									DB::raw('SUM(capital_aplicado) + SUM(intereses_aplicado) + SUM(seguro_aplicado) as total_aplicado'),
-									DB::raw('SUM(capital_ajustado) + SUM(intereses_ajustado) + SUM(seguro_ajustado) as total_ajustado')
-							)
-							->groupBy('control_proceso_id', 'concepto_recaudo_id')
-							->orderBy('control_proceso_id', 'desc')
-							->orderBy('concepto_recaudo_id', 'asc')
-							->get();
-
-		$porcentajeMaximoEndeudamientoPermitido = ParametroInstitucional::entidadId($this->getEntidad()->id)
-												->codigo('CR003')
-												->first();
-		$porcentajeMaximoEndeudamientoPermitido = empty($porcentajeMaximoEndeudamientoPermitido) ? 100 : $porcentajeMaximoEndeudamientoPermitido->valor;
-
-		//Se consulta el último recaudo aplicado
-		$recaudoAplicado = $socio->pagaduria->calendarioRecaudos()
-					->whereHas('controlProceso', function($query){
-						$query->where('estado', 'APLICADO')
-							->orWhere('estado', 'AJUSTADO');
-					})
-					->where('estado', 'EJECUTADO')
-					->orderBy('fecha_recaudo', 'desc')
-					->first();
-
-		//SDATs
 		foreach($socio->SDATs as $sdat) {
 			if($sdat->estaActivo() == false) {
 				continue;
 			}
-			$rendimientos = $sdat->rendimientosSdat()
-				->where("fecha_movimiento", '<=', $fechaConsulta)
-				->get();
-			$movimientos = $sdat->movimientosSdat()
-				->where("fecha_movimiento", '<=', $fechaConsulta)
-				->get();
+			$rendimientos = $sdat->rendimientosSdat()->where("fecha_movimiento", '<=', $fechaConsulta)->get();
+			$movimientos = $sdat->movimientosSdat()->where("fecha_movimiento", '<=', $fechaConsulta)->get();
 			$deposito = (object)[
 				"id" => $sdat->id,
 				"codigo" => $sdat->tipoSDAT->codigo,
@@ -110,19 +89,17 @@ class ConsultaController extends Controller
 				"tasa" => number_format($sdat->tasa, 2) . '%',
 				"estado" => $sdat->estado,
 				"rendimientos" => '$' . number_format($rendimientos->sum("valor")),
-				"saldo" => '$' . number_format($movimientos->sum("valor"))
+				"saldo" => '$' . number_format($movimientos->sum("valor")),
+				"saldo_valor" => $movimientos->sum("valor")
 			];
 			$SDATs->push($deposito);
 		}
 
-		return view('consulta.consulta.index')
+		return view('consulta.consulta.ahorrosLista')
 			->withSocio($socio)
 			->withAhorros($ahorros)
-			->withRecaudos($recaudos)
-			->withModalidades($modalidades)
-			->withRecaudoAplicado($recaudoAplicado)
-			->withPorcentajeMaximoEndeudamientoPermitido($porcentajeMaximoEndeudamientoPermitido)
-			->withSdats($SDATs);
+			->withSdats($SDATs)
+			->withFechaConsulta($fechaConsulta);
 	}
 
 	public function ahorros(ModalidadAhorro $obj) {
@@ -135,10 +112,10 @@ class ConsultaController extends Controller
 		$fechaInicial->subMonths(36);
 
 		$movimientos = $obj->movimientosAhorros()
-							->socioId($socio->id)
-							->whereBetween('fecha_movimiento', array($fechaInicial, $fechaConsulta))
-							->orderBy('fecha_movimiento', 'desc')
-							->get();
+			->socioId($socio->id)
+			->whereBetween('fecha_movimiento', array($fechaInicial, $fechaConsulta))
+			->orderBy('fecha_movimiento', 'desc')
+			->get();
 
 		return view('consulta.consulta.ahorros')
 			->withMovimientos($movimientos)
@@ -146,10 +123,67 @@ class ConsultaController extends Controller
 			->withModalidad($obj);
 	}
 
+	public function creditosLista() {
+		$this->log("Ingresó a lista de créditos de la consulta del socio");
+		$fechaConsulta = Carbon::now()->startOfDay();
+
+		$socio = \Auth::user()->socios[0];
+		$tercero = $socio->tercero;
+
+		$creditos = collect();
+		$codeudas = collect();
+		$saldados = collect();		
+
+		$creditos = $tercero
+			->solicitudesCreditos()
+			->where('fecha_desembolso', '<=', $fechaConsulta)
+			->estado('DESEMBOLSADO')
+			->get();
+
+		$creditos->transform(function($item, $key) use($fechaConsulta) {
+			$item->saldoCapital = $item->saldoObligacion($fechaConsulta);
+			$item->saldoIntereses = $item->saldoInteresObligacion($fechaConsulta);
+			return $item;
+		});
+
+		$cod = $tercero->codeudas()->whereHas('solicitudCredito', function($q){
+			return $q->whereEstadoSolicitud('DESEMBOLSADO');
+		})->get();
+
+		foreach ($cod as $item) {
+			$sc = $item->solicitudCredito;
+			$ter = $sc->tercero;
+			$nom = "%s %s - %s";
+			$nom = sprintf($nom, $ter->tipoIdentificacion->codigo, $ter->numero_identificacion, $ter->nombre_corto);
+			$codeuda = (object)[
+				"deudor" => $nom,
+				"numeroObligacion" => $sc->numero_obligacion,
+				"fechaInicio" => $sc->fecha_desembolso,
+				"valorInicial" => $sc->valor_credito,
+				"tasaMV" => $sc->tasa,
+				"saldoCapital" => $sc->saldoObligacion($fechaConsulta),
+				"calificacion" => $sc->calificacion_obligacion
+			];
+			$codeudas->push($codeuda);
+		}
+
+		$saldados = $tercero
+			->solicitudesCreditos()
+			->where('fecha_desembolso', '<=', $fechaConsulta)
+			->where('fecha_cancelación', '>=', $fechaConsulta->copy()->subYear())
+			->estado('SALDADO')
+			->get();
+
+		return view('consulta.consulta.creditosLista')
+			->withSocio($socio)
+			->withCreditos($creditos)
+			->withCodeudas($codeudas)
+			->withSaldados($saldados)
+			->withFechaConsulta($fechaConsulta);
+	}
+
 	public function creditos(SolicitudCredito $obj) {
 		$this->log(sprintf("Ingresó a consultar el crédito '%s'", $obj->numero_obligacion));
-		$this->objEntidad($obj, 'No está autorizado a ingresar a la información');
-
 		$socio = \Auth::user()->socios[0];
 		$fechaConsulta = Carbon::now()->endOfMonth()->startOfDay();
 
@@ -160,10 +194,55 @@ class ConsultaController extends Controller
 			$item->fecha_movimiento = Carbon::createFromFormat('Y-m-d H:i:s.000', $item->fecha_movimiento)->startOfDay();
 			return $item;
 		});
+		$fechaAmortizacionUltimoPago = '';
+		$amortizaciones = $obj->amortizaciones;
+		if($amortizaciones->count()) {
+			$fechaAmortizacionUltimoPago = $amortizaciones[$amortizaciones->count() - 1]->fecha_cuota;
+		}
+		$ultimoMovimiento = $obj->movimientosCapitalCredito()->orderBy('fecha_movimiento', 'desc')->first();
+		$ultimoMovimiento = $ultimoMovimiento->fecha_movimiento;
+		$codeudores = collect();
+		foreach($obj->codeudores as $codeudor) {
+			$tercero = $codeudor->tercero;
+			$socioCodeudor = $tercero->socio;
+			$data = ["nombre" => $tercero->nombre_completo, "socioId" => optional($socioCodeudor)->id, "estado" => is_null($socioCodeudor)? "No asociado" : $socioCodeudor->estado];
+			$codeudores->push((object) $data);
+		}
 		return view('consulta.consulta.creditos')
 			->withCredito($obj)
 			->withSocio($socio)
-			->withMovimientos($movimientos);
+			->withMovimientos($movimientos)
+			->withFechaUltimoPago($fechaAmortizacionUltimoPago)
+			->withUltimoMovimiento($ultimoMovimiento)
+			->withCodeudores($codeudores);
+	}
+
+	public function recaudosLista() {
+		$this->log("Ingresó a lista de recaudos de la consulta del socio");
+		$fechaConsulta = Carbon::now()->startOfDay();
+
+		$socio = \Auth::user()->socios[0];
+		$tercero = $socio->tercero;
+
+		$recaudos = collect();
+		$recaudos = $tercero
+			->recaudosNomina()
+			->select(
+				'control_proceso_id',
+				'concepto_recaudo_id',
+				DB::raw('SUM(capital_generado) + SUM(intereses_generado) + SUM(seguro_generado) as total_generado'),
+				DB::raw('SUM(capital_aplicado) + SUM(intereses_aplicado) + SUM(seguro_aplicado) as total_aplicado'),
+				DB::raw('SUM(capital_ajustado) + SUM(intereses_ajustado) + SUM(seguro_ajustado) as total_ajustado')
+			)
+			->groupBy('control_proceso_id', 'concepto_recaudo_id')
+			->orderBy('control_proceso_id', 'desc')
+			->orderBy('concepto_recaudo_id', 'asc')
+			->get();
+
+		return view('consulta.consulta.recaudosLista')
+			->withSocio($socio)
+			->withRecaudos($recaudos)
+			->withFechaConsulta($fechaConsulta);
 	}
 
 	public function recaudos(ControlProceso $obj) {
@@ -262,15 +341,36 @@ class ConsultaController extends Controller
 	 */
 	public function perfil() {
 		$this->log("Ingresó al perfil");
+		$porcentajeMaximoEndeudamientoPermitido = 0;
 		$tipos = TipoIdentificacion::activo()->aplicacion('NATURAL')->orderBy('nombre')->get()->pluck('nombre', 'id');
 		$usuario = \Auth::user();
 		$socio = $usuario->socios[0];
 		$tercero = $socio->tercero;
+		$porcentajeMaximoEndeudamientoPermitido = ParametroInstitucional::entidadId($this->getEntidad()->id)->codigo('CR003')->first();
+		$porcentajeMaximoEndeudamientoPermitido = empty($porcentajeMaximoEndeudamientoPermitido) ? 100 : $porcentajeMaximoEndeudamientoPermitido->valor;
+		$recaudoAplicado = $socio->pagaduria->calendarioRecaudos()
+			->whereHas('controlProceso', function($query){
+				$query->where('estado', 'APLICADO')
+					->orWhere('estado', 'AJUSTADO');
+			})
+			->where('estado', 'EJECUTADO')
+			->orderBy('fecha_recaudo', 'desc')
+			->first();
 		return view('consulta.perfil.index')
 			->withUsuario($usuario)
 			->withSocio($socio)
 			->withTercero($tercero)
-			->withSocio($socio);
+			->withRecaudoAplicado($recaudoAplicado)
+			->withFecha(Carbon::now()->startOfDay())
+			->withPorcentajeMaximoEndeudamientoPermitido($porcentajeMaximoEndeudamientoPermitido);
+	}
+
+	public function perfilEditar() {
+		$this->log("Ingresó a edición del perfil");
+		$usuario = \Auth::user();
+		$socio = $usuario->socios[0];
+		$tercero = $socio->tercero;
+		return view('consulta.perfil.editar')->withUsuario($usuario)->withSocio($socio)->withTercero($tercero);
 	}
 
 	/**
@@ -343,18 +443,50 @@ class ConsultaController extends Controller
 		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
 	}
 
+	public function consultaDocumentacion() {
+		$this->log("Ingresó a lista de documentación de la consulta del socio");
+		$fechaConsulta = Carbon::now()->startOfDay();
+
+		$socio = \Auth::user()->socios[0];
+		return view('consulta.consulta.consultaDocumentacion')
+			->withSocio($socio)
+			->withFechaConsulta($fechaConsulta);
+	}
+
+	public function simular() {
+		$this->log("Ingresó al simulador de crédito de la consulta del socio");
+		$fechaConsulta = Carbon::now()->startOfDay();
+
+		$socio = \Auth::user()->socios[0];
+
+		$modalidadesCredito = Modalidad::entidadId()->activa()->get();
+		$modalidades = array();
+		foreach($modalidadesCredito as $modalidad)$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+
+		return view('consulta.consulta.simulador')
+			->withSocio($socio)
+			->withModalidades($modalidades)
+			->withFechaConsulta($fechaConsulta);
+	}
+
 	public static function routes() {
 		Route::get('consulta', 'Consulta\ConsultaController@index');
+		Route::get('consulta/ahorros/lista', 'Consulta\ConsultaController@ahorrosLista');
 		Route::get('consulta/ahorros/{obj}', 'Consulta\ConsultaController@ahorros')->name('consulta.ahorros');
+		Route::get('consulta/creditos/lista', 'Consulta\ConsultaController@creditosLista');
 		Route::get('consulta/creditos/{obj}', 'Consulta\ConsultaController@creditos')->name('consulta.creditos');
+		Route::get('consulta/recaudos/lista', 'Consulta\ConsultaController@recaudosLista');
 		Route::get('consulta/recaudos/{obj}', 'Consulta\ConsultaController@recaudos')->name('consulta.recaudos');
 
 		Route::get('consulta/obtenerPeriodicidadesPorModalidad', 'Consulta\ConsultaController@getObtenerPeriodicidadesPorModalidad');
+		Route::get('consulta/simulador', 'Consulta\ConsultaController@simular');
 		Route::get('consulta/simularCredito', 'Consulta\ConsultaController@simularCredito');
 
 		Route::get('consulta/perfil', 'Consulta\ConsultaController@perfil');
+		Route::get('consulta/perfil/editar', 'Consulta\ConsultaController@perfilEditar');
 		Route::put('consulta/perfil', 'Consulta\ConsultaController@perfilUpdate');
 
-		Route::get('consulta/documentacion', 'Consulta\ConsultaController@documentacion')->name("consulta.documentacion");
+		Route::get('consulta/documentacion', 'Consulta\ConsultaController@consultaDocumentacion')->name('consulta.documentacion');
+		Route::get('consulta/documentacion/tritutario', 'Consulta\ConsultaController@documentacion');
 	}
 }

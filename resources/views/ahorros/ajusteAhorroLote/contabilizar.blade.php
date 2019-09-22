@@ -47,7 +47,9 @@
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Procesar archivo ajuste ahorros en lote</h3>
-					<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-outline-danger btn-sm pull-right">Volver</a>
+					<div class="card-tools">
+						<a href="{{ url('ajusteAhorrosLote') }}" class="btn btn-outline-danger btn-sm pull-right">Volver</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -70,7 +72,7 @@
 									$label = "badge-";
 									switch($proceso->estado) {
 										case 'PRECARGA':
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 										case 'CARGADO':
 											$label .= 'info';
@@ -82,7 +84,7 @@
 											$label .= 'danger';
 											break;
 										default:
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 									}
 								@endphp

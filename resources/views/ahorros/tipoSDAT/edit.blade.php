@@ -53,120 +53,118 @@
 					{!! Form::model($tipo, ['url' => ['tipoSDAT', $tipo], 'method' => 'put', 'role' => 'form']) !!}
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('codigo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código
-								</label>
-								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'autofocus']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('codigo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Código</label>
+								{!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Código', 'autofocus']) !!}
 								@if ($errors->has('codigo'))
-									<span class="help-block">{{ $errors->first('codigo') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
 								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-2">
-							<div class="form-group {{ ($errors->has('esta_activo')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								<label class="control-label">¿Activo?</label>
+								<div>
+									@php
+										$valid = $errors->has('esta_activo') ? 'is-invalid' : '';
+										$estaActivo = empty(old('esta_activo')) ? $tipo->esta_activo : old('esta_activo');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $estaActivo ? 'active' : '' }}">
+											{!! Form::radio('esta_activo', 1, ($estaActivo ? true : false), ['class' => [$valid]]) !!}Sí
+										</label>
+										<label class="btn btn-danger {{ !$estaActivo ? 'active' : '' }}">
+											{!! Form::radio('esta_activo', 0, (!$estaActivo ? true : false ), ['class' => [$valid]]) !!}No
+										</label>
+									</div>
 									@if ($errors->has('esta_activo'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('esta_activo') }}</div>
 									@endif
-									¿Esta activo?
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<?php
-										$activo = empty(old('esta_activo')) ? $tipo->esta_activo : old('esta_activo');
-										$activo = $activo ? true : false;
-									?>
-									<label class="btn btn-outline-primary {{ $activo ? 'active' : '' }}">
-										{!! Form::radio('esta_activo', '1', $activo ? true : false) !!}Sí
-									</label>
-									<label class="btn btn-outline-danger {{ !$activo ? 'active' : '' }}">
-										{!! Form::radio('esta_activo', '0', !$activo ? true : false) !!}No
-									</label>
 								</div>
-								@if ($errors->has('esta_activo'))
-									<span class="help-block">{{ $errors->first('esta_activo') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('capital_cuif_id')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('capital_cuif_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta capital</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::select('capital_cuif_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('capital_cuif_id'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('capital_cuif_id') }}</div>
 									@endif
-									Cuenta capital
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-table"></i></span>
-									{!! Form::select('capital_cuif_id', [], null, ['class' => 'form-control select2']) !!}
 								</div>
-								@if ($errors->has('capital_cuif_id'))
-									<span class="help-block">{{ $errors->first('capital_cuif_id') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('intereses_cuif_id')?'has-error':'') }}">
-								<label class="control-label">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('intereses_cuif_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta intereses</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::select('intereses_cuif_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 									@if ($errors->has('intereses_cuif_id'))
-										<i class="fa fa-times-circle-o"></i>
+										<div class="invalid-feedback">{{ $errors->first('intereses_cuif_id') }}</div>
 									@endif
-									Cuenta intereses
-								</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-table"></i></span>
-									{!! Form::select('intereses_cuif_id', [], null, ['class' => 'form-control select2']) !!}
 								</div>
-								@if ($errors->has('intereses_cuif_id'))
-									<span class="help-block">{{ $errors->first('intereses_cuif_id') }}</span>
-								@endif
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('intereses_por_pagar_cuif_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('intereses_por_pagar_cuif_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Cuenta intereses por pagar
-								</label>
+							<div class="form-group">
+								@php
+									$valid = $errors->has('intereses_por_pagar_cuif_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta intereses por pagar</label>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-table"></i></span>
-									{!! Form::select('intereses_por_pagar_cuif_id', [], null, ['class' => 'form-control select2']) !!}
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::select('intereses_por_pagar_cuif_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+									@if ($errors->has('intereses_por_pagar_cuif_id'))
+										<div class="invalid-feedback">{{ $errors->first('intereses_por_pagar_cuif_id') }}</div>
+									@endif
 								</div>
-								@if ($errors->has('intereses_por_pagar_cuif_id'))
-									<span class="help-block">{{ $errors->first('intereses_por_pagar_cuif_id') }}</span>
-								@endif
 							</div>
 						</div>
 					</div>
 					<br>
 
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 text-right">
 							{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 							<a href="{{ url('tipoSDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 						</div>
@@ -175,7 +173,7 @@
 					<hr>
 
 					{{-- FORMULARIO DE AGREGAR CONDICIÓN PERIODO --}}
-					<a class="btn btn-outline-success btn-add-per"><i class="fa fa-plus"></i> Agregar rango de tiempo</a>
+					<a href="#" class="btn btn-outline-success btn-add-per"><i class="fa fa-plus"></i> Agregar rango de tiempo</a>
 					<div id="conPer" style="display: none">
 						<form id="frmConPer" data-maskMoney-removeMask>
 						{{ csrf_field() }}
@@ -211,30 +209,28 @@
 					</div>
 					{{-- FIN DE FORMULARIO DE AGREGAR CONDICIÓN PERIODO --}}
 
-					<br><br>
-					<div class="row">
+					<div class="row mt-3">
 						<div class="col-md-12">
-							<div class="panel-group">
+							<div class="accordion" id="rangos">
 								@php
 									$id = 0;
 								@endphp
-								@foreach ($condiciones as $condicion)
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab">
-											<h4 class="panel-title">
-												<a role="button" data-toggle="collapse" data-parent="#accordion" href="#con{{$id}}" aria-expanded="false" aria-controls="con{{$id}}">
+								@foreach($condiciones as $condicion)
+									<div class="card">
+										<div class="card-header">
+											<h2 class="mb-0">
+												<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#con{{$id}}" aria-expanded="false" aria-controls="con{{$id}}">
 													{{ $condicion["periodo"] }}
-												</a>
-												<div class="pull-right">
-													<a class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#mam" data-href="#con{{$id}}" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}">
-														<font color="#fff"><i class="fa fa-plus"></i> agregar montos</font>
-													</a>
-													<a data-toggle="modal" data-target="#mdelPeriodo" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}" class="btn btn-outline-danger btn-sm" title="Eliminar rango de tiempo"><font color="#fff"><i class="fa fa-trash"></i></font></a>
+												</button>
+												<div class="float-right">
+													<a href="#" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#mam" data-href="#con{{$id}}" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}"><i class="fa fa-plus"></i> agregar montos</a>
+													<a href="#" data-toggle="modal" data-target="#mdelPeriodo" data-dd="{{ $condicion["plazo_minimo"] }}" data-dh="{{ $condicion["plazo_maximo"] }}" class="btn btn-outline-danger btn-sm" title="Eliminar rango de tiempo"><i class="far fa-trash-alt"></i></a>
 												</div>
-											</h4>
+											</h2>
 										</div>
-										<div id="con{{$id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="con{{$id++}}">
-											<div class="panel-body">
+
+										<div id="con{{$id}}" class="collapse" aria-labelledby="con{{++$id}}" data-parent="#rangos">
+											<div class="card-body">
 												@if($condicion->get("montos")->count())
 													<div class="row">
 														<div class="col-md-12 tablesponsive">
@@ -255,7 +251,7 @@
 																			<td class="text-right">{{ $monto["monto_maximo"] }}</td>
 																			<td class="text-right">{{ $monto["tasa"] }}</td>
 																			<td class="text-right">
-																				<a data-toggle="modal" data-target="#mdelMonto" data-id="{{ $monto["id"] }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
+																				<a href="#" data-toggle="modal" data-target="#mdelMonto" data-id="{{ $monto["id"] }}" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
 																			</td>
 																		</tr>
 																	@endforeach
@@ -273,7 +269,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -287,8 +282,8 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="mLabel">Rango de monto</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -300,30 +295,39 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
+							@php
+								$valid = $errors->has('md') ? 'is-invalid' : '';
+							@endphp
 							<label class="control-label">Monto mínimo</label>
 							<div class="input-group">
-								<span class="input-group-addon">$</span>
-								{!! Form::text('md', '0', ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Monto desde', 'data-maskmoney', 'data-allowzero' => 'true']) !!}
+								<div class="input-group-prepend"><span class="input-group-text">$</span></div>
+								{!! Form::text('md', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '0', 'data-maskmoney', 'data-allowzero' => 'true']) !!}
 							</div>
 						</div>
 					</div>
 
 					<div class="col-md-4">
 						<div class="form-group">
+							@php
+								$valid = $errors->has('mh') ? 'is-invalid' : '';
+							@endphp
 							<label class="control-label">Monto máximo</label>
 							<div class="input-group">
-								<span class="input-group-addon">$</span>
-								{!! Form::text('mh', '0', ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Monto hasta', 'data-maskmoney']) !!}
+								<div class="input-group-prepend"><span class="input-group-text">$</span></div>
+								{!! Form::text('mh', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '0', 'data-maskmoney']) !!}
 							</div>
 						</div>
 					</div>
 
 					<div class="col-md-4">
 						<div class="form-group">
+							@php
+								$valid = $errors->has('tasa') ? 'is-invalid' : '';
+							@endphp
 							<label class="control-label">Tasa E.A.</label>
 							<div class="input-group">
-								{!! Form::text('tasa', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Tasa']) !!}
-								<span class="input-group-addon">%</span>
+								{!! Form::text('tasa', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '0']) !!}
+								<div class="input-group-append"><span class="input-group-text">%</span></div>
 							</div>
 						</div>
 					</div>
@@ -336,8 +340,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
 				{!! Form::submit("Guardar", ["class" => "btn btn-outline-success"]) !!}
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
@@ -349,8 +353,8 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="mLabel">Eliminar monto</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -360,8 +364,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
 				{!! Form::submit("Eliminar", ["class" => "btn btn-outline-danger"]) !!}
+				<button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
@@ -375,8 +379,8 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="mLabel">Eliminar rango de tiempo</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -386,8 +390,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
 				{!! Form::submit("Eliminar", ["class" => "btn btn-outline-danger"]) !!}
+				<button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>

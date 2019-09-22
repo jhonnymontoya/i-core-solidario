@@ -48,16 +48,16 @@
 					<h3 class="card-title">Procesos</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => '/ajusteAhorrosLote', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => '/ajusteAhorrosLote', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-11 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$procesos->total())
 						<p>
@@ -69,7 +69,7 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Nro Proceso</th>
@@ -92,7 +92,7 @@
 													$label = "badge-";
 													switch($proceso->estado) {
 														case 'PRECARGA':
-															$label .= 'default';
+															$label .= 'secondary';
 															break;
 														case 'CARGADO':
 															$label .= 'info';
@@ -104,7 +104,7 @@
 															$label .= 'danger';
 															break;
 														default:
-															$label .= 'default';
+															$label .= 'secondary';
 															break;
 													}
 												@endphp
@@ -117,7 +117,7 @@
 													<a class="btn btn-outline-info btn-sm" title="Editar" href="{{ route('ajusteAhorrosLoteResumen', $proceso->id) }}"><i class="fa fa-edit"></i></a>
 												@endif
 												@if($proceso->estado == 'PRECARGA' || $proceso->estado == 'CARGADO')
-													<a class="btn btn-outline-danger btn-sm" title="Anular" href="{{ route('ajusteAhorrosLoteAnular', $proceso->id) }}"><i class="fa fa-close"></i></a>
+													<a class="btn btn-outline-danger btn-sm" title="Anular" href="{{ route('ajusteAhorrosLoteAnular', $proceso->id) }}"><i class="far fa-times-circle"></i></a>
 												@endif
 											</td>
 										</tr>

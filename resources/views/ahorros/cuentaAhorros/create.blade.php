@@ -40,36 +40,32 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('tipo_cuenta_ahorro_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('tipo_cuenta_ahorro_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo cuenta ahorro
-								</label>
-								{!! Form::select('tipo_cuenta_ahorro_id', $tiposCuentaAhorros, null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Tipo cuenta ahorro']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_cuenta_ahorro_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo cuenta ahorro</label>
+								{!! Form::select('tipo_cuenta_ahorro_id', $tiposCuentaAhorros, null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('tipo_cuenta_ahorro_id'))
-									<span class="help-block">{{ $errors->first('tipo_cuenta_ahorro_id') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('tipo_cuenta_ahorro_id') }}</div>
 								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('titular_socio_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('titular_socio_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Titular
-								</label>
-								{!! Form::select('titular_socio_id', [], null, ['class' => 'form-control select2', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital']) !!}
+							<div class="form-group">
+								@php
+									$valid = $errors->has('titular_socio_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Titular</label>
+								{!! Form::select('titular_socio_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
 								@if ($errors->has('titular_socio_id'))
-									<span class="help-block">{{ $errors->first('titular_socio_id') }}</span>
+									<div class="invalid-feedback">{{ $errors->first('titular_socio_id') }}</div>
 								@endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('cuentaAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

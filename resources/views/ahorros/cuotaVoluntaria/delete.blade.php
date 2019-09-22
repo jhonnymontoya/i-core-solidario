@@ -39,20 +39,16 @@
 				<div class="card-body">
 					{!! Form::open(['url' => ['cuotaVoluntaria', $cuota], 'method' => 'delete', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="row">
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<div class="alert alert-danger">
-									<h4>
-										<i class="fa fa-ban"></i>&nbsp;Alerta!
-									</h4>
-									Esta a punto de eliminar la cuota de ahorro.
-								</div>
+						<div class="col-md-12">
+							<div class="alert alert-warning">
+								<h4><i class="fas fa-exclamation-triangle"></i>&nbsp;Alerta!</h4>
+								Esta a punto de eliminar la cuota de ahorro.
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 table-responsive">
-							<table class="table">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Modalidad</th>
@@ -118,7 +114,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer">
+					<div class="card-footer text-right">
 						{!! Form::submit('Confirmar', ['class' => 'btn btn-outline-danger']) !!}
 						<a href="{{ url('cuotaVoluntaria?socio=' . $cuota->socio->id) }}" class="btn btn-outline-success pull-right">Volver</a>
 					</div>
