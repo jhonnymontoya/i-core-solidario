@@ -47,7 +47,7 @@ class LoginController extends Controller
 	 */
 	public function __construct() {
 		$this->middleware('guest')->except('logout');
-		$this->middleware('throttle:15,3')->except(['logout', 'showLoginForm']);
+		//$this->middleware('throttle:15,3')->except(['logout', 'showLoginForm']);
 	}
 
 	/**

@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			SDAT
-			<small>Ahorros</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Ahorros</a></li>
-			<li class="active">SDAT</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						SDAT
+						<small>Ahorros</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Ahorros</a></li>
+						<li class="breadcrumb-item active">SDAT</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -31,106 +39,111 @@
 			</div>
 		@endif
 		{!! Form::open(['route' => ['SDAT.put.preSaldar', $sdat->id], 'method' => 'put', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Saldar SDAT</h3>
-					</div>
-					<div class="box-body">
-						<div class="row">
-							<div class="col-md-12">
-								<h4>Confirmar devolución de depósito</h4>
-							</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Saldar SDAT</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Confirmar devolución de depósito</h4>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<dl class="dl-horizontal">
-									<dt>No. deposito:</dt>
-									<dd>{{ $sdat->id }}</dd>
+					<div class="row">
+						<div class="col-md-6">
+							<dl>
+								<dt>Tipo:</dt>
+								<dd>{{ $sdat->tipoSdat->codigo }}</dd>
 
-									<dt>Tipo:</dt>
-									<dd>{{ $sdat->tipoSdat->codigo }}</dd>
+								<dt>Valor contituido:</dt>
+								<dd>${{ number_format($sdat->valor) }}</dd>
 
-									<dt>Valor contituido:</dt>
-									<dd>${{ number_format($sdat->valor) }}</dd>
+								<dt>Fecha constitución:</dt>
+								<dd>{{ $sdat->fecha_constitucion }} ({{ $sdat->fecha_constitucion->diffForHumans() }})</dd>
 
-									<dt>Tasa E.A.:</dt>
-									<dd>{{ number_format($sdat->tasa, 2) }}%</dd>
+								<dt>Fecha vencimiento:</dt>
+								<dd>{{ $sdat->fecha_vencimiento }} ({{ $sdat->fecha_vencimiento->diffForHumans() }})</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>No. deposito:</dt>
+								<dd>{{ $sdat->id }}</dd>
 
-									<dt>Fecha constitución:</dt>
-									<dd>{{ $sdat->fecha_constitucion }} ({{ $sdat->fecha_constitucion->diffForHumans() }})</dd>
+								<dt>Tasa E.A.:</dt>
+								<dd>{{ number_format($sdat->tasa, 2) }}%</dd>
 
-									<dt>Plazo (días):</dt>
-									<dd>{{ number_format($sdat->plazo) }}</dd>
+								<dt>Plazo (días):</dt>
+								<dd>{{ number_format($sdat->plazo) }}</dd>
 
-									<dt>Fecha vencimiento:</dt>
-									<dd>{{ $sdat->fecha_vencimiento }} ({{ $sdat->fecha_vencimiento->diffForHumans() }})</dd>
+								@php
+									$tercero = $sdat->socio->tercero;
+									$nombre = sprintf(
+										"%s %s - %s",
+										$tercero->tipoIdentificacion->codigo,
+										$tercero->numero_identificacion,
+										$tercero->nombre_corto
+									);
+								@endphp
+
+								<dt>Nombre:</dt>
+								<dd>{{ $nombre }}</dd>
+							</dl>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fechaDevolucion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha devolución</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
 									@php
-										$tercero = $sdat->socio->tercero;
-										$nombre = sprintf(
-											"%s %s - %s",
-											$tercero->tipoIdentificacion->codigo,
-											$tercero->numero_identificacion,
-											$tercero->nombre_corto
-										);
+										$fechaDevolucion = old('fechaDevolucion');
+										$fechaDevolucion = empty($fechaDevolucion) ? date('d/m/Y') : $fechaDevolucion;
 									@endphp
-
-									<dt>Nombre:</dt>
-									<dd>{{ $nombre }}</dd>
-
-								</dl>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('fechaDevolucion')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fechaDevolucion'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha devolución
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										@php
-											$fechaDevolucion = old('fechaDevolucion');
-											$fechaDevolucion = empty($fechaDevolucion) ? date('d/m/Y') : $fechaDevolucion;
-										@endphp
-										{!! Form::text('fechaDevolucion', $fechaDevolucion, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
+									{!! Form::text('fechaDevolucion', $fechaDevolucion, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fechaDevolucion'))
-										<span class="help-block">{{ $errors->first('fechaDevolucion') }}</span>
-									@endif
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cuenta'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
-									</div>
-									@if ($errors->has('cuenta'))
-										<span class="help-block">{{ $errors->first('cuenta') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('fechaDevolucion') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
 
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuenta') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::select('cuenta', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+									@if ($errors->has('cuenta'))
+										<div class="invalid-feedback">{{ $errors->first('cuenta') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="box-footer">
-						{!! Form::submit('Continuar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

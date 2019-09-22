@@ -9,53 +9,71 @@
 <div class="row con-condicion" style="display: {{ $esCondicionado ? 'block' : 'none' }};">
 	<div class="col-md-2">
 		<div class="form-group">
+			@php
+				$valid = $errors->has('d') ? 'is-invalid' : '';
+			@endphp
 			<label class="control-label">Desde</label>
 			<div class="input-group">
 				@if ($esMonto)
-					<div class="input-group-addon">$</div>
+					<div class="input-group-prepend">
+						<span class="input-group-text">$</span>
+					</div>
 				@endif
-				{!! Form::text('d', null, ['class' => 'form-control text-right', 'placeholder' => 'Desde', 'autocomplete' => 'off', 'min' => 0, "form" => "adicionarCondicion"]) !!}
+				{!! Form::text('d', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Desde', 'min' => 0, "form" => "adicionarCondicion"]) !!}
+				@if ($errors->has('d'))
+					<div class="invalid-feedback">{{ $errors->first('d') }}</div>
+				@endif
 			</div>
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
+			@php
+				$valid = $errors->has('h') ? 'is-invalid' : '';
+			@endphp
 			<label class="control-label">Hasta</label>
 			<div class="input-group">
-				@if ($esMonto)
-					<div class="input-group-addon">$</div>
+				<div class="input-group-prepend">
+					@if ($esMonto)
+						<span class="input-group-text">$</span>
+					@endif
+				</div>
+				{!! Form::text('h', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Hasta', 'min' => 0, "form" => "adicionarCondicion"]) !!}
+				@if ($errors->has('h'))
+					<div class="invalid-feedback">{{ $errors->first('h') }}</div>
 				@endif
-				{!! Form::text('h', null, ['class' => 'form-control text-right', 'placeholder' => 'Hasta', 'autocomplete' => 'off', 'min' => 0, "form" => "adicionarCondicion"]) !!}
 			</div>
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label class="control-label">Base de cobro</label>
-			<br>
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary active">
-					<input type="radio" name="bc" value="VALORCREDITO" checked="checked" form="adicionarCondicion">Crédito
-				</label>
-				@if ($cobro->efecto != "ADICIONCREDITO")
-					<label class="btn btn-primary">
-						<input type="radio" name="bc" value="VAORDESCUBIERTO" form="adicionarCondicion">Descubierto
+			<div>
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary active">
+						<input type="radio" name="bc" value="VALORCREDITO" checked="checked" form="adicionarCondicion">Crédito
 					</label>
-				@endif
+					@if ($cobro->efecto != "ADICIONCREDITO")
+						<label class="btn btn-primary">
+							<input type="radio" name="bc" value="VAORDESCUBIERTO" form="adicionarCondicion">Descubierto
+						</label>
+					@endif
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label class="control-label">Factor de cálculo</label>
-			<br>
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-primary active">
-					{!! Form::radio('fc', 'VALORFIJO', true, ["form" => "adicionarCondicion"]) !!}Fijo
-				</label>
-				<label class="btn btn-primary">
-					{!! Form::radio('fc', 'PORCENTAJEBASE', false, ["form" => "adicionarCondicion"]) !!}Porcentaje
-				</label>
+			<div>
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary active">
+						{!! Form::radio('fc', 'VALORFIJO', true, ["form" => "adicionarCondicion"]) !!}Fijo
+					</label>
+					<label class="btn btn-primary">
+						{!! Form::radio('fc', 'PORCENTAJEBASE', false, ["form" => "adicionarCondicion"]) !!}Porcentaje
+					</label>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -63,16 +81,20 @@
 		<div class="form-group">
 			<label class="control-label">Valor</label>
 			<div class="input-group">
-				<div class="input-group-addon valor">$</div>
-				{!! Form::text('v', null, ['class' => 'form-control text-right', 'placeholder' => 'Valor', 'autocomplete' => 'off', 'step' => '0.01', 'min' => 0, "form" => "adicionarCondicion"]) !!}
-				<div class="input-group-addon porcentaje" style="display: none;">%</div>
+				<div class="input-group-prepend valor">
+					<span class="input-group-text">$</span>
+				</div>
+				{!! Form::text('v', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Valor', "form" => "adicionarCondicion"]) !!}
+				<div class="input-group-append porcentaje" style="display: none;">
+					<span class="input-group-text">%</span>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label class="control-label">&nbsp;</label><br>
-			{!! Form::submit('Agregar', ['class' => 'btn btn-success', "form" => "adicionarCondicion"]) !!}
+			{!! Form::submit('Agregar', ['class' => 'btn btn-outline-success', "form" => "adicionarCondicion"]) !!}
 		</div>
 	</div>
 </div>
@@ -82,8 +104,8 @@
 </div>
 <br>
 <div class="row">
-	<div class="col-md-10 col-md-offset-1 table-responsive">
-		<table class="table table-striped">
+	<div class="col-md-12 table-responsive">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th>Desde</th>
@@ -105,7 +127,7 @@
 						<td>{{ $data["base_cobro"] }}</td>
 						<td>{{ $data["factor_calculo"] }}</td>
 						<td>{{ $data["valor"] }}</td>
-						<td><a class="btn btn-danger btn-xs eliminar"><i class="fa fa-trash"></i></a></td>
+						<td><a class="btn btn-outline-danger btn-sm eliminar"><i class="fa fa-trash"></i></a></td>
 					</tr>
 				@endforeach
 			</tbody>
@@ -136,7 +158,7 @@
 				dataType: 'json',
 				data: $data
 			}).done(function(data){
-				$eliminar = $("<a>").addClass("btn").addClass("btn-danger").addClass("btn-xs");
+				$eliminar = $("<a>").addClass("btn").addClass("btn-outline-danger").addClass("btn-sm");
 				$eliminar.html("<i class=\"fa fa-trash\"></i>");
 				$eliminar.click(function(event){eliminar(this);});
 				$rango = $("<tr>")

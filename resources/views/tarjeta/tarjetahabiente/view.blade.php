@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Tarjetahabiente
-			<small>Tarjeta</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Tarjeta</a></li>
-			<li class="active">Tarjetahabiente</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Tarjetahabiente
+						<small>Tarjeta</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Tarjeta</a></li>
+						<li class="breadcrumb-item active">Tarjetahabiente</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -37,164 +45,162 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('tarjetaHabiente/create') }}?tercero_id={{ $tercero->id }}" class="btn btn-primary">Crear nueva tarjeta</a>
+				<a href="{{ url('tarjetaHabiente/create') }}?tercero_id={{ $tercero->id }}" class="btn btn-outline-primary">Crear nueva tarjeta</a>
 			</div>
 		</div>
 		<br>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Editar producto para {{ $tercero->nombre_corto }}</h3>
-					</div>
-					<div class="box-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-6 col-sm-12">
-										@php
-											$link = $socio ? sprintf("%s?socio=%s&fecha=%s", url('socio/consulta'), $socio->id, date("d/m/Y")) : null;
-											$antiguedad = " - ";
-											if($socio) {
-												$antiguedad = sprintf("%s (%s)", $socio->fecha_antiguedad, $socio->fecha_antiguedad->diffForHumans());
-											}
-											$label = "label-default";
-											switch (optional($socio)->estado) {
-												case 'ACTIVO':
-													$label = 'bg-green';
-													break;
-												case 'NOVEDAD':
-													$label = 'bg-orange';
-													break;
-												case 'RETIRO':
-													$label = 'bg-maroon';
-													break;
-												case 'LIQUIDADO':
-													$label = 'bg-red';
-													break;
-												case 'PROCESO':
-													$label = 'bg-light-blue';
-													break;
-											}
-										@endphp
-										<dl class="dl-horizontal">
-											<dt>Documento</dt>
-											<dd>
-												@if ($link)
-													<a href="{{ $link }}" target="_blank">
-														{{ $tercero->tipoIdentificacion->codigo }} {{ number_format($tercero->numero_identificacion) }}
-														<small><i class="fa fa-external-link"></i></small>
-													</a>
-												@else
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Editar producto para {{ $tercero->nombre_corto }}</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									@php
+										$link = $socio ? sprintf("%s?socio=%s&fecha=%s", url('socio/consulta'), $socio->id, date("d/m/Y")) : null;
+										$antiguedad = " - ";
+										if($socio) {
+											$antiguedad = sprintf("%s (%s)", $socio->fecha_antiguedad, $socio->fecha_antiguedad->diffForHumans());
+										}
+										$label = "label-default";
+										switch (optional($socio)->estado) {
+											case 'ACTIVO':
+												$label = 'bg-green';
+												break;
+											case 'NOVEDAD':
+												$label = 'bg-orange';
+												break;
+											case 'RETIRO':
+												$label = 'bg-maroon';
+												break;
+											case 'LIQUIDADO':
+												$label = 'bg-red';
+												break;
+											case 'PROCESO':
+												$label = 'bg-light-blue';
+												break;
+										}
+									@endphp
+									<dl>
+										<dt>Documento</dt>
+										<dd>
+											@if ($link)
+												<a href="{{ $link }}" target="_blank">
 													{{ $tercero->tipoIdentificacion->codigo }} {{ number_format($tercero->numero_identificacion) }}
-												@endif
-											</dd>
-											<dt>Empresa</dt>
-											<dd>{{ $pagaduria->nombre ?? " - "}}</dd>
-											<dt>Antigüedad</dt>
-											<dd>{{ $antiguedad }}</dd>
-										</dl>
-									</div>
-									<div class="col-md-6 col-sm-12">
-										<dl class="dl-horizontal">
-											<dt>Nombre</dt>
-											<dd>
-												@if ($link)
-													<a href="{{ $link }}" target="_blank">
-														{{ $tercero->nombre }}
-														<small><i class="fa fa-external-link"></i></small>
-													</a>
-												@else
+													<small><i class="fa fa-external-link"></i></small>
+												</a>
+											@else
+												{{ $tercero->tipoIdentificacion->codigo }} {{ number_format($tercero->numero_identificacion) }}
+											@endif
+										</dd>
+										<dt>Empresa</dt>
+										<dd>{{ $pagaduria->nombre ?? " - "}}</dd>
+										<dt>Antigüedad</dt>
+										<dd>{{ $antiguedad }}</dd>
+									</dl>
+								</div>
+								<div class="col-md-6 col-sm-12">
+									<dl>
+										<dt>Nombre</dt>
+										<dd>
+											@if ($link)
+												<a href="{{ $link }}" target="_blank">
 													{{ $tercero->nombre }}
-												@endif
-											</dd>
-											<dt>Periodicidad</dt>
-											<dd>{{ $pagaduria->periodicidad_pago ?? " - "}}</dd>
-											<dt>Estado</dt>
-											<dd>
-												<span class="label {{ $label }}">
-													{{ $socio->estado ?? "No asociado" }}
-												</span>
-											</dd>
-										</dl>
-									</div>
+													<small><i class="fa fa-external-link"></i></small>
+												</a>
+											@else
+												{{ $tercero->nombre }}
+											@endif
+										</dd>
+										<dt>Periodicidad</dt>
+										<dd>{{ $pagaduria->periodicidad_pago ?? " - "}}</dd>
+										<dt>Estado</dt>
+										<dd>
+											<span class="badge badge-pill {{ $label }}">
+												{{ $socio->estado ?? "No asociado" }}
+											</span>
+										</dd>
+									</dl>
 								</div>
 							</div>
 						</div>
-						<hr>
-						@if (!$tarjetaHabientes->count())
-							No se encontraon tarjetas, <a href="{{ url('tarjetaHabiente/create') }}?tercero_id={{ $tercero->id }}" class="btn btn-primary btn-xs">Crear nueva tarjeta</a>
-						@else
-							<div class="row">
-								<div class="col-md-12">
-									<span class="label label-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
-								</div>
+					</div>
+					<hr>
+					@if (!$tarjetaHabientes->count())
+						No se encontraon tarjetas, <a href="{{ url('tarjetaHabiente/create') }}?tercero_id={{ $tercero->id }}" class="btn btn-outline-primary btn-sm">Crear nueva tarjeta</a>
+					@else
+						<div class="row">
+							<div class="col-md-12">
+								<span class="badge badge-pill badge-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
 							</div>
-							<div class="row">
-								<div class="col-md-12 table-responsive">
-									<table class="table table-striped">
-										<thead>
+						</div>
+						<div class="row">
+							<div class="col-md-12 table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Tarjeta</th>
+											<th>Producto</th>
+											<th>Fecha asignación</th>
+											<th>Estado</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($tarjetaHabientes as $tarjetaHabiente)
+											@php
+												$label = "default";
+												switch ($tarjetaHabiente->estado) {
+													case 'ASIGNADA':
+														$label = "info";
+														break;
+													case 'ACTIVA':
+														$label = "success";
+														break;
+													case 'INACTIVA':
+														$label = "warning";
+														break;
+													case 'BLOQUEADA':
+													case 'CANCELADA':
+														$label = "danger";
+														break;
+													default:
+														$label = "default";
+														break;
+												}
+											@endphp
 											<tr>
-												<th>Tarjeta</th>
-												<th>Producto</th>
-												<th>Fecha asignación</th>
-												<th>Estado</th>
-												<th></th>
+												<td>
+													<a href="{{ route('tarjetaHabiente.edit', [$tercero->id, $tarjetaHabiente->id]) }}">
+														{{ $tarjetaHabiente->tarjeta->numeroFormateado }}
+													</a>
+												</td>
+												<td>{{ $tarjetaHabiente->producto->nombre_completo }}</td>
+												<td>{{ $tarjetaHabiente->fecha_asignacion }}</td>
+												<td>
+													<span class="badge badge-pill badge-{{ $label }}">
+														{{ $tarjetaHabiente->estado }}
+													</span>
+												</td>
+												<td>
+													<a href="{{ route('tarjetaHabiente.edit', [$tercero->id, $tarjetaHabiente->id]) }}" class="btn btn-outline-info btn-sm">
+														<i class="fa fa-edit"></i>
+													</a>
+												</td>
 											</tr>
-										</thead>
-										<tbody>
-											@foreach ($tarjetaHabientes as $tarjetaHabiente)
-												@php
-													$label = "default";
-													switch ($tarjetaHabiente->estado) {
-														case 'ASIGNADA':
-															$label = "info";
-															break;
-														case 'ACTIVA':
-															$label = "success";
-															break;
-														case 'INACTIVA':
-															$label = "warning";
-															break;
-														case 'BLOQUEADA':
-														case 'CANCELADA':
-															$label = "danger";
-															break;
-														default:
-															$label = "default";
-															break;
-													}
-												@endphp
-												<tr>
-													<td>
-														<a href="{{ route('tarjetaHabiente.edit', [$tercero->id, $tarjetaHabiente->id]) }}">
-															{{ $tarjetaHabiente->tarjeta->numeroFormateado }}
-														</a>
-													</td>
-													<td>{{ $tarjetaHabiente->producto->nombre_completo }}</td>
-													<td>{{ $tarjetaHabiente->fecha_asignacion }}</td>
-													<td>
-														<span class="label label-{{ $label }}">
-															{{ $tarjetaHabiente->estado }}
-														</span>
-													</td>
-													<td>
-														<a href="{{ route('tarjetaHabiente.edit', [$tercero->id, $tarjetaHabiente->id]) }}" class="btn btn-info btn-xs">
-															<i class="fa fa-edit"></i>
-														</a>
-													</td>
-												</tr>
-											@endforeach
-										</tbody>
-									</table>
-								</div>
+										@endforeach
+									</tbody>
+								</table>
 							</div>
-						@endif
-					</div>
-					<div class="box-footer">
-						<span class="label label-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
-						<a href="{{ url('tarjetaHabiente') }}" class="btn btn-danger pull-right">Volver</a>
-					</div>
+						</div>
+					@endif
+				</div>
+				<div class="card-footer">
+					<span class="badge badge-pill badge-primary">{{ $tarjetaHabientes->count() }}</span> tarjetas.
+					<a href="{{ url('tarjetaHabiente') }}" class="btn btn-outline-danger float-right">Volver</a>
 				</div>
 			</div>
 		</div>

@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Tarjetahabiente
-			<small>Tarjeta</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Tarjeta</a></li>
-			<li class="active">Tarjetahabiente</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Tarjetahabiente
+						<small>Tarjeta</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Tarjeta</a></li>
+						<li class="breadcrumb-item active">Tarjetahabiente</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -24,113 +32,99 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'tarjetaHabiente', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo tarjetahabiente</h3>
-					</div>
-					<div class="box-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('tercero_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tercero_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tarjetahabiente
-									</label>
-									{!! Form::select('tercero_id', [], null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Seleccione una opción']) !!}
-									@if ($errors->has('tercero_id'))
-										<span class="help-block">{{ $errors->first('tercero_id') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('producto_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('producto_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Producto
-									</label>
-									{!! Form::select('producto_id', $productos, null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Seleccione un producto']) !!}
-									@if ($errors->has('producto_id'))
-										<span class="help-block">{{ $errors->first('producto_id') }}</span>
-									@endif
-								</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo tarjetahabiente</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tercero_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tarjetahabiente</label>
+								{!! Form::select('tercero_id', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
+								@if ($errors->has('tercero_id'))
+									<div class="invalid-feedback">{{ $errors->first('tercero_id') }}</div>
+								@endif
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('tarjeta_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tarjeta_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tarjeta
-									</label>
-									{!! Form::select('tarjeta_id', [], null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
-									@if ($errors->has('tarjeta_id'))
-										<span class="help-block">{{ $errors->first('tarjeta_id') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-2 ahorros" style="display: none;">
-								<div class="form-group {{ ($errors->has('cuenta_ahorro_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cuenta_ahorro_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta ahorros
-									</label>
-									{!! Form::select('cuenta_ahorro_id', [], null, ['class' => 'form-control', 'autocomplete' => 'off', 'style' => 'width: 100%;']) !!}
-									@if ($errors->has('cuenta_ahorro_id'))
-										<span class="help-block">{{ $errors->first('cuenta_ahorro_id') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-3 modalidad" style="display: none">
-								<div class="form-group">
-									<label class="control-label">Modalidad</label><br>
-									<div class="valor-modalidad"></div>
-								</div>
-							</div>
-							<div class="col-md-1 tasa" style="display: none">
-								<div class="form-group">
-									<label class="control-label">Tasa</label><br>
-									<div class="valor-tasa"></div>
-								</div>
-							</div>
-							<div class="col-md-1 plazo" style="display: none">
-								<div class="form-group">
-									<label class="control-label">Plazo</label><br>
-									<div class="valor-plazo"></div>
-								</div>
-							</div>
-							<div class="col-md-2 cupo"  style="display: none">
-								<div class="form-group {{ ($errors->has('cupo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cupo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cupo
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon">$</span>
-										{!! Form::text('cupo', null, ['class' => 'form-control text-right', 'autocomplete' => 'off', 'data-maskMoney', 'style' => 'width: 100%;']) !!}
-									</div>
-									@if ($errors->has('cupo'))
-										<span class="help-block">{{ $errors->first('cupo') }}</span>
-									@endif
-								</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('producto_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Producto</label>
+								{!! Form::select('producto_id', $productos, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione un producto']) !!}
+								@if ($errors->has('producto_id'))
+									<div class="invalid-feedback">{{ $errors->first('producto_id') }}</div>
+								@endif
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('tarjetaHabiente') }}" class="btn btn-danger pull-right">Cancelar</a>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tarjeta_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tarjeta</label>
+								{!! Form::select('tarjeta_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('tarjeta_id'))
+									<div class="invalid-feedback">{{ $errors->first('tarjeta_id') }}</div>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-2 ahorros" style="display: none;">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuenta_ahorro_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta ahorros</label>
+								{!! Form::select('cuenta_ahorro_id', [], null, ['class' => [$valid, 'form-control', 'select2'], 'style' => 'width: 100%;']) !!}
+								@if ($errors->has('cuenta_ahorro_id'))
+									<div class="invalid-feedback">{{ $errors->first('cuenta_ahorro_id') }}</div>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-3 modalidad" style="display: none">
+							<div class="form-group">
+								<label class="control-label">Modalidad</label><br>
+								<div class="valor-modalidad"></div>
+							</div>
+						</div>
+						<div class="col-md-1 tasa" style="display: none">
+							<div class="form-group">
+								<label class="control-label">Tasa</label><br>
+								<div class="valor-tasa"></div>
+							</div>
+						</div>
+						<div class="col-md-1 plazo" style="display: none">
+							<div class="form-group">
+								<label class="control-label">Plazo</label><br>
+								<div class="valor-plazo"></div>
+							</div>
+						</div>
+						<div class="col-md-2 cupo"  style="display: none">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cupo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cupo</label>
+								{!! Form::text('cupo', null, ['class' => [$valid, 'form-control', 'text-right'], 'autocomplete' => 'off', 'placeholder' => 'Cupo', 'data-maskMoney', 'style' => 'width: 100%;']) !!}
+								@if ($errors->has('cupo'))
+									<div class="invalid-feedback">{{ $errors->first('cupo') }}</div>
+								@endif
+							</div>
+							
+						</div>
 					</div>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tarjetaHabiente') }}" class="btn btn-outline-danger">Cancelar</a>
 				</div>
 			</div>
 		</div>

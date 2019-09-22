@@ -3,15 +3,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Ajuste créditos
-			<small>Créditos</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Créditos</a></li>
-			<li class="active">Ajuste créditos</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Ajuste créditos
+						<small>Créditos</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Créditos</a></li>
+						<li class="breadcrumb-item active">Ajuste créditos</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -38,383 +46,362 @@
 		<br>
 		{!! Form::model($obligacion, ['url' => ['ajusteCreditos', $obligacion], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask', 'id' => 'formProcesar']) !!}
 		{!! Form::hidden('fechaAjuste', "$fecha") !!}
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Ajuste créditos</h3>
-			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-md-6">
-						@php
-							$tercero = $obligacion->tercero;
-						@endphp
-						<label>Ajuste para:</label> {{ $tercero->tipoIdentificacion->codigo }} {{$tercero->nombre_completo}}
-					</div>
-					<div class="col-md-6">
-						<label>Fecha ajuste:</label> {{ $fecha }}
-					</div>
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Ajuste créditos</h3>
 				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<label>Obligación:</label> {{ $obligacion->numero_obligacion}}
-					</div>
-					<div class="col-md-3">
-						<label>Valor inicial:</label> ${{ number_format($obligacion->valor_credito, 0) }}
-					</div>
-					<div class="col-md-3">
-						<label>Fecha de crédito:</label> {{ $obligacion->fecha_desembolso }}
-					</div>
-					<div class="col-md-3">
-						<label>Tasa M.V.:</label> {{ $obligacion->tasa }}%
-					</div>
-				</div>
-				<br>
-				<h4>Conceptos de ajuste</h4>
-
-				<div class="row form-horizontal">
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-8 text-right">
-								Saldo capital
-							</label>
-							<div class="col-md-4 text-right">
-								${{ number_format($obligacion->saldoObligacion($fecha), 0) }}
-							</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							@php
+								$tercero = $obligacion->tercero;
+							@endphp
+							<label>Ajuste para:</label> {{ $tercero->tipoIdentificacion->codigo }} {{$tercero->nombre_completo}}
+						</div>
+						<div class="col-md-6">
+							<label>Fecha ajuste:</label> {{ $fecha }}
 						</div>
 					</div>
-
-					<div class="col-md-3">
-						<div class="form-group {{ ($errors->has('ajusteCapital')?'has-error':'') }}">
-							<label class="col-md-4 control-label">
-								@if ($errors->has('ajusteCapital'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Ajuste
-							</label>
-							<div class="col-md-8 input-group">
-								<div class="input-group-addon">
-									$
-								</div>
-								{!! Form::text('ajusteCapital', null, ['class' => 'form-control text-right', 'placeholder' => '0', 'autocomplete' => 'off', 'data-maskMoney']) !!}
-							</div>
-							@if ($errors->has('ajusteCapital'))
-								<span class="help-block">{{ $errors->first('ajusteCapital') }}</span>
-							@endif
+					<div class="row">
+						<div class="col-md-3">
+							<label>Obligación:</label> {{ $obligacion->numero_obligacion}}
+						</div>
+						<div class="col-md-3">
+							<label>Valor inicial:</label> ${{ number_format($obligacion->valor_credito, 0) }}
+						</div>
+						<div class="col-md-3">
+							<label>Fecha de crédito:</label> {{ $obligacion->fecha_desembolso }}
+						</div>
+						<div class="col-md-3">
+							<label>Tasa M.V.:</label> {{ $obligacion->tasa }}%
 						</div>
 					</div>
+					<br>
+					<h4>Conceptos de ajuste</h4>
 
-					<div class="col-md-1 col-md-offset-1">
-						<div class="form-group {{ ($errors->has('naturalezaAjusteCapital')?'has-error':'') }}">
-							<div class="btn-group" data-toggle="buttons">
-								<?php
-									$naturaleza = trim(old('naturalezaAjusteCapital')) == '' ? 'AUMENTO' : old('naturalezaAjusteCapital');
-									$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
-								?>
-								<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
-									{!! Form::radio('naturalezaAjusteCapital', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
-								</label>
-								<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
-									{!! Form::radio('naturalezaAjusteCapital', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
-								</label>
-							</div>
-							@if ($errors->has('naturalezaAjusteCapital'))
-								<span class="help-block">{{ $errors->first('naturalezaAjusteCapital') }}</span>
-							@endif
-						</div>
-					</div>
+					<div class="row">
 
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-6 text-right">
-								Nuevo saldo
-							</label>
-							<div class="col-md-3 text-right nuevoSaldoCapital">
-								${{ number_format($obligacion->saldoObligacion($fecha), 0) }}
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Saldo capital</label>
+								<div>${{ number_format($obligacion->saldoObligacion($fecha), 0) }}</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<div class="row form-horizontal">
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-8 text-right">
-								Saldo intereses
-							</label>
-							<div class="col-md-4 text-right">
-								${{ number_format($obligacion->saldoInteresObligacion($fecha), 0) }}
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="form-group {{ ($errors->has('ajusteIntereses')?'has-error':'') }}">
-							<label class="col-md-4 control-label">
-								@if ($errors->has('ajusteIntereses'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Ajuste
-							</label>
-							<div class="col-md-8 input-group">
-								<div class="input-group-addon">
-									$
-								</div>
-								{!! Form::text('ajusteIntereses', null, ['class' => 'form-control text-right', 'placeholder' => '0', 'autocomplete' => 'off', 'data-maskMoney']) !!}
-							</div>
-							@if ($errors->has('ajusteIntereses'))
-								<span class="help-block">{{ $errors->first('ajusteIntereses') }}</span>
-							@endif
-						</div>
-					</div>
-
-					<div class="col-md-1 col-md-offset-1">
-						<div class="form-group {{ ($errors->has('naturalezaAjusteIntereses')?'has-error':'') }}">
-							<div class="btn-group" data-toggle="buttons">
-								<?php
-									$naturaleza = trim(old('naturalezaAjusteIntereses')) == '' ? 'AUMENTO' : old('naturalezaAjusteIntereses');
-									$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
-								?>
-								<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
-									{!! Form::radio('naturalezaAjusteIntereses', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
-								</label>
-								<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
-									{!! Form::radio('naturalezaAjusteIntereses', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
-								</label>
-							</div>
-							@if ($errors->has('naturalezaAjusteIntereses'))
-								<span class="help-block">{{ $errors->first('naturalezaAjusteIntereses') }}</span>
-							@endif
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-6 text-right">
-								Nuevo saldo
-							</label>
-							<div class="col-md-3 text-right nuevoSaldoIntereses">
-								${{ number_format($obligacion->saldoInteresObligacion($fecha), 0) }}
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row form-horizontal">
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-8 text-right">
-								Saldo seguro cartera:
-							</label>
-							<div class="col-md-4 text-right">
-								<?php
-									$saldoSeguroCartera = $obligacion->saldoSeguroObligacion($fecha);
-									echo "$" . number_format($saldoSeguroCartera);
-								?>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="form-group {{ ($errors->has('ajusteSeguroCartera')?'has-error':'') }}">
-							<label class="col-md-4 control-label">
-								@if ($errors->has('ajusteSeguroCartera'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Ajuste
-							</label>
-							<div class="col-md-8 input-group">
+						<div class="col-md-3">
+							<div class="form-group">
 								@php
-									$seguro = is_null($obligacion->seguroCartera) ? false : true;
+									$valid = $errors->has('ajusteCapital') ? 'is-invalid' : '';
 								@endphp
-								<div class="input-group-addon">$</div>
-								{!! Form::text('ajusteSeguroCartera', null, ['class' => 'form-control text-right', 'placeholder' => '0', 'autocomplete' => 'off', 'data-maskMoney', $seguro ? '' : 'readonly']) !!}
-							</div>
-							@if ($errors->has('ajusteSeguroCartera'))
-								<span class="help-block">{{ $errors->first('ajusteSeguroCartera') }}</span>
-							@endif
-						</div>
-					</div>
-
-					<div class="col-md-1 col-md-offset-1">
-						<div class="form-group {{ ($errors->has('naturalezaAjusteSeguro')?'has-error':'') }}">
-							<div class="btn-group" data-toggle="buttons">
-								<?php
-									$naturaleza = trim(old('naturalezaAjusteSeguro')) == '' ? 'AUMENTO' : old('naturalezaAjusteSeguro');
-									$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
-								?>
-								<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
-									{!! Form::radio('naturalezaAjusteSeguro', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
-								</label>
-								<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
-									{!! Form::radio('naturalezaAjusteSeguro', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
-								</label>
-							</div>
-							@if ($errors->has('naturalezaAjusteSeguro'))
-								<span class="help-block">{{ $errors->first('naturalezaAjusteSeguro') }}</span>
-							@endif
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-6 text-right">
-								Nuevo saldo
-							</label>
-							<div class="col-md-3 text-right nuevoSaldoSeguro">
-								${{ number_format($saldoSeguroCartera) }}
+								<label class="control-label">Ajuste</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									{!! Form::text('ajusteCapital', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '0', 'data-maskMoney']) !!}
+									@if ($errors->has('ajusteCapital'))
+										<div class="invalid-feedback">{{ $errors->first('ajusteCapital') }}</div>
+									@endif
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<br>
-
-				<div class="row form-horizontal">
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label class="col-md-8 text-right">
-								Total ajuste:
-							</label>
-							<div class="col-md-4 text-right totalAjuste">
-								$0
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('cuifId')?'has-error':'') }}">
-							<label class="control-label">
-								@if ($errors->has('cuifId'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Cuenta contrapartida
-							</label>
-							{!! Form::select('cuifId', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione cuenta']) !!}
-							@if ($errors->has('cuifId'))
-								<span class="help-block">{{ $errors->first('cuifId') }}</span>
-							@endif
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('terceroContrapartidaId')?'has-error':'') }}">
-							<label class="control-label">
-								@if ($errors->has('terceroContrapartidaId'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Tercero contrapartida
-							</label>
-							{!! Form::select('terceroContrapartidaId', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tercero']) !!}
-							@if ($errors->has('terceroContrapartidaId'))
-								<span class="help-block">{{ $errors->first('terceroContrapartidaId') }}</span>
-							@endif
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('referencia')?'has-error':'') }}">
-							<label class="control-label">
-								@if ($errors->has('referencia'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Referencia
-							</label>
-							{!! Form::text('referencia', null, ['class' => 'form-control', 'placeholder' => 'Referencia']) !!}
-							@if ($errors->has('referencia'))
-								<span class="help-block">{{ $errors->first('referencia') }}</span>
-							@endif
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group {{ ($errors->has('comentarios')?'has-error':'') }}">
-							<label class="control-label">
-								@if ($errors->has('comentarios'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Observaciones
-							</label>
-							{!! Form::textarea('comentarios', null, ['class' => 'form-control', 'placeholder' => 'Observaciones']) !!}
-							@if ($errors->has('comentarios'))
-								<span class="help-block">{{ $errors->first('comentarios') }}</span>
-							@endif
-						</div>
-					</div>
-				</div>
-
-				<div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="tituloConfirmacion">
-					<div class="modal-dialog modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="tituloConfirmacion">Ajuste crédito</h4>
-							</div>
-							<div class="modal-body">
-								<div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<div class="alert alert-warning">
-											<h4>
-												<i class="fa fa-warning"></i>&nbsp;Alerta!
-											</h4>
-											Confirme los datos antes de grabar el ajuste de crédito
-										</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label>
+								<div>
+									@php
+										$naturaleza = trim(old('naturalezaAjusteCapital')) == '' ? 'AUMENTO' : old('naturalezaAjusteCapital');
+										$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+											{!! Form::radio('naturalezaAjusteCapital', 'AUMENTO', $naturaleza ? true : false, ['class' => [$valid]]) !!}<i class="fa fa-arrow-up"></i>
+										</label>
+										<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+											{!! Form::radio('naturalezaAjusteCapital', 'DECREMENTO', !$naturaleza ? true : false, ['class' => [$valid]]) !!}<i class="fa fa-arrow-down"></i>
+										</label>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<dl class="dl-horizontal">
-											<dt>Deudor:</dt>
-											<dd>{{ $tercero->tipoIdentificacion->codigo }} {{ $tercero->nombre_completo }}</dd>
-											<dt>Obligación:</dt>
-											<dd>{{ $obligacion->numero_obligacion }}</dd>
-											<dt>Tasa:</dt>
-											<dd>{{ $obligacion->tasa }}%</dd>
-											<dt>Fecha ajuste:</dt>
-											<dd>{{ $fecha }}</dd>
-										</dl>
-										<div class="row">
-											<div class="col-md-4">
-												<dl class="dl-horizontal">
-													<dt>Nuevo saldo capital:</dt>
-													<dd id="capitalConfirmacion"></dd>
-													<dt>Nuevo saldo intereses:</dt>
-													<dd id="interesesConfirmacion"></dd>
-													<dt>Nuevo saldo seguro cartera:</dt>
-													<dd id="seguroConfirmacion"></dd>
-													<br>
-													<dt>Total ajuste:</dt>
-													<dd id="totalConfirmacion"></dd>
-												</dl>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="text-right">
+									Nuevo saldo
+								</label>
+								<div class="nuevoSaldoCapital">
+									${{ number_format($obligacion->saldoObligacion($fecha), 0) }}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Saldo intereses</label>
+								<div>
+									${{ number_format($obligacion->saldoInteresObligacion($fecha), 0) }}
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('ajusteIntereses') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Ajuste</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									{!! Form::text('ajusteIntereses', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '0', 'data-maskMoney']) !!}
+									@if ($errors->has('ajusteIntereses'))
+										<div class="invalid-feedback">{{ $errors->first('ajusteIntereses') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label>
+								<div>
+									@php
+										$naturaleza = trim(old('naturalezaAjusteIntereses')) == '' ? 'AUMENTO' : old('naturalezaAjusteIntereses');
+										$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+											{!! Form::radio('naturalezaAjusteIntereses', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
+										</label>
+										<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+											{!! Form::radio('naturalezaAjusteIntereses', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
+										</label>
+									</div>
+									@if ($errors->has('naturalezaAjusteIntereses'))
+										<div class="invalid-feedback">{{ $errors->first('naturalezaAjusteIntereses') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Nuevo saldo</label>
+								<div class="nuevoSaldoIntereses">
+									${{ number_format($obligacion->saldoInteresObligacion($fecha), 0) }}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Saldo seguro cartera</label>
+								<div>
+									<?php
+										$saldoSeguroCartera = $obligacion->saldoSeguroObligacion($fecha);
+										echo "$" . number_format($saldoSeguroCartera);
+									?>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('ajusteSeguroCartera') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Ajuste</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									@php
+										$seguro = is_null($obligacion->seguroCartera) ? false : true;
+									@endphp
+									{!! Form::text('ajusteSeguroCartera', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => '0', 'data-maskMoney', $seguro ? '' : 'readonly']) !!}
+									@if ($errors->has('ajusteSeguroCartera'))
+										<div class="invalid-feedback">{{ $errors->first('ajusteSeguroCartera') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label>
+								<div>
+									@php
+										$naturaleza = trim(old('naturalezaAjusteSeguro')) == '' ? 'AUMENTO' : old('naturalezaAjusteSeguro');
+										$naturaleza = $naturaleza == 'AUMENTO' ? true : false;
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $naturaleza ? 'active' : '' }}">
+											{!! Form::radio('naturalezaAjusteSeguro', 'AUMENTO', $naturaleza ? true : false) !!}<i class="fa fa-arrow-up"></i>
+										</label>
+										<label class="btn btn-primary {{ !$naturaleza ? 'active' : '' }}">
+											{!! Form::radio('naturalezaAjusteSeguro', 'DECREMENTO', !$naturaleza ? true : false) !!}<i class="fa fa-arrow-down"></i>
+										</label>
+									</div>
+									@if ($errors->has('naturalezaAjusteSeguro'))
+										<div class="invalid-feedback">{{ $errors->first('naturalezaAjusteSeguro') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Nuevo saldo</label>
+								<div class="nuevoSaldoSeguro">
+									${{ number_format($saldoSeguroCartera) }}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-md-12">
+							<dl class="row">
+								<dt class="col-md-2">Total ajuste</dt>
+								<dd class="col-md-9 totalAjuste">$0</dd>
+							</dl>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuifId') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta contrapartida</label>
+								{!! Form::select('cuifId', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('cuifId'))
+									<div class="invalid-feedback">{{ $errors->first('cuifId') }}</div>
+								@endif
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('terceroContrapartidaId') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tercero contrapartida</label>
+								{!! Form::select('terceroContrapartidaId', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('terceroContrapartidaId'))
+									<div class="invalid-feedback">{{ $errors->first('terceroContrapartidaId') }}</div>
+								@endif
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('referencia') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Referencia</label>
+								{!! Form::text('referencia', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Referencia']) !!}
+								@if ($errors->has('referencia'))
+									<div class="invalid-feedback">{{ $errors->first('referencia') }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('comentarios') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Observaciones</label>
+								{!! Form::textarea('comentarios', null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Observaciones']) !!}
+								@if ($errors->has('comentarios'))
+									<div class="invalid-feedback">{{ $errors->first('comentarios') }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="confirmacion" tabindex="-1" role="dialog" aria-labelledby="tituloConfirmacion">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="tituloConfirmacion">Ajuste crédito</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="alert alert-warning">
+												<h4>
+													<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
+												</h4>
+												Confirme los datos antes de grabar el ajuste de crédito
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<dl class="dl-horizontal">
+												<dt>Deudor:</dt>
+												<dd>{{ $tercero->tipoIdentificacion->codigo }} {{ $tercero->nombre_completo }}</dd>
+												<dt>Obligación:</dt>
+												<dd>{{ $obligacion->numero_obligacion }}</dd>
+												<dt>Tasa:</dt>
+												<dd>{{ $obligacion->tasa }}%</dd>
+												<dt>Fecha ajuste:</dt>
+												<dd>{{ $fecha }}</dd>
+											</dl>
+											<div class="row">
+												<div class="col-md-4">
+													<dl class="dl-horizontal">
+														<dt>Nuevo saldo capital:</dt>
+														<dd id="capitalConfirmacion"></dd>
+														<dt>Nuevo saldo intereses:</dt>
+														<dd id="interesesConfirmacion"></dd>
+														<dt>Nuevo saldo seguro cartera:</dt>
+														<dd id="seguroConfirmacion"></dd>
+														<br>
+														<dt>Total ajuste:</dt>
+														<dd id="totalConfirmacion"></dd>
+													</dl>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="modal-footer">
-								<a class="btn btn-success" id="continuar">Ajustar</a>
-								{{--{!! Form::submit('Ajustar', ['class' => 'btn btn-success']) !!}--}}
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+								<div class="modal-footer">
+									<a href="#" class="btn btn-outline-success" id="continuar">Ajustar</a>
+									<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-			</div>
-			<div class="box-footer">
-				<div class="row">
-					@php
-						$url = sprintf("%s?tercero=%s&fechaAjuste=%s", url('ajusteCreditos'), $tercero->id, $fecha);
-					@endphp
-					<div class="col-md-12">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmacion">Ajustar</button>
-						<a href="{{ $url }}" class="btn btn-danger pull-right">Cancelar</a>
+				</div>
+				<div class="card-footer text-right">
+					<div class="row">
+						@php
+							$url = sprintf("%s?tercero=%s&fechaAjuste=%s", url('ajusteCreditos'), $tercero->id, $fecha);
+						@endphp
+						<div class="col-md-12">
+							<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Ajustar</button>
+							<a href="{{ $url }}" class="btn btn-outline-danger pull-right">Cancelar</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -554,7 +541,8 @@
 			confirmacion.find('#totalConfirmacion').text($(".totalAjuste").text());
 		});
 
-		$("#continuar").click(function(){
+		$("#continuar").click(function(e){
+			e.preventDefault();
 			$("#continuar").addClass("disabled");
 			$("#formProcesar").submit();
 		});

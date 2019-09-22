@@ -102,7 +102,7 @@ class Socio extends Model
 			$avatar = $avatar->orientate();
 
 			$avatar->encode('jpg');
-			$imagen = sprintf("%s_%s.jpg", $this->usuarioWeb->usuario, str_random(10));
+			$imagen = sprintf("%s_%s.jpg", $this->tercero->numero_identificacion, str_random(10));
 
 			$avatar->save(storage_path('app/public/asociados/' . $imagen));
 

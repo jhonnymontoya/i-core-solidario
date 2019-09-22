@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Editar socio
-			<small>Socios</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Socios</a></li>
-			<li class="active">Socio</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Editar socio
+						<small>Socios</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Socios</a></li>
+						<li class="breadcrumb-item active">Editar socio</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -36,19 +44,35 @@
 			</div>
 		@endif
 
-		<div class="row">
-			{!! Form::model($socio, ['url' => ['socio', $socio, 'obligacionesFinancieras'], 'method' => 'put', 'role' => 'form', 'class' => 'form-horizontal', 'data-maskMoney-removeMask']) !!}
-			<div class="col-sm-12">
-				<div class="nav-tabs-custom">
-					<ul class="nav nav-tabs">
-						<li role="presentation"><a href="{{ route('socioEdit', $socio->id) }}">Información básica</a></li>
-						<li role="presentation"><a href="{{ route('socioEditLaboral', $socio->id) }}">Información laboral</a></li>
-						<li role="presentation"><a href="{{ route('socioEditContacto', $socio->id) }}">Contacto</a></li>
-						<li role="presentation"><a href="{{ route('socioEditBeneficiarios', $socio->id) }}">Beneficiarios</a></li>
-						<li role="presentation"><a href="{{ route('socioEditImagenes', $socio->id) }}">Imagen y firma</a></li>
-						<li role="presentation"><a href="{{ route('socioEditFinanciera', $socio->id) }}">Situación financiera</a></li>
-						<li role="presentation"><a href="{{ route('socioEditTarjetasCredito', $socio->id) }}">Tarjetas de crédito</a></li>
-						<li role="presentation" class="active"><a href="{{ route('socioEditObligacionesFinancieras', $socio->id) }}">Obligaciones financieras</a></li>
+		<div class="container-fluid">
+			{!! Form::model($socio, ['url' => ['socio', $socio, 'obligacionesFinancieras'], 'method' => 'put', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
+			<div class="card card-solid">
+				<div class="card-body">
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEdit', $socio->id) }}">General</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditLaboral', $socio->id) }}">Laboral</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditContacto', $socio->id) }}">Contacto</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditBeneficiarios', $socio->id) }}">Beneficiarios</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditImagenes', $socio->id) }}">Imagen</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditFinanciera', $socio->id) }}">Financiera</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditTarjetasCredito', $socio->id) }}">Tarjetas de crédito</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ route('socioEditObligacionesFinancieras', $socio->id) }}">Obligaciones financieras</a>
+						</li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active">
@@ -63,38 +87,32 @@
 							<div class="row">
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-6">
-									<div class="form-group {{ ($errors->has('banco')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('banco'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Banco
-										</label>
-										<div class="col-sm-8">
-											{!! Form::select('banco', [], null, ['class' => 'form-control select2']) !!}
-											@if ($errors->has('banco'))
-												<span class="help-block">{{ $errors->first('banco') }}</span>
-											@endif
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('banco') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Banco</label>
+										{!! Form::select('banco', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+										@if ($errors->has('banco'))
+											<div class="invalid-feedback">{{ $errors->first('banco') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-6">
-									<div class="form-group {{ ($errors->has('monto')?'has-error':'') }}">
-										<label class="col-sm-3 control-label">
-											@if ($errors->has('monto'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Monto
-										</label>
-										<div class="col-sm-9">
-											<div class="input-group">
-												<span class="input-group-addon">$</span>
-												{!! Form::text('monto', null, ['class' => 'form-control', 'placeholder' => 'Monto', 'autocomplete' => 'off', 'data-maskMoney', 'autofocus']) !!}
+									<div class="form-group">
+										@php
+											$valid = $errors->has('monto') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Monto</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">$</span>
 											</div>
+											{!! Form::text('monto', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Monto', 'data-maskMoney', 'autofocus']) !!}
 											@if ($errors->has('monto'))
-												<span class="help-block">{{ $errors->first('monto') }}</span>
+												<div class="invalid-feedback">{{ $errors->first('monto') }}</div>
 											@endif
 										</div>
 									</div>
@@ -106,20 +124,18 @@
 							<div class="row">
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-4">
-									<div class="form-group {{ ($errors->has('tasa_mes_vencido')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('tasa_mes_vencido'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Tasa mes vencido
-										</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<span class="input-group-addon">%</span>
-												{!! Form::text('tasa_mes_vencido', null, ['class' => 'form-control', 'placeholder' => 'Tasa mes vencido', 'autocomplete' => 'off']) !!}
+									<div class="form-group">
+										@php
+											$valid = $errors->has('tasa_mes_vencido') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Tasa mes vencido</label>
+										<div class="input-group">
+											{!! Form::text('tasa_mes_vencido', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa mes vencido']) !!}
+											<div class="input-group-append">
+												<span class="input-group-text">%</span>
 											</div>
 											@if ($errors->has('tasa_mes_vencido'))
-												<span class="help-block">{{ $errors->first('tasa_mes_vencido') }}</span>
+												<div class="invalid-feedback">{{ $errors->first('tasa_mes_vencido') }}</div>
 											@endif
 										</div>
 									</div>
@@ -127,38 +143,34 @@
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-4">
-									<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('plazo'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Plazo meses
-										</label>
-										<div class="col-sm-8">
-											{!! Form::text('plazo', null, ['class' => 'form-control', 'placeholder' => 'Plazo en meses', 'autocomplete' => 'off', 'data-mask' => '000']) !!}
-											@if ($errors->has('plazo'))
-												<span class="help-block">{{ $errors->first('plazo') }}</span>
-											@endif
-										</div>
+									<div class="form-group">
+										@php
+											$valid = $errors->has('plazo') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Plazo meses</label>
+										{!! Form::text('plazo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Plazo meses', 'data-mask' => '000']) !!}
+										@if ($errors->has('plazo'))
+											<div class="invalid-feedback">{{ $errors->first('plazo') }}</div>
+										@endif
 									</div>
 								</div>
 								{{-- FIN CAMPO --}}
 								{{-- INICIO CAMPO --}}
 								<div class="col-md-4">
-									<div class="form-group {{ ($errors->has('fecha_inicial')?'has-error':'') }}">
-										<label class="col-sm-4 control-label">
-											@if ($errors->has('fecha_inicial'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Fecha inicial
-										</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-												{!! Form::text('fecha_inicial', null, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+									<div class="form-group">
+										@php
+											$valid = $errors->has('fecha_inicial') ? 'is-invalid' : '';
+										@endphp
+										<label class="control-label">Fecha inicial</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="fa fa-calendar"></i>
+												</span>
 											</div>
+											{!! Form::text('fecha_inicial', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 											@if ($errors->has('fecha_inicial'))
-												<span class="help-block">{{ $errors->first('fecha_inicial') }}</span>
+												<div class="invalid-feedback">{{ $errors->first('fecha_inicial') }}</div>
 											@endif
 										</div>
 									</div>
@@ -196,7 +208,7 @@
 															<td>{{ $obligacion->fecha_inicial }} ({{ !empty($obligacion->fecha_inicial) ? $obligacion->fecha_inicial->diffForHumans() : 'No especificado'}})</td>
 															<td>${{ number_format($obligacion->monto) }}</td>
 															<td>
-																<a href="{{ route('socioEditObligacionesFinancierasEliminar', [$socio->id, $obligacion->id]) }}" class="btn btn-danger btn-xs">
+																<a href="{{ route('socioEditObligacionesFinancierasEliminar', [$socio->id, $obligacion->id]) }}" class="btn btn-outline-danger btn-sm">
 																	<i class="fa fa-trash"></i>
 																</a>
 															</td>
@@ -239,17 +251,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
-									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
+					<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-outline-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

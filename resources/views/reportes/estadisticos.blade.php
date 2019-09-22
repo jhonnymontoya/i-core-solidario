@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Estadísticos
-			<small>Reportes</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Reportes</a></li>
-			<li class="active">Estadísticos</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Estadísticos
+						<small>Reportes</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Reportes</a></li>
+						<li class="breadcrumb-item active">Estadísticos</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -29,65 +37,63 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Reportes - Estadísticos</h3>
-			</div>
-			<div class="box-body">
-				{!! Form::model(Request::all(), ['url' => 'reportes/estadisticos', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-				<br>
-				<div class="row form-horizontal">
-					<div class="col-md-4">
-						<div class="form-group {{ ($errors->has('tipo_reporte')?'has-error':'') }}">
-							<label class="col-sm-4 control-label">
-								@if ($errors->has('tipo_reporte'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Reporte
-							</label>
-							<div class="col-sm-8">
-								{!! Form::select('tipo_reporte', ['ASOCIADOS' => 'Asociados', 'AHORROS' => 'Ahorros', 'CARTERA' => 'Cartera'], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione uno']) !!}
-								@if ($errors->has('tipo_reporte'))
-									<span class="help-block">{{ $errors->first('tipo_reporte') }}</span>
-								@endif
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group {{ ($errors->has('fecha_consulta')?'has-error':'') }}">
-							<label class="col-sm-4 control-label">
-								@if ($errors->has('fecha_consulta'))
-									<i class="fa fa-times-circle-o"></i>
-								@endif
-								Fecha
-							</label>
-							<div class="col-sm-8 input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<?php
-									$fechaConsulta = date('Y/m');
-									$fechaConsulta = Request::has('fecha_consulta') ? Request::get('fecha_consulta') : $fechaConsulta;
-								?>
-								{!! Form::text('fecha_consulta', $fechaConsulta, ['class' => 'form-control', 'placeholder' => 'yyyy/mm' ]) !!}
-								@if ($errors->has('fecha_consulta'))
-									<span class="help-block">{{ $errors->first('fecha_consulta') }}</span>
-								@endif
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="btn-group">
-							<button type="submit" class="btn btn-success"><i class="fa fa-play"></i> Procesar</button>
-						</div>
-					</div>
+
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Reportes - Estadísticos</h3>
 				</div>
-				{!! Form::close() !!}
-				<hr>
-				{!! $data !!}
-			</div>
-			<div class="box-footer">
+				<div class="card-body">
+					{!! Form::model(Request::all(), ['url' => 'reportes/estadisticos', 'method' => 'GET', 'role' => 'search']) !!}
+					<br>
+					<div class="row form-horizontal">
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_reporte') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Reporte</label>
+								{!! Form::select('tipo_reporte', ['ASOCIADOS' => 'Asociados', 'AHORROS' => 'Ahorros', 'CARTERA' => 'Cartera'], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione reporte']) !!}
+								@if ($errors->has('tipo_reporte'))
+									<div class="invalid-feedback">{{ $errors->first('tipo_reporte') }}</div>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_consulta') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
+									</div>
+									<?php
+										$fechaConsulta = date('Y/m');
+										$fechaConsulta = Request::has('fecha_consulta') ? Request::get('fecha_consulta') : $fechaConsulta;
+									?>
+									{!! Form::text('fecha_consulta', $fechaConsulta, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'yyyy/mm', 'data-provide' => 'datepicker', 'data-date-format' => 'yyyy/mm', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha_consulta'))
+										<div class="invalid-feedback">{{ $errors->first('fecha_consulta') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label>
+								<br>
+								<button type="submit" class="btn btn-outline-success"><i class="far fa-play-circle"></i> Procesar</button>
+							</div>
+						</div>
+					</div>
+					{!! Form::close() !!}
+					<hr>
+					{!! $data !!}
+				</div>
 			</div>
 		</div>
 	</section>
@@ -121,6 +127,7 @@
 					labels: labels,
 					hideHover: 'auto'
 				});
+				@break
 		    @case('AHORROS')
 		    	var saldosPorModalidad = new Morris.Donut({
 					element: 'saldosPorModalidad',

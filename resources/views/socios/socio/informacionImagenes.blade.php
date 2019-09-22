@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Editar socio
-			<small>Socios</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Socios</a></li>
-			<li class="active">Socio</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Editar socio
+						<small>Socios</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Socios</a></li>
+						<li class="breadcrumb-item active">Editar socio</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -30,21 +38,37 @@
 			</div>
 		@endif
 
-		<div class="row">
-			{!! Form::model($socio, ['url' => ['socio', $socio, 'imagenes'], 'method' => 'put', 'role' => 'form', 'class' => 'form-horizontal', 'files' => true, 'id' => 'formularioImagenes']) !!}
+		<div class="container-fluid">
+			{!! Form::model($socio, ['url' => ['socio', $socio, 'imagenes'], 'method' => 'put', 'role' => 'form', 'files' => true, 'id' => 'formularioImagenes']) !!}
 			{{ Form::hidden('imagen', null) }}
 			{{ Form::hidden('firma', null) }}
-			<div class="col-sm-12">
-				<div class="nav-tabs-custom">
-					<ul class="nav nav-tabs">
-						<li role="presentation"><a href="{{ route('socioEdit', $socio->id) }}">Información básica</a></li>
-						<li role="presentation"><a href="{{ route('socioEditLaboral', $socio->id) }}">Información laboral</a></li>
-						<li role="presentation"><a href="{{ route('socioEditContacto', $socio->id) }}">Contacto</a></li>
-						<li role="presentation"><a href="{{ route('socioEditBeneficiarios', $socio->id) }}">Beneficiarios</a></li>
-						<li role="presentation" class="active"><a href="{{ route('socioEditImagenes', $socio->id) }}">Imagen y firma</a></li>
-						<li role="presentation"><a href="{{ route('socioEditFinanciera', $socio->id) }}">Situación financiera</a></li>
-						<li role="presentation"><a href="{{ route('socioEditTarjetasCredito', $socio->id) }}">Tarjetas de crédito</a></li>
-						<li role="presentation"><a href="{{ route('socioEditObligacionesFinancieras', $socio->id) }}">Obligaciones financieras</a></li>
+			<div class="card card-solid">
+				<div class="card-body">
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEdit', $socio->id) }}">General</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditLaboral', $socio->id) }}">Laboral</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditContacto', $socio->id) }}">Contacto</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditBeneficiarios', $socio->id) }}">Beneficiarios</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ route('socioEditImagenes', $socio->id) }}">Imagen</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditFinanciera', $socio->id) }}">Financiera</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditTarjetasCredito', $socio->id) }}">Tarjetas de crédito</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('socioEditObligacionesFinancieras', $socio->id) }}">Obligaciones financieras</a>
+						</li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active">
@@ -55,12 +79,13 @@
 										<div id="image-cropper">
 											<div class="cropit-preview"></div>
 											<input type="file" class="cropit-image-input" />
-											<a class="rotate-ccw-btn btn btn-default btn-xs"><i class="fa fa-rotate-left"></i></a>
-											<a class="rotate-cw-btn btn btn-default btn-xs"><i class="fa fa-rotate-right"></i></a>
-											<a class="zoom-in-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-in"></i></a>
-											<a class="zoom-out-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-out"></i></a>
-											<br>
-											<a class="select-image-btn btn btn-primary">Seleccione una imagen</a>
+											<div class="col-12 text-center">
+												<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-undo"></i></a>
+												<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-redo"></i></a>
+												<a class="btn btn-outline-secondary btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
+												<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
+												<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -73,29 +98,24 @@
 										<div id="image-cropper">
 											<div class="cropit-preview"></div>
 											<input type="file" class="cropit-image-input" />
-											<a class="rotate-ccw-btn btn btn-default btn-xs"><i class="fa fa-rotate-left"></i></a>
-											<a class="rotate-cw-btn btn btn-default btn-xs"><i class="fa fa-rotate-right"></i></a>
-											<a class="zoom-in-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-in"></i></a>
-											<a class="zoom-out-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-out"></i></a>
-											<br>
-											<a class="select-image-btn btn btn-primary">Seleccione una imagen</a>
+											<div class="col-12 text-center">
+												<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-undo"></i></a>
+												<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-redo"></i></a>
+												<a class="btn btn-outline-secondary btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
+												<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
+												<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('socio') }}" class="btn btn-danger">Volver</a>
-									<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} pull-right {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar y continuar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('socio') }}" class="btn btn-outline-danger">Volver</a>
+					<a href="{{ route('socioAfiliacion', $socio) }}" class="btn btn-outline-{{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'default' : 'info') }} {{ (($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD') ? 'disabled' : '') }}">Procesar afiliación</a>
 				</div>
 			</div>
 			{!! Form::close() !!}
@@ -116,9 +136,6 @@
 		background-size: cover;
 		width: 250px;
 		height: 250px;
-	}
-	.select-image-btn{
-		margin-top: 5px;
 	}
 	#imagen .cropit-preview-image-container{
 		background-image: url('{{ asset('storage/avatars/avatar-160x160.png') }}');

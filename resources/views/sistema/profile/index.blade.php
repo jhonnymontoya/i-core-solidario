@@ -22,8 +22,8 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<a href="{{ url('profile/edit') }}" class="btn btn-default btn-sm pull-right" data-toggle="tooltip" data-placement="left" title="Editar perfil"><i class="glyphicon glyphicon-pencil"></i></a>
+			<div class="col-md-12 text-right">
+				<a href="{{ url('profile/edit') }}" class="btn btn-outline-secondary btn-sm" title="Editar perfil"><i class="fas fa-edit"></i></a>
 			</div>
 		</div>
 	</div>
@@ -52,7 +52,6 @@
 				<a href="mailto:{{ $usuario->email }}"><i class="fa fa-envelope-o"></i> {{ $usuario->email }}</a> . {{ $usuario->tipoIdentificacion->codigo }} {{ number_format($usuario->identificacion, 0) }} . Perfil completo al <span class="badge bg-{{ $usuario->porcentajePerfilCompleto() == 100?'green':'yellow' }}">{{ $usuario->porcentajePerfilCompleto() }}%</span>
 			</div>
 		</div>
-
 		<br>
 
 		@if($usuario->perfiles->count() > 0)
@@ -66,47 +65,57 @@
 		@endif
 		<br>
 
-		<?php
-			$contador = 0;
-		?>
-		@foreach($usuario->perfiles as $perfil)
-			@if($contador % 2 == 0)
-				@if($contador != 0)
-					</div>
-				@endif
-				<div class="row">
-			@endif
-			<div class="col-md-6 col-sm-12 col-xs-12">
-				<div class="info-box">					
-					@if($perfil->entidad->categoriaImagenes->where('nombre', 'Logo Selección')->count())
-						<span class="info-box-icon" style="line-height: 0;">
-							<img src="{{ asset('storage/entidad/' . $perfil->entidad->categoriaImagenes->where('nombre', 'Logo Selección')->first()->pivot->nombre) }}" title="{{ $perfil->entidad->terceroEntidad->razon_social }}">
-						</span>
-					@else
-						<span class="info-box-icon">
-							img
-						</span>
-					@endif					
-					<div class="info-box-content">
-						<span class="info-box-number">{{ $perfil->entidad->terceroEntidad->razon_social }}</span>
-						<span class="info-box-text">{{ $perfil->entidad->terceroEntidad->nit }}</span>
-						<span class="info-box-text">
-							{{ $perfil->nombre }}
-							{!! Form::open(['url' => 'entidad/seleccion', 'method' => 'post']) !!}
-							{!! Form::hidden('entidad', $perfil->entidad->id) !!}
-							{!! Form::submit('Ir', ['class' => 'btn btn-primary btn-xs pull-right']) !!}
-							{!! Form::close() !!}
-						</span>
+		<div class="container-fluid">
+			<div class="card card-solid card-outline">
+				<div class="card-body pb-0">
+					<div class="row d-flex align-items-stretch">
+						@foreach($usuario->perfiles as $perfil)
+							@php
+								$entidad = $perfil->entidad;
+								$tercero = $entidad->terceroEntidad;
+							@endphp
+							<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+								<div class="card bg-light">
+									<div class="card-header text-muted border-bottom-0">
+										{{ $tercero->sigla }}
+									</div>
+									<div class="card-body pt-0">
+										<div class="row">
+											<div class="col-12 text-center">
+												@if($perfil->entidad->categoriaImagenes->where('nombre', 'Logo Selección')->count())
+													<img class="img-circle img-fluid" src="{{ asset('storage/entidad/' . $entidad->categoriaImagenes->where('nombre', 'Logo Selección')->first()->pivot->nombre) }}" title="{{ $tercero->razon_social }}">
+												@else
+													img
+												@endif	
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<h2 class="lead"><b>{{ $tercero->razon_social }}</b></h2>
+												<p class="text-muted text-sm"><b>Perfil: </b> {{ $perfil->nombre }}</p>
+												<ul class="ml-4 mb-0 fa-ul text-muted">
+													<li class="small"><span class="fa-li"><i class="fas fa-lg fa-address-card"></i></span> {{ $perfil->entidad->terceroEntidad->nit }}</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="card-footer">
+										<div class="text-center">
+											{!! Form::open(['url' => 'entidad/seleccion', 'method' => 'post']) !!}
+											{!! Form::hidden('entidad', $perfil->entidad->id) !!}
+											<button type="submit" class="btn btn-block btn-outline-primary">
+												<i class="fas fa-sign-in-alt"></i> Ir
+											</button>
+											{!! Form::close() !!}
+										</div>
+									</div>
+								</div>
+							</div>
+						@endforeach
 					</div>
 				</div>
 			</div>
-			<?php
-				$contador += 1;
-			?>
-		@endforeach
-		@if($contador > 0)
-			</div>
-		@endif
+		</div>
 	</section>
 </div>
 {{-- Fin de contenido principal de la página --}}
@@ -114,27 +123,14 @@
 
 @push('style')
 <style type="text/css">
-	.info-box-number{
-		font-weight: 600;
-		font-size: 14px;
-	}
-	.info-box-text{
-		font-size: 12px;
+	.card {
+		min-width: 337.66px;
 	}
 	.profile-user-img {
-		border: none;
+		border: 1px solid #adb5bd;
 	}
 	.profile-user-img {
 		width: 250px;
-	}
-	@media(max-width: 992px){
-		.info-box-number{
-			font-weight: 500;
-			font-size: 11px;
-		}
-		.info-box-text{
-			font-size: 10px;
-		}
 	}
 </style>
 @endpush

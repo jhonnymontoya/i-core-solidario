@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Reportes
-			<small>Reportes</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Reportes</a></li>
-			<li class="active">Reportes</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Reportes
+						<small>Reportes</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Reportes</a></li>
+						<li class="breadcrumb-item active">Reportes</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -29,79 +37,71 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">{{ $reporte->modulo->nombre }} - {{ $reporte->nombre }}</h3>
-			</div>
-			<div class="box-body">
-				{!! Form::model(Request::all(), ['url' => ['reportes', $reporte], 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-				<div class="row">
-					<div class="col-md-12">
-						@if($reporte->parametros)
-							<div class="row">
-								<div class="col-md-6">
-									<h4>PARÁMETROS</h4>	
-								</div>
-								<div class="col-md-5">
-									<button type="submit" class="btn btn-success btn-sm pull-right"><i class="fa fa-play"></i> Procesar</button>
-								</div>
-							</div>
-							<br>
-							@foreach ($reporte->parametros as $parametro)
+
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">{{ $reporte->modulo->nombre }} - {{ $reporte->nombre }}</h3>
+				</div>
+				<div class="card-body">
+					{!! Form::model(Request::all(), ['url' => ['reportes', $reporte], 'method' => 'GET', 'role' => 'search']) !!}
+					<div class="row">
+						<div class="col-md-12">
+							@if($reporte->parametros)
 								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label class="col-sm-2 control-label">
-												{{ $parametro->nombre }}
-											</label>
-											<div class="col-sm-3">
-												{!! Form::text($parametro->parametro, empty($parametro->valor_defecto) ? null : $parametro->valor_defecto, ['class' => 'form-control select2', 'placeholder' => $parametro->nombre]) !!}
-											</div>
-											<div class="col-sm-6">
-												<em>{{ $parametro->descripcion }}</em>
+									<div class="col-md-6">
+										<h4>PARÁMETROS</h4>	
+									</div>
+									<div class="col-md-6 text-right">
+										<button type="submit" class="btn btn-outline-success btn-sm pull-right procesar"><i class="far fa-play-circle"></i> Procesar</button>
+										<button type="submit" class="btn btn-outline-success btn-sm pull-right procesando" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...</button>
+									</div>
+								</div>
+								<br>
+								@foreach ($reporte->parametros as $parametro)
+									<div class="row form-horizontal">
+										<div class="col-md-12">
+											<div class="form-group row">
+												<label class="control-label col-sm-2">{{ $parametro->nombre }}</label>
+												<div class="col-sm-3">
+													{!! Form::text($parametro->parametro, empty($parametro->valor_defecto) ? null : $parametro->valor_defecto, ['class' => 'form-control', 'placeholder' => $parametro->nombre, 'autocomplete' => 'off']) !!}
+												</div>
+												<div class="col-sm-6">
+													<em>{{ $parametro->descripcion }}</em>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							@endforeach
-						@endif
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="btn-group">
-							<button type="submit" class="btn btn-success"><i class="fa fa-play"></i> Procesar</button>
-							@if($data)
-							<div class="btn-group">
-								<a target="_blank" href="{{ Request::fullUrlWithQuery(['print' => true]) }}" class="btn btn-primary">
-									<i class="fa fa-print"></i> Imprimir
-								</a>
-								<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									<span class="caret"></span>
-									<span class="sr-only">Opciones</span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a class="btn xlsx"><i class="fa fa-file-excel-o"></i> XLSX</a></li>
-									<li><a class="btn csv"><i class="fa fa-file-excel-o"></i> CSV</a></li>
-									<li><a class="btn txt"><i class="fa fa-file-text-o"></i> TXT</a></li>
-								</ul>
-							</div>
+								@endforeach
 							@endif
-							<a href="{{ url('reportes') }}" class="btn btn-danger">
-								<i class="fa fa-folder"></i> Ir a reportes
-							</a>
 						</div>
 					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="btn-group">
+								<button type="submit" class="btn btn-outline-success procesar"><i class="far fa-play-circle"></i> Procesar</button>
+								<button type="submit" class="btn btn-outline-success procesando" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...</button>
+								@if($data)
+								<a target="_blank" href="{{ Request::fullUrlWithQuery(['print' => true]) }}" class="btn btn-outline-primary">
+									<i class="fa fa-print"></i> Imprimir
+								</a>
+								<a href="#" class="btn btn-outline-info copiar" data-clipboard-target=".table">
+									<i class="far fa-copy"></i> Copiar
+								</a>
+								@endif
+								<a href="{{ url('reportes') }}" class="btn btn-outline-danger">
+									<i class="fa fa-folder"></i> Ir a reportes
+								</a>
+							</div>
+						</div>
+					</div>
+					{!! Form::close() !!}
+					<hr>
+					<div class="datos-tabla">
+						{!! $data !!}
+					</div>
 				</div>
-				{!! Form::close() !!}
-				<hr>
-				<div class="datos-tabla">
-					{!! $data !!}
-				</div>
-			</div>
-			<div class="box-footer">
 			</div>
 		</div>
 	</section>
@@ -110,11 +110,37 @@
 @endsection
 
 @push('style')
+<style type="text/css">
+	.procesando {
+		display: none;
+	}
+</style>
 @endpush
 
 @push('scripts')
 <script type="text/javascript">
 	$(function () {
+		$('.procesar').click(function(){
+			$('.procesar').hide();
+			$('.procesando').show();
+		});
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'bottom-end',
+			showConfirmButton: false,
+			timer: 3000
+		});
+		var btnCopiar = new ClipboardJS('.copiar');
+		btnCopiar.on('success', function(e) {
+			e.clearSelection();
+			Toast.fire({
+				type: 'success',
+				title: 'Copiado.'
+			})
+		});
+		$(".copiar").click(function(e){
+			e.preventDefault();
+		});
 		$(".knob").knob({
 			draw: function () {
 				// "tron" case
@@ -159,29 +185,6 @@
 				}
 			}
 		});
-		@if($data)
-			var instancia = $(".datos-tabla").find('table');
-			var instancia = new TableExport(instancia, {
-				headers: true,
-				footers: true,
-				filename: '{{ str_slug(str_limit($reporte->nombre . ' ', 24) . date('ymd'), '-') }}',
-				bootstrap: false,
-				exportButtons: false
-			});
-			var data = instancia.getExportData()['tableexport-1'];
-			$(".xlsx").click(function(e){
-				e.preventDefault();
-				instancia.export2file(data["xlsx"].data, data["xlsx"].mimeType, data["xlsx"].filename, data["xlsx"].fileExtension);
-			});
-			$(".csv").click(function(e){
-				e.preventDefault();
-				instancia.export2file(data["csv"].data, data["csv"].mimeType, data["csv"].filename, data["csv"].fileExtension);
-			});
-			$(".txt").click(function(e){
-				e.preventDefault();
-				instancia.export2file(data["txt"].data, data["txt"].mimeType, data["txt"].filename, data["txt"].fileExtension);
-			});
-		@endif
 	});
 </script>
 @endpush

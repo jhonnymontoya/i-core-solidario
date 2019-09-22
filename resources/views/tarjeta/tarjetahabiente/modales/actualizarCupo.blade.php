@@ -4,20 +4,22 @@
 		<input type="hidden" name="tarjetaHabiente" value="">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h3 class="modal-title" id="mActualizarCupoLabel">Actualizar cupo</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
 					<span aria-hiden="true">&times;</span>
 				</button>
-				<h3 class="modal-title" id="mActualizarCupoLabel">Actualizar cupo</h3>
 			</div>
 
 			<div class="modal-body">
-				<div class="row form-horizontal">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label class="control-label col-md-3">Cupo</label>
+				<div class="row">
+					<div class="col-md-12 form-horizontal">
+						<div class="form-group row">
+							<label class="control-label col-md-3 text-right">Cupo</label>
 							<div class="input-group col-md-8">
-								<div class="input-group-addon">$</div>
-								{!! Form::text('cupo', null, ['class' => 'form-control', 'placeholder' => 'Cupo', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+								</div>
+								{!! Form::text('cupo', null, ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'Cupo', 'data-maskMoney', 'data-allowzero' => 'true']) !!}
 							</div>
 						</div>
 					</div>
@@ -25,8 +27,8 @@
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-primary" value="Guardar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        		<input type="submit" class="btn btn-outline-primary" value="Guardar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 		{!! Form::close() !!}

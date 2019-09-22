@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Usuarios
-			<small>Sistema</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Sistema</a></li>
-			<li class="active">usuarios</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Usuario
+						<small>Sistema</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Sistema</a></li>
+						<li class="breadcrumb-item active">Usuario</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -24,20 +32,17 @@
 		@endif
 		<div class="row">
 			<div class="col-md-2">
-				<a href="{{ url('usuario/create') }}" class="btn btn-primary">Crear nuevo</a>
+				<a href="{{ url('usuario/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
 			</div>
 		</div>
 		<br>
-		<div class="box">
-			<div class="box-header with-border">
-				<h3 class="box-title">Buscar usuarios</h3>
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-				</div>
+		<div class="card card-outline">
+			<div class="card-header with-border">
+				<h3 class="card-title">Buscar usuarios</h3>
 			</div>
-			<div class="box-body">
+			<div class="card-body">
+				{!! Form::model(Request::all(), ['url' => '/usuario', 'method' => 'GET', 'role' => 'search']) !!}
 				<div class="row">
-					{!! Form::model(Request::all(), ['url' => '/usuario', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="col-md-4 col-sm-12">
 						{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
 					</div>
@@ -51,10 +56,10 @@
 						{!! Form::select('perfil', ['1' => 'Sí', '0' => 'No'], null, ['class' => 'form-control', 'placeholder' => 'Perfil completo']); !!}
 					</div>
 					<div class="col-md-1 col-sm-12">
-						<button type="submit" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>								
+						<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
 					</div>
-					{!! Form::close() !!}
 				</div>
+				{!! Form::close() !!}
 				<br>
 			</div>
 		</div>
@@ -72,79 +77,55 @@
 		@else
 			<div class="row"><div class="col-md-12"><h4>No se encontraron usuarios</h4></div></div>
 		@endif
-		<?php
-			$contador = 0;
-		?>
-		@foreach($usuarios as $usuario)
-			@if($contador % 3 == 0)
-				@if($contador != 0)
-					</div>
-				@endif
-				<div class="row">
-			@endif
-			<div class="col-sm-4">
-				<div class="box box-widget widget-user">
-					<div class="widget-user-header bg-{{ $usuario->esta_activo?'aqua':'red' }}-active">
-						<div class="widget-user-username">
-							{{ $usuario->nombre_corto }}
-						</div>
-						<div class="widget-user-desc">
-							{{ $usuario->usuario }}
-						</div>
-					</div>
-					<div class="widget-user-image">
-						<img class="img-circle" src="{{ asset('storage/avatars/' . (empty($usuario->avatar)?'avatar-160x160.png':$usuario->avatar) ) }}" alt="{{ $usuario->nombre_completo }}" />
-					</div>
-					<div class="box-footer">
-						<ul class="nav nav-stacked">
-							<li>
-								<a href="{{ route('usuarioShow', [$usuario->id, '#entidades']) }}">Entidades 
-									<span class="pull-right badge bg-{{ $usuario->perfiles->count()?'green':'red' }}">{{ $usuario->perfiles->count() }}</span>
-								</a>
-							</li>
-							<li>
-								<a>En línea 
-									<i class="fa fa-circle text-success pull-right"></i>
-								</a>
-							</li>
-							<li>
-								<a href="mailto:{{ $usuario->email }}">{{ $usuario->email }}<i class="fa fa-envelope pull-right"></i></a>
-							</li>
-							<li>
-								<a>
-									Perfil completo
-									<span class="pull-right badge bg-{{ $usuario->porcentajePerfilCompleto() == 100?'green':'yellow' }}">{{ $usuario->porcentajePerfilCompleto() }}%</span>
-									<br><br>
+		<div class="row d-flex align-items-stretch">
+			<?php
+			foreach($usuarios as $usuario) {
+				$color = $usuario->esta_activo ? 'success' : 'danger';
+				?>
+				<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+					<div class="card card-{{ $color }} card-outline">
+						<div class="card-body box-profile">
+							<div class="text-center">
+								<img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/avatars/' . (empty($usuario->avatar)?'avatar-160x160.png':$usuario->avatar) ) }}" alt="{{ $usuario->nombre_completo }}" />
+							</div>
+							<h3 class="profile-username text-center">{{ $usuario->primer_nombre . ' ' . $usuario->segundo_nombre }}</h3>
+							<p class="text-muted text-center">{{ $usuario->primer_apellido . ' ' . $usuario->segundo_apellido }}</p>
+							<ul class="list-group list-group-unbordered mb-3">
+								<li class="list-group-item">
+									<b>Entidades</b> <span class="float-right badge bg-{{ $usuario->perfiles->count()?'success':'danger' }}">{{ $usuario->perfiles->count() }}</span>
+								</li>
+								<li class="list-group-item">
+									<a href="mailto:{{ $usuario->email }}">{{ $usuario->email }}</a>
+								</li>
+								<li class="list-group-item">
+									<strong>Perfil completo</strong>
+									<span class="float-right badge bg-{{ $usuario->porcentajePerfilCompleto() == 100?'green':'yellow' }}">{{ $usuario->porcentajePerfilCompleto() }}%</span>
+								</li>
+								<li class="list-group-item">
 									<div class="progress progress-xs">
 										<div class="progress-bar progress-bar-{{ $usuario->porcentajePerfilCompleto() == 100?'green':'yellow' }}" style="width: {{ $usuario->porcentajePerfilCompleto() }}%"></div>
 									</div>
-								</a>
-							</li>
-						</ul>
-						<div class="row">
-							<div class="col-sm-6 col-xs-6 border-right text-center">
-								<a href="{{ route('usuarioEdit', $usuario) }}" class="btn btn-info btn-block">
-									<i class="fa fa-edit"></i>
-									Editar
-								</a>
-							</div>
-							<div class="col-sm-6 col-xs-6 border-right text-center">
-								<a href="{{ url('usuario', $usuario) }}" class="btn btn-info btn-block">
-									<i class="fa fa-external-link"></i>
-									Ver
-								</a>
+								</li>
+							</ul>
+							<div class="row">
+								<div class="col-sm-6 col-xs-12 text-center">
+									<a href="{{ route('usuarioEdit', $usuario) }}" class="btn btn-outline-info btn-block">
+										<i class="fa fa-edit"></i>&nbsp;Editar
+									</a>
+								</div>
+								<div class="col-sm-6 col-xs-12 text-center">
+									<a href="{{ url('usuario', $usuario) }}" class="btn btn-outline-info btn-block">
+										<i class="fa fa-external-link"></i>&nbsp;Ver
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<?php
-				$contador += 1;
+				<?php
+			}
 			?>
-		@endforeach
-		@if($contador > 0)
-			</div>
-		@endif
+		</div>
 		@if($usuarios->count() > 0)
 			<div class="row">
 				<div class="col-md-12 text-center">
@@ -163,6 +144,11 @@
 @endsection
 
 @push('style')
+<style type="text/css">
+	.card {
+		min-width: 338px;
+	}
+</style>
 @endpush
 
 @push('scripts')

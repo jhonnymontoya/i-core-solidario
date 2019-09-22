@@ -3,34 +3,36 @@
 		<form id="mfAhorros"><input type="hidden" name="modalidadAhorroId" value="">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h3 class="modal-title" id="mAhorrosLabel">Recaudo</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
 					<span aria-hiden="true">&times;</span>
 				</button>
-				<h3 class="modal-title" id="mAhorrosLabel">Recaudo</h3>
 			</div>
 
 			<div class="modal-body">
 				<div class="row form-horizontal">
 					<div class="col-md-12">
 						<div class="form-group">
-							<label class="control-label col-md-3">Valor abono</label>
-							<div class="input-group col-md-8">
-								<div class="input-group-addon">$</div>
-								{!! Form::text('valorAbonoAhorro', null, ['class' => 'form-control', 'placeholder' => 'Valor abono', 'data-maskMoney']) !!}
+							<label class="control-label">Valor abono</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+								</div>
+								{!! Form::text('valorAbonoAhorro', null, ['class' => ['form-control'], 'autocomplete' => 'off', 'placeholder' => 'Valor abono', 'data-maskMoney']) !!}
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<a class="btn btn-default aSugerirCuota">Sugerir cuota: $0</a>
+						<a href="#" class="btn btn-outline-secondary aSugerirCuota">Sugerir cuota: $0</a>
 					</div>
 				</div>
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-primary" value="Guardar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        		<input type="submit" class="btn btn-outline-primary" value="Guardar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 		</form>
@@ -60,6 +62,7 @@
 			$("input[name='valorAbonoAhorro']").focus();
 		})
 		$(".aSugerirCuota").click(function(event){
+			event.preventDefault();
 			var boton = $(this);
 			$("input[name='valorAbonoAhorro']").val(boton.data("cuota")).maskMoney('mask');
 		});

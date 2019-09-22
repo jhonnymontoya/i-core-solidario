@@ -2,7 +2,7 @@
 @if (!is_null($ahorros))
 	<div class="row">
 		<div class="col-md-12 table-responsive">
-			<table class="table table-striped">
+			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Modalidad</th>
@@ -21,8 +21,8 @@
 							<td class="text-right">${{ number_format($ahorro->saldo) }}</td>
 							<td class="text-right">${{ number_format($ahorro->cuota) }}</td>
 							<td>{{ $ahorro->periodicidad }}</td>
-							<td>
-								<a class="btn btn-info btn-xs" data-toggle="modal" data-target="#mAhorros"><i class="fa fa-plus"></i></a>
+							<td class="text-right">
+								<a href="#" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#mAhorros"><i class="fa fa-plus"></i></a>
 							</td>
 						</tr>
 					@endforeach
@@ -46,7 +46,7 @@
 				detalle.append($("<td>").html("<li><em>Abono: $" + $().formatoMoneda(ahorro.valor) + "</em></li>"));
 				detalle.append($("<td>").html("<em>$" + $().formatoMoneda(nuevoSaldo) + "</em>").addClass("text-right"));
 				detalle.append($("<td colspan='2'>"));
-				detalle.append($("<td>").html("<a class='btn btn-danger btn-xs aLimpiar'><i class='fa fa-trash'></i></a>"));
+				detalle.append($("<td>").html("<a href='#' class='btn btn-outline-danger btn-sm aLimpiar'><i class='far fa-trash-alt'></i></a>"));
 				ahorro.visible = true;
 				modalidad.after(detalle);
 			}
@@ -59,6 +59,7 @@
 			}
 		});
 		$(".aLimpiar").click(function(event){
+			event.preventDefault();
 			var id = $(this).parent().parent().data("abono-ahorro-id");
 			removerAbonoAhorro(id);
 		});

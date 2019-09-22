@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Crear entidad
-			<small>General</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">General</a></li>
-			<li class="active">Entidad</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Crear entidad
+						<small>General</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> General</a></li>
+						<li class="breadcrumb-item active">Crear entidad</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -144,10 +152,10 @@
 									</label>
 									<br>
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary">
+										<label class="btn btn-outline-primary">
 											{!! Form::radio('usa_dependencia', '1', false) !!}Sí
 										</label>
-										<label class="btn btn-danger active">
+										<label class="btn btn-outline-danger active">
 											{!! Form::radio('usa_dependencia', '0', true) !!}No
 										</label>
 									</div>
@@ -166,10 +174,10 @@
 									</label>
 									<br>
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-primary">
+										<label class="btn btn-outline-primary">
 											{!! Form::radio('usa_centro_costos', '1', false) !!}Sí
 										</label>
-										<label class="btn btn-danger active">
+										<label class="btn btn-outline-danger active">
 											{!! Form::radio('usa_centro_costos', '0', true) !!}No
 										</label>
 									</div>
@@ -201,8 +209,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('entidad') }}" class="btn btn-danger pull-right">Cancelar</a>
+									{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 								</div>
 							</div>
 						</div>

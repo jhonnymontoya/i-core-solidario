@@ -20,10 +20,10 @@
 
 			/** Define now the real margins of every page in the PDF **/
 			body {
-				margin-top: 2cm;
+				margin-top: 3cm;
 				margin-left: 2cm;
 				margin-right: 2cm;
-				margin-bottom: 2cm;
+				margin-bottom: 3cm;
 			}
 
 			header {
@@ -34,8 +34,8 @@
 				height: 2cm;
 
 				/** Extra personal styles **/
-				background-color: #888;
-				color: white;
+				/**background-color: #888;**/
+				/**color: white;**/
 				text-align: left;
 				line-height: 0.7cm;
 			}
@@ -46,8 +46,8 @@
 				left: 0cm; 
 				right: 0cm;
 				height: 2cm;
-				background-color: #888;
-                color: white;
+				/**background-color: #888;**/
+                /**color: white;**/
 				text-align: center;
 				line-height: 0.7cm;
 			}

@@ -72,7 +72,7 @@ class CausaAnulacionMovimiento extends Model
 	
 	public function scopeSearch($query, $value) {
 		if(!empty($value)) {
-			return $query->where('razon_social', 'like', '%' . $value . '%');
+			return $query->where('nombre', 'like', '%' . $value . '%');
 		}
 	}
 

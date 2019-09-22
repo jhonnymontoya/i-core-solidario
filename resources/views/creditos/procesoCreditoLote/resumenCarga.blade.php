@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Solicitudes de crédito en lote
-			<small>Créditos</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Créditos</a></li>
-			<li class="active">Solicitudes de crédito en lote</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Solicitudes de crédito en lote
+						<small>Créditos</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Créditos</a></li>
+						<li class="breadcrumb-item active">Solicitudes de crédito en lote</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -35,76 +43,74 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-warning">
-					<div class="box-header with-border">
-						<h3 class="box-title">Resumen carga archivo de créditos</h3>
-					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
-						@if($cantidadErrores > 0)
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<div class="alert alert-warning">
-									<h4>
-										<i class="fa fa-warning"></i>&nbsp;Alerta!
-									</h4>
-									Hay registros con error
-								</div>
+		<div class="container-fluid">
+			<div class="card card-warning card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Resumen carga archivo de créditos</h3>
+				</div>
+				{{-- INICIO card BODY --}}
+				<div class="card-body">
+					@if($cantidadErrores > 0)
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="alert alert-warning">
+								<h4>
+									<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
+								</h4>
+								Hay registros con error
 							</div>
 						</div>
-						@endif
-						<div class="row">
-							<div class="col-md-10 col-md-offset-1">
-								<dl class="dl-horizontal">
-									<dt>Numero proceso:</dt>
-									<dd>{{ $proceso->consecutivo_proceso }}</dd>
-									<dt>Fecha de proceso:</dt>
-									<dd>{{ $proceso->fecha_proceso }}</dd>
-									<dt>Modalidad:</dt>
-									<dd>{{ $proceso->modalidad->nombre }}</dd>
-								</dl>
-								<dl class="dl-horizontal">
-									<dt class="text-success">Registros correctos:</dt>
-									<dd>{{ $cantidadCorrectos }}</dd>
-									<dt class="text-danger">Registros con error:</dt>
-									<dd>{{ $cantidadErrores }}</dd>
-								</dl>
+					</div>
+					@endif
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<dl class="dl-horizontal">
+								<dt>Numero proceso:</dt>
+								<dd>{{ $proceso->consecutivo_proceso }}</dd>
+								<dt>Fecha de proceso:</dt>
+								<dd>{{ $proceso->fecha_proceso }}</dd>
+								<dt>Modalidad:</dt>
+								<dd>{{ $proceso->modalidad->nombre }}</dd>
+							</dl>
+							<dl class="dl-horizontal">
+								<dt class="text-success">Registros correctos:</dt>
+								<dd>{{ $cantidadCorrectos }}</dd>
+								<dt class="text-danger">Registros con error:</dt>
+								<dd>{{ $cantidadErrores }}</dd>
+							</dl>
 
-								@if($cantidadErrores > 0)
-								<div class="row">
-									<div class="col-md-12 table-responsive">
-										<table class="table">
-											<thead>
+							@if($cantidadErrores > 0)
+							<div class="row">
+								<div class="col-md-12 table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Lista de errores</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach($detalleErrores as $detalleError)
 												<tr>
-													<th>Lista de errores</th>
+													<td>
+														{{ $detalleError }}
+													</td>
 												</tr>
-											</thead>
-											<tbody>
-												@foreach($detalleErrores as $detalleError)
-													<tr>
-														<td>
-															{{ $detalleError }}
-														</td>
-													</tr>
-												@endforeach
-											</tbody>
-										</table>
-									</div>
+											@endforeach
+										</tbody>
+									</table>
 								</div>
-								@endif
 							</div>
+							@endif
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
-						@if($cantidadCorrectos == 0)
-							<a class="btn btn-success" href="{{ route('procesoCreditoLoteCargarCreditos', $proceso->id) }}">Continuar</a>
-						@else
-							<a class="btn btn-success" href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}">Continuar</a>
-						@endif
-					</div>
+				</div>
+				{{-- FIN card BODY --}}
+				<div class="card-footer text-right">
+					@if($cantidadCorrectos == 0)
+						<a class="btn btn-outline-success" href="{{ route('procesoCreditoLoteCargarCreditos', $proceso->id) }}">Continuar</a>
+					@else
+						<a class="btn btn-outline-success" href="{{ route('procesoCreditoLoteDesembolso', $proceso->id) }}">Continuar</a>
+					@endif
 				</div>
 			</div>
 		</div>

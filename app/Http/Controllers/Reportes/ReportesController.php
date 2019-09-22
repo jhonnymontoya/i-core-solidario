@@ -1452,10 +1452,14 @@ class ReportesController extends Controller
 		$query = "exec controlVigilancia.sp_barrido_listas_control ?";
 		$DSBarrido = DB::select($query, [$entidad->id]);
 		if(!$DSBarrido)return "";
-
 		foreach ($DSBarrido as &$item) {
 			$diff = substr($item->fecha_lista, 0, 10);
-			$item->fecha_lista = Carbon::createFromFormat('Y-m-d', $diff)->startOfDay();
+			try {
+				$item->fecha_lista = Carbon::createFromFormat('Y-m-d', $diff)->startOfDay();
+			}
+			catch(\InvalidArgumentException $e){
+				$item->fecha_lista = "";
+			}
 			$item->es_tercero = $item->es_tercero ? 'Sí' : 'No';
 			$item->es_asociado = $item->es_asociado ? 'Sí' : 'No';
 			$item->es_empleado = $item->es_empleado ? 'Sí' : 'No';

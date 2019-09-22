@@ -3,15 +3,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Socios
-			<small>Socios</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Socios</a></li>
-			<li class="active">Socios</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Socios
+						<small>Socios</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Socios</a></li>
+						<li class="breadcrumb-item active">Socios</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -35,72 +43,69 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
-		<br>
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">Consulta movimientos</h3>
+		<div class="row">
+			<div class="col-md-12 text-right">
+				<a href="{{ route('socio.consulta.ahorros.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
 			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-md-9 col-md-offset-1">
-						<div class="row">
-							<div class="col-md-5">
-								<strong>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</strong>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-md-12"><strong>Movimientos de:</strong> {{ $modalidad->codigo }} - {{ $modalidad->nombre }}</div>
-						</div>
-					</div>
-					<div class="col-md-2">
-						<a class="btn btn-primary disabled pull-right">
-							<i class="fa fa-download"></i> Descargar
-						</a>
-					</div>
+		</div>
+		<div class="container-fluid">
+			<h5>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</h5>
+			<dl class="row">
+				<dt class="col-md-2 col-sm-6">Movimientos de:</dt>
+				<dd class="col-md-4 col-sm-6">{{ $modalidad->codigo }} - {{ $modalidad->nombre }}</dd>
+			</dl>
+		</div>
+		<div class="container-fluid">
+			<div class="card card-primary card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Consulta movimientos</h3>
 				</div>
-				<br>
-				<hr>
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1 table-responsive">
-						@if($movimientos->count())
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>Fecha</th>
-										<th>Concepto</th>
-										<th>Detalle</th>
-										<th class="text-center">Valor</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($movimientos as $movimiento)
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12 table-responsive">
+							@if($movimientos->count())
+								<table class="table table-striped table-hover">
+									<thead>
 										<tr>
-											<td>{{ $movimiento->fecha_movimiento }}</td>
-											<td>{{ $movimiento->movimiento->tipoComprobante->nombre }}</td>
-											<td>{{ $movimiento->movimiento->descripcion }}</td>
-											<?php
-												$valor = $movimiento->valor_movimiento;
-												$colorTexto = $valor < 0 ? 'text-danger' : '';
-											?>
-											<td class="text-right {{ $colorTexto }}">${{ number_format($valor, 0) }}</td>
+											<th>Fecha</th>
+											<th>Concepto</th>
+											<th>Detalle</th>
+											<th class="text-center">Valor</th>
 										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						@else
-							<strong>No existen registros para mostrar</strong>
-						@endif
+									</thead>
+									<tbody>
+										@foreach($movimientos as $movimiento)
+											<tr>
+												<td>{{ $movimiento->fecha_movimiento }}</td>
+												<td>{{ $movimiento->movimiento->tipoComprobante->nombre }}</td>
+												<td>{{ $movimiento->movimiento->descripcion }}</td>
+												<?php
+													$valor = $movimiento->valor_movimiento;
+													$colorTexto = $valor < 0 ? 'text-danger' : '';
+												?>
+												<td class="text-right {{ $colorTexto }}">${{ number_format($valor, 0) }}</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							@else
+								<strong>No existen registros para mostrar</strong>
+							@endif
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<small>Se muestran los movimientos dentro de los últimos treinta y seis meses</small>
+					<div class="row">
+						<div class="col-md-12">
+							<small>Se muestran los movimientos dentro de los últimos treinta y seis meses</small>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="box-footer">
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{{ route('socio.consulta.ahorros.lista', $socio->id) }}?fecha={{ $fechaConsulta }}" class="btn btn-outline-danger">Volver</a>
+				</div>
 			</div>
+			<br>
 		</div>
 	</section>
 </div>

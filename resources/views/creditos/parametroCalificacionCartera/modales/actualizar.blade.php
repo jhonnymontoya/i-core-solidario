@@ -6,10 +6,10 @@
 		{{ csrf_field() }}
 		<div class="modal-content">
 			<div class="modal-header">
+				<h3 class="modal-title" id="mLabel">Actualizar</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
 					<span aria-hiden="true">&times;</span>
 				</button>
-				<h3 class="modal-title" id="mLabel">Actualizar</h3>
 			</div>
 
 			<div class="modal-body">
@@ -42,8 +42,8 @@
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-primary" value="Guardar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        		<input type="submit" class="btn btn-outline-primary" value="Guardar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 		</form>

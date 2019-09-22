@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Editar entidad
-			<small>General</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">General</a></li>
-			<li class="active">Entidad</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Editar entidad
+						<small>General</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> General</a></li>
+						<li class="breadcrumb-item active">Editar entidad</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -65,11 +73,11 @@
 																<div id="image-cropper">
 																	<div class="cropit-preview"></div>
 																	<input type="file" class="cropit-image-input" />
-																	<a class="select-image-btn btn btn-default btn-xs"><i class="fa fa-camera"></i></a>
-																	<a class="rotate-ccw-btn btn btn-default btn-xs"><i class="fa fa-rotate-left"></i></a>
-																	<a class="rotate-cw-btn btn btn-default btn-xs"><i class="fa fa-rotate-right"></i></a>
-																	<a class="zoom-in-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-in"></i></a>
-																	<a class="zoom-out-btn btn btn-default btn-xs"><i class="glyphicon glyphicon-zoom-out"></i></a>
+																	<a class="select-image-btn btn btn-outline-secondary btn-sm"><i class="fa fa-camera"></i></a>
+																	<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
+																	<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
+																	<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
+																	<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
 																</div>
 															</div>
 														</div>
@@ -85,7 +93,7 @@
 								</div>
 								@endif
 							@else
-								<h4>No se encontrarón categorías de imágenes, ir a <a href="{{ url('categoriaImagen/create') }}" class="btn btn-primary btn-xs">Crear categorías de imágenes</a></h4>
+								<h4>No se encontrarón categorías de imágenes, ir a <a href="{{ url('categoriaImagen/create') }}" class="btn btn-outline-primary btn-sm">Crear categorías de imágenes</a></h4>
 							@endif
 						</div>
 					</div>
@@ -93,8 +101,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-									<a href="{{ url('entidad') }}" class="btn btn-danger pull-right">Cancelar</a>
+									{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+									<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 								</div>
 							</div>
 						</div>

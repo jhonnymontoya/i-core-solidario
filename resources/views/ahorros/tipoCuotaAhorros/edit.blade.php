@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Tipos de ahorros
-			<small>Ahorros</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Ahorros</a></li>
-			<li class="active">Tipos de ahorros</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Tipos de ahorros
+						<small>Ahorros</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Ahorros</a></li>
+						<li class="breadcrumb-item active">Tipos de ahorros</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -24,347 +32,323 @@
 			</div>
 		@endif
 		{!! Form::model($cuota, ['url' => ['tipoCuotaAhorros', $cuota], 'method' => 'put', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Editar tipo de ahorro</h3>
-					</div>
-					<div class="box-body">
-						<div class="row">
-							<div class="col-md-2">
-								<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('codigo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Código
-									</label>
-									{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Codigo', 'readonly']) !!}
-									@if ($errors->has('codigo'))
-										<span class="help-block">{{ $errors->first('codigo') }}</span>
-									@endif
-								</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Editar tipo de ahorro</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-2">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('codigo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Código</label>
+								{!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Código', 'readonly']) !!}
+								@if ($errors->has('codigo'))
+									<div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
+								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('nombre'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Nombre
-									</label>
-									{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre']) !!}
-									@if ($errors->has('nombre'))
-										<span class="help-block">{{ $errors->first('nombre') }}</span>
-									@endif
-								</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('nombre') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Nombre</label>
+								{!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre', 'autofocus']) !!}
+								@if ($errors->has('nombre'))
+									<div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta auxiliar
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::text('cuif_id', $cuota->cuenta->full, ['class' => 'form-control', 'readonly']) !!}
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuif_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta auxiliar</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
 									</div>
+									{!! Form::text('cuif_id', $cuota->cuenta->full, ['class' => [$valid, 'form-control'], 'readonly']) !!}
 									@if ($errors->has('cuif_id'))
-										<span class="help-block">{{ $errors->first('cuif_id') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('tipo_ahorro')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tipo_ahorro'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo de ahorro
-									</label>
-									{!! Form::text('tipo_ahorro', null, ['class' => 'form-control', 'readonly']) !!}
-									@if ($errors->has('tipo_ahorro'))
-										<span class="help-block">{{ $errors->first('tipo_ahorro') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('cuif_id') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-md-2">
-								<div class="form-group {{ ($errors->has('tasa')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tasa'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tasa E.A.
-									</label>
-									<div class="input-group">
-										{!! Form::text('tasa', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Tasa', 'autofocus']) !!}
-										<span class="input-group-addon">%</span>
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_ahorro') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo de ahorro</label>
+								{!! Form::text('tipo_ahorro', null, ['class' => [$valid, 'form-control'], 'readonly']) !!}
+								@if ($errors->has('tipo_ahorro'))
+									<div class="invalid-feedback">{{ $errors->first('tipo_ahorro') }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-2">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tasa') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tasa E.A.</label>
+								<div class="input-group">
+									{!! Form::text('tasa', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa E.A.']) !!}
+									<div class="input-group-append">
+										<span class="input-group-text">%</span>
 									</div>
 									@if ($errors->has('tasa'))
-										<span class="help-block">{{ $errors->first('tasa') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('tasa') }}</div>
 									@endif
 								</div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('periodicidad_interes')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('periodicidad_interes'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Periodicidad causación de intereses
-									</label>
-									{!! Form::text('periodicidad_interes', null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opción', 'readonly']) !!}
-									@if ($errors->has('periodicidad_interes'))
-										<span class="help-block">{{ $errors->first('periodicidad_interes') }}</span>
-									@endif
-								</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('periodicidad_interes') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Periodicidad causación de intereses</label>
+								{!! Form::text('periodicidad_interes', null, ['class' => [$valid, 'form-control'], 'readonly']) !!}
+								@if ($errors->has('periodicidad_interes'))
+									<div class="invalid-feedback">{{ $errors->first('periodicidad_interes') }}</div>
+								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('capitalizacion_simultanea')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('capitalizacion_simultanea'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Capitalización simultánea
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<?php
-											$capitalizacion = $cuota->capitalizacion_simultanea;
-											$capitalizacion = trim(old('capitalizacion_simultanea')) == '' ? $capitalizacion : old('capitalizacion_simultanea');
-											$capitalizacion = $capitalizacion == '0' ? false : true;
-										?>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Capitalización simultánea</label>
+								<div>
+									@php
+										$valid = $errors->has('capitalizacion_simultanea') ? 'is-invalid' : '';
+										$capitalizacion = empty(old('capitalizacion_simultanea')) ? $cuota->capitalizacion_simultanea : old('capitalizacion_simultanea');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
 										<label class="btn btn-primary {{ $capitalizacion ? 'active' : '' }}">
-											{!! Form::radio('capitalizacion_simultanea', '1', $capitalizacion ? true : false) !!}Sí
+											{!! Form::radio('capitalizacion_simultanea', 1, ($capitalizacion ? true : false), ['class' => [$valid]]) !!}Sí
 										</label>
 										<label class="btn btn-danger {{ !$capitalizacion ? 'active' : '' }}">
-											{!! Form::radio('capitalizacion_simultanea', '0', !$capitalizacion ? true : false) !!}No
+											{!! Form::radio('capitalizacion_simultanea', 0, (!$capitalizacion ? true : false ), ['class' => [$valid]]) !!}No
 										</label>
 									</div>
 									@if ($errors->has('capitalizacion_simultanea'))
-										<span class="help-block">{{ $errors->first('capitalizacion_simultanea') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('capitalizacion_simultanea') }}</div>
 									@endif
 								</div>
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('paga_retiros')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('paga_retiros'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Calcular intereses al retiro
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn {{ $cuota->paga_retiros ? 'btn-primary active' : 'btn-danger active' }}">
-											{!! Form::radio('paga_retiros', ($cuota->paga_retiros ? '1' : '0'), true) !!}{{ ($cuota->paga_retiros ? 'Sí' : 'No') }}
-										</label>
-									</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group {{ ($errors->has('paga_retiros')?'has-error':'') }}">
+								<label class="control-label">
 									@if ($errors->has('paga_retiros'))
-										<span class="help-block">{{ $errors->first('paga_retiros') }}</span>
+										<i class="fa fa-times-circle-o"></i>
+									@endif
+									Calcular intereses al retiro
+								</label>
+								<br>
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn {{ $cuota->paga_retiros ? 'btn-primary active' : 'btn-danger active' }}">
+										{!! Form::radio('paga_retiros', ($cuota->paga_retiros ? '1' : '0'), true) !!}{{ ($cuota->paga_retiros ? 'Sí' : 'No') }}
+									</label>
+								</div>
+								@if ($errors->has('paga_retiros'))
+									<span class="help-block">{{ $errors->first('paga_retiros') }}</span>
+								@endif
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('intereses_cuif_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta contable intereses</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
+									</div>
+									{!! Form::select('intereses_cuif_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+									@if ($errors->has('intereses_cuif_id'))
+										<div class="invalid-feedback">{{ $errors->first('intereses_cuif_id') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
 
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('intereses_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('intereses_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta contable intereses
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::select('intereses_cuif_id', [], null, ['class' => 'form-control select2']) !!}
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('intereses_por_pagar_cuif_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta contable intereses por pagar</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
 									</div>
-									@if ($errors->has('intereses_cuif_id'))
-										<span class="help-block">{{ $errors->first('intereses_cuif_id') }}</span>
-									@endif
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('intereses_por_pagar_cuif_id')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('intereses_por_pagar_cuif_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta contable intereses por pagar
-									</label>
 									@php
 										$cuentaRendimientoInteresesPorPagar = optional($cuota->cuentaRendimientoInteresesPorPagar)->full;
 									@endphp
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-table"></i></span>
-										{!! Form::text('intereses_por_pagar_cuif_id', $cuentaRendimientoInteresesPorPagar, ['class' => 'form-control', 'readonly']) !!}
-									</div>
+									{!! Form::text('intereses_por_pagar_cuif_id', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Cuenta contable intereses por pagar', 'readonly']) !!}
 									@if ($errors->has('intereses_por_pagar_cuif_id'))
-										<span class="help-block">{{ $errors->first('intereses_por_pagar_cuif_id') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('intereses_por_pagar_cuif_id') }}</div>
 									@endif
 								</div>
-							</div>
-
-							<div class="form-group {{ ($errors->has('paga_intereses_retirados')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('paga_intereses_retirados'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Incluye retirados en el cálculo de rendimientos
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<?php
-										$pagaInteresRetiro = trim(old('paga_intereses_retirados')) == '' ? $cuota->paga_intereses_retirados : old('paga_intereses_retirados');
-										$pagaInteresRetiro = $pagaInteresRetiro == '0' ? false : true;
-									?>
-									<label class="btn btn-primary {{ $pagaInteresRetiro ? 'active' : '' }}">
-										{!! Form::radio('paga_intereses_retirados', '1', $pagaInteresRetiro ? true : false) !!}Sí
-									</label>
-									<label class="btn btn-danger {{ !$pagaInteresRetiro ? 'active' : '' }}">
-										{!! Form::radio('paga_intereses_retirados', '0', !$pagaInteresRetiro ? true : false) !!}No
-									</label>
-								</div>
-								@if ($errors->has('paga_intereses_retirados'))
-									<span class="help-block">{{ $errors->first('paga_intereses_retirados') }}</span>
-								@endif
 							</div>
 						</div>
 
-						@if($cuota->tipo_ahorro == 'PROGRAMADO')
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('tipo_vencimiento')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tipo_vencimiento'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo de vencimiento
-									</label>
-									{!! Form::text('tipo_vencimiento', null, ['class' => 'form-control', 'readonly']) !!}
-									@if ($errors->has('tipo_vencimiento'))
-										<span class="help-block">{{ $errors->first('tipo_vencimiento') }}</span>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Incluye retirados en el cálculo de rendimientos</label>
+								<div>
+									@php
+										$valid = $errors->has('paga_intereses_retirados') ? 'is-invalid' : '';
+										$pir = empty(old('paga_intereses_retirados')) ? $cuota->paga_intereses_retirados : old('paga_intereses_retirados');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $pir ? 'active' : '' }}">
+											{!! Form::radio('paga_intereses_retirados', 1, ($pir ? true : false), ['class' => [$valid]]) !!}Sí
+										</label>
+										<label class="btn btn-danger {{ !$pir ? 'active' : '' }}">
+											{!! Form::radio('paga_intereses_retirados', 0, (!$pir ? true : false ), ['class' => [$valid]]) !!}No
+										</label>
+									</div>
+									@if ($errors->has('paga_intereses_retirados'))
+										<div class="invalid-feedback">{{ $errors->first('paga_intereses_retirados') }}</div>
 									@endif
 								</div>
 							</div>
-							<div class="col-md-3">
-								@if($cuota->tipo_vencimiento == 'COLECTIVO')
-								<div class="form-group {{ ($errors->has('fecha_vencimiento_colectivo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fecha_vencimiento_colectivo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha de vencimiento
-									</label>
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fecha_vencimiento_colectivo', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
-									</div>
-									@if ($errors->has('fecha_vencimiento_colectivo'))
-										<span class="help-block">{{ $errors->first('fecha_vencimiento_colectivo') }}</span>
-									@endif
-								</div>
-								@else
-								<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('plazo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Meses de plazo
-									</label>
-									{!! Form::number('plazo', null, ['class' => 'form-control pull-right', 'placeholder' => 'Meses de plazo', 'autocomplete' => 'off', 'readonly']) !!}
-									@if ($errors->has('plazo'))
-										<span class="help-block">{{ $errors->first('plazo') }}</span>
-									@endif
-								</div>
+						</div>
+					</div>
+
+					@if($cuota->tipo_ahorro == 'PROGRAMADO')
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_vencimiento') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo de vencimiento</label>
+								{!! Form::select('tipo_vencimiento', ['COLECTIVO' => 'Colectivo', 'INDIVIDUAL' => 'Individual'], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('tipo_vencimiento'))
+									<div class="invalid-feedback">{{ $errors->first('tipo_vencimiento') }}</div>
 								@endif
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('tasa_penalidad')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tasa_penalidad'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tasa penalidad E.A.
-									</label>
-									<div class="input-group">
-										{!! Form::text('tasa_penalidad', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Tasa penalidad']) !!}
-										<span class="input-group-addon">%</span>
+						</div>
+						<div class="col-md-3">
+							@if($cuota->tipo_vencimiento == 'COLECTIVO')
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_vencimiento_colectivo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha de vencimiento</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
 									</div>
-									@if ($errors->has('tasa_penalidad'))
-										<span class="help-block">{{ $errors->first('tasa_penalidad') }}</span>
+									{!! Form::text('fecha_vencimiento_colectivo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha_vencimiento_colectivo'))
+										<div class="invalid-feedback">{{ $errors->first('fecha_vencimiento_colectivo') }}</div>
 									@endif
 								</div>
 							</div>
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('penalidad_por_retiro')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('penalidad_por_retiro'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Penalidad por retiro voluntario
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<?php
-											$capitalizacion = $cuota->penalidad_por_retiro;
-											$capitalizacion = trim(old('penalidad_por_retiro')) == '' ? $capitalizacion : old('penalidad_por_retiro');
-											$capitalizacion = $capitalizacion == '0' ? false : true;
-										?>
-										<label class="btn {{ $capitalizacion ? 'btn-primary active' : 'btn-danger active' }}">
-											{!! Form::radio('penalidad_por_retiro', ($capitalizacion ? '1' : '0'), true) !!}{{ ($capitalizacion ? 'Sí' : 'No') }}
+							@else
+							<div class="form-group">
+								@php
+									$valid = $errors->has('plazo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Meses de plazo</label>
+								{!! Form::number('plazo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Meses de plazo']) !!}
+								@if ($errors->has('plazo'))
+									<div class="invalid-feedback">{{ $errors->first('plazo') }}</div>
+								@endif
+							</div>
+							@endif
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tasa_penalidad') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tasa penalidad E.A.</label>
+								<div class="input-group">
+									{!! Form::text('tasa_penalidad', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa penalidad E.A.']) !!}
+									<div class="input-group-prepend"><span class="input-group-text">%</span></div>
+									@if ($errors->has('tasa_penalidad'))
+										<div class="invalid-feedback">{{ $errors->first('tasa_penalidad') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Penalidad por retiro voluntario</label>
+								<div>
+									@php
+										$valid = $errors->has('penalidad_por_retiro') ? 'is-invalid' : '';
+										$ppr = empty(old('penalidad_por_retiro')) ? $cuota->penalidad_por_retiro : old('penalidad_por_retiro');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $ppr ? 'active' : '' }}">
+											{!! Form::radio('penalidad_por_retiro', 1, ($ppr ? true : false), ['class' => [$valid]]) !!}Sí
+										</label>
+										<label class="btn btn-danger {{ !$ppr ? 'active' : '' }}">
+											{!! Form::radio('penalidad_por_retiro', 0, (!$ppr ? true : false ), ['class' => [$valid]]) !!}No
 										</label>
 									</div>
 									@if ($errors->has('penalidad_por_retiro'))
-										<span class="help-block">{{ $errors->first('penalidad_por_retiro') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('penalidad_por_retiro') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
-						@endif
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group {{ ($errors->has('esta_activa')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('esta_activa'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										¿Esta activo?
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<?php
-											$activo = trim(old('esta_activa')) == '' ? $cuota->esta_activa : old('esta_activa');
-											$activo = $activo ? true : false;
-										?>
-										<label class="btn btn-primary {{ $activo ? 'active' : '' }}">
-											{!! Form::radio('esta_activa', '1', $activo ? true : false) !!}Sí
+					</div>
+					@endif
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">¿Activo?</label>
+								<div>
+									@php
+										$valid = $errors->has('esta_activa') ? 'is-invalid' : '';
+										$estaActivo = empty(old('esta_activa')) ? $cuota->esta_activa : old('esta_activa');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $estaActivo ? 'active' : '' }}">
+											{!! Form::radio('esta_activa', 1, ($estaActivo ? true : false), ['class' => [$valid]]) !!}Sí
 										</label>
-										<label class="btn btn-danger {{ !$activo ? 'active' : '' }}">
-											{!! Form::radio('esta_activa', '0', !$activo ? true : false) !!}No
+										<label class="btn btn-danger {{ !$estaActivo ? 'active' : '' }}">
+											{!! Form::radio('esta_activa', 0, (!$estaActivo ? true : false ), ['class' => [$valid]]) !!}No
 										</label>
 									</div>
 									@if ($errors->has('esta_activa'))
-										<span class="help-block">{{ $errors->first('esta_activa') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('esta_activa') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
-						{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('tipoCuotaAhorros') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('tipoCuotaAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

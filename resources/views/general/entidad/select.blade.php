@@ -27,47 +27,57 @@
 			<div class="row"><div class="col-md-12"><h4>No se encontraron entidades</h4></div></div>
 		@endif
 		<br>
-		<?php
-			$contador = 0;
-		?>
-		@foreach($usuario->perfiles as $perfil)
-			@if($contador % 2 == 0)
-				@if($contador != 0)
-					</div>
-				@endif
-				<div class="row">
-			@endif
-			<div class="col-md-6 col-sm-12 col-xs-12">
-				<div class="info-box">					
-					@if($perfil->entidad->categoriaImagenes->where('nombre', 'Logo Selección')->count())
-						<span class="info-box-icon" style="line-height: 0;">
-							<img src="{{ asset('storage/entidad/' . $perfil->entidad->categoriaImagenes->where('nombre', 'Logo Selección')->first()->pivot->nombre) }}" title="{{ $perfil->entidad->terceroEntidad->razon_social }}">
-						</span>
-					@else
-						<span class="info-box-icon">
-							img
-						</span>
-					@endif					
-					<div class="info-box-content">
-						<span class="info-box-number">{{ $perfil->entidad->terceroEntidad->razon_social }}</span>
-						<span class="info-box-text">{{ $perfil->entidad->terceroEntidad->nit }}</span>
-						<span class="info-box-text">
-							{{ $perfil->nombre }}
-							{!! Form::open(['url' => 'entidad/seleccion', 'method' => 'post']) !!}
-							{!! Form::hidden('entidad', $perfil->entidad->id) !!}
-							{!! Form::submit('Ir', ['class' => 'btn btn-primary btn-xs pull-right']) !!}
-							{!! Form::close() !!}
-						</span>
-					</div>
+		<div class="card card-solid">
+			<div class="card-body pb-0">
+				<div class="row d-flex align-items-stretch">
+					@foreach($usuario->perfiles as $perfil)
+						@php
+							$entidad = $perfil->entidad;
+							$tercero = $entidad->terceroEntidad;
+						@endphp
+						<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+							<div class="card bg-light">
+								<div class="card-header text-muted border-bottom-0">
+									{{ $tercero->sigla }}
+								</div>
+								<div class="card-body pt-0">
+									<div class="row">
+										<div class="col-12 text-center">
+											@if($perfil->entidad->categoriaImagenes->where('nombre', 'Logo Selección')->count())
+												<img class="img-circle img-fluid" src="{{ asset('storage/entidad/' . $entidad->categoriaImagenes->where('nombre', 'Logo Selección')->first()->pivot->nombre) }}" title="{{ $tercero->razon_social }}">
+											@else
+												img
+											@endif	
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<h2 class="lead"><b>{{ $tercero->razon_social }}</b></h2>
+											<p class="text-muted text-sm"><b>Perfil: </b> {{ $perfil->nombre }}</p>
+											<ul class="ml-4 mb-0 fa-ul text-muted">
+												<li class="small"><span class="fa-li"><i class="fas fa-lg fa-address-card"></i></span> {{ $perfil->entidad->terceroEntidad->nit }}</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer">
+									<div class="text-center">
+										{!! Form::open(['url' => 'entidad/seleccion', 'method' => 'post']) !!}
+										{!! Form::hidden('entidad', $perfil->entidad->id) !!}
+										<button type="submit" class="btn btn-block btn-outline-primary">
+											<i class="fas fa-sign-in-alt"></i> Ir
+										</button>
+										{!! Form::close() !!}
+									</div>
+								</div>
+							</div>
+						</div>
+					@endforeach
 				</div>
 			</div>
-			<?php
-				$contador += 1;
-			?>
-		@endforeach
-		@if($contador > 0)
-			</div>
-		@endif
+		</div>
+
+		
 
 	</section>
 </div>
@@ -76,21 +86,8 @@
 
 @push('style')
 <style type="text/css">
-	.info-box-number{
-		font-weight: 600;
-		font-size: 14px;
-	}
-	.info-box-text{
-		font-size: 12px;
-	}
-	@media(max-width: 992px){
-		.info-box-number{
-			font-weight: 500;
-			font-size: 11px;
-		}
-		.info-box-text{
-			font-size: 10px;
-		}
+	.card {
+		min-width: 337.66px;
 	}
 </style>
 @endpush

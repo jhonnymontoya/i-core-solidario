@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			SDAT
-			<small>Ahorros</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Ahorros</a></li>
-			<li class="active">SDAT</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						SDAT
+						<small>Ahorros</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Ahorros</a></li>
+						<li class="breadcrumb-item active">SDAT</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -31,71 +39,75 @@
 			</div>
 		@endif
 		{!! Form::open(['route' => ['SDAT.put.constituir', $sdat->id], 'method' => 'put', 'role' => 'form']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Constituir SDAT</h3>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Constituir SDAT</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Confirmación de constitución de deposito</h4>
+						</div>
 					</div>
-					<div class="box-body">
-						<div class="row">
-							<div class="col-md-12">
-								<h4>Confirmación de constitución de deposito</h4>
-							</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<dl>
+								<dt>No. Radicado:</dt>
+								<dd>{{ $sdat->id }}</dd>
+							</dl>
 						</div>
+						<div class="col-md-4">
+							<dl>
+								@php
+									$tercero = $sdat->socio->tercero;
+									$nombre = sprintf(
+										"%s %s - %s",
+										$tercero->tipoIdentificacion->codigo,
+										$tercero->numero_identificacion,
+										$tercero->nombre_corto
+									);
+								@endphp
 
-						<div class="row">
-							<div class="col-md-12">
-								<dl class="dl-horizontal">
-									<dt>No. Radicado:</dt>
-									<dd>{{ $sdat->id }}</dd>
-
-									@php
-										$tercero = $sdat->socio->tercero;
-										$nombre = sprintf(
-											"%s %s - %s",
-											$tercero->tipoIdentificacion->codigo,
-											$tercero->numero_identificacion,
-											$tercero->nombre_corto
-										);
-									@endphp
-
-									<dt>Nombre:</dt>
-									<dd>{{ $nombre }}</dd>
-
-									<dt>Valor:</dt>
-									<dd>${{ number_format($sdat->valor) }}</dd>
-								</dl>
-							</div>
+								<dt>Nombre:</dt>
+								<dd>{{ $nombre }}</dd>
+							</dl>
 						</div>
+						<div class="col-md-4">
+							<dl>
+								<dt>Valor:</dt>
+								<dd>${{ number_format($sdat->valor) }}</dd>
+							</dl>
+						</div>
+					</div>
 
-						<div class="row form-horizontal">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('cuenta')?'has-error':'') }}">
-									<label class="control-label col-md-2">
-										@if ($errors->has('cuenta'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Cuenta
-									</label>
-									<div class="col-md-8">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-table"></i></span>
-											{!! Form::select('cuenta', [], null, ['class' => 'form-control select2']) !!}
-										</div>
-										@if ($errors->has('cuenta'))
-											<span class="help-block">{{ $errors->first('cuenta') }}</span>
-										@endif
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('cuenta') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Cuenta</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-table"></i>
+										</span>
 									</div>
+									{!! Form::select('cuenta', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+									@if ($errors->has('cuenta'))
+										<div class="invalid-feedback">{{ $errors->first('cuenta') }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
+					</div>
 
-					</div>
-					<div class="box-footer">
-						{!! Form::submit('Constituir', ['class' => 'btn btn-success']) !!}
-						<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
-					</div>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Constituir', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>

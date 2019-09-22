@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Ajustes créditos en lote
-			<small>Créditos</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Créditos</a></li>
-			<li class="active">Ajustes créditos en lote</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Ajustes créditos en lote
+						<small>Créditos</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Créditos</a></li>
+						<li class="breadcrumb-item active">Ajustes créditos en lote</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -37,18 +45,18 @@
 		@endif
 		<div class="row">
 			<div class="col-md-12">
-				<div class="box box-warning">
-					<div class="box-header with-border">
-						<h3 class="box-title">Resumen carga archivo de créditos</h3>
+				<div class="card card-warning card-outline">
+					<div class="card-header with-border">
+						<h3 class="card-title">Resumen carga archivo de créditos</h3>
 					</div>
-					{{-- INICIO BOX BODY --}}
-					<div class="box-body">
+					{{-- INICIO card BODY --}}
+					<div class="card-body">
 						@if($cantidadErrores > 0)
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="alert alert-warning">
 									<h4>
-										<i class="fa fa-warning"></i>&nbsp;Alerta!
+										<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
 									</h4>
 									Hay registros con error
 								</div>
@@ -95,12 +103,12 @@
 							</div>
 						</div>
 					</div>
-					{{-- FIN BOX BODY --}}
-					<div class="box-footer">
+					{{-- FIN card BODY --}}
+					<div class="card-footer text-right">
 						@if($cantidadCorrectos == 0)
-							<a class="btn btn-success" href="{{ route('ajusteCreditoLoteCargarCreditos', $proceso->id) }}">Continuar</a>
+							<a class="btn btn-outline-success" href="{{ route('ajusteCreditoLoteCargarCreditos', $proceso->id) }}">Continuar</a>
 						@else
-							<a class="btn btn-success" href="{{ route('ajusteCreditoLoteResumen', $proceso->id) }}">Continuar</a>
+							<a class="btn btn-outline-success" href="{{ route('ajusteCreditoLoteResumen', $proceso->id) }}">Continuar</a>
 						@endif
 					</div>
 				</div>

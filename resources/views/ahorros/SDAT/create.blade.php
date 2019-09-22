@@ -7,15 +7,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			SDAT
-			<small>Ahorros</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Ahorros</a></li>
-			<li class="active">SDAT</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						SDAT
+						<small>Ahorros</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Ahorros</a></li>
+						<li class="breadcrumb-item active">SDAT</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -34,145 +42,141 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'SDAT', 'method' => 'post', 'role' => 'form', 'data-maskMoney-removeMask']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo SDAT</h3>
-					</div>
-					<div class="box-body">
-						<div class="row">
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo SDAT</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
 
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('tipo_sdat')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('tipo_sdat'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo SDAT
-									</label>
-									{!! Form::select('tipo_sdat', $tiposSDAT, null, ['class' => 'form-control select2']) !!}
-									@if ($errors->has('tipo_sdat'))
-										<span class="help-block">{{ $errors->first('tipo_sdat') }}</span>
-									@endif
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('socio')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('socio'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Socio
-									</label>
-									{!! Form::select('socio', [], null, ['class' => 'form-control select2']) !!}
-									@if ($errors->has('socio'))
-										<span class="help-block">{{ $errors->first('socio') }}</span>
-									@endif
-								</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_sdat') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo SDAT</label>
+								{!! Form::select('tipo_sdat', $tiposSDAT, null, ['class' => [$valid, 'form-control']]) !!}
+								@if ($errors->has('tipo_sdat'))
+									<div class="invalid-feedback">{{ $errors->first('tipo_sdat') }}</div>
+								@endif
 							</div>
 						</div>
 
-						<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('socio') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Socio</label>
+								{!! Form::select('socio', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('socio'))
+									<div class="invalid-feedback">{{ $errors->first('socio') }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
 
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('valor'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Valor
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon">$</span>
-										{!! Form::text('valor', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'valor', 'data-maskMoney']) !!}
+					<div class="row">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('valor') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Valor</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
 									</div>
+									{!! Form::text('valor', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Valor', 'data-maskMoney']) !!}
 									@if ($errors->has('valor'))
-										<span class="help-block">{{ $errors->first('valor') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('valor') }}</div>
 									@endif
 								</div>
 							</div>
+						</div>
 
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('fecha')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fecha'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha constitución
-									</label>
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										@php
-											$fecha = date('d/m/Y');
-											$fecha = !empty(old($fecha)) ? old($fecha) : $fecha;
-										@endphp
-										{!! Form::text('fecha', $fecha, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha constitución</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
 									</div>
+									{!! Form::text('fecha', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@if ($errors->has('fecha'))
-										<span class="help-block">{{ $errors->first('fecha') }}</span>
-									@endif
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group {{ ($errors->has('plazo')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('plazo'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Plazo (días)
-									</label>
-									{!! Form::text('plazo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'plazo', 'data-maskMoney']) !!}
-									@if ($errors->has('plazo'))
-										<span class="help-block">{{ $errors->first('plazo') }}</span>
+										<div class="invalid-feedback">{{ $errors->first('fecha') }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
 
-						<br>
-						<div class="row">
-							<div class="col-md-12">
-								{!! Form::submit('Continuar', ['class' => 'btn btn-primary']) !!}
-								<a href="{{ url('SDAT') }}" class="btn btn-danger pull-right">Cancelar</a>
+						<div class="col-md-4">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('plazo') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Plazo (días)</label>
+								{!! Form::text('plazo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Plazo (días)', 'data-maskMoney']) !!}
+								@if ($errors->has('plazo'))
+									<div class="invalid-feedback">{{ $errors->first('plazo') }}</div>
+								@endif
 							</div>
 						</div>
+					</div>
 
+					<br>
+					<div class="row">
+						<div class="col-md-12 text-right">
+							{!! Form::submit('Continuar', ['class' => 'btn btn-outline-primary']) !!}
+							<a href="{{ url('SDAT') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
+						</div>
+					</div>
+
+				@if (isset($dataTitulo))
+					<br>
+					<hr>
+					<div class="row">
+						<div class="col-md-6">
+							<dl>
+								<dt>Fecha vencimiento</dt>
+								<dd>{{ $dataTitulo["fechaVencimiento"] }}</dd>
+
+								<dt>Tasa M.V.</dt>
+								<dd>{{ number_format($dataTitulo["tasa"], 2) }}%</dd>
+
+								<dt>Retefuente estimado</dt>
+								<dd>${{ number_format($dataTitulo["retefuenteEstimado"]) }}</dd>
+							</dl>
+						</div>
+						<div class="col-md-6">
+							<dl>
+								<dt>Tasa E.A.</dt>
+								<dd>{{ number_format($dataTitulo["tasaEA"], 2) }}%</dd>
+
+								<dt>Interes estimado</dt>
+								<dd>${{ number_format($dataTitulo["interesEstimado"]) }}</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<strong>TOTAL AL VENCIMIENTO: ${{ number_format($dataTitulo["total"]) }}</strong>
+						</div>
+					</div>
+				@endif
+
+				</div>
+				<div class="card-footer text-right">
 					@if (isset($dataTitulo))
-						<br>
-						<hr>
-						<div class="row">
-							<div class="col-md-12">
-								<dl class="dl-horizontal">
-									<dt>Fecha vencimiento</dt>
-									<dd>{{ $dataTitulo["fechaVencimiento"] }}</dd>
-
-									<dt>Tasa E.A.</dt>
-									<dd>{{ number_format($dataTitulo["tasaEA"], 2) }}%</dd>
-
-									<dt>Tasa M.V.</dt>
-									<dd>{{ number_format($dataTitulo["tasa"], 2) }}%</dd>
-
-									<dt>Interes estimado</dt>
-									<dd>${{ number_format($dataTitulo["interesEstimado"]) }}</dd>
-
-									<dt>Retefuente estimado</dt>
-									<dd>${{ number_format($dataTitulo["retefuenteEstimado"]) }}</dd>
-								</dl>
-								<br>
-								<strong>TOTAL AL VENCIMIENTO: ${{ number_format($dataTitulo["total"]) }}</strong>
-							</div>
-						</div>
+						{!! Form::submit('Radicar', ['class' => 'btn btn-outline-success', 'name' => 'radicar']) !!}
 					@endif
-
-					</div>
-					<div class="box-footer">
-						@if (isset($dataTitulo))
-							{!! Form::submit('Radicar', ['class' => 'btn btn-success', 'name' => 'radicar']) !!}
-						@endif
-					</div>
 				</div>
 			</div>
 		</div>

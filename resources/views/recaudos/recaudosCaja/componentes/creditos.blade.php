@@ -2,7 +2,7 @@
 @if (!is_null($creditos) && $creditos->count())
 	<div class="row">
 		<div class="col-md-12 table-responsive">
-			<table class="table table-striped">
+			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Obligación</th>
@@ -32,8 +32,8 @@
 							<td class="text-right">0</td>
 							<td class="text-right">$0</td>
 							<td class="text-right">${{ number_format($credito->valor_cuota) }}</td>
-							<td>
-								<a class="btn btn-info btn-xs" data-toggle="modal" data-target="#mCreditos"><i class="fa fa-plus"></i></a>
+							<td class="text-right">
+								<a href="#" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#mCreditos"><i class="fa fa-plus"></i></a>
 							</td>
 						</tr>
 					@endforeach
@@ -58,7 +58,7 @@
 				detalle.append($("<td>").html("<em>$" + $().formatoMoneda(credito.intereses) + "</em>").addClass("text-right"));
 				detalle.append($("<td>").html("<em>$" + $().formatoMoneda(credito.seguro) + "</em>").addClass("text-right"));
 				detalle.append($("<td colspan='3'>"));
-				detalle.append($("<td>").html("<a class='btn btn-danger btn-xs cLimpiar'><i class='fa fa-trash'></i></a>"));
+				detalle.append($("<td>").html("<a href='#' class='btn btn-outline-danger btn-sm cLimpiar'><i class='far fa-trash-alt'></i></a>"));
 				credito.visible = true;
 				filaCredito.after(detalle);
 			}
@@ -75,6 +75,7 @@
 			}
 		});
 		$(".cLimpiar").click(function(event){
+			event.preventDefault();
 			var id = $(this).parent().parent().data("abono-credito-id");
 			removerAbonoCredito(id);
 		});

@@ -4,15 +4,23 @@
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Comprobantes
-			<small>Contabilidad</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-			<li><a href="#">Contabilidad</a></li>
-			<li class="active">Comprobantes</li>
-		</ol>
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-6">
+					<h1>
+						Comprobantes
+						<small>Contabilidad</small>
+					</h1>
+				</div>
+				<div class="col-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+						<li class="breadcrumb-item"><a href="#"> Contabilidad</a></li>
+						<li class="breadcrumb-item active">Anular comprobante</li>
+					</ol>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<section class="content">
@@ -24,76 +32,63 @@
 			</div>
 		@endif
 		{!! Form::open(['url' => 'comprobante', 'method' => 'post', 'role' => 'form', 'id' => 'formProcesar']) !!}
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-{{ $errors->count()?'danger':'success' }}">
-					<div class="box-header with-border">
-						<h3 class="box-title">Crear nuevo comprobante</h3>
-					</div>
-					<div class="box-body">
-						<div class="row form-horizontal">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('tipo_comprobante_id')?'has-error':'') }}">
-									<label class="col-sm-4 control-label">
-										@if ($errors->has('tipo_comprobante_id'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Tipo de Comprobante
-									</label>
-									<div class="col-sm-8">
-										{!! Form::select('tipo_comprobante_id', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione un tipo de comprobante']) !!}
-										@if ($errors->has('tipo_comprobante_id'))
-											<span class="help-block">{{ $errors->first('tipo_comprobante_id') }}</span>
-										@endif
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('fecha_movimiento')?'has-error':'') }}">
-									<label class="col-sm-3 control-label">
-										@if ($errors->has('fecha_movimiento'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha
-									</label>
-									<div class="col-sm-9">
-										<div class="input-group">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											{!! Form::text('fecha_movimiento', Date('d/m/Y'), ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-										</div>
-										@if ($errors->has('fecha_movimiento'))
-											<span class="help-block">{{ $errors->first('fecha_movimiento') }}</span>
-										@endif
-									</div>
-								</div>
+		<div class="container-fluid">
+			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
+				<div class="card-header with-border">
+					<h3 class="card-title">Crear nuevo comprobante</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('tipo_comprobante_id') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Tipo de comprobante</label>
+								{!! Form::select('tipo_comprobante_id', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								@if ($errors->has('tipo_comprobante_id'))
+									<div class="invalid-feedback">{{ $errors->first('tipo_comprobante_id') }}</div>
+								@endif
 							</div>
 						</div>
-						<div class="row form-horizontal">
-							<div class="col-md-12">
-								<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-									<label class="col-sm-2 control-label">
-										@if ($errors->has('descripcion'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Descripción
-									</label>
-									<div class="col-sm-10">
-										{!! Form::text('descripcion', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
-										@if ($errors->has('descripcion'))
-											<span class="help-block">{{ $errors->first('descripcion') }}</span>
-										@endif
+						<div class="col-md-6">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('fecha_movimiento') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Fecha</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</span>
 									</div>
+									{!! Form::text('fecha_movimiento', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									@if ($errors->has('fecha_movimiento'))
+										<div class="invalid-feedback">{{ $errors->first('fecha_movimiento') }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="box-footer">
-						<a class="btn btn-success" id="continuar">Continuar</a>
-						{{--{!! Form::submit('Continuar', ['class' => 'btn btn-success', 'id' => 'continuar']) !!}--}}
-						<a href="{{ url('comprobante') }}" class="btn btn-danger pull-right">Cancelar</a>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								@php
+									$valid = $errors->has('descripcion') ? 'is-invalid' : '';
+								@endphp
+								<label class="control-label">Descripción</label>
+								{!! Form::text('descripcion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Descripción']) !!}
+								@if ($errors->has('descripcion'))
+									<div class="invalid-feedback">{{ $errors->first('descripcion') }}</div>
+								@endif
+							</div>
+						</div>
 					</div>
+				</div>
+				<div class="card-footer text-right">
+					<a href="#" class="btn btn-outline-success" id="continuar">Continuar</a>
+					<a href="{{ url('comprobante') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 		</div>
@@ -110,7 +105,8 @@
 <script type="text/javascript">
 	$(function(){
 		$("select[name='tipo_comprobante_id']").selectAjax("{{ url('api/tipoComprobante') }}", {entidad: {{ Auth::getSession()->get('entidad')->id }}, id:"{{ old('tipo_comprobante_id') }}"});
-		$("#continuar").click(function(){
+		$("#continuar").click(function(e){
+			e.preventDefault();
 			$("#continuar").addClass("disabled");
 			$("#formProcesar").submit();
 		});

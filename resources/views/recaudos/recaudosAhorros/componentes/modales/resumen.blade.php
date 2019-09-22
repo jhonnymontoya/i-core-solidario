@@ -7,18 +7,18 @@
 		{!! Form::hidden('data', "") !!}
 		<div class="modal-content">
 			<div class="modal-header">
+				<h3 class="modal-title" id="mResumenLabel">Resumen de abono</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
 					<span aria-hiden="true">&times;</span>
 				</button>
-				<h3 class="modal-title" id="mResumenLabel">Resumen de abono</h3>
 			</div>
 
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
+					<div class="col-md-12">
 						<div class="alert alert-warning">
 							<h4>
-								<i class="fa fa-warning"></i>&nbsp;Alerta!
+								<i class="fa fa-exclamation-triangle"></i>&nbsp;Alerta!
 							</h4>
 							Confirme los datos antes de procesar el abono
 						</div>
@@ -28,7 +28,7 @@
 					<div class="col-md-8">
 						<strong>{{ $tercero->nombre_completo }}</strong>
 						@if(!is_null($socio) && $socio->estado != 'ACTIVO')
-							<span class="label label-warning">SOCIO NO ACTIVO</span>
+							<span class="badge badge-pill badge-warning">SOCIO NO ACTIVO</span>
 						@endif
 						<br>
 						Fecha recaudo: {{ $fecha }}
@@ -95,8 +95,8 @@
 			</div>
 
 			<div class="modal-footer">
-        		<input type="submit" class="btn btn-success" value="Procesar">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        		<input type="submit" class="btn btn-outline-success" value="Procesar">
+				<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 		</form>
