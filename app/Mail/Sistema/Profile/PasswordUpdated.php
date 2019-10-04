@@ -31,7 +31,7 @@ class PasswordUpdated extends Mailable
 	public function build() {
 		$titulo = "Estimado " . $this->usuario->nombre_corto;
 		$subject = "Se ha actualizado su contraseña";
-		return $this->from('noresponder@fonadmin.com', "FonAdmin")
+		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), env('MAIL_FROM_NAME', 'No responder'))
 						->subject($subject)
 						->view('emails.sistema.passwordUpdated')
 						->withUsuario($this->usuario);

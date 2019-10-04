@@ -3,6 +3,7 @@
 namespace App\Mail\Consulta\Perfil;
 
 use App\Models\Sistema\UsuarioWeb;
+use App\Traits\FonadminTrait;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 
 class PasswordUpdated extends Mailable
 {
-	use Queueable, SerializesModels;
+	use Queueable, SerializesModels, FonadminTrait;
 
 	private $usuario;
 
@@ -34,7 +35,7 @@ class PasswordUpdated extends Mailable
 
 		$titulo = "Estimado " . $tercero->nombre_corto;
 		$subject = "Se ha actualizado su información de perfil";
-		return $this->from('noresponder@fonadmin.com', "FonAdmin")
+		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $this->getEntidad()->terceroEntidad->sigla)
 						->subject($subject)
 						->view('emails.consulta.passwordUpdated')
 						->withUsuario($this->usuario)

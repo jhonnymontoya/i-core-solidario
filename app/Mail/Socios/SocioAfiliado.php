@@ -35,7 +35,7 @@ class SocioAfiliado extends Mailable
 	public function build() {
 		$titulo = "Estimad" . (optional(optional($this->socio->tercero)->sexo)->codigo == 2 ? "a " : "o ") . $this->socio->tercero->nombre;
 		$subject = "Bienvenid" . (optional(optional($this->socio->tercero)->sexo)->codigo == 2 ? "a a " : "o a ") . $this->getEntidad()->terceroEntidad->sigla;
-		return $this->from('info@fonadmin.com', $this->getEntidad()->terceroEntidad->sigla)
+		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $this->getEntidad()->terceroEntidad->sigla)
 						->subject($subject)
 						->markdown('emails.socios.afiliado')
 						->withSocio($this->socio)
