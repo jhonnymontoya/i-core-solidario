@@ -56,13 +56,13 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
-								<div class="col-md-1"><strong>Pagaduría:</strong></div>
+								<div class="col-md-1"><strong>Pagaduría</strong></div>
 								<div class="col-md-2">{{ $controlProceso->pagaduria->nombre }}</div>
 
-								<div class="col-md-1"><strong>Periodo:</strong></div>
+								<div class="col-md-1"><strong>Periodo</strong></div>
 								<div class="col-md-2">{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</div>
 
-								<div class="col-md-2"><strong>Total cargado:</strong></div>
+								<div class="col-md-2"><strong>Total cargado</strong></div>
 								<div class="col-md-2">${{ number_format($controlProceso->total_aplicar) }}</div>
 							</div>							
 						</div>
@@ -208,8 +208,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<a class="btn btn-outline-primary" id="cargar">Cargar</a>
-				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Calcelar</button>
+				<a href="#" class="btn btn-outline-primary" id="cargar">Cargar</a>
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 	</div>
@@ -224,20 +224,17 @@
 @push('scripts')
 <script type="text/javascript">
 	$(function(){
-		$('.table').DataTable({
-			"paging":	true,
-			"ordering":	true,
-			"info":		false
-		});
-		$("#cargar").click(function(){
+		$("#cargar").click(function(e){
+			e.preventDefault();
 			$("#cargar").addClass("disabled");
 			$("#cargar").text("Cargando archivo...");
 			$("#cargaRecaudos").submit();
 		});
-	});
-	$("#procesar").click(function(){
-		$("#procesar").addClass("disabled");
-		$("#formProcesar").submit();
+		$("#procesar").click(function(e){
+			e.preventDefault();
+			$("#procesar").addClass("disabled");
+			$("#formProcesar").submit();
+		});
 	});
 </script>
 @endpush
