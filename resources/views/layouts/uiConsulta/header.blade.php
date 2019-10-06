@@ -6,13 +6,8 @@
 		$nombre = title_case($tercero->nombre_corto);
 		$fechaAfiliacion = $socio->fecha_antiguedad->diffForHumans();
 
-		$imagen = $socio->avatar;
-		if(!empty($imagen)) {
-			$imagen = sprintf("storage/asociados/%s", $imagen);
-		}
-		else {
-			$imagen = "storage/asociados/avatar-160x160.png";
-		}
+		$imagen = $socio->obtenerAvatar();
+		$imagen = sprintf("storage/asociados/%s", $imagen);
 		$imagen = asset($imagen);
 	@endphp
 	

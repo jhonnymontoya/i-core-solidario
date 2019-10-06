@@ -109,7 +109,7 @@
 								<div class="card card-{{ $color }} card-outline">
 									<div class="card-body box-profile">
 										<div class="text-center">
-											<img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/asociados/' . (empty($socio->socio->avatar)?'avatar-160x160.png':$socio->socio->avatar) ) }}" alt="{{ $socio->nombre_corto }}" />
+											<img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/asociados/' . $socio->socio->obtenerAvatar()) }}" alt="{{ $socio->nombre_corto }}" />
 										</div>
 										<h3 class="profile-username text-center">{{ $socio->primer_nombre . ' ' . $socio->segundo_nombre }}</h3>
 										<p class="text-muted text-center">{{ $socio->primer_apellido . ' ' . $socio->segundo_apellido }}</p>

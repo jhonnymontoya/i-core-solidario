@@ -260,6 +260,23 @@ class Socio extends Model
 		foreach($creditos as $credito)$totalCreditos += $credito->saldoObligacion($fechaConsulta);
 		return $totalCreditos;
 	}
+
+	public function obtenerAvatar() {
+		$avatar = "avatarMale.png";
+
+		if(strlen($this->avatar) > 0) {
+			$avatar = $this->avatar;
+		}
+		else {
+			$sexo = $this->tercero->sexo;
+			if($sexo) {
+				if($sexo->codigo == 2) {
+					$avatar = "avatarFemale.png";
+				}
+			}
+		}
+		return $avatar;
+	}
 	 
 	/**
 	 * Relaciones Uno a Uno

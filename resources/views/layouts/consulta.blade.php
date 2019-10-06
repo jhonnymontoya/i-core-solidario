@@ -43,7 +43,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-	<body class="sidebar-mini layout-fixed {{ Auth::getUser()->ui_configuracion }}">
+	<body class="sidebar-mini layout-fixed">
 
 		<div class="wrapper">
 			{{-- Header --}}
@@ -72,7 +72,7 @@
 				<section class="sidebar">
 					<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 						<div class="image">
-							<img src="{{ asset('storage/asociados/' . (empty(Auth::user()->socios[0]->avatar)?'avatar-160x160.png':Auth::user()->socios[0]->avatar) ) }}" class="img-circle elevation-2" alt="{{ Auth::user()->socios[0]->tercero->nombre_corto }}">
+							<img src="{{ asset('storage/asociados/' . Auth::user()->socios[0]->obtenerAvatar()) }}" class="img-circle elevation-2" alt="{{ Auth::user()->socios[0]->tercero->nombre_corto }}">
 						</div>
 						<div class="info">
 							<a href="{{ url('consulta/perfil') }}" class="d-block">{{ Auth::user()->socios[0]->tercero->nombre_corto }}</a>

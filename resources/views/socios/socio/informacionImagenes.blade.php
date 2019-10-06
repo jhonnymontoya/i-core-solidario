@@ -138,7 +138,7 @@
 		height: 250px;
 	}
 	#imagen .cropit-preview-image-container{
-		background-image: url('{{ asset('storage/avatars/avatar-160x160.png') }}');
+		background-image: url('{{ asset('storage/asociados/' . $socio->obtenerAvatar()) }}');
 		background-size: cover;
 		border-radius: 50%;
 	}
@@ -165,7 +165,7 @@
 	$(function(){
 		$imageCropper = $('#imagen #image-cropper').cropit();
 		@if(!empty($socio->avatar))
-		$imageCropper.cropit('imageSrc', '{{ asset('storage/asociados/' . $socio->avatar) }}');
+		$imageCropper.cropit('imageSrc', '{{ asset('storage/asociados/' . $socio->obtenerAvatar()) }}');
 		@endif
 		$('#imagen  .select-image-btn').click(function(event) {
 			event.preventDefault();

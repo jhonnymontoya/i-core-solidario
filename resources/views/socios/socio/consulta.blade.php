@@ -268,7 +268,7 @@
 							</div>
 							<div class="col-md-2">
 								<div class="widget-user-image">
-									<img class="profile-user-img img-responsive img-circle" src="{{ asset('storage/asociados/' . (empty($socio->avatar)?'avatar-160x160.png':$socio->avatar) ) }}" alt="{{ $socio->nombre_corto }}" />
+									<img class="profile-user-img img-responsive img-circle" src="{{ asset('storage/asociados/' . $socio->obtenerAvatar()) }}" alt="{{ $socio->nombre_corto }}" />
 								</div>
 							</div>
 						</div>

@@ -119,7 +119,7 @@
 		height: 250px;
 	}
 	.cropit-preview-image-container{
-		background-image: url('{{ asset('storage/asociados/' . (empty($socio->avatar)?'avatar-160x160.png':$socio->avatar) ) }}');
+		background-image: url('{{ asset('storage/asociados/' . $socio->obtenerAvatar()) }}');
 		background-size: cover;
 		border-radius: 50%;
 		border: 1px solid #adb5bd;
@@ -133,7 +133,7 @@
 		$("input[name='identificacion']").enfocar();
 		$imageCropper = $('#image-cropper').cropit();
 		@if(!empty($usuario->avatar))
-		$imageCropper.cropit('imageSrc', '{{ asset('storage/avatars/' . $usuario->avatar) }}');
+		$imageCropper.cropit('imageSrc', '{{ asset('storage/avatars/' . $socio->obtenerAvatar()) }}');
 		@endif
 		$('.select-image-btn').click(function(event) {
 			event.preventDefault();

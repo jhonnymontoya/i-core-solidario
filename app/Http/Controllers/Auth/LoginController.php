@@ -187,10 +187,8 @@ class LoginController extends Controller
 
 		if($tipoUsuario == LoginController::SOCIO) {
 			$usuario = UsuarioWeb::activo()->whereUsuario($usuario)->first();
-			$usuario = $usuario->socios->first();
-			if($usuario && strlen($usuario->avatar) > 0) {
-				$avatar = $usuario->avatar;
-			}
+			$socio = $usuario->socios->first();
+			$avatar = $socio->obtenerAvatar();
 		}
 
 		return sprintf("%s%s", $avatarPath, $avatar);
