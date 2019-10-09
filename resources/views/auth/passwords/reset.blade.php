@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="login-pic" data-tilt>
-	<img src="{{ asset(Session::get('realmAvatar')) }}">
+	<img src="{{ asset('img/logos/icore.png') }}">
 </div>
 <div class="login-form">
 	{!! Form::open(['url' => '/password/reset', 'method' => 'post', 'role' => 'form']) !!}

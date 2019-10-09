@@ -47,7 +47,7 @@
 							<ul class="users-list clearfix">
 								@foreach ($ultimosAfiliados as $afiliado)
 									<li>
-										<a class="users-list-name" href="{{ url('socio/consulta') }}?socio={{ $afiliado->id }}&fecha={{ date('d/m/Y') }}"><img class="img-circle" src="{{ asset('storage/asociados/' . $afiliado->obtenerAvatar()) }}" width="128" alt="{{ $afiliado->tercero->nombre_corto }}" /></a>
+										<a class="users-list-name" href="{{ url('socio/consulta') }}?socio={{ $afiliado->id }}&fecha={{ date('d/m/Y') }}"><img class="img-circle" src="{{ asset('storage/asociados/' . $afiliado->obtenerAvatar()) }}" alt="{{ $afiliado->tercero->nombre_corto }}"></a>
 										<a class="users-list-name" href="{{ url('socio/consulta') }}?socio={{ $afiliado->id }}&fecha={{ date('d/m/Y') }}">{{ title_case($afiliado->tercero->primer_nombre) }}</a>
 										<span class="users-list-date">{{ $afiliado->fecha_afiliacion->diffForHumans() }}</span>
 									</li>
