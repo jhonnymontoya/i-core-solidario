@@ -35,6 +35,12 @@ class PasswordUpdated extends Mailable
 
 		$titulo = "Estimado " . $tercero->nombre_corto;
 		$subject = "Se ha actualizado su información de perfil";
+
+		$this->withSwiftMessage(function($message) {
+			$message->getHeaders()
+				->addTextHeader('X-Mailgun-Tag', 'FuncionarioPassActualizado');
+		});
+
 		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $this->getEntidad()->terceroEntidad->sigla)
 						->subject($subject)
 						->view('emails.consulta.passwordUpdated')

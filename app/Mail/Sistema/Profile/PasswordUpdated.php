@@ -31,6 +31,12 @@ class PasswordUpdated extends Mailable
 	public function build() {
 		$titulo = "Estimado " . $this->usuario->nombre_corto;
 		$subject = "Se ha actualizado su contraseña";
+
+		$this->withSwiftMessage(function($message) {
+			$message->getHeaders()
+				->addTextHeader('X-Mailgun-Tag', 'SocioPassActualizado');
+		});
+
 		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), env('MAIL_FROM_NAME', 'No responder'))
 						->subject($subject)
 						->view('emails.sistema.passwordUpdated')
