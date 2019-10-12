@@ -33,7 +33,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} {{ "Start Line Soft S.A.S" }}. Todos los derechos reservados.
+            © {{ date('Y') }} {{ "I-Core." }}. Todos los derechos reservados.
         @endcomponent
     @endslot
 @endcomponent

@@ -143,7 +143,7 @@
 			{{-- contenido --}}
 			@yield('content')
 			{{-- footer --}}
-			@include('layouts.ui.footer')
+			@include('layouts.uiConsulta.footer')
 		</div>
 
 		<script type="text/javascript" src="{{ asset('js/jLbqUZ.js') }}"></script>
