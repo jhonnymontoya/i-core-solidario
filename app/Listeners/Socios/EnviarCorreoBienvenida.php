@@ -31,7 +31,7 @@ class EnviarCorreoBienvenida implements ShouldQueue
 
 		$tercero = $socio->tercero;
 		$mail = null;
-		$contactos = $obj->tercero->contactos;
+		$contactos = $socio->tercero->contactos;
 		if($contactos){
 			foreach($contactos as $contacto) {
 				if($contacto->es_preferido) {

@@ -34,19 +34,21 @@ class SocioAfiliado extends Mailable
 	 */
 	public function build() {
 		$titulo = "Estimad" . (optional(optional($this->socio->tercero)->sexo)->codigo == 2 ? "a " : "o ") . $this->socio->tercero->nombre;
-		$subject = "Bienvenid" . (optional(optional($this->socio->tercero)->sexo)->codigo == 2 ? "a a " : "o a ") . $this->getEntidad()->terceroEntidad->sigla;
+		$entidad = $this->socio->tercero->entidad;
+		$sigla = $entidad->terceroEntidad->sigla;
+		$subject = "Bienvenid" . (optional(optional($this->socio->tercero)->sexo)->codigo == 2 ? "a a " : "o a ") . $sigla;
 
-		$this->withSwiftMessage(function($message) {
+		/*$this->withSwiftMessage(function($message) {
 			$message->getHeaders()
 				->addTextHeader('X-Mailgun-Tag', 'SocioAfiliado');
-		});
+		});*/
 
-		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $this->getEntidad()->terceroEntidad->sigla)
+		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $sigla)
 			->subject($subject)
 			->markdown('emails.socios.afiliado')
 			->withSocio($this->socio)
 			->withTercero($this->socio->tercero)
-			->withEntidad($this->getEntidad())
+			->withEntidad($entidad)
 			->withPassword($this->password)
 			->withTitulo($titulo);
 	}

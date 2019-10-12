@@ -16,7 +16,7 @@ class SocioAfiliado
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
 	public $socio;
-	public $passord;
+	public $password;
 	public $usuario;
 
 	/**
