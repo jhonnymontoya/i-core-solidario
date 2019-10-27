@@ -505,6 +505,10 @@ class SolicitudCreditoController extends Controller
 
 	public function desembolsarUpdate(SolicitudCredito $obj, DesembolsarSolicitudCreditoRequest $request) {
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
+		if($obj->estado_solicitud != 'APROBADO') {
+			Session::flash('error', 'No es posible desembolsar una solicitud de crédito con un estado diferente a APROBADO');
+			return redirect('solicitudCredito');
+		}
 		$this->actualizar($obj, $request);
 		$obj->fecha_desembolso = $request->fecha_desembolso;
 		$obj->estado_solicitud = 'APROBADO';
