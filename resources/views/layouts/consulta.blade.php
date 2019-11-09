@@ -22,7 +22,7 @@
 		<link rel="image_src" href="/img/logos/ICore_256x256.png"/>
 		<link rel="manifest" href="/manifest.json"/>
 		
-		<meta name="application-name" content="ERP para la administración de información para fondos de empleados - I-Core, un producto de Start Line Soft SAS">
+		<meta name="application-name" content="Moderno sistema para la gestión empresarial">
 		
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:site" value="@jhonny_montoya">
@@ -31,8 +31,8 @@
 		<meta property="og:site_name" content="I-Core" />
 		<meta property="og:image" content="{{ asset('/img/logos/ICore_256x256.png') }}">		
 		<meta property="og:title" content="I-Core" />
-		<meta property="og:description" content="ERP para la administración de información para fondos de empleados - I-Core, un producto de Start Line Soft SAS">
-		<meta name="description" content="ERP para la administración de información para fondos de empleados - I-Core, un producto de Start Line Soft SAS">
+		<meta property="og:description" content="Moderno sistema para la gestión empresarial">
+		<meta name="description" content="Moderno sistema para la gestión empresarial">
 
 		@stack('style')
 
