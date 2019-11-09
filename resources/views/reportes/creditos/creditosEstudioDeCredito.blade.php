@@ -344,12 +344,27 @@
 										$saldo = $respuesta[0]->saldo;
 										$total += $saldo * $modalidad->apalancamiento_cupo;
 										$subTotal += $saldo;
+										if($saldo == 0)continue;
 									@endphp
 									<tr>
 										<td>{{ $modalidad->nombre }}</td>
 										<td class="text-right">${{ number_format($saldo, 0) }}</td>
 										<td class="text-right">{{ number_format($modalidad->apalancamiento_cupo, 2) }}</td>
 										<td class="text-right">${{ number_format($saldo * $modalidad->apalancamiento_cupo, 0) }}</td>
+									</tr>
+								@endforeach
+								@foreach ($sdats as $sdat)
+									@php
+										$saldo = $sdat->saldo;
+										$total += $saldo * $sdat->apalancamiento_cupo;
+										$subTotal += $saldo;
+										if($saldo == 0)continue;
+									@endphp
+									<tr>
+										<td>{{ $sdat->nombre }}</td>
+										<td class="text-right">${{ number_format($saldo, 0) }}</td>
+										<td class="text-right">{{ number_format($sdat->apalancamiento_cupo, 2) }}</td>
+										<td class="text-right">${{ number_format($saldo * $sdat->apalancamiento_cupo, 0) }}</td>
 									</tr>
 								@endforeach
 								@if ($subTotal > 0)
@@ -366,6 +381,7 @@
 										$saldo = $credito->saldoObligacion('31/12/2100');
 										$total -= $saldo;
 										$subTotal += $saldo;
+										if($saldo == 0)continue;
 									@endphp
 									<tr>
 										<td>{{ str_limit($credito->numero_obligacion . ' - ' . $credito->modalidadCredito->nombre, 40) }}</td>

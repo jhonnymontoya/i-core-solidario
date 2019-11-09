@@ -1216,26 +1216,49 @@ class ReportesController extends Controller
 				'deducciones' => ConversionHelper::conversionValorPeriodicidad($socio->descuentos_nomina, $socio->periodicidad_descuentos_nomina, 'MENSUAL')
 			]);
 		}
-		$endeudamiento->push([
-			'concepto' => 'Cuota nuevo crédito',
-			'ingresos' => 0,
-			'deducciones' => ConversionHelper::conversionValorPeriodicidad($solicitud->valor_cuota, $solicitud->periodicidad, 'MENSUAL')
-		]);
+		if($solicitud->forma_pago == 'PRIMA') {
+			$endeudamiento->push([
+				'concepto' => 'Cuota nuevo crédito',
+				'ingresos' => 0,
+				'deducciones' => 0
+			]);
+		}
+		else {
+			$endeudamiento->push([
+				'concepto' => 'Cuota nuevo crédito',
+				'ingresos' => 0,
+				'deducciones' => ConversionHelper::conversionValorPeriodicidad($solicitud->valor_cuota, $solicitud->periodicidad, 'MENSUAL')
+			]);
+		}
 		$porcentajeMaximoEndeudamiento = ParametroInstitucional::entidadId($entidad->id)->codigo('CR003')->first();
 		$porcentajeMaximoEndeudamiento = $porcentajeMaximoEndeudamiento ? $porcentajeMaximoEndeudamiento->valor : 100;
 
+		//SDATs
+		$sql = "SELECT ts.nombre, SUM(ms.valor) AS valor, ts.apalancamiento_cupo FROM ahorros.movimientos_sdat AS ms INNER JOIN ahorros.sdats AS s ON ms.sdat_id = s.id INNER JOIN ahorros.tipos_sdat AS ts ON s.tipo_sdat_id = ts.id WHERE s.socio_id = ? AND	general.fn_fecha_sin_hora(ms.fecha_movimiento) <= ? GROUP BY ts.nombre, ts.apalancamiento_cupo;";
+		$sdats = DB::select($sql, [$socio->id, Carbon::createFromFormat('d/m/Y', '31/12/2100')]);
+		$dataSDAT = collect();
+		foreach($sdats as $sdat) {
+			$sdatObj = (object)[
+				"nombre"				=> $sdat->nombre,
+				"saldo"					=> floatval($sdat->valor),
+				"apalancamiento_cupo"	=> floatval($sdat->apalancamiento_cupo)
+			];
+			$dataSDAT->push($sdatObj);
+		}
+
 		return view("reportes.creditos.creditosEstudioDeCredito")
-					->withEntidad($entidad)
-					->withSolicitud($solicitud)
-					->withTer($tercero)
-					->withSocio($socio)
-					->withCreditosRecogidos($creditosRecogidos)
-					->withCodeudores($codeudores)
-					->withModalidades($modalidades)
-					->withCreditos($creditos)
-					->withEndeudamientos($endeudamiento)
-					->withPorcentajeMaximoEndeudamiento($porcentajeMaximoEndeudamiento)
-					->render();
+			->withEntidad($entidad)
+			->withSolicitud($solicitud)
+			->withTer($tercero)
+			->withSocio($socio)
+			->withCreditosRecogidos($creditosRecogidos)
+			->withCodeudores($codeudores)
+			->withModalidades($modalidades)
+			->withCreditos($creditos)
+			->withEndeudamientos($endeudamiento)
+			->withPorcentajeMaximoEndeudamiento($porcentajeMaximoEndeudamiento)
+			->withSdats($dataSDAT)
+			->render();
 	}
 
 	/**
