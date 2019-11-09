@@ -60,6 +60,7 @@
 						</div>
 					</div>
 					<br>
+					<h3>Modalidades de ahorros</h3>
 					@if(!$modalidades->total())
 						<p>
 							<div class="row">
@@ -97,6 +98,40 @@
 							{!! $modalidades->appends(Request::only('name'))->render() !!}
 						</div>
 					</div>
+					<br>
+					<h3>SDATs</h3>
+					@if(!$sdats->total())
+						<p>
+							<div class="row">
+								<div class="col-md-12">
+									No se encontraron SDATs
+								</div>
+							</div>
+						</p>
+					@else
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Código</th>
+										<th>Nombre</th>
+										<th>Veces apalancamiento</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($sdats as $sdat)
+										<tr>
+											<td>{{ $sdat->codigo }}</td>
+											<td>{{ $sdat->nombre }}</td>
+											<td>{{ $sdat->apalancamiento_cupo }}</td>
+											<td><a class="btn btn-outline-info btn-sm" href="{{ route('cupoCredito.get.edit.sdat', $sdat) }}"><i class="fa fa-edit"></i></a></td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					@endif
 				</div>
 				<div class="card-footer">
 					<span class="badge badge-pill badge-{{ $modalidades->total()?'primary':'danger' }}">

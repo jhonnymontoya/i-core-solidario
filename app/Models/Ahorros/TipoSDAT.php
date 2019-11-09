@@ -31,6 +31,7 @@ class TipoSDAT extends Model
 		'capital_cuif_id',
 		'intereses_cuif_id',
 		'intereses_por_pagar_cuif_id',
+		'apalancamiento_cupo', //Este campo se alimenta por /cupoCredito
 		'esta_activo',
 	];
 
@@ -51,7 +52,8 @@ class TipoSDAT extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'esta_activo' => 'boolean'
+		'esta_activo'			=> 'boolean',
+		'apalancamiento_cupo'	=> 'float'
 	];
 
 	/**
@@ -83,6 +85,11 @@ class TipoSDAT extends Model
 	public function scopeEntidadId($query, $value = 0) {
 		$value = empty($value) ? $this->getEntidad()->id : $value;
 		$query->whereEntidadId($value);
+	}
+
+	public function scopeActivo($query, $value = true) {
+		$value = empty($value) == true ? true : $value;
+		$query->whereEstaActivo($value);
 	}
 	
 	/**
