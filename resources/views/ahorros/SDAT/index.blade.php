@@ -48,13 +48,13 @@
 					<h3 class="card-title">SDAT</h3>
 				</div>
 				<div class="card-body">
-					{!! Form::model(Request::only('name'), ['url' => 'SDAT', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
+					{!! Form::model(Request::only('name', 'estado'), ['url' => 'SDAT', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 					<div class="row">
 						<div class="col-md-8 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off', 'autofocus']); !!}
 						</div>
 						<div class="col-md-3 col-sm-12">
-							{!! Form::select('estado', [true => 'Activa', false => 'Inactiva'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
+							{!! Form::select('estado', $estados, null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
@@ -160,7 +160,7 @@
 					@endif
 					<div class="row">
 						<div class="col-md-12 text-center">
-							{!! $sdats->appends(Request::only('name'))->render() !!}
+							{!! $sdats->appends(Request::only('name', 'estado'))->render() !!}
 						</div>
 					</div>			
 				</div>

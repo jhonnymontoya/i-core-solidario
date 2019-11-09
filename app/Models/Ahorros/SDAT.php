@@ -100,6 +100,20 @@ class SDAT extends Model
 		$value = empty($value) ? $this->getEntidad()->id : $value;
 		$query->whereEntidadId($value);
 	}
+
+	public function scopeSearch($query, $value) {
+		if(!empty($value)) {
+			return $query->whereHas('socio.tercero', function($q) use($value){
+				$q->search($value);
+			});
+		}
+	}
+
+	public function scopeEstado($query, $value) {
+		if(!empty($value)) {
+			return $query->where('estado', $value);
+		}
+	}
 	
 	/**
 	 * Funciones

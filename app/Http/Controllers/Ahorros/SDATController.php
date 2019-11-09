@@ -41,10 +41,22 @@ class SDATController extends Controller
 	public function index(Request $request) {
 		$this->log("Ingresó a SDAT");
 		$SDATs = SDAT::entidadId()
+			->search($request->name)
+			->estado($request->estado)
 			->orderBy('estado', 'desc')
 			->orderBy('fecha_constitucion', 'desc')
 			->paginate();
-		return view('ahorros.SDAT.index')->withSdats($SDATs);
+		$estados = [
+			'SOLICITUD' => 'Solicitud',
+			'CONSTITUIDO' => 'Constituido',
+			'RENOVADO' => 'Renovado',
+			'PRORROGADO' => 'Prorrogado',
+			'SALDADO' => 'Saldado',
+			'ANULADO' => 'Anulado'
+		];
+		return view('ahorros.SDAT.index')
+			->withSdats($SDATs)
+			->withEstados($estados);
 	}
 
 	public function create() {
