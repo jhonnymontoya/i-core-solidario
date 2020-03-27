@@ -42,16 +42,16 @@
 					<h3 class="card-title">Tipos de indicadores</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name'), ['url' => '/tipoIndicador', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => '/tipoIndicador', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-10 col-sm-12">
+						<div class="col-md-11 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$tiposIndicadores->total())
 						<p>
 							<div class="row">
@@ -84,7 +84,7 @@
 												case 'VALOR':
 													$variable = '$';
 													break;
-												
+
 												default:
 													$variable = '%';
 													break;
@@ -94,20 +94,21 @@
 											<td>{{ $tipoIndicador->codigo }}</td>
 											<td>{{ $tipoIndicador->periodicidad }}</td>
 											<td><span class="badge badge-pill badge-primary">{{ $variable }}</span></td>
-											<td>											
+											<td>
 												@if($tipoIndicador->esta_actualizado)
 													<span class="badge badge-pill badge-success">
-														actualizado
+														Actualizado
 													</span>
 												@else
-													<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}">
+													{{--<a href="{{ route('indicadorCreate', $tipoIndicador->id) }}">--}}
 														<span class="badge badge-pill badge-warning">
-															por actualizar
+															Por actualizar
 														</span>
-													</a>
+													{{--</a>--}}
 												@endif
 											</td>
-											<td><a class="btn btn-outline-info btn-sm" href="{{ route('tipoIndicadorEdit', $tipoIndicador) }}"><i class="fa fa-edit"></i></a></td>
+											{{--<td><a class="btn btn-outline-info btn-sm" href="{{ route('tipoIndicadorEdit', $tipoIndicador) }}"><i class="fa fa-edit"></i></a></td>--}}
+											<td><a class="btn btn-outline-info btn-sm" href="#"><i class="fa fa-edit"></i></a></td>
 										</tr>
 									@endforeach
 								</tbody>

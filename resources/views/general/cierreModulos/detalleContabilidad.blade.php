@@ -106,7 +106,7 @@
 					@endif
 					</ul>
 					<br>
-					
+
 					<div class="alert alert-info"><h4><i class="fa fa-info"></i> Alertas tipo C</h4></div>
 					<ul>
 					@if (count($comprobantesDescuadrados['C']))
@@ -133,7 +133,7 @@
 					</ul>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::model($periodo, ['route' => ['cierreModulosContabilidadProcesar', $periodo], 'method' => 'put', 'role' => 'form']) !!}
 					{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-outline-danger pull-right">Volver</a>

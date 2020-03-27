@@ -36,101 +36,78 @@
 				{!! Form::model($parametro, ['url' => ['parametrosInstitucionales', $parametro], 'method' => 'PUT', 'role' => 'form']) !!}
 				<div class="card-header with-border">
 					<h3 class="card-title">Editar parametro institucional</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('modulo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('modulo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código
-								</label>
-								{!! Form::text('modulo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'readonly']) !!}
-								@if ($errors->has('modulo'))
-									<span class="help-block">{{ $errors->first('modulo') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('modulo') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Código</label>
+							    {!! Form::text('modulo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'readonly']) !!}
+							    @if ($errors->has('modulo'))
+							        <div class="invalid-feedback">{{ $errors->first('modulo') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('descripcion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('descripcion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Descripción
-								</label>
-								{!! Form::text('descripcion', null, ['class' => 'form-control', 'autocomplete' => 'off', 'readonly']) !!}
-								@if ($errors->has('descripcion'))
-									<span class="help-block">{{ $errors->first('descripcion') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('descripcion') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Descripción</label>
+							    {!! Form::text('descripcion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'readonly']) !!}
+							    @if ($errors->has('descripcion'))
+							        <div class="invalid-feedback">{{ $errors->first('descripcion') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						@if($parametro->tipo_parametro == 'VALOR' || $parametro->tipo_parametro == 'VALOR_INDICADOR')
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('valor'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									valor
-								</label>
-								{!! Form::text('valor', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Valor']) !!}
-								@if ($errors->has('valor'))
-									<span class="help-block">{{ $errors->first('valor') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('valor') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Valor</label>
+							    {!! Form::text('valor', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Valor']) !!}
+							    @if ($errors->has('valor'))
+							        <div class="invalid-feedback">{{ $errors->first('valor') }}</div>
+							    @endif
 							</div>
 						</div>
 						@endif
 						@if($parametro->tipo_parametro == 'INDICADOR' || $parametro->tipo_parametro == 'VALOR_INDICADOR')
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('indicador')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('indicador'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Indicador
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<?php
-										$indicador = $parametro->indicador;
-										if(old('indicador') == '0')
-										{
-											$indicador = false;
-										}
-										elseif(old('indicador') == '1')
-										{
-											$indicador = true;
-										}
-									?>
-									<label class="btn btn-outline-primary {{ $indicador ? 'active' : '' }}">
-										{!! Form::radio('indicador', '1', $indicador ? true : false) !!}Sí
-									</label>
-									<label class="btn btn-outline-primary {{ !$indicador ? 'active' : '' }}">
-										{!! Form::radio('indicador', '0', !$indicador ? true : false) !!}No
-									</label>
-								</div>
-								@if ($errors->has('indicador'))
-									<span class="help-block">{{ $errors->first('indicador') }}</span>
-								@endif
+							<div class="form-group">
+							    <label class="control-label">Indicador</label>
+							    <div>
+							        @php
+							            $valid = $errors->has('indicador') ? 'is-invalid' : '';
+							            $indicador = empty(old('indicador')) ? $parametro->indicador : old('indicador');
+							        @endphp
+							        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							            <label class="btn btn-primary {{ $indicador ? 'active' : '' }}">
+							                {!! Form::radio('indicador', 1, ($indicador ? true : false), ['class' => [$valid]]) !!}Sí
+							            </label>
+							            <label class="btn btn-danger {{ !$indicador ? 'active' : '' }}">
+							                {!! Form::radio('indicador', 0, (!$indicador ? true : false ), ['class' => []]) !!}No
+							            </label>
+							        </div>
+							        @if ($errors->has('indicador'))
+							            <div class="invalid-feedback">{{ $errors->first('indicador') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 						@endif
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('parametrosInstitucionales') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\General;
 
+use Route;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Route;
-use Validator;
 use App\Models\General\ParametroInstitucional;
 use App\Http\Requests\General\ParametroInstitucional\EditParametroInstitucionalRequest;
 
@@ -19,8 +19,27 @@ class ParametroInstitucionalController extends Controller
 	}
 
 	public function index(Request $request) {
-		$parametros = ParametroInstitucional::entidadId()->paginate();
-		return view('general.parametroInstitucional.index')->withParametros($parametros);
+		$parametros = ParametroInstitucional::entidadId()
+			->modulo($request->modulo)
+			->search($request->name)
+			->paginate();
+
+		$modulos = [
+			"AHORROS" => "Ahorros",
+		    "CRÉDITOS" => "Créditos",
+		    "CONTABILIDAD" => "Contabilidad",
+		    "CONTROL Y VIGILANCIA" => "Control y Vigilancia",
+		    "CONVENIOS" => "Convenios",
+		    "GENERAL" => "General",
+		    "IMPUESTOS" => "Impuestos",
+		    "NÓMINA" => "Nómina",
+		    "RECAUDOS MASIVOS" => "Recaudos Masivos",
+		    "SOCIOS" => "Socios",
+		    "TESORERÍA" => "Tesorería"
+		];
+		return view('general.parametroInstitucional.index')
+			->withParametros($parametros)
+			->withModulos($modulos);
 	}
 
 	public function edit(ParametroInstitucional $obj) {
@@ -44,7 +63,7 @@ class ParametroInstitucionalController extends Controller
 	}
 
 	public static function routes() {
-		Route::get('parametrosInstitucionales', 'General\ParametroInstitucionalController@index');		
+		Route::get('parametrosInstitucionales', 'General\ParametroInstitucionalController@index');
 		Route::get('parametrosInstitucionales/{obj}/edit', 'General\ParametroInstitucionalController@edit')->name('parametroInstitucionalEdit');
 		Route::put('parametrosInstitucionales/{obj}', 'General\ParametroInstitucionalController@update');
 	}

@@ -59,11 +59,11 @@ class ParametroInstitucional extends Model
 	public function getValorAttribute() {
 		return floatval($this->attributes['valor']);
 	}
-	
+
 	/**
 	 * Setters Personalizados
 	 */
-	
+
 	/**
 	 * Scopes
 	 */
@@ -77,22 +77,28 @@ class ParametroInstitucional extends Model
 		if(!empty($value)) {
 			$query->where('codigo', $value);
 		}
-	}	
+	}
+
+	public function scopeModulo($query, $value) {
+		if(!empty($value)) {
+			$query->where('modulo', $value);
+		}
+	}
 
 	public function scopeSearch($query, $value) {
 		if(!empty($value)) {
 			$query->where('codigo', 'like', '%' . $value . '%')->orWhere('descripcion', 'like', '%' . $value . '%');
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
-	 
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -104,7 +110,7 @@ class ParametroInstitucional extends Model
 	public function entidad() {
 		return $this->belongsTo(Entidad::class, 'entidad_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */

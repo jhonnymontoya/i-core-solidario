@@ -107,7 +107,7 @@ class TerceroController extends Controller
 
 	/**
 	 * Muestra el formulario de edición de tercero según el tipo de tercero
-	 * @param Tercero $obj 
+	 * @param Tercero $obj
 	 * @return view
 	 */
 	public function edit(Tercero $obj) {
@@ -143,7 +143,7 @@ class TerceroController extends Controller
 		$obj->tipo_identificacion_id = $request->tipo_identificacion_id;
 		$obj->numero_identificacion = $request->numero_identificacion;
 		$obj->actividad_economica_id = $request->actividad_economica_id;
-		
+
 		if($obj->tipo_tercero == 'NATURAL') {
 			$obj->primer_nombre = $request->primer_nombre;
 			$obj->segundo_nombre = $request->segundo_nombre;

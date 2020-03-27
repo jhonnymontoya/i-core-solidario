@@ -33,7 +33,7 @@
 		@endif
 		<div class="container-fluid">
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
-				{!! Form::open(['url' => ['indicador', $tipo_indicador], 'method' => 'post', 'role' => 'form']) !!}
+				{!! Form::open(['url' => ['indicador', $tipoIndicador], 'method' => 'post', 'role' => 'form']) !!}
 				<div class="card-header with-border">
 					<h3 class="card-title">Actualizar indicador</h3>
 				</div>
@@ -42,26 +42,26 @@
 						<div class="col-md-4">
 							<dl class="dl-horizontal">
 								<dt>Código</dt>
-								<dd>{{ $tipo_indicador->codigo }}</dd>
+								<dd>{{ $tipoIndicador->codigo }}</dd>
 							</dl>
 						</div>
 						<div class="col-md-4">
 							<dl class="dl-horizontal">
 								<dt>Periodicidad</dt>
-								<dd>{{ $tipo_indicador->periodicidad }}</dd>
+								<dd>{{ $tipoIndicador->periodicidad }}</dd>
 							</dl>
 						</div>
 						<div class="col-md-4">
 							<dl class="dl-horizontal">
 								<?php
 									$variable = "";
-									switch ($tipo_indicador->variable) {
+									switch ($tipoIndicador->variable) {
 										case 'PORCENTAJE':
 											$variable = "%";
 											break;
 										case 'VALOR':
 											$variable = "$";
-											break;										
+											break;
 										default:
 											$variable = "%";
 											break;
@@ -74,77 +74,77 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<p><em>{{ $tipo_indicador->descripcion }}</em></p>
+							<p><em>{{ $tipoIndicador->descripcion }}</em></p>
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_inicio')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_inicio'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de inicio
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									@if($tipo_indicador->indicadores->count())
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('fecha_inicio') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Fecha de inicio</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+									@if($tipoIndicador->indicadores->count())
 										{!! Form::text('fecha_inicio', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
 									@else
-										{!! Form::text('fecha_inicio', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
+										{!! Form::text('fecha_inicio', date('d/m/Y'), ['class' => ['', 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
 									@endif
-								</div>
-								@if ($errors->has('fecha_inicio'))
-									<span class="help-block">{{ $errors->first('fecha_inicio') }}</span>
-								@endif
+							        @if ($errors->has('fecha_inicio'))
+							            <div class="invalid-feedback">{{ $errors->first('fecha_inicio') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_fin')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_fin'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de inicio
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									{!! Form::text('fecha_fin', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
-								</div>
-								@if ($errors->has('fecha_fin'))
-									<span class="help-block">{{ $errors->first('fecha_fin') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('fecha_fin') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Fecha fin</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+							        {!! Form::text('fecha_fin', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
+							        @if ($errors->has('fecha_fin'))
+							            <div class="invalid-feedback">{{ $errors->first('fecha_fin') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('valor'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Valor
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">{{ $variable }}</div>
-									{!! Form::text('valor', null, ['class' => 'form-control pull-right', 'placeholder' => $variable, 'autocomplete' => 'off', 'autofocus']) !!}
-								</div>
-								@if ($errors->has('valor'))
-									<span class="help-block">{{ $errors->first('valor') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('valor') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Valor</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">{{ $variable }}</span>
+							        </div>
+							        {!! Form::text('valor', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => $variable]) !!}
+							        @if ($errors->has('valor'))
+							            <div class="invalid-feedback">{{ $errors->first('valor') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Actualizar', ['class' => 'btn btn-outline-success']) !!}
-					<a href="{{ url('indicador?indicador=' . $tipo_indicador->id) }}" class="btn btn-outline-danger pull-right">Cancelar</a>
+					<a href="{{ url('indicador?indicador=' . $tipoIndicador->id) }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 				{!! Form::close() !!}
 			</div>
@@ -163,7 +163,7 @@
 		$("input[name='fecha_inicio']").on('keyup keypress blur change focus', function(e){
 			event.preventDefault();
 			$.ajax({
-					url: "{{ route('indicadorPeriodoGet', $tipo_indicador->id) }}",
+					url: "{{ route('indicadorPeriodoGet', $tipoIndicador->id) }}",
 					method: 'GET',
 					dataType: 'json',
 					data: {"fecha_inicio": $(this).val()}
@@ -176,7 +176,7 @@
 		@if($indicador != null)
 			$("input[name='fecha_inicio']").val("{{ $indicador->fecha_fin->addDay() }}");
 			$.ajax({
-				url: "{{ route('indicadorPeriodoGet', $tipo_indicador->id) }}",
+				url: "{{ route('indicadorPeriodoGet', $tipoIndicador->id) }}",
 				method: 'GET',
 				dataType: 'json',
 				data: {"fecha_inicio": $("input[name='fecha_inicio']").val()}

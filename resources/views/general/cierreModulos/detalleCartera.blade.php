@@ -100,7 +100,7 @@
 					@endif
 					</ul>
 					<br>
-					
+
 					<div class="alert alert-info"><h4><i class="fa fa-info"></i> Alertas tipo C</h4></div>
 					<ul>
 					@if (count($carteraDiasVencidos['C']))
@@ -121,7 +121,7 @@
 					</ul>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::model($periodo, ['route' => ['cierreModulosCarteraProcesar', $periodo], 'method' => 'put', 'role' => 'form', 'id' => 'frmCierreCartera']) !!}
 					{!! Form::submit('Procesar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ route('cierreModulos.cartera.precierre', $periodo->id) }}" target="_blank" class="btn btn-outline-primary">Precierre</a>

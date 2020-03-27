@@ -37,26 +37,19 @@
 					<h3 class="card-title">Indicadores</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('indicador'), ['url' => 'indicador', 'method' => 'GET', 'role' => 'search']) !!}
+					<label class="col-sm-4 control-label">
+						Seleccione tipo de indicador
+					</label>
 					<div class="row">
-						{!! Form::model(Request::only('indicador'), ['url' => 'indicador', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
 						<div class="col-md-11">
-							<div class="form-group">
-								<label class="col-sm-4 control-label">
-									@if ($errors->has('indicador'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Seleccione tipo de indicador
-								</label>
-								<div class="col-sm-8">
-									{!! Form::select('indicador', $tiposIndicadores, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione tipo de indicador']) !!}
-								</div>
-							</div>
+							{!! Form::select('indicador', $tiposIndicadores, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione tipo de indicador']) !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if($tipoIndicador)
 						<hr>
 						<div class="row">
@@ -82,7 +75,7 @@
 												break;
 											case 'VALOR':
 												$variable = "$";
-												break;										
+												break;
 											default:
 												$variable = "%";
 												break;

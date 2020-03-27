@@ -55,12 +55,12 @@
 						@foreach($periodos as $periodo)
 							<div class="row">
 								<div class="col-md-12">
-									<div class="info-card">
-										<div class="info-card-content">
-											<span class="info-card-number">
+									<div class="info-box">
+										<div class="info-box-content">
+											<span class="info-box-number">
 												Periodo {{ $periodo->mes }} - {{ $periodo->anio }}
 											</span>
-											<span class="info-card-text">
+											<span class="info-box-text">
 												<div class="row">
 													@php
 														$contador = 1;
@@ -93,39 +93,39 @@
 																	break;
 															}
 														@endphp
-														@if (!$cerrado)
-															<a href="{{ $link }}">
-														@endif
-															<div class="col-md-2">
-																<div class="small-card bg-{{ $cerrado ? 'green' : 'red' }}">
-																	<div class="inner">
-																		<h3>{{ $contador++ }}</h3>
-																		<p>{{ $modulo->nombre }}</p>
-																	</div>
-																	<div class="icon">
-																		<i class="fa {{ $modulo->icono }}"></i>
-																	</div>
+														<div class="col-md-2">
+															<div class="small-box bg-{{ $cerrado ? 'green' : 'red' }}">
+																<div class="inner">
+																	<h3>{{ $contador++ }}</h3>
+																	<p>{{ $modulo->nombre }}</p>
 																</div>
+																<div class="icon">
+																	<i class="fas {{ $modulo->icono }}"></i>
+																</div>
+																@if (!$cerrado)
+																	<a href="{{ $link }}" class="small-box-footer">Cerrar <i class="fas fa-arrow-circle-right"></i></a>
+																@else
+																	<span class="small-box-footer">&nbsp;</span>
+																@endif
 															</div>
-														@if (!$cerrado)
-															</a>
-														@endif
+														</div>
 													@endforeach
 												</div>
 											</span>
 
-											<span class="info-card-text">
+											<span class="info-box-text">
 												@php
 													$porcentajeProgreso = number_format($periodo->porcentajeProgreso(), 0);
 												@endphp
-												<div class="progress">
-												<div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="{{ $porcentajeProgreso }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $porcentajeProgreso }}%">
-												<span class="">Progreso {{ $porcentajeProgreso }}%</span>
-												</div>
+												<div class="progress-group">
+													Progreso
+													<span class="float-right"><b>{{ $porcentajeProgreso }}</b>/100</span>
+													<div class="progress progress-sm">
+														<div class="progress-bar bg-primary" style="width: {{ $porcentajeProgreso }}%"></div>
+													</div>
 												</div>
 											</span>
-
-											<span class="info-card-text">
+											<span class="info-box-text">
 												<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-outline-success btn-block btn-sm btn-flat pull-right">Ir a resumen de módulos</a>
 											</span>
 										</div>
@@ -134,9 +134,10 @@
 							</div>
 						@endforeach
 					@endif
+					<br>
 					<div class="row">
 						<div class="col-md-12 text-center">
-							{!! $periodos->appends(Request::only('name', 'tipo', 'inicio', 'fin', 'estado'))->render() !!}
+							{!! $periodos->render() !!}
 						</div>
 					</div>
 				</div>

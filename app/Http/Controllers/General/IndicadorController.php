@@ -151,7 +151,7 @@ class IndicadorController extends Controller
 				break;
 			case 'DIARIO':
 				$fechaFin = $fechaInicio;
-				break;			
+				break;
 			default:
 				$fechaFin = $fechaInicio;
 				break;

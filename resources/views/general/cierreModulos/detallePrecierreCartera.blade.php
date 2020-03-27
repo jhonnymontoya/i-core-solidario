@@ -168,7 +168,7 @@
 					</div>
 				</div>
 				{{-- FIN card BODY --}}
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					<a href="{{ route('cierreModulosDetalle', $periodo->id) }}" class="btn btn-outline-danger pull-right">Volver</a>
 				</div>
 			</div>

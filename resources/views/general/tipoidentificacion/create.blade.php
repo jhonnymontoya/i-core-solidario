@@ -36,72 +36,62 @@
 				{!! Form::open(['url' => 'tipoIdentificacion', 'method' => 'post', 'role' => 'form']) !!}
 				<div class="card-header with-border">
 					<h3 class="card-title">Crear nuevo tipo de identificación</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('aplicacion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('aplicacion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo de persona
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-outline-primary active">
-										{!! Form::radio('aplicacion', 'NATURAL', true) !!}Natural
-									</label>
-									<label class="btn btn-outline-primary">
-										{!! Form::radio('aplicacion', 'JURÍDICA', false) !!}Jurídica
-									</label>
-								</div>
-								@if ($errors->has('aplicacion'))
-									<span class="help-block">{{ $errors->first('aplicacion') }}</span>
-								@endif
+							<div class="form-group">
+							    <label class="control-label">Tipo de persona</label>
+							    <div>
+							        @php
+							            $valid = $errors->has('aplicacion') ? 'is-invalid' : '';
+							            $variable = empty(old('aplicacion')) ? 'NATURAL' : old('aplicacion');
+							        @endphp
+							        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							            <label class="btn btn-primary {{ $variable ? 'active' : '' }}">
+							                {!! Form::radio('aplicacion', 'NATURAL', ($variable ? true : false), ['class' => [$valid]]) !!}Natural
+							            </label>
+							            <label class="btn btn-primary {{ !$variable ? 'active' : '' }}">
+							                {!! Form::radio('aplicacion', 'JURÍDICA', (!$variable ? true : false ), ['class' => []]) !!}Jurídica
+							            </label>
+							        </div>
+							        @if ($errors->has('aplicacion'))
+							            <div class="invalid-feedback">{{ $errors->first('aplicacion') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('codigo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('codigo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Código
-								</label>
-								{!! Form::text('codigo', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'CC, TI, CE, NIT', 'required']) !!}
-								@if ($errors->has('codigo'))
-									<span class="help-block">{{ $errors->first('codigo') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('codigo') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Código</label>
+							    {!! Form::text('codigo', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'CC, CE, NIT, TI', 'autofocus']) !!}
+							    @if ($errors->has('codigo'))
+							        <div class="invalid-feedback">{{ $errors->first('codigo') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('nombre')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('nombre'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Nombre
-								</label>
-								{!! Form::text('nombre', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Nombre del tipo de identificación', 'required']) !!}
-								@if ($errors->has('nombre'))
-									<span class="help-block">{{ $errors->first('nombre') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('nombre') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Nombre</label>
+							    {!! Form::text('nombre', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Nombre del tipo de identificación', 'autofocus']) !!}
+							    @if ($errors->has('nombre'))
+							        <div class="invalid-feedback">{{ $errors->first('nombre') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('tipoIdentificacion') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

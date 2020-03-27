@@ -57,65 +57,55 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('esta_activo')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('esta_activo'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Estado
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									@php
-										$estaActivo = $tercero->esta_activo;
-										if(old('esta_activo') !== null) {
-											$estaActivo = old('esta_activo') === '1' ? true : false;
-										}
-									@endphp
-									<label class="btn btn-outline-primary{{ $estaActivo ? ' active' : '' }}">
-										{!! Form::radio('esta_activo', '1', $estaActivo ? true : false) !!}Activo
-									</label>
-									<label class="btn btn-outline-danger{{ !$estaActivo ? ' active' : '' }}">
-										{!! Form::radio('esta_activo', '0', $estaActivo ? false : true) !!}Inactivo
-									</label>
-								</div>
-								@if ($errors->has('esta_activo'))
-									<span class="help-block">{{ $errors->first('esta_activo') }}</span>
-								@endif
+							<div class="form-group">
+							    <label class="control-label">Estado</label>
+							    <div>
+							        @php
+							            $valid = $errors->has('esta_activo') ? 'is-invalid' : '';
+							            $estaActivo = empty(old('esta_activo')) ? $tercero->esta_activo : old('esta_activo');
+							        @endphp
+							        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							            <label class="btn btn-primary {{ $estaActivo == 1 ? 'active' : '' }}">
+							                {!! Form::radio('esta_activo', 1, ($estaActivo == 1 ? true : false), ['class' => [$valid]]) !!}Activo
+							            </label>
+							            <label class="btn btn-danger {{ $estaActivo == 0 ? 'active' : '' }}">
+							                {!! Form::radio('esta_activo', 0, ($estaActivo == 0 ? true : false ), ['class' => []]) !!}Inactivo
+							            </label>
+							        </div>
+							        @if ($errors->has('esta_activo'))
+							            <div class="invalid-feedback">{{ $errors->first('esta_activo') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('tipo_identificacion_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('tipo_identificacion_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Tipo identificación
-								</label>
-								{!! Form::select('tipo_identificacion_id', $tiposIdentificacion, null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una opción']) !!}
-								@if ($errors->has('tipo_identificacion_id'))
-									<span class="help-block">{{ $errors->first('tipo_identificacion_id') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('tipo_identificacion_id') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Tipo identificacion</label>
+							    {!! Form::select('tipo_identificacion_id', $tiposIdentificacion, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
+							    @if ($errors->has('tipo_identificacion_id'))
+							        <div class="invalid-feedback">{{ $errors->first('tipo_identificacion_id') }}</div>
+							    @endif
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="row">
 								<div class="col-md-10">
-									<div class="form-group {{ ($errors->has('numero_identificacion')?'has-error':'') }}">
-										<label class="control-label">
-											@if ($errors->has('numero_identificacion'))
-												<i class="fa fa-times-circle-o"></i>
-											@endif
-											Número de identificación
-										</label>
-										{!! Form::text('numero_identificacion', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número de identificación']) !!}
-										@if ($errors->has('numero_identificacion'))
-											<span class="help-block">{{ $errors->first('numero_identificacion') }}</span>
-										@endif
+									<div class="form-group">
+									    @php
+									        $valid = $errors->has('numero_identificacion') ? 'is-invalid' : '';
+									    @endphp
+									    <label class="control-label">Número de identificación</label>
+									    {!! Form::text('numero_identificacion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Número de identificación', 'autofocus']) !!}
+									    @if ($errors->has('numero_identificacion'))
+									        <div class="invalid-feedback">{{ $errors->first('numero_identificacion') }}</div>
+									    @endif
 									</div>
 								</div>
 								<div class="col-md-2">
@@ -133,129 +123,113 @@
 
 					<div class="row">
 						<div class="col-md-9">
-							<div class="form-group {{ ($errors->has('razon_social')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('razon_social'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Razón social
-								</label>
-								{!! Form::text('razon_social', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Razón social']) !!}
-								@if ($errors->has('razon_social'))
-									<span class="help-block">{{ $errors->first('razon_social') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('razon_social') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Razón social</label>
+							    {!! Form::text('razon_social', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Razón ocial']) !!}
+							    @if ($errors->has('razon_social'))
+							        <div class="invalid-feedback">{{ $errors->first('razon_social') }}</div>
+							    @endif
 							</div>
 						</div>
 						<div class="col-md-3">
-							<div class="form-group {{ ($errors->has('sigla')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('sigla'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Sigla
-								</label>
-								{!! Form::text('sigla', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Sigla']) !!}
-								@if ($errors->has('sigla'))
-									<span class="help-block">{{ $errors->first('sigla') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('sigla') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Sigla</label>
+							    {!! Form::text('sigla', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Sigla']) !!}
+							    @if ($errors->has('sigla'))
+							        <div class="invalid-feedback">{{ $errors->first('sigla') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('fecha_constitucion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_constitucion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de Constitución
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									{!! Form::text('fecha_constitucion', null, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-								</div>
-								@if ($errors->has('fecha_constitucion'))
-									<span class="help-block">{{ $errors->first('fecha_constitucion') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('fecha_constitucion') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Fecha de Constitución</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+							        {!! Form::text('fecha_constitucion', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+							        @if ($errors->has('fecha_constitucion'))
+							            <div class="invalid-feedback">{{ $errors->first('fecha_constitucion') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('ciudad_constitucion_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('ciudad_constitucion_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Ciudad de constitución
-								</label>
-								{!! Form::select('ciudad_constitucion_id', [], null, ['class' => 'form-control select2']) !!}
-								@if ($errors->has('ciudad_constitucion_id'))
-									<span class="help-block">{{ $errors->first('ciudad_constitucion_id') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('ciudad_constitucion_id') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Ciudad de constitución</label>
+							    {!! Form::select('ciudad_constitucion_id', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
+							    @if ($errors->has('ciudad_constitucion_id'))
+							        <div class="invalid-feedback">{{ $errors->first('ciudad_constitucion_id') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('numero_matricula')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('numero_matricula'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Número matricula mercantil
-								</label>
-								{!! Form::text('numero_matricula', null, ['class' => 'form-control', 'placeholder' => 'Número matricula mercantil', 'autocomplete' => 'off']) !!}
-								@if ($errors->has('numero_matricula'))
-									<span class="help-block">{{ $errors->first('numero_matricula') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('numero_matricula') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Número matricula mercantil</label>
+							    {!! Form::text('numero_matricula', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Número matricula mercantil']) !!}
+							    @if ($errors->has('numero_matricula'))
+							        <div class="invalid-feedback">{{ $errors->first('numero_matricula') }}</div>
+							    @endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('matricula_renovada')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('matricula_renovada'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									¿Matricula mercanti renovada?
-								</label>
-								<br>
-								<div class="btn-group" data-toggle="buttons">
-									@php
-										$matriculaRenoada = $tercero->matricula_renovada;
-										if(old('matricula_renovada') !== null) {
-											$matriculaRenoada = old('matricula_renovada') === '1' ? true : false;
-										}
-									@endphp
-									<label class="btn btn-outline-primary{{ $matriculaRenoada ? ' active' : '' }}">
-										{!! Form::radio('matricula_renovada', '1', $matriculaRenoada ? true : false) !!}Sí
-									</label>
-									<label class="btn btn-outline-danger{{ !$matriculaRenoada ? ' active' : '' }}">
-										{!! Form::radio('matricula_renovada', '0', $matriculaRenoada ? false : true) !!}No
-									</label>
-								</div>
-								@if ($errors->has('matricula_renovada'))
-									<span class="help-block">{{ $errors->first('matricula_renovada') }}</span>
-								@endif
+							<div class="form-group">
+							    <label class="control-label">¿Matricula mercanti renovada?</label>
+							    <div>
+							        @php
+							            $valid = $errors->has('matricula_renovada') ? 'is-invalid' : '';
+							            $matriculaRenoada = empty(old('matricula_renovada')) ? $tercero->matricula_renovada : old('matricula_renovada');
+							        @endphp
+							        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							            <label class="btn btn-primary {{ $matriculaRenoada == 1 ? 'active' : '' }}">
+							                {!! Form::radio('matricula_renovada', 1, ($matriculaRenoada == 1 ? true : false), ['class' => [$valid]]) !!}Sí
+							            </label>
+							            <label class="btn btn-danger {{ $matriculaRenoada == 0 ? 'active' : '' }}">
+							                {!! Form::radio('matricula_renovada', 0, ($matriculaRenoada == 0 ? true : false ), ['class' => []]) !!}No
+							            </label>
+							        </div>
+							        @if ($errors->has('matricula_renovada'))
+							            <div class="invalid-feedback">{{ $errors->first('matricula_renovada') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group {{ ($errors->has('actividad_economica_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('actividad_economica_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Actividad económica
-								</label>
-								{!! Form::select('actividad_economica_id', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una actividad económica']) !!}
-								@if ($errors->has('actividad_economica_id'))
-									<span class="help-block">{{ $errors->first('actividad_economica_id') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('actividad_economica_id') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Actividad económica</label>
+							    {!! Form::select('actividad_economica_id', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
+							    @if ($errors->has('actividad_economica_id'))
+							        <div class="invalid-feedback">{{ $errors->first('actividad_economica_id') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
@@ -268,98 +242,86 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('ciudad_id')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('ciudad_id'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Ciudad
-								</label>
-								{!! Form::select('ciudad_id', [], optional($contacto)->ciudad_id, ['class' => 'form-control select2']) !!}
-								@if ($errors->has('ciudad_id'))
-									<span class="help-block">{{ $errors->first('ciudad_id') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('ciudad_id') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Ciudad</label>
+							    {!! Form::select('ciudad_id', [], optional($contacto)->ciudad_id, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
+							    @if ($errors->has('ciudad_id'))
+							        <div class="invalid-feedback">{{ $errors->first('ciudad_id') }}</div>
+							    @endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('direccion')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('direccion'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Dirección
-								</label>
-								{!! Form::text('direccion', optional($contacto)->direccion, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Dirección']) !!}
-								@if ($errors->has('direccion'))
-									<span class="help-block">{{ $errors->first('direccion') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('direccion') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Dirección</label>
+							    {!! Form::text('direccion', optional($contacto)->direccion, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Dirección']) !!}
+							    @if ($errors->has('direccion'))
+							        <div class="invalid-feedback">{{ $errors->first('direccion') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('telefono')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('telefono'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Teléfono
-								</label>
-								{!! Form::text('telefono', optional($contacto)->telefono, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Teléfono', 'data-mask' => '000-0000']) !!}
-								@if ($errors->has('telefono'))
-									<span class="help-block">{{ $errors->first('telefono') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('telefono') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Teléfono</label>
+							    {!! Form::text('telefono', optional($contacto)->telefono, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Teléfono']) !!}
+							    @if ($errors->has('telefono'))
+							        <div class="invalid-feedback">{{ $errors->first('telefono') }}</div>
+							    @endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('extension')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('extension'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Extensión
-								</label>
-								{!! Form::text('extension', optional($contacto)->extension, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Extensión']) !!}
-								@if ($errors->has('extension'))
-									<span class="help-block">{{ $errors->first('extension') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('extension') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Extensión</label>
+							    {!! Form::text('extension', optional($contacto)->extension, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Extensión']) !!}
+							    @if ($errors->has('extension'))
+							        <div class="invalid-feedback">{{ $errors->first('extension') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('movil')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('movil'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Celular
-								</label>
-								{!! Form::text('movil', optional($contacto)->movil, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Celular', 'data-mask' => '(000) 000-0000']) !!}
-								@if ($errors->has('movil'))
-									<span class="help-block">{{ $errors->first('movil') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('movil') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Celular</label>
+							    {!! Form::text('movil', optional($contacto)->movil, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Celular']) !!}
+							    @if ($errors->has('movil'))
+							        <div class="invalid-feedback">{{ $errors->first('movil') }}</div>
+							    @endif
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group {{ ($errors->has('email')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('email'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Correo electrónico
-								</label>
-								{!! Form::text('email', optional($contacto)->email, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Correo electrónico']) !!}
-								@if ($errors->has('email'))
-									<span class="help-block">{{ $errors->first('email') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('email') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Correo electrónico</label>
+							    {!! Form::text('email', optional($contacto)->email, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Correo electrónico']) !!}
+							    @if ($errors->has('email'))
+							        <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+							    @endif
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('tercero') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

@@ -43,16 +43,19 @@
 					<h3 class="card-title">Parametros institucionales</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'modulo'), ['url' => 'parametrosInstitucionales', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name'), ['url' => '/entidad', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-8 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+						<div class="col-md-3 col-sm-12">
+							{!! Form::select('modulo', $modulos, null, ['class' => 'form-control', 'placeholder' => 'Módulo']); !!}
 						</div>
-						{!! Form::close() !!}
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
+						</div>
 					</div>
+					{!! Form::close() !!}
 					<br>
 					@if(!$parametros->total())
 						<p>
@@ -106,7 +109,7 @@
 					@endif
 					<div class="row">
 						<div class="col-md-12 text-center">
-							{!! $parametros->appends(['name', 'estado'])->render() !!}
+							{!! $parametros->appends(['name', 'modulo'])->render() !!}
 						</div>
 					</div>
 				</div>

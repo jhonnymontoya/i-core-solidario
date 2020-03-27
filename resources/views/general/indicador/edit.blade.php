@@ -61,7 +61,7 @@
 											break;
 										case 'VALOR':
 											$variable = "$";
-											break;										
+											break;
 										default:
 											$variable = "%";
 											break;
@@ -80,65 +80,65 @@
 					<br>
 					<div class="row">
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_inicio')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_inicio'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de inicio
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									{!! Form::text('fecha_inicio', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
-								</div>
-								@if ($errors->has('fecha_inicio'))
-									<span class="help-block">{{ $errors->first('fecha_inicio') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('fecha_inicio') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Fecha de inicio</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+							        {!! Form::text('fecha_inicio', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
+							        @if ($errors->has('fecha_inicio'))
+							            <div class="invalid-feedback">{{ $errors->first('fecha_inicio') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('fecha_fin')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_fin'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de inicio
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									{!! Form::text('fecha_fin', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off', 'readonly']) !!}
-								</div>
-								@if ($errors->has('fecha_fin'))
-									<span class="help-block">{{ $errors->first('fecha_fin') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('fecha_fin') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Fecha fin</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+							        {!! Form::text('fecha_fin', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'readonly']) !!}
+							        @if ($errors->has('fecha_fin'))
+							            <div class="invalid-feedback">{{ $errors->first('fecha_fin') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 
 						<div class="col-md-4">
-							<div class="form-group {{ ($errors->has('valor')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('valor'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Valor
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">{{ $variable }}</div>
-									{!! Form::text('valor', null, ['class' => 'form-control pull-right', 'placeholder' => $variable, 'autocomplete' => 'off', 'autofocus']) !!}
-								</div>
-								@if ($errors->has('valor'))
-									<span class="help-block">{{ $errors->first('valor') }}</span>
-								@endif
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('valor') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Valor</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">{{ $variable }}</span>
+							        </div>
+							        {!! Form::text('valor', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => $variable, 'autofocus']) !!}
+							        @if ($errors->has('valor'))
+							            <div class="invalid-feedback">{{ $errors->first('valor') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer text-right">
 					{!! Form::submit('Actualizar', ['class' => 'btn btn-outline-success']) !!}
 					<a href="{{ url('indicador?indicador=' . $indicador->tipoIndicador->id) }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>

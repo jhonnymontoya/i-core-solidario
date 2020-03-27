@@ -88,7 +88,7 @@
 										break;
 								}
 							@endphp
-							<div class="small-card bg-{{ $estaCerrado ? 'green' : 'red' }}">
+							<div class="small-box bg-{{ $estaCerrado ? 'green' : 'red' }}">
 								<div class="inner">
 									<h3>{{ $contador + 1 }}</h3>
 									<p>{{ $modulo->nombre }}</p>
@@ -97,9 +97,9 @@
 									<i class="fa {{ $modulo->icono }}"></i>
 								</div>
 								@if ($estaCerrado)
-									<a class="small-card-footer">Cerrado <i class="fa fa-check"></i></a>
+									<a class="small-box-footer">Cerrado <i class="fa fa-check"></i></a>
 								@else
-									<a href="{{ $link }}" class="small-card-footer">
+									<a href="{{ $link }}" class="small-box-footer">
 										Cerrar <i class="fa fa-lock"></i>
 									</a>
 								@endif

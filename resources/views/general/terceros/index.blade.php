@@ -42,25 +42,25 @@
 					<h3 class="card-title">Terceros</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'naturaleza', 'tipoIdentificacion', 'estado'), ['url' => 'tercero', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'naturaleza', 'tipoIdentificacion', 'estado'), ['url' => 'tercero', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-3 col-sm-12">
+						<div class="col-md-4 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
 							{!! Form::select('naturaleza', ['NATURAL' => 'Natural', 'JURIDICA' => 'Juridico'], null, ['class' => 'form-control', 'placeholder' => 'Naturaleza']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col-md-3 col-sm-12">
 							{!! Form::select('tipoIdentificacion', $tiposIdentificaciones, null, ['class' => 'form-control', 'placeholder' => 'Tipo identificación']); !!}
 						</div>
 						<div class="col-md-2 col-sm-12">
 							{!! Form::select('estado', [1 => 'Activo', 0 => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$terceros->total())
 						<p>
 							<div class="row">

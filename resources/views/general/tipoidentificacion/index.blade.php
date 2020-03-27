@@ -40,27 +40,21 @@
 			<div class="card card-{{ $tiposIdentificacion->total()?'primary':'danger' }} card-outline">
 				<div class="card-header with-border">
 					<h3 class="card-title">Tipos de identificación</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('name', 'estado'), ['url' => '/tipoIdentificacion', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('name', 'estado'), ['url' => '/tipoIdentificacion', 'method' => 'GET', 'class' => 'form-horizontal', 'role' => 'search']) !!}
-						<div class="col-md-5 col-sm-12">
+						<div class="col-md-6 col-sm-12">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar']); !!}
 						</div>
 						<div class="col-md-5 col-sm-12">
 							{!! Form::select('estado', ['1' => 'Activo', '0' => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Estado']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+						<div class="col-md-1 col-sm-12">
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					@if(!$tiposIdentificacion->total())
 						<p>
 							<div class="row">
@@ -71,13 +65,13 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
-										<th class="text-center">Código</th>
-										<th class="text-center">Nombre</th>
-										<th class="text-center">Tipo de persona</th>
-										<th class="text-center">Estado</th>
+										<th>Código</th>
+										<th>Nombre</th>
+										<th>Tipo de persona</th>
+										<th>Estado</th>
 										<th></th>
 									</tr>
 								</thead>

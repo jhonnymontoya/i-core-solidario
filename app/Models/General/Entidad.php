@@ -107,7 +107,7 @@ class Entidad extends Model
 	/**
 	 * Getters personalizados
 	 */
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -120,11 +120,11 @@ class Entidad extends Model
 			$this->attributes['fecha_inicio_contabilidad'] = null;
 		}
 	}
-	
+
 	/**
 	 * Scopes
 	 */
-	
+
 	public function scopeActiva($query, $value = true) {
 		return $query->whereHas('terceroEntidad', function($q) use($value){
 			$q->activo($value);
@@ -138,7 +138,7 @@ class Entidad extends Model
 			})->with('terceroEntidad');
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
@@ -151,7 +151,7 @@ class Entidad extends Model
 			if(!empty($modulo)) {
 				switch ($idModulo) {
 					case 2: //Contabilidad
-						$modulo->icono = 'fa-calculator';
+						$modulo->icono = 'fa-coins';
 						break;
 					case 3: //Convenios
 						$modulo->icono = 'fa-lock';
@@ -160,13 +160,13 @@ class Entidad extends Model
 						$modulo->icono = 'fa-lock';
 						break;
 					case 6: //Ahorros y aportes
-						$modulo->icono = 'fa-dollar';
+						$modulo->icono = 'fa-piggy-bank';
 						break;
 					case 7: //Cartera
-						$modulo->icono = 'fa-money';
+						$modulo->icono = 'fa-file-invoice-dollar';
 						break;
 					case 10: //Socios
-						$modulo->icono = 'fa-users';
+						$modulo->icono = 'fa-user-friends';
 						break;
 					default:
 						$modulo->icono = 'fa-cc';
@@ -177,7 +177,7 @@ class Entidad extends Model
 		}
 		return $modulos;
 	}
-	 
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
@@ -185,7 +185,7 @@ class Entidad extends Model
 	public function terceroEntidad() {
 		return $this->hasOne(Tercero::class, 'id', 'tercero_id');
 	}
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -319,14 +319,14 @@ class Entidad extends Model
 	public function modalidadesCreditos() {
 		return $this->hasMany(Modalidad::class, 'entidad_id', 'id');
 	}
-	
+
 	public function dependencias() {
 		return $this->hasMany(Dependencia::class, 'entidad_id', 'id');
 	}
 
 	public function terceros() {
 		return $this->hasMany(Tercero::class, 'entidad_id', 'id');
-	}	
+	}
 
 	public function centroCostos() {
 		return $this->hasMany(CentroCosto::class, 'entidad_id', 'id');
@@ -394,7 +394,7 @@ class Entidad extends Model
 
 	public function procesosCreditosLote() {
 		return $this->hasMany(ProcesoCreditosLote::class, 'entidad_id', 'id');
-	}	
+	}
 
 	public function tiposGarantias() {
 		return $this->hasMany(TipoGarantia::class, 'entidad_id', 'id');
@@ -484,7 +484,7 @@ class Entidad extends Model
 	/**
 	 * Relaciones Muchos a uno
 	 */
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
