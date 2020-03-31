@@ -42,41 +42,42 @@
 					<h3 class="card-title">Archivos SES</h3>
 				</div>
 				<div class="card-body">
+					{!! Form::model(Request::only('fecha_reporte'), ['url' => 'archivosSES', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						{!! Form::model(Request::only('fecha_reporte'), ['url' => 'archivosSES', 'method' => 'GET', 'role' => 'search']) !!}
-						<div class="col-md-5">
-							<div class="form-group {{ ($errors->has('fecha_reporte')?'has-error':'') }}">
-								<label class="control-label">
-									@if ($errors->has('fecha_reporte'))
-										<i class="fa fa-times-circle-o"></i>
-									@endif
-									Fecha de reporte
-								</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									@php
-										$fechaReporte = date('Y/m');
-										if (Request::has('fecha_reporte') && !empty(Request::get('fecha_reporte'))) {
+						<div class="col-md-11">
+							<div class="form-group">
+							    @php
+							        $valid = $errors->has('fecha_reporte') ? 'is-invalid' : '';
+							    @endphp
+							    <label class="control-label">Fecha de reporte</label>
+							    <div class="input-group">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+							        @php
+							        	$fechaReporte = date('Y/m');
+							        	if (Request::has('fecha_reporte') && !empty(Request::get('fecha_reporte'))) {
 											$fechaReporte = Request::get('fecha_reporte');
 										}
-									@endphp
-									{!! Form::text('fecha_reporte', $fechaReporte, ['class' => 'form-control', 'placeholder' => 'yyyy/mm' ]) !!}
-								</div>
-								@if ($errors->has('fecha_reporte'))
-									<span class="help-block">{{ $errors->first('fecha_reporte') }}</span>
-								@endif
+										Form::text('fecha_reporte', $fechaReporte, ['class' => 'form-control', 'placeholder' => 'yyyy/mm' ]);
+							        @endphp
+							        {!! Form::text('fecha_reporte', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+							        @if ($errors->has('fecha_reporte'))
+							            <div class="invalid-feedback">{{ $errors->first('fecha_reporte') }}</div>
+							        @endif
+							    </div>
 							</div>
 						</div>
 						<div class="col-md-1 col-sm-12">
 							<label class="control-label">&nbsp;</label>
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
-						{!! Form::close() !!}
 					</div>
+					{!! Form::close() !!}
 					<br>
-					
+
 					@if ($carteraCerrada)
 						<div class="row">
 							<div class="col-md-12">

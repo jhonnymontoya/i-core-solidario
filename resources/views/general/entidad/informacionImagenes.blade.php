@@ -38,30 +38,38 @@
 			</div>
 		@endif
 
-		<div class="row">
+		<div class="container-fluid">
 			{!! Form::model($entidad, ['url' => ['entidad', $entidad, 'imagenes'], 'method' => 'put', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'formularioImagenes']) !!}
 			@foreach($categorias as $categoria)
 			{{ Form::hidden('imagen' . $categoria->id, null) }}
 			@endforeach
-			<div class="col-sm-12">
-				<div class="nav-tabs-custom">
-					<ul class="nav nav-tabs">
-						<li role="presentation"><a href="{{ route('entidadEdit', $entidad->id) }}">Información básica</a></li>
-						<li role="presentation" class="active"><a href="{{ route('entidadEditImagenes', $entidad->id) }}">Imágenes</a></li>
+			<div class="card card-solid">
+				<div class="card-body">
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('entidadEdit', $entidad->id) }}">Información básica</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ route('entidadEditImagenes', $entidad->id) }}">Imágenes</a>
+						</li>
 					</ul>
+
 					<div class="tab-content">
 						<div class="tab-pane active">
-							@if($categorias->count())
-								<?php
+
+
+
+							<?php
+								if($categorias->count()) {
 									$nuevaFila = false;
-								?>
-								@foreach($categorias as $categoria)
-									<?php
+									foreach($categorias as $categoria) {
 										$nuevaFila = !$nuevaFila;
-									?>
-									@if($nuevaFila)
-									<div class="row">
-									@endif
+										if($nuevaFila) {
+											?>
+											<div class="row">
+											<?php
+										}
+										?>
 										<div class="col-sm-6">
 											<div class="panel panel-info">
 												<div class="panel-heading">{{ $categoria->nombre }}</div>
@@ -73,11 +81,15 @@
 																<div id="image-cropper">
 																	<div class="cropit-preview"></div>
 																	<input type="file" class="cropit-image-input" />
-																	<a class="select-image-btn btn btn-outline-secondary btn-sm"><i class="fa fa-camera"></i></a>
-																	<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-left"></i></a>
-																	<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fa fa-rotate-right"></i></a>
-																	<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-in"></i></a>
-																	<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="glyphicon glyphicon-zoom-out"></i></a>
+																	<div class="row">
+																		<div class="col-12 text-center">
+																			<a class="rotate-ccw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-undo"></i></a>
+																			<a class="rotate-cw-btn btn btn-outline-secondary btn-sm"><i class="fas fa-redo"></i></a>
+																			<a class="select-image-btn btn btn-outline-secondary btn-sm"><i class="fa fa-camera"></i></a>
+																			<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
+																			<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -85,28 +97,85 @@
 												</div>
 											</div>
 										</div>
-									@if(!$nuevaFila)
-									</div>
-									@endif
-								@endforeach
-								@if(!$nuevaFila)
-								</div>
-								@endif
-							@else
-								<h4>No se encontrarón categorías de imágenes, ir a <a href="{{ url('categoriaImagen/create') }}" class="btn btn-outline-primary btn-sm">Crear categorías de imágenes</a></h4>
-							@endif
+										<?php
+										if(!$nuevaFila) {
+											?>
+											</div>
+											<?php
+										}
+									}
+									if(!$nuevaFila) {
+										?>
+										<!--/div-->
+										<?php
+									}
+								}
+								else {
+									?>
+									<h4>No se encontrarón categorías de imágenes, ir a <a href="{{ url('categoriaImagen/create') }}" class="btn btn-outline-primary btn-sm">Crear categorías de imágenes</a></h4>
+									<?php
+								}
+							?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
-									<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}

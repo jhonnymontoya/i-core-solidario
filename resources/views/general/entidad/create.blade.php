@@ -38,184 +38,173 @@
 			</div>
 		@endif
 
-		<div class="row">
+		<div class="container-fluid">
 			{!! Form::open(['url' => 'entidad', 'method' => 'post', 'role' => 'form']) !!}
-			<div class="col-sm-12">
-				<div class="nav-tabs-custom">
-					<ul class="nav nav-tabs">
-						<li role="presentation" class="active"><a href="{{ url('entidad/create') }}">Información básica</a></li>
-						<li role="presentation" class="disabled"><a>Imágenes</a></li>
+			<div class="card card-solid">
+				<div class="card-body">
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Información básica</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link disabled">Imágenes</a>
+						</li>
 					</ul>
 					<div class="tab-content">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group {{ ($errors->has('razon')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('razon'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Razón social
-									</label>
-									{!! Form::text('razon', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Razón social', 'autofocus']) !!}
-									@if ($errors->has('razon'))
-										<span class="help-block">{{ $errors->first('razon') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('sigla')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('sigla'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Sigla
-									</label>
-									{!! Form::text('sigla', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Sigla']) !!}
-									@if ($errors->has('sigla'))
-										<span class="help-block">{{ $errors->first('sigla') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-10">
-										<div class="form-group {{ ($errors->has('nit')?'has-error':'') }}">
-											<label class="control-label">
-												@if ($errors->has('nit'))
-													<i class="fa fa-times-circle-o"></i>
-												@endif
-												Número de identificación tributaria
-											</label>
-											{!! Form::text('nit', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Número de identificación tributaria']) !!}
-											@if ($errors->has('nit'))
-												<span class="help-block">{{ $errors->first('nit') }}</span>
-											@endif
-										</div>
+						<div class="tab-pane active">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+									    @php
+									        $valid = $errors->has('razon') ? 'is-invalid' : '';
+									    @endphp
+									    <label class="control-label">Razón social</label>
+									    {!! Form::text('razon', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Razón social', 'autofocus']) !!}
+									    @if ($errors->has('razon'))
+									        <div class="invalid-feedback">{{ $errors->first('razon') }}</div>
+									    @endif
 									</div>
-									<div class="col-md-2">
-										<div class="form-group {{ ($errors->has('nit')?'has-error':'') }}">
-											<label class="control-label">
-												DV
-											</label>
-											<br>
-											<label class="dv">0</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									    @php
+									        $valid = $errors->has('sigla') ? 'is-invalid' : '';
+									    @endphp
+									    <label class="control-label">Sigla</label>
+									    {!! Form::text('sigla', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Sigla']) !!}
+									    @if ($errors->has('sigla'))
+									        <div class="invalid-feedback">{{ $errors->first('sigla') }}</div>
+									    @endif
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-10">
+											<div class="form-group">
+											    @php
+											        $valid = $errors->has('nit') ? 'is-invalid' : '';
+											    @endphp
+											    <label class="control-label">Número de identificación tributaria</label>
+											    {!! Form::text('nit', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Número de identificación tributaria']) !!}
+											    @if ($errors->has('nit'))
+											        <div class="invalid-feedback">{{ $errors->first('nit') }}</div>
+											    @endif
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="form-group">
+												<label class="control-label">DV</label>
+												<br>
+												<label class="dv">0</label>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('actividad_economica')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('actividad_economica'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Actividad económica
-									</label>
-									{!! Form::select('actividad_economica', [], null, ['class' => 'form-control select2', 'placeholder' => 'Seleccione una actividad económica']) !!}
-									@if ($errors->has('actividad_economica'))
-										<span class="help-block">{{ $errors->first('actividad_economica') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('fecha_inicio_contabilidad')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('fecha_inicio_contabilidad'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Fecha de inicio de contabilidad
-									</label>
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-										{!! Form::text('fecha_inicio_contabilidad', null, ['class' => 'form-control pull-right', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true', 'autocomplete' => 'off']) !!}
-									</div>
-									@if ($errors->has('fecha_inicio_contabilidad'))
-										<span class="help-block">{{ $errors->first('fecha_inicio_contabilidad') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('usa_dependencia')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('usa_dependencia'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										¿Usa dependencias?
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-outline-primary">
-											{!! Form::radio('usa_dependencia', '1', false) !!}Sí
-										</label>
-										<label class="btn btn-outline-danger active">
-											{!! Form::radio('usa_dependencia', '0', true) !!}No
-										</label>
-									</div>
-									@if ($errors->has('usa_dependencia'))
-										<span class="help-block">{{ $errors->first('usa_dependencia') }}</span>
-									@endif
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group {{ ($errors->has('usa_centro_costos')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('usa_centro_costos'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										¿Usa centros de costo?
-									</label>
-									<br>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-outline-primary">
-											{!! Form::radio('usa_centro_costos', '1', false) !!}Sí
-										</label>
-										<label class="btn btn-outline-danger active">
-											{!! Form::radio('usa_centro_costos', '0', true) !!}No
-										</label>
-									</div>
-									@if ($errors->has('usa_centro_costos'))
-										<span class="help-block">{{ $errors->first('usa_centro_costos') }}</span>
-									@endif
-								</div>
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group {{ ($errors->has('pagina_web')?'has-error':'') }}">
-									<label class="control-label">
-										@if ($errors->has('pagina_web'))
-											<i class="fa fa-times-circle-o"></i>
-										@endif
-										Página web
-									</label>
-									{!! Form::text('pagina_web', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Página web']) !!}
-									@if ($errors->has('pagina_web'))
-										<span class="help-block">{{ $errors->first('pagina_web') }}</span>
-									@endif
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									    @php
+									        $valid = $errors->has('actividad_economica') ? 'is-invalid' : '';
+									    @endphp
+									    <label class="control-label">Actividad económica</label>
+									    {!! Form::select('actividad_economica', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
+									    @if ($errors->has('actividad_economica'))
+									        <div class="invalid-feedback">{{ $errors->first('actividad_economica') }}</div>
+									    @endif
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+									    @php
+									        $valid = $errors->has('fecha_inicio_contabilidad') ? 'is-invalid' : '';
+									    @endphp
+									    <label class="control-label">Fecha de nicio de contabilidad</label>
+									    <div class="input-group">
+									        <div class="input-group-prepend">
+									            <span class="input-group-text">
+									                <i class="fa fa-calendar"></i>
+									            </span>
+									        </div>
+									        {!! Form::text('fecha_inicio_contabilidad', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+									        @if ($errors->has('fecha_inicio_contabilidad'))
+									            <div class="invalid-feedback">{{ $errors->first('fecha_inicio_contabilidad') }}</div>
+									        @endif
+									    </div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+									    <label class="control-label">¿Usa dependencias?</label>
+									    <div>
+									        @php
+									            $valid = $errors->has('usa_dependencia') ? 'is-invalid' : '';
+									            $usaDependencias = empty(old('usa_dependencia')) ? 0 : old('usa_dependencia');
+									        @endphp
+									        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+									            <label class="btn btn-primary {{ $usaDependencias == 1 ? 'active' : '' }}">
+									                {!! Form::radio('usa_dependencia', 1, ($usaDependencias == 1 ? true : false), ['class' => [$valid]]) !!}Sí
+									            </label>
+									            <label class="btn btn-danger {{ $usaDependencias == 0 ? 'active' : '' }}">
+									                {!! Form::radio('usa_dependencia', 0, ($usaDependencias == 0 ? true : false ), ['class' => []]) !!}No
+									            </label>
+									        </div>
+									        @if ($errors->has('usa_dependencia'))
+									            <div class="invalid-feedback">{{ $errors->first('usa_dependencia') }}</div>
+									        @endif
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+									    <label class="control-label">¿Usa centrs de costo?</label>
+									    <div>
+									        @php
+									            $valid = $errors->has('usa_centro_costos') ? 'is-invalid' : '';
+									            $centoCostos = empty(old('usa_centro_costos')) ? 0 : old('usa_centro_costos');
+									        @endphp
+									        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+									            <label class="btn btn-primary {{ $centoCostos == 1 ? 'active' : '' }}">
+									                {!! Form::radio('usa_centro_costos', 1, ($centoCostos == 1 ? true : false), ['class' => [$valid]]) !!}Sí
+									            </label>
+									            <label class="btn btn-danger {{ $centoCostos == 0 ? 'active' : '' }}">
+									                {!! Form::radio('usa_centro_costos', 0, ($centoCostos == 0 ? true : false ), ['class' => []]) !!}No
+									            </label>
+									        </div>
+									        @if ($errors->has('usa_centro_costos'))
+									            <div class="invalid-feedback">{{ $errors->first('usa_centro_costos') }}</div>
+									        @endif
+									    </div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+									    @php
+									        $valid = $errors->has('pagina_web') ? 'is-invalid' : '';
+									    @endphp
+									    <label class="control-label">Página web</label>
+									    {!! Form::text('pagina_web', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Página web']) !!}
+									    @if ($errors->has('pagina_web'))
+									        <div class="invalid-feedback">{{ $errors->first('pagina_web') }}</div>
+									    @endif
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-9">
-									{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
-									<a href="{{ url('entidad') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br>
+				</div>
+				<div class="card-footer text-right">
+					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
+					<a href="{{ url('entidad') }}" class="btn btn-outline-danger">Cancelar</a>
 				</div>
 			</div>
 			{!! Form::close() !!}
