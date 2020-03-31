@@ -94,7 +94,7 @@ class SolicitudCredito extends Model
 	public function getValorCreditoAttribute() {
 		return round($this->attributes['valor_credito']);
 	}
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -152,11 +152,11 @@ class SolicitudCredito extends Model
 			$this->attributes['fecha_primer_pago_intereses'] = null;
 		}
 	}
-	
+
 	/**
 	 * Scopes
 	 */
-	
+
 	public function scopeEstado($query, $value) {
 		if(!empty($value)) {
 			return $query->whereEstadoSolicitud($value);
@@ -176,7 +176,7 @@ class SolicitudCredito extends Model
 			->orWhere("id", "like", "%$value%");
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
@@ -195,6 +195,9 @@ class SolicitudCredito extends Model
 			->where('naturaleza_cuota', 'EXTRAORDINARIA')
 			->sum('abono_capital');
 		$totalCapitalExtraordinario = is_null($totalCapitalExtraordinario) ? 0 : $totalCapitalExtraordinario;
+		if($this->valor_credito == 0) {
+			return 0;
+		}
 		$porcentaje = ($totalCapitalExtraordinario * 100) / $this->valor_credito;
 		return $porcentaje;
 	}
@@ -222,7 +225,7 @@ class SolicitudCredito extends Model
 
 	/**
 	 * Devuelve el capital vencido de una obligación a una fecha de consulta
-	 * @param type|null $fechaConsulta 
+	 * @param type|null $fechaConsulta
 	 * @return type
 	 */
 	public function capitalVencido($fechaConsulta = null) {
@@ -234,7 +237,7 @@ class SolicitudCredito extends Model
 
 	/**
 	 * Devuelve los días vencidos de una obligación a una fecha de consulta
-	 * @param type|null $fechaConsulta 
+	 * @param type|null $fechaConsulta
 	 * @return type
 	 */
 	public function diasVencidos($fechaConsulta = null) {
@@ -296,7 +299,7 @@ class SolicitudCredito extends Model
 					case 'Por valor descubierto':
 						if($codeudor->valor_descubierto <= $codeudor->valor_parametro_descubierto)$item['tipoCondicion'] = 'No requerido';
 						$item->put('valorCondicion', true);
-						break;					
+						break;
 					default:
 						$item->put('valorCondicion', false);
 						break;
@@ -447,7 +450,7 @@ class SolicitudCredito extends Model
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -519,7 +522,7 @@ class SolicitudCredito extends Model
 	public function cuotasExtraordinarias() {
 		return $this->hasMany(CuotaExtraordinaria::class, 'obligacion_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a uno
 	 */
@@ -539,7 +542,7 @@ class SolicitudCredito extends Model
 	public function seguroCartera() {
 		return $this->belongsTo(SeguroCartera::class, 'seguro_cartera_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */

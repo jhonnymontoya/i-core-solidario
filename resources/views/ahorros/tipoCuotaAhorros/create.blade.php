@@ -221,7 +221,7 @@
 								<div>
 									@php
 										$valid = $errors->has('paga_intereses_retirados') ? 'is-invalid' : '';
-										$pir = empty(old('paga_intereses_retirados')) ? $cuota->paga_intereses_retirados : old('paga_intereses_retirados');
+										$pir = empty(old('paga_intereses_retirados')) ? false : old('paga_intereses_retirados');
 									@endphp
 									<div class="btn-group btn-group-toggle" data-toggle="buttons">
 										<label class="btn btn-primary {{ $pir ? 'active' : '' }}">
