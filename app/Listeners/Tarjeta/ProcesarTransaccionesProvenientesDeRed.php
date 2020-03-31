@@ -64,6 +64,12 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 				->whereNumeroIdentificacion($tr->getNumeroIdentificacion())
 				->first();
 
+			if(empty($tercero)) {
+				$tr->es_erroneo = 1;
+				$tr->save();
+				continue;
+			}
+
 			$tr->entidad_id = $producto->entidad_id;
 			$tr->producto_id = $producto->id;
 			$tr->tercero_id = $tercero->id;
@@ -181,7 +187,7 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 	private function prosesarTransaccionAumentoCredito()
 	{
 		$s032 = $this->tr->getValor("S032");
-		if ($s032 == 0) { 
+		if ($s032 == 0) {
 			$this->prosesarTransaccionSoloCosto();
 			return;
 		}
@@ -329,7 +335,7 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 	private function prosesarTransaccionDisminucionCredito()
 	{
 		$s032 = $this->tr->getValor("S032");
-		if ($s032 == 0) { 
+		if ($s032 == 0) {
 			$this->prosesarTransaccionSoloCosto();
 			return;
 		}
@@ -371,7 +377,7 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 					$s032, //Crédito
 					$sc->numero_obligacion //Referencia
 				));
-				if ($s037 == $s056) 
+				if ($s037 == $s056)
 				{
 					$detalleMovimientos->push($this->construirDetalleContable(
 						$sc->getParametroContable()->cuentaCapital, //Cuenta
@@ -562,7 +568,7 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 					0, //Crédito
 					$sc->numero_obligacion //Referencia
 				));
-				if ($s037 == $s056){                    
+				if ($s037 == $s056){
 					$detalleMovimientos->push($this->construirDetalleContable(
 						$p->cuentaCompensacion, //Cuenta
 						0, //Débito
@@ -641,7 +647,7 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 					'movimiento_id' => $res[0]->MENSAJE,
 					'fecha_movimiento' => $mt->fecha_movimiento,
 					'valor_movimiento' => $s037,
-					'origen' => 'VISIONAMOS' 
+					'origen' => 'VISIONAMOS'
 				]);
 				//Se reamortiza el crédito
 				$this->reliquidarCredito($sc, $mt->fecha_movimiento);
@@ -986,7 +992,7 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 	private function construirDetalleContable($c, $db = 0, $cr = 0, $ref)
 	{
 		if ($db == 0 && $cr == 0) {
-			throw new Exception("Debito o creodo en cero");            
+			throw new Exception("Debito o creodo en cero");
 		}
 
 		$t = $this->tr->tercero;
