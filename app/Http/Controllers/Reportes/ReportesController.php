@@ -48,26 +48,26 @@ class ReportesController extends Controller
 			'fecha_consulta' => 'bail|nullable|date_format:"Y/m"'
 		]);
 		$vista = '';
-		$fecha = date('Y/m');
+		$fecha = date('Y/m/d');
 		$data = '';
 		try {
 			if (!empty($req["fecha_consulta"])) {
 				$fecha = Carbon::createFromFormat(
-					'Y/m',
-					$request->fecha_consulta
+					'Y/m/d',
+					$req["fecha_consulta"] . "/01"
 				)
 				->endOfMonth()
 				->startOfDay();
 			}
 			else {
-				$fecha = Carbon::createFromFormat('Y/m', $fecha )
+				$fecha = Carbon::createFromFormat('Y/m/d', $fecha )
 				->endOfMonth()
 				->startOfDay();
 			}
 		}
 		catch(\InvalidArgumentException $e) {
 			$vista = '';
-		}
+		}//dd($request->all(), $fecha, "kkkkk");
 		switch($request->tipo_reporte) {
 			case 'ASOCIADOS' : {
 				$vista = $this->estadisticoAsociados($fecha);
@@ -587,7 +587,7 @@ class ReportesController extends Controller
 
 	/**
 	 * Reporte de contabilidad comprobante contable
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function contabilidadComprobanteContable($request) {
@@ -622,7 +622,7 @@ class ReportesController extends Controller
 			'fechaSuperior'		=> 'bail|required|date_format:"Y/m/d"',
 			'cuentaContable'	=> 'bail|required|string|min:1|max:10',
 		]);
-		
+
 		if($validate->fails())return "";
 		$fechaInferior = Carbon::createFromFormat('Y/m/d', $request->fechaInferior)->startOfDay();
 		$fechaSuperior = Carbon::createFromFormat('Y/m/d', $request->fechaSuperior)->startOfDay();
@@ -633,7 +633,7 @@ class ReportesController extends Controller
 		$querySaldoAnterior = "SELECT CASE WHEN c.naturaleza = 'DÉBITO' THEN COALESCE(SUM(dm.debito), 0) - COALESCE(SUM(dm.credito), 0) ELSE COALESCE(SUM(dm.credito), 0) - COALESCE(SUM(dm.debito), 0) END Saldo FROM contabilidad.detalle_movimientos AS dm INNER JOIN contabilidad.cuifs AS c on dm.cuif_id = c.id INNER JOIN contabilidad.movimientos AS m ON dm.movimiento_id = m.id WHERE dm.entidad_id = ? AND dm.cuif_codigo LIKE ? AND general.fn_fecha_sin_hora(dm.fecha_movimiento) < ? AND m.causa_anulado_id IS NULL GROUP BY c.naturaleza";
 		$saldo = DB::select($querySaldoAnterior, [$entidad->id, $cuentaContable, $fechaInferior]);
 		$saldo = empty($saldo) ? 0 : $saldo[0]->Saldo;
-		
+
 		$query = "SELECT dm.fecha_movimiento AS Fecha, dm.codigo_comprobante AS Comprobante, dm.numero_comprobante AS Numero, dm.tercero_identificacion AS Identificacion, dm.tercero AS Nombre, dm.cuif_codigo AS Cuenta, dm.cuif_nombre AS NombreCuenta, m.descripcion AS Descripcion, dm.debito AS Debito, dm.credito AS Credito, dm.referencia AS Referencia, c.naturaleza AS Naturaleza FROM contabilidad.detalle_movimientos AS dm INNER JOIN contabilidad.movimientos AS m ON dm.movimiento_id = m.id INNER JOIN contabilidad.cuifs AS c on dm.cuif_id = c.id WHERE dm.entidad_id = ? AND dm.cuif_codigo LIKE ? AND general.fn_fecha_sin_hora(dm.fecha_movimiento) BETWEEN ? AND ? AND m.causa_anulado_id IS NULL ORDER BY dm.fecha_movimiento ASC";
 		$DSMovimientos = DB::select($query, [$entidad->id, $cuentaContable, $fechaInferior, $fechaSuperior]);
 
@@ -720,7 +720,7 @@ class ReportesController extends Controller
 			case 9: $mes = 'Septiembre'; break;
 			case 10: $mes = 'Octubre'; break;
 			case 11: $mes = 'Noviembre'; break;
-			case 12: $mes = 'Diciembre'; break;			
+			case 12: $mes = 'Diciembre'; break;
 			default: break;
 		}
 
@@ -903,7 +903,7 @@ class ReportesController extends Controller
 
 	/**
 	 * RELACIÓN GENERACIÓN RECAUDOS POR PROCESO
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function generacionRecaudos($request) {
@@ -930,10 +930,10 @@ class ReportesController extends Controller
 					->withRecaudos($DSGeneracionRecaudos)
 					->render();
 	}
-	
+
 	/**
 	 * DETALLE RECAUDOS DE NÓMINA POR PROCESO
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function detalleRecaudos($request) {
@@ -1007,7 +1007,7 @@ class ReportesController extends Controller
 
 	/**
 	 * Socios activos a fecha
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function sociosActivos($request) {
@@ -1023,7 +1023,7 @@ class ReportesController extends Controller
 		$query = "SELECT t.numero_identificacion AS identificacion, t.nombre AS nombre, s.fecha_afiliacion AS afiliacion, p.nombre AS empresa, s.estado AS estado FROM socios.socios AS s INNER JOIN general.terceros AS t ON s.tercero_id=t.id INNER JOIN recaudos.pagadurias AS p ON s.pagaduria_id=p.id WHERE t.entidad_id = ? AND s.fecha_afiliacion IS NOT NULL AND general.fn_fecha_sin_hora(fecha_afiliacion) <= ? AND (s.fecha_retiro IS NULL OR general.fn_fecha_sin_hora(s.fecha_retiro) > ?) ORDER BY s.estado ASC, t.nombre ASC";
 		$DSSociosActivos = DB::select($query, [$entidad->id, $fechaCorte, $fechaCorte ]);
 		if(!$DSSociosActivos)return "";
-		
+
 		foreach($DSSociosActivos as &$socios) {
 			$socios->afiliacion = Carbon::createFromFormat('Y-m-d H:i:s.000', $socios->afiliacion);
 		}
@@ -1034,10 +1034,10 @@ class ReportesController extends Controller
 					->withFechaCorte($fechaCorte)
 					->render();
 	}
-	
+
 	/**
 	 * AFILIACIONES EN UN RANGO DE TIEMPO
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function sociosAfiliaciones($request) {
@@ -1055,7 +1055,7 @@ class ReportesController extends Controller
 		$query = "SELECT t.numero_identificacion AS identificacion, t.nombre AS nombre, s.fecha_afiliacion AS afiliacion, p.nombre AS empresa FROM socios.socios AS s INNER JOIN general.terceros AS t ON s.tercero_id=t.id INNER JOIN recaudos.pagadurias AS p ON s.pagaduria_id=p.id WHERE t.entidad_id = ? AND general.fn_fecha_sin_hora(s.fecha_afiliacion) BETWEEN ? AND ? ORDER BY t.numero_identificacion DESC";
 		$DSSociosAfiliaciones = DB::select($query, [$entidad->id, $fechaInicio, $fechaFinal]);
 		if(!$DSSociosAfiliaciones)return "";
-		
+
 		foreach($DSSociosAfiliaciones as &$sociosAfiliaciones) {
 			$sociosAfiliaciones->afiliacion = Carbon::createFromFormat('Y-m-d H:i:s.000', $sociosAfiliaciones->afiliacion);
 		}
@@ -1070,7 +1070,7 @@ class ReportesController extends Controller
 
 	/**
 	 * RETIROS EN UN RANGO DE TIEMPO
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function sociosRetiros($request) {
@@ -1088,7 +1088,7 @@ class ReportesController extends Controller
 		$query = "SELECT t.numero_identificacion AS identificacion, t.nombre AS nombre, sr.fecha_solicitud_retiro AS fecha, cr.tipo_causa_retiro AS tipo, cr.nombre AS causa FROM socios.socios_retiros AS sr INNER JOIN socios.socios AS s ON sr.socio_id=s.id INNER JOIN general.terceros AS t ON s.tercero_id=t.id INNER JOIN socios.causas_retiro AS cr ON sr.causa_retiro_id=cr.id WHERE t.entidad_id = ? AND general.fn_fecha_sin_hora(sr.fecha_solicitud_retiro) BETWEEN ? AND ? ORDER BY sr.fecha_solicitud_retiro";
 		$DSSociosRetiros = DB::select($query, [$entidad->id, $fechaInicio, $fechaFin]);
 		if(!$DSSociosRetiros)return "";
-		
+
 		foreach($DSSociosRetiros as &$sociosRetiros) {
 			$sociosRetiros->fecha = Carbon::createFromFormat('Y-m-d H:i:s.000', $sociosRetiros->fecha);
 		}
@@ -1157,7 +1157,7 @@ class ReportesController extends Controller
 				'integer',
 				'min:1',
 				'max:2147483647',
-				'exists:sqlsrv.creditos.solicitudes_creditos,id,entidad_id,' . 
+				'exists:sqlsrv.creditos.solicitudes_creditos,id,entidad_id,' .
 				$entidad->id . ',deleted_at,NULL',
 			]
 		]);
@@ -1263,7 +1263,7 @@ class ReportesController extends Controller
 
 	/**
 	 * SALDOS DE CARTERA POR OBLIGACION
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function saldosCarteraObligacion($request) {
@@ -1299,10 +1299,10 @@ class ReportesController extends Controller
 					->withFechaCorte($fechaCorte)
 					->render();
 	}
-	
+
 	/**
 	 * COLOCACIONES DE CRÉDITOS
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function colocacionesCreditos($request) {
@@ -1335,7 +1335,7 @@ class ReportesController extends Controller
 
 	/**
 	 * SALDOS CONSOLIDADOS DE CARTERA
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function saldosConsolidados($request) {
@@ -1371,7 +1371,7 @@ class ReportesController extends Controller
 
 	/**
 	 * SALDOS DE CARTERA RETIRADOS
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function saldosCarteraRetirados($request) {
@@ -1400,7 +1400,7 @@ class ReportesController extends Controller
 
 	/**
 	 * CODEUDORES
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function codeudores($request) {
@@ -1427,12 +1427,12 @@ class ReportesController extends Controller
 					->withFechaCorte($fechaCorte)
 					->render();
 	}
-	
+
 
 
 	/**
 	 * REPORTE TRANSUNION
-	 * @param type $request 
+	 * @param type $request
 	 * @return type
 	 */
 	public function transunion($request) {
@@ -1519,13 +1519,13 @@ class ReportesController extends Controller
 		if(!$DSChequeosListas)return "";
 
 		foreach ($DSChequeosListas as &$chequeos) {
-			
+
 			$chequeos->tercero = $chequeos->tercero ? 'Sí' : 'No';
 			$chequeos->asociado = $chequeos->asociado ? 'Sí' : 'No';
 			$chequeos->empleado = $chequeos->empleado ? 'Sí' : 'No';
 			$chequeos->proveedor = $chequeos->proveedor ? 'Sí' : 'No';
 			$chequeos->pep = $chequeos->pep ? 'Sí' : 'No';
-		
+
 		try {
 				if(!is_null($chequeos->fecha_lista))
 				$chequeos->fecha_lista = Carbon::createFromFormat('Y-m-d H:i:s.000', $chequeos->fecha_lista);
@@ -1533,7 +1533,7 @@ class ReportesController extends Controller
 			catch(\InvalidArgumentException $e) {
 				//dd($saldosConsolidados);
 			}
-		
+
 		}
 
 		return view("reportes.controlVigilancia.chequeosListas")

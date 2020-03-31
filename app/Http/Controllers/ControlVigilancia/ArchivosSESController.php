@@ -35,7 +35,7 @@ class ArchivosSESController extends Controller
         $carteraCerrada = false;
 
         if (!empty($req["fecha_reporte"])) {
-            $fecha = Carbon::createFromFormat('Y/m', $req["fecha_reporte"])
+            $fecha = Carbon::createFromFormat('Y/m/d', $req["fecha_reporte"] . '/01')
                 ->startOfDay();
 
             if(!$this->moduloCerrado(7, $fecha)) {
@@ -101,7 +101,7 @@ class ArchivosSESController extends Controller
             case 'CARTERACREDITOS':
                 $file = $this->generarCartera($fecha);
                 break;
-            
+
             default:
                 break;
         }

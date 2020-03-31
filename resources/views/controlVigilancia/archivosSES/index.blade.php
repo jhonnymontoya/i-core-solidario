@@ -61,9 +61,8 @@
 							        	if (Request::has('fecha_reporte') && !empty(Request::get('fecha_reporte'))) {
 											$fechaReporte = Request::get('fecha_reporte');
 										}
-										Form::text('fecha_reporte', $fechaReporte, ['class' => 'form-control', 'placeholder' => 'yyyy/mm' ]);
 							        @endphp
-							        {!! Form::text('fecha_reporte', date('d/m/Y'), ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'dd/mm/yyyy', 'data-provide' => 'datepicker', 'data-date-format' => 'dd/mm/yyyy', 'data-date-autoclose' => 'true']) !!}
+							        {!! Form::text('fecha_reporte', $fechaReporte, ['class' => [$valid, 'form-control'], 'placeholder' => 'yyyy/mm', 'autocomplete' => 'off' ]) !!}
 							        @if ($errors->has('fecha_reporte'))
 							            <div class="invalid-feedback">{{ $errors->first('fecha_reporte') }}</div>
 							        @endif

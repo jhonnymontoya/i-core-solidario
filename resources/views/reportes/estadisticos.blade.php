@@ -328,11 +328,11 @@
 					}
 				};
 				consolidadoColocacionesAnio = new Chart(consolidadoColocacionesAnio, consolidadoColocacionesAnioConfig);
-		        @break		
+		        @break
 		    @default
 		@endswitch
-		
-	@endif		
+
+	@endif
 	});
 </script>
 @endpush
