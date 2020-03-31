@@ -182,7 +182,7 @@ class LoginController extends Controller
 		if($tipoUsuario == LoginController::ADMINISTRADOR) {
 			$usuario = Usuario::activo(true)->whereUsuario($usuario)->first();
 			$avatarPath = "storage/avatars/";
-			$avatar = $usuario->avatar;
+			$avatar = $usuario->avatar ?? $avatar;
 		}
 
 		if($tipoUsuario == LoginController::SOCIO) {
