@@ -72,8 +72,10 @@ class TipoCuotaAhorrosController extends Controller
 		$obj->intereses_cuif_id				= $request->intereses_cuif_id;
 		$obj->paga_intereses_retirados		= $request->paga_intereses_retirados;
 		if($obj->tipo_ahorro != 'VOLUNTARIO') {
-			$obj->tasa_penalidad				= $request->tasa_penalidad;
-			$obj->esta_activa					= $request->esta_activa;
+			$obj->plazo = $request->plazo;;
+			$obj->fecha_vencimiento_colectivo = $request->fecha_vencimiento_colectivo;
+			$obj->tasa_penalidad = $request->tasa_penalidad;
+			$obj->penalidad_por_retiro = $request->penalidad_por_retiro;
 		}
 
 		$obj->save();
