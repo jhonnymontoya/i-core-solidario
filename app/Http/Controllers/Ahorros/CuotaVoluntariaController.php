@@ -64,6 +64,20 @@ class CuotaVoluntariaController extends Controller
 		$cuota->fill($request->all());
 		$cuota->socio_id = $obj->id;
 
+		$modalidad = ModalidadAhorro::find($request->modalidad_ahorro_id);
+		if($modalidad->tipo_ahorro == 'PROGRAMADO') {
+			$fechaFinal = $modalidad->getFechaFinalizacion($cuota->periodo_inicial);
+			if($cuota->periodo_inicial->greaterThan($fechaFinal)) {
+				Session::flash('error', 'La fecha final de la modalidad de ahorro es menor a la fecha de periodo inicial.');
+				return redirect()->back()->withInput();
+			}
+			if(empty($request->periodo_final)) {
+				$cuota->periodo_final = $fechaFinal;
+			}
+			elseif($cuota->periodo_final->greaterThan($fechaFinal)) {
+				$cuota->periodo_final = $fechaFinal;
+			}
+		}
 		$cuota->save();
 
 		Session::flash('message', 'Se ha agregado la cuota para \'' . $cuota->modalidadAhorro->nombre . '\'');

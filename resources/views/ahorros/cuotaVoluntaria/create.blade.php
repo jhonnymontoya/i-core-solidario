@@ -31,6 +31,12 @@
 				<p>Se ha{{ $errors->count() > 1?'n':'' }} encontrado <strong>{{ $errors->count() }}</strong> error{{ $errors->count() > 1?'es':'' }}, por favor corrigalo{{ $errors->count() > 1?'s':'' }} antes de proseguir.</p>
 			</div>
 		@endif
+		@if (Session::has('error'))
+			<div class="alert alert-danger alert-dismissible" data-closable>
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+			   {{ Session::get('error') }}
+			</div>
+		@endif
 		{!! Form::open(['url' => ['cuotaVoluntaria', $socio], 'method' => 'post', 'role' => 'form']) !!}
 		<div class="container-fluid">
 			<div class="card card-{{ $errors->count()?'danger':'success' }} card-outline">
