@@ -1460,6 +1460,54 @@ class ReportesController extends Controller
 					->render();
 	}
 
+	/**
+	 * INFORME CIERRE DE CARTERA POR PERIODO
+	 * @param type $request
+	 * @return type
+	 */
+	public function reporteCierreCartera($request) {
+		$validate = Validator::make($request->all(), [
+			'fechaCorte'		=> 'bail|required|date_format:"Y/m/d"',
+		]);
+
+		if($validate->fails())return "";
+
+		$fechaCorte = Carbon::createFromFormat('Y/m/d', $request->fechaCorte)->startOfDay();
+		$entidad = $this->getEntidad();
+
+		$query = "DECLARE @entidad INT = ?; DECLARE @fecha_corte DATETIME = ?; SELECT cc.tercero_numero_identificacion AS Identificacion, cc.tercero_nombre AS Nombre, cc.socio_estado AS Estado, p.nombre AS Empresa, cc.numero_obligacion AS Obligacion, cc.fecha_desembolso AS Desembolso, cc.valor_credito AS Monto, cc.tasa AS Tasa, cc.plazo AS Plazo, cc.valor_cuota AS Cuota, cc.altura_cuota AS Altura, cc.numero_cuotas_pendientes AS Pendientes, cc.modalidad_codigo AS ModalidadCodigo, cc.modalidad_nombre AS Modalidad, cc.saldo_capital AS Saldo, cc.saldo_intereses AS SaldoInteres, cc.interes_causado AS InteresCausado, cc.saldo_seguro AS SaldoSeguro, cc.dias_vencidos AS DiasVencidos, cc.capital_vencido AS CapitalVencido, cc.tipo_cartera AS Cartera, cc.tipo_garantia AS TipoGarantia, cc.forma_pago AS TipoPago, cc.periodicidad AS Frecuencia, cc.fecha_descuento_capital AS InicioPago, cc.fecha_terminacion_programada AS FechaFinal, cc.fecha_ultimo_pago AS UltimoPago, cc.calificacion_periodo_anterior AS CalificacionAnterior, cc.calificacion_actual AS CalificacionActual, cc.calificacion_final AS CalificacionFinal, cc.valor_aporte_deterioro AS AhorrosDeterioro, cc.base_deterioro AS BaseDeterioro, cc.deterioro_capital AS DeterioroCapital, cc.deterioro_intereses AS DeterioroIntereses, cc.fecha_cancelacion AS FechaCancelación, cc.estado_solicitud AS EstadoCredito, cc.cuif_capital AS CuentaCapital FROM creditos.cierres_cartera AS cc INNER JOIN general.control_cierre_modulos AS ccm ON cc.control_cierre_modulo_id = ccm.id LEFT JOIN recaudos.pagadurias AS p ON cc.pagaduria_id = p.id WHERE cc.entidad_id = @entidad AND ccm.fecha_cierre = @fecha_corte";
+		$DSCierreCartera = DB::select($query, [$entidad->id, $fechaCorte ]);
+		if(!$DSCierreCartera)return "";
+
+		foreach($DSCierreCartera as &$cierrecartera) {
+			try {
+				if(!is_null($cierrecartera->Desembolso))
+				$cierrecartera->Desembolso = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->Desembolso);
+
+				if(!is_null($cierrecartera->InicioPago))
+				$cierrecartera->InicioPago = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->InicioPago);
+			
+				if(!is_null($cierrecartera->FechaFinal))
+				$cierrecartera->FechaFinal = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->FechaFinal);
+			
+				if(!is_null($cierrecartera->UltimoPago))
+				$cierrecartera->UltimoPago = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->UltimoPago);
+			
+				if(!is_null($cierrecartera->FechaCancelación))
+				$cierrecartera->FechaCancelación = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->FechaCancelación);
+			}
+			catch(\InvalidArgumentException $e) {
+			}
+		}
+
+		return view("reportes.creditos.reporteCierreCartera")
+					->withEntidad($entidad)
+					->withCierreCartera($DSCierreCartera)
+					->withFechaCorte($fechaCorte)
+					->render();
+	}
+
+
 	/*FIN CRÉDITOS*/
 
 	/*INICIO CONTROL Y VIGILANCIA*/
