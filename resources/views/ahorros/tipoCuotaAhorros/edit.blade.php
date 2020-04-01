@@ -204,7 +204,7 @@
 									@php
 										$cuentaRendimientoInteresesPorPagar = optional($cuota->cuentaRendimientoInteresesPorPagar)->full;
 									@endphp
-									{!! Form::text('intereses_por_pagar_cuif_id', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Cuenta contable intereses por pagar', 'readonly']) !!}
+									{!! Form::text('intereses_por_pagar_cuif_id', $cuentaRendimientoInteresesPorPagar, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Cuenta contable intereses por pagar', 'readonly']) !!}
 									@if ($errors->has('intereses_por_pagar_cuif_id'))
 										<div class="invalid-feedback">{{ $errors->first('intereses_por_pagar_cuif_id') }}</div>
 									@endif
@@ -244,7 +244,7 @@
 									$valid = $errors->has('tipo_vencimiento') ? 'is-invalid' : '';
 								@endphp
 								<label class="control-label">Tipo de vencimiento</label>
-								{!! Form::select('tipo_vencimiento', ['COLECTIVO' => 'Colectivo', 'INDIVIDUAL' => 'Individual'], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+								{!! Form::text('tipo_vencimiento', title_case($cuota->tipo_vencimiento), ['class' => [$valid, 'form-control', 'select2'], 'readonly']) !!}
 								@if ($errors->has('tipo_vencimiento'))
 									<div class="invalid-feedback">{{ $errors->first('tipo_vencimiento') }}</div>
 								@endif
