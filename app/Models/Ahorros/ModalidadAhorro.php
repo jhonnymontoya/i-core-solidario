@@ -10,6 +10,7 @@ use App\Models\Recaudos\RecaudoNomina;
 use App\Models\Socios\CuotaObligatoria;
 use App\Traits\FonadminModelTrait;
 use App\Traits\FonadminTrait;
+use App\Helpers\CalendarioHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -78,7 +79,7 @@ class ModalidadAhorro extends Model
 		'penalidad_por_retiro'			=> 'boolean',
 		'paga_retiros'					=> 'boolean',
 		'paga_intereses_retirados'		=> 'boolean',
-		'esta_activa'					=> 'boolean',		
+		'esta_activa'					=> 'boolean',
 	];
 
 	/**
@@ -89,7 +90,7 @@ class ModalidadAhorro extends Model
 		$ret = $this->attributes['apalancamiento_cupo'] == 0 ? '0.00' : $this->attributes['apalancamiento_cupo'];
 		return $ret;
 	}
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -120,7 +121,7 @@ class ModalidadAhorro extends Model
 			$this->attributes['fecha_vencimiento_colectivo'] = null;
 		}
 	}
-	
+
 	/**
 	 * Scopes
 	 */
@@ -155,15 +156,39 @@ class ModalidadAhorro extends Model
 	public function scopeVoluntario($query) {
 		$query->where('tipo_ahorro', '<>', 'OBLIGATORIO');
 	}
-	
+
 	/**
 	 * Funciones
 	 */
-	 
+
+	public function getFechaFinalizacion($fechaInicio = null)
+	{
+	    if($this->attributes['tipo_ahorro'] != 'PROGRAMADO') {
+	    	return null;
+	    }
+
+	    if($this->attributes['tipo_vencimiento'] == 'COLECTIVO') {
+	    	return $this->fecha_vencimiento_colectivo;
+	    }
+
+	    if($this->attributes['tipo_vencimiento'] == 'INDIVIDUAL') {
+	    	if($fechaInicio == null) {
+	    		return null;
+	    	}
+	    	$plazo = $this->attributes['plazo'];
+	    	while(--$plazo > 0) {
+	    		$fechaInicio = CalendarioHelper::siguienteFechaSegunPeriodicidad($fechaInicio, 'MENSUAL');
+	    	}
+	    	return $fechaInicio;
+	    }
+
+	    return null;
+	}
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -211,7 +236,7 @@ class ModalidadAhorro extends Model
 	public function cuentaRendimientoInteresesPorPagar() {
 		return $this->belongsTo(Cuif::class, 'intereses_por_pagar_cuif_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
