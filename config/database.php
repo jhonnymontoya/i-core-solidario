@@ -91,6 +91,30 @@ return [
             'prefix_indexes' => true,
         ],
 
+        //Conexión de sincronizador red coopcentral, SLS
+        'sqlsrvRedCoopcentral' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_HOST_RED_COOPCENTRAL', 'localhost'),
+            'port' => env('DB_PORT_RED_COOPCENTRAL', '1433'),
+            'database' => env('DB_DATABASE_RED_COOPCENTRAL', 'forge'),
+            'username' => env('DB_USERNAME_RED_COOPCENTRAL', 'forge'),
+            'password' => env('DB_PASSWORD_RED_COOPCENTRAL', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
+        //Conexión del sincronizador
+        'sqlsrvEcgtssyn' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_HOST_ECGTSSYN', 'localhost'),
+            'port' => env('DB_PORT_ECGTSSYN', '1433'),
+            'database' => env('DB_DATABASE_ECGTSSYN', 'forge'),
+            'username' => env('DB_USERNAME_ECGTSSYN', 'forge'),
+            'password' => env('DB_PASSWORD_ECGTSSYN', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
     ],
 
     /*

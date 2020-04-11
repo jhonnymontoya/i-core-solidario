@@ -41,6 +41,12 @@ return [
             'provider' => 'users',
         ],
 
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -66,9 +72,14 @@ return [
     */
 
     'providers' => [
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Sistema\Usuario::class,
+        ],
+
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\Sistema\UsuarioWeb::class,
         ],
 
         // 'users' => [
@@ -93,9 +104,15 @@ return [
     */
 
     'passwords' => [
+        'admins' => [
+            'provider' => 'admin',
+            'table' => 'sistema.claves_recuperacion',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
+            'table' => 'sistema.claves_recuperacion',
             'expire' => 60,
             'throttle' => 60,
         ],
