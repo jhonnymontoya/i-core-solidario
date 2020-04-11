@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+    const ADMINISTRADOR = 1;
+    const SOCIO = 2;
+
     /**
      * Handle an incoming request.
      *
@@ -19,7 +22,24 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            if(Session::has("tipoUsuario")) {
+                if(Session::get("tipoUsuario") == RedirectIfAuthenticated::ADMINISTRADOR) {
+                    return redirect('/dashboard');
+                }
+                elseif(Session::get("tipoUsuario") == RedirectIfAuthenticated::SOCIO) {
+                    return redirect('/consulta');
+                }
+                else {
+                    Auth::guard($guard)->logout();
+                    Session::invalidate();
+                    return redirect('login');
+                }
+            }
+            else {
+                Auth::guard($guard)->logout();
+                Session::invalidate();
+                return redirect('login');
+            }
         }
 
         return $next($request);
