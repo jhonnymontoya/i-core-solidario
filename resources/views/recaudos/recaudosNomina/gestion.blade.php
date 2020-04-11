@@ -63,7 +63,7 @@
 								<div class="col-md-2">{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</div>
 
 								<div class="col-md-1"><strong>Estado</strong></div>
-								<div class="col-md-1">{{ title_case($controlProceso->estado) }}</div>
+								<div class="col-md-1">{{ Str::title($controlProceso->estado) }}</div>
 
 								<div class="col-md-2"><strong>Número proceso</strong></div>
 								<div class="col-md-1">{{ $controlProceso->id }}</div>

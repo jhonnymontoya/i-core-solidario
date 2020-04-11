@@ -244,7 +244,7 @@
 									$valid = $errors->has('tipo_vencimiento') ? 'is-invalid' : '';
 								@endphp
 								<label class="control-label">Tipo de vencimiento</label>
-								{!! Form::text('tipo_vencimiento', title_case($cuota->tipo_vencimiento), ['class' => [$valid, 'form-control', 'select2'], 'readonly']) !!}
+								{!! Form::text('tipo_vencimiento', Str::title($cuota->tipo_vencimiento), ['class' => [$valid, 'form-control', 'select2'], 'readonly']) !!}
 								@if ($errors->has('tipo_vencimiento'))
 									<div class="invalid-feedback">{{ $errors->first('tipo_vencimiento') }}</div>
 								@endif

@@ -4,7 +4,7 @@
 <div class="content-wrapper">
 	<section class="content">
 		<div class="jumbotron mt-3">
-			<h1 class="display-4">Hola, {{ title_case($socio->tercero->primer_nombre) }}!</h1>
+			<h1 class="display-4">Hola, {{ Str::title($socio->tercero->primer_nombre) }}!</h1>
 			<p class="lead">Bienvenid{{ ($genero->masculino ? 'o' : 'a') }} a tu oficina web, un espacio diseñado para mantenerte en contacto con tus productos y servicios.</p>
 			<hr class="my-4">
 			<p>Haz click en una categoría para obtener información adicional.</p>

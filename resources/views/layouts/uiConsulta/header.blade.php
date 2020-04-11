@@ -3,7 +3,7 @@
 		$usuario = Auth::user();
 		$socio = $usuario->socios[0];
 		$tercero = $socio->tercero;
-		$nombre = title_case($tercero->nombre_corto);
+		$nombre = Str::title($tercero->nombre_corto);
 		$fechaAfiliacion = $socio->fecha_antiguedad->diffForHumans();
 
 		$imagen = $socio->obtenerAvatar();

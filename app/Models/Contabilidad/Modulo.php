@@ -9,6 +9,7 @@ use App\Traits\FonadminModelTrait;
 use App\Traits\FonadminTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Modulo extends Model
 {
@@ -59,7 +60,7 @@ class Modulo extends Model
 	 */
 	
 	public function setNombreAttribute($value) {
-		$this->attributes['nombre'] = title_case($value);
+		$this->attributes['nombre'] = Str::title($value);
 	}
 
 	/**

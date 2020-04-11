@@ -8,6 +8,7 @@ use App\Traits\FonadminModelTrait;
 use App\Traits\FonadminTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class CobroAdministrativo extends Model
 {
@@ -76,7 +77,7 @@ class CobroAdministrativo extends Model
 	}
 
 	public function setNombreAttribute($value) {
-		$this->attributes['nombre'] = title_case($value);
+		$this->attributes['nombre'] = Str::title($value);
 	}
 
 	/**

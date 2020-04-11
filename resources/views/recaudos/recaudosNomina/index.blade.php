@@ -81,7 +81,7 @@
 									<div class="col-md-2">{{ $pagaduria->nombre }}</div>
 
 									<div class="col-md-2"><strong>Periodicidad:</strong></div>
-									<div class="col-md-2">{{ title_case($pagaduria->periodicidad_pago) }}</div>
+									<div class="col-md-2">{{ Str::title($pagaduria->periodicidad_pago) }}</div>
 
 									<?php
 										$periodo = $pagaduria->calendarioRecaudos()
@@ -120,7 +120,7 @@
 										@foreach($procesos as $controlProceso)
 											<tr>
 												<td>{{ $controlProceso->calendarioRecaudo->numero_periodo . '.' . $controlProceso->calendarioRecaudo->fecha_recaudo }}</td>
-												<td>{{ title_case($controlProceso->estado) }}</td>
+												<td>{{ Str::title($controlProceso->estado) }}</td>
 												<td>
 													<a class="btn btn-outline-primary btn-sm" href="{{ route('recaudosNominaGestion', $controlProceso->id) }}"><i class="fas fa-external-link-alt"></i></a>
 												</td>

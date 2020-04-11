@@ -13,6 +13,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
 use Image;
 use Storage;
+use Illuminate\Support\Str;
 
 class Usuario extends Authenticatable
 {
@@ -130,19 +131,19 @@ class Usuario extends Authenticatable
 	}
 
 	public function setPrimerNombreAttribute($value) {
-		$this->attributes['primer_nombre'] = title_case($value);
+		$this->attributes['primer_nombre'] = Str::title($value);
 	}
 
 	public function setSegundoNombreAttribute($value) {
-		$this->attributes['segundo_nombre'] = title_case($value);
+		$this->attributes['segundo_nombre'] = Str::title($value);
 	}
 
 	public function setPrimerApellidoAttribute($value) {
-		$this->attributes['primer_apellido'] = title_case($value);
+		$this->attributes['primer_apellido'] = Str::title($value);
 	}
 
 	public function setSegundoApellidoAttribute($value) {
-		$this->attributes['segundo_apellido'] = title_case($value);
+		$this->attributes['segundo_apellido'] = Str::title($value);
 	}
 
 	public function setUsuarioAttribute($value) {
