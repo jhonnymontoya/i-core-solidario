@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Carbon::setLocale('es');
+        Carbon::setToStringFormat('d/m/Y');
     }
 
     /**

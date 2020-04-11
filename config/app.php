@@ -178,7 +178,7 @@ return [
         /*
          * Reglas de validación personalizadas
          */
-        //App\Providers\CustomValidationRulesProvider::class,
+        App\Providers\CustomValidationRulesProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
