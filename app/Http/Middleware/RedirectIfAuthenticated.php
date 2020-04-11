@@ -2,16 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Session;
 
 class RedirectIfAuthenticated
 {
-
-    const ADMINISTRADOR = 1;
-    const SOCIO = 2;
-
     /**
      * Handle an incoming request.
      *
@@ -20,26 +16,10 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null) {
+    public function handle($request, Closure $next, $guard = null)
+    {
         if (Auth::guard($guard)->check()) {
-            if(Session::has("tipoUsuario")) {
-                if(Session::get("tipoUsuario") == RedirectIfAuthenticated::ADMINISTRADOR) {
-                    return redirect('/dashboard');
-                }
-                elseif(Session::get("tipoUsuario") == RedirectIfAuthenticated::SOCIO) {
-                    return redirect('/consulta');
-                }
-                else {
-                    Auth::guard($guard)->logout();
-                    Session::invalidate();
-                    return redirect('login');
-                }
-            }
-            else {
-                Auth::guard($guard)->logout();
-                Session::invalidate();
-                return redirect('login');
-            }
+            return redirect(RouteServiceProvider::HOME);
         }
 
         return $next($request);
