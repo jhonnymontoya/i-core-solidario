@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use App\Traits\FonadminTrait;
 use DB;
 use Exception;
+use App\Traits\FonadminTrait;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+
 
 class CustomValidationRulesProvider extends ServiceProvider
 {
@@ -16,6 +17,16 @@ class CustomValidationRulesProvider extends ServiceProvider
      * @return void
      */
     public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
     {
         Validator::extend('null', function ($attribute, $value, $parameters, $validator){
             return (boolean)DB::table($parameters[0])->whereNull($parameters[1])->where($parameters[2], $parameters[3])->count();
@@ -84,15 +95,5 @@ class CustomValidationRulesProvider extends ServiceProvider
             if(count($parameters) < 1)throw new Exception("Not enough parameters for validation rule 'moduloCerrado'");
             return !$this->moduloCerrado(array_shift($parameters), $value);
         });
-    }
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
     }
 }

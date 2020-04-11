@@ -13,6 +13,8 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+Artisan::command('tarjeta:recibirTransacciones', function() {
+    //$this->comment("Recibiendo transacciones...");
+    //\Log::info("Se llama comando iniciar recibir transacciones en red");
+    event(new \App\Events\Tarjeta\RecibirTransacciones());
+})->describe("Recibe transacciones del sincronizador y las almacena");

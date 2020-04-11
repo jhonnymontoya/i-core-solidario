@@ -2,9 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\Controller;
+use App\Models\Sistema\Usuario;
+use App\Models\Sistema\UsuarioWeb;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Route;
+use Validator;
+use Session;
 
 class ResetPasswordController extends Controller
 {

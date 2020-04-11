@@ -3,7 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Sistema\PasswordResetLink;
+use App\Models\Sistema\Usuario;
+use App\Models\Sistema\UsuarioWeb;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Route;
+use Validator;
+use \Illuminate\Support\Facades\Hash;
 
 class ForgotPasswordController extends Controller
 {

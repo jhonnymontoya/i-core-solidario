@@ -19,3 +19,29 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+<IfModule mod_mime.c>
+    AddType image/svg+xml svg svgz
+    AddEncoding gzip svgz
+</IfModule>
+
+AddDefaultCharset utf-8
+LimitRequestBody 0
+
+#block bad bots with a 403
+SetEnvIfNoCase User-Agent "Sogou" bad_bot
+SetEnvIfNoCase User-Agent "MJ12bot" bad_bot
+SetEnvIfNoCase User-Agent "Baiduspider" bad_bot
+SetEnvIfNoCase User-Agent "NetcraftSurveyAgent" bad_bot
+SetEnvIfNoCase User-Agent "Mediatoolkitbot" bad_bot
+SetEnvIfNoCase User-Agent "Crawl" bad_bot
+SetEnvIfNoCase User-Agent "vebidoobot" bad_bot
+SetEnvIfNoCase User-Agent "spbot" bad_bot
+SetEnvIfNoCase User-Agent "MetaURI" bad_bot
+SetEnvIfNoCase User-Agent "mediawords" bad_bot
+
+<Limit GET POST HEAD>
+    Order Allow,Deny
+    Allow from all
+    Deny from env=bad_bot
+</Limit>

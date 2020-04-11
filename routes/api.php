@@ -1,18 +1,33 @@
 <?php
 
-use Illuminate\Http\Request;
+/***************************************************************************************
+ * Rutas de Generales
+ ***************************************************************************************/
+//Rutas de Profesiones
+Route::get('profesion', 'General\ProfesionController@getProfesion');
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+//Rutas de ciudad
+Route::get('ciudad', 'General\CiudadController@ciudad');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Rutas de Entidad
+Route::put('entidad/directivo', 'General\EntidadController@agregarDirectivo');
+Route::put('entidad/legal', 'General\EntidadController@agregarRepresentanteLegal');
+Route::put('entidad/controlSocial', 'General\EntidadController@agregarControlSocial');
+Route::put('entidad/comiteCartera', 'General\EntidadController@agregarComiteCartera');
+Route::put('entidad/comiteRiesgoLiquidez', 'General\EntidadController@agregarComiteRiesgoLiquidez');
+Route::delete('entidad/directivo', 'General\EntidadController@eliminarOrganismo');
+
+/***************************************************************************************
+ * Rutas de Socios
+ ***************************************************************************************/
+//Rutas de socio
+Route::get('socio', 'Socios\SocioController@socio');
+Route::post('socio/beneficiario', 'Socios\SocioController@beneficiario');
+
+/***************************************************************************************
+ * Rutas de Tesorería
+ ***************************************************************************************/
+
+//Rutas de tipos de comprobantes
+Route::get('tipoComprobante', 'Contabilidad\TipoComprobanteController@getTipoComprobante');
+
