@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomValidationRulesProvider extends ServiceProvider
 {
+    use FonadminTrait;
+
     /**
      * Register services.
      *
