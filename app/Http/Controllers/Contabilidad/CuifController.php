@@ -147,6 +147,7 @@ class CuifController extends Controller
 		$obj->acepta_saldo_negativo	= $request->negativo;
 		$obj->comentario			= empty($request->comentario) ? null : $request->comentario;
 		$obj->esta_activo			= $request->esta_activo;
+		$obj->es_pyg				= $request->resultado;
 
 		$obj->save();
 		Session::flash('message', 'Se ha actualizado la cuenta \'' . $obj->full . '\'');

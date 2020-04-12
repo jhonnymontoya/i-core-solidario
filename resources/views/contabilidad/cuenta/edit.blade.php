@@ -36,12 +36,6 @@
 				{!! Form::model($cuenta, ['url' => ['cuentaContable', $cuenta], 'method' => 'put', 'role' => 'form']) !!}
 				<div class="card-header with-border">
 					<h3 class="card-title">Editar cuenta contable</h3>
-
-					<div class="card-tools pull-right">
-						<button type="button" class="btn btn-card-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-							<i class="fa fa-minus"></i>
-						</button>
-					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -70,7 +64,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">							
+					<div class="row">
 						<div class="col-md-2">
 							<div class="form-group">
 								<label class="control-label">Nivel de la cuenta</label>
