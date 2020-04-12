@@ -1375,7 +1375,7 @@ class SocioController extends Controller
 		$pdf = $pdf->getRuta();
 		$nombre = "Certificado tributario %s %s";
 		$nombre = sprintf($nombre, $obj->tercero->numero_identificacion, $obj->tercero->nombre_corto);
-		$nombre = str_slug($nombre, "_") . ".pdf";
+		$nombre = Str::slug($nombre, "_") . ".pdf";
 		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
 	}
 

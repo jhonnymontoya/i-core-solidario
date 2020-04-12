@@ -188,7 +188,7 @@
 		var instancia = new TableExport(instancia, {
 			headers: true,
 			footers: true,
-			filename: '{{ str_slug('preCierre' . date('ymd'), '-') }}',
+			filename: '{{ Str::slug('preCierre' . date('ymd'), '-') }}',
 			bootstrap: false,
 			exportButtons: false
 		});

@@ -49,7 +49,7 @@ class CertificadoTributario
 	public function getPath() {
 		$tercero = $this->socio->tercero;
 		$nombre = sprintf("%s %s", Str::random(10), $tercero->nombre_completo);
-		$nombre = str_slug($nombre, "_") . ".pdf";
+		$nombre = Str::slug($nombre, "_") . ".pdf";
 		$path = "app%spdf%s%s";
 		$path = sprintf($path, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $nombre);
 		$path = storage_path($path);

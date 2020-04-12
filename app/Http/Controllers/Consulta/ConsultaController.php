@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Mail;
 use Route;
 use Validator;
 use Session;
+use Illuminate\Support\Str;
 
 class ConsultaController extends Controller
 {
@@ -439,7 +440,7 @@ class ConsultaController extends Controller
 		$pdf = $pdf->getRuta();
 		$nombre = "Certificado tributario %s %s";
 		$nombre = sprintf($nombre, $socio->tercero->numero_identificacion, $socio->tercero->nombre_corto);
-		$nombre = str_slug($nombre, "_") . ".pdf";
+		$nombre = Str::slug($nombre, "_") . ".pdf";
 		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
 	}
 
