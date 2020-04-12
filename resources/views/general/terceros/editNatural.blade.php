@@ -228,7 +228,7 @@
 							    @php
 							        $valid = $errors->has('ciudad_expedicion_documento_id') ? 'is-invalid' : '';
 							    @endphp
-							    <label class="control-label">Ciudad de nacimiento</label>
+							    <label class="control-label">Ciudad expedición ID</label>
 							    {!! Form::select('ciudad_expedicion_documento_id', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
 							    @if ($errors->has('ciudad_expedicion_documento_id'))
 							        <div class="invalid-feedback">{{ $errors->first('ciudad_expedicion_documento_id') }}</div>
@@ -243,7 +243,7 @@
 							    @php
 							        $valid = $errors->has('actividad_economica_id') ? 'is-invalid' : '';
 							    @endphp
-							    <label class="control-label">Ciudad de nacimiento</label>
+							    <label class="control-label">Actividad económica</label>
 							    {!! Form::select('actividad_economica_id', [], null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una opción']) !!}
 							    @if ($errors->has('actividad_economica_id'))
 							        <div class="invalid-feedback">{{ $errors->first('actividad_economica_id') }}</div>
