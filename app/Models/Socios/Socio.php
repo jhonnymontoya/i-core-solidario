@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\UploadedFile;
 use Image;
 use Storage;
+use Illuminate\Support\Str;
 
 class Socio extends Model
 {
@@ -102,7 +103,7 @@ class Socio extends Model
 			$avatar = $avatar->orientate();
 
 			$avatar->encode('jpg');
-			$imagen = sprintf("%s_%s.jpg", $this->tercero->numero_identificacion, str_random(10));
+			$imagen = sprintf("%s_%s.jpg", $this->tercero->numero_identificacion, Str::random(10));
 
 			$avatar->save(storage_path('app/public/asociados/' . $imagen));
 
@@ -115,7 +116,7 @@ class Socio extends Model
 
 	public function setFirmaAttribute($value) {
 		if(!empty($value)) {
-			$fileName = str_random(10) . "_" . time() . "_";
+			$fileName = Str::random(10) . "_" . time() . "_";
 			$avatar = Image::make($value);
 
 			$avatar = $avatar->orientate();

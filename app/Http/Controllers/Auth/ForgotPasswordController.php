@@ -196,7 +196,7 @@ class ForgotPasswordController extends Controller
         $db->where('usuario', $usuario->usuario)->delete();
 
         //Se crea nuevo token
-        $token = str_random(64);
+        $token = Str::random(64);
 
         $db->insert([
             'usuario' => $usuario->usuario,

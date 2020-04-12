@@ -118,7 +118,7 @@ class Usuario extends Authenticatable
 		$avatar = $avatar->orientate();
 
 		$avatar->encode('jpg');
-		$imagen = sprintf("%s_%s.jpg", $this->usuario, str_random(10));
+		$imagen = sprintf("%s_%s.jpg", $this->usuario, Str::random(10));
 
 		$avatar->save(storage_path('app/public/avatars/' . $imagen));
 

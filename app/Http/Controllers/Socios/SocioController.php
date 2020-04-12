@@ -48,6 +48,7 @@ use Log;
 use Route;
 use Session;
 use Validator;
+use Illuminate\Support\Str;
 
 class SocioController extends Controller
 {
@@ -796,7 +797,7 @@ class SocioController extends Controller
 		}
 		$mensaje = sprintf('Se ha procesado la afiliación con éxito para el socio %s, ahora debe actualizar las cuotas obligatorias', $obj->tercero->nombre_corto);
 
-		$password = str_random(8);
+		$password = Str::random(8);
 		$tercero = $obj->tercero;
 
 		$usuarioWeb = UsuarioWeb::whereUsuario($tercero->numero_identificacion)->first();

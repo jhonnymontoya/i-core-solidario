@@ -31,6 +31,7 @@ use Log;
 use Route;
 use Storage;
 use Validator;
+use Illuminate\Support\Str;
 
 class EntidadController extends Controller
 {
@@ -190,7 +191,7 @@ class EntidadController extends Controller
 			if(!empty($request['imagen' . $categoria->id])) {
 				try {
 					$value = $request['imagen' . $categoria->id];
-					$fileName = 'entidad' . $obj->id . '_' . str_random(10) . "_" . time() . "_" . $categoria->ancho . 'x' . $categoria->alto . '.jpg';
+					$fileName = 'entidad' . $obj->id . '_' . Str::random(10) . "_" . time() . "_" . $categoria->ancho . 'x' . $categoria->alto . '.jpg';
 					$avatar = Image::make($value);
 
 					$avatar = $avatar->orientate();
