@@ -33,9 +33,9 @@
 										@if(Session::has('entidad'))
 											<small>
 												@if(!empty(Session::get('entidad')->terceroEntidad->sigla))
-													{{ str_limit(Session::get('entidad')->terceroEntidad->sigla, 20) }}
+													{{ Str::limit(Session::get('entidad')->terceroEntidad->sigla, 20) }}
 												@else
-													{{ str_limit(Session::get('entidad')->terceroEntidad->razon_social, 20) }}
+													{{ Str::limit(Session::get('entidad')->terceroEntidad->razon_social, 20) }}
 												@endif
 											</small>
 										@endif

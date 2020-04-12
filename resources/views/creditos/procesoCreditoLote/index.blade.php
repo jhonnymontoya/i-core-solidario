@@ -91,7 +91,7 @@
 											<td>{{ $proceso->consecutivo_proceso }}</td>
 											<td>{{ $proceso->fecha_proceso }}</td>
 											<td>{{ $proceso->modalidad->nombre }}</td>
-											<td>{{ str_limit($proceso->descripcion, 80) }}</td>
+											<td>{{ Str::limit($proceso->descripcion, 80) }}</td>
 											<td>{{ $proceso->cantidad_solicitudes_creditos }}</td>
 											<td class="text-right">${{ number_format($proceso->total_valor_creditos, 0) }}</td>
 											<td>

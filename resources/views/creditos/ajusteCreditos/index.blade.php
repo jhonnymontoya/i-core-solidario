@@ -129,7 +129,7 @@
 															</a>
 														</td>
 														<td>
-															{{ str_limit($credito->modalidadCredito->nombre, 40) }}
+															{{ Str::limit($credito->modalidadCredito->nombre, 40) }}
 														</td>
 														<td>{{ $credito->fecha_desembolso }}</td>
 														<td class="text-right">{{ number_format($credito->tasa, 2) }}%</td>

@@ -62,7 +62,7 @@
 								@else
 									<br>
 									{!! Form::hidden('capital_cuif_id', $tipoCuentaAhorro->capital_cuif_id )  !!}
-									{!! Form::text(null, str_limit($tipoCuentaAhorro->capitalCuif->full, 50), ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital', 'readonly' => true]) !!}
+									{!! Form::text(null, Str::limit($tipoCuentaAhorro->capitalCuif->full, 50), ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'Cuenta capital', 'readonly' => true]) !!}
 								@endif
 								@if ($errors->has('capital_cuif_id'))
 									<div class="invalid-feedback">{{ $errors->first('capital_cuif_id') }}</div>

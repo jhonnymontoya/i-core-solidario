@@ -250,9 +250,9 @@
 								<tbody id="id_registros">
 									@foreach($detalles as $detalle)
 										<tr data-id="{{ $detalle->id }}">
-											<td>{{ str_limit($detalle->cuif_codigo . ' - ' . $detalle->cuif_nombre, 30) }}</td>
-											<td>{{ str_limit($detalle->tercero, 30) }}</td>
-											<td>{{ str_limit($detalle->referencia, 30) }}</td>
+											<td>{{ Str::limit($detalle->cuif_codigo . ' - ' . $detalle->cuif_nombre, 30) }}</td>
+											<td>{{ Str::limit($detalle->tercero, 30) }}</td>
+											<td>{{ Str::limit($detalle->referencia, 30) }}</td>
 											<td class="text-right">${{ number_format($detalle->debito, 0) }}</td>
 											<td class="text-right">${{ number_format($detalle->credito, 0) }}</td>
 											<td class="text-center">

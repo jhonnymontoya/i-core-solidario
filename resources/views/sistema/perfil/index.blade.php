@@ -87,7 +87,7 @@
 										<tr>
 											<td>{{ $perfil->entidad->terceroEntidad->razon_social }}</td>
 											<td>{{ $perfil->nombre }}</td>
-											<td>{{ str_limit($perfil->descripcion, 30) }}</td>
+											<td>{{ Str::limit($perfil->descripcion, 30) }}</td>
 											<td>
 												<span class="badge badge-pill bg-green">
 													{{ $perfil->menus->count() }}

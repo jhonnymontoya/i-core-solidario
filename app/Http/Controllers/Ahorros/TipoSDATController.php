@@ -13,6 +13,7 @@ use App\Traits\FonadminTrait;
 use Illuminate\Http\Request;
 use Route;
 use Session;
+use Illuminate\Support\Str;
 
 class TipoSDATController extends Controller
 {
@@ -44,7 +45,7 @@ class TipoSDATController extends Controller
 		$tipo->save();
 
 		$mensaje = "Se ha creado el tipo SDAT %s";
-		$mensaje = sprintf($mensaje, str_limit($tipo->nombre_completo, 50));
+		$mensaje = sprintf($mensaje, Str::limit($tipo->nombre_completo, 50));
 		Session::flash("message", $mensaje);
 
 		return redirect('tipoSDAT');
@@ -92,7 +93,7 @@ class TipoSDATController extends Controller
 		$obj->save();
 
 		$mensaje = "Se ha actualizado el tipo SDAT %s";
-		$mensaje = sprintf($mensaje, str_limit($obj->nombre_completo, 50));
+		$mensaje = sprintf($mensaje, Str::limit($obj->nombre_completo, 50));
 		Session::flash("message", $mensaje);
 
 		return redirect('tipoSDAT');

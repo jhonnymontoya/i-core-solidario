@@ -97,7 +97,7 @@
 										<tr>
 											<td>{{ $parametro->modulo }}</td>
 											<td>{{ $parametro->codigo }}</td>
-											<td>{{ str_limit($parametro->descripcion, 70) }}</td>
+											<td>{{ Str::limit($parametro->descripcion, 70) }}</td>
 											<td>{{ $parametro->valor }}</td>
 											<td>{{ $indicador }}</td>
 											<td><a class="btn btn-outline-info btn-sm" href="{{ route('parametroInstitucionalEdit', $parametro) }}"><i class="fa fa-edit"></i></a></td>

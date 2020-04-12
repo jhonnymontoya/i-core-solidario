@@ -53,10 +53,10 @@
 						<td style="font-size: 12px;">{{ $movimiento->Comprobante}}</td>
 						<td style="font-size: 12px;">{{ $movimiento->Numero }}</td>
 						<td style="font-size: 12px;" class="text-right">{{ $movimiento->Identificacion }}</td>
-						<td style="font-size: 10px;">{{ str_limit($movimiento->Nombre, 20) }}</td>
+						<td style="font-size: 10px;">{{ Str::limit($movimiento->Nombre, 20) }}</td>
 						<td style="font-size: 12px;">{{ $movimiento->Cuenta }}</td>
-						<td style="font-size: 10px;">{{ str_limit($movimiento->NombreCuenta, 15) }}</td>
-						<td style="font-size: 10px;">{{ str_limit($movimiento->Descripcion, 30) }}</td>
+						<td style="font-size: 10px;">{{ Str::limit($movimiento->NombreCuenta, 15) }}</td>
+						<td style="font-size: 10px;">{{ Str::limit($movimiento->Descripcion, 30) }}</td>
 						<td style="font-size: 12px;">{{ $movimiento->Referencia }}</td>
 						<td style="font-size: 12px;" class="text-right">{{ number_format($movimiento->Debito) }}</td>
 						<td style="font-size: 12px;" class="text-right">{{ number_format($movimiento->Credito) }}</td>

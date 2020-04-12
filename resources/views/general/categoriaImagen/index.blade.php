@@ -74,7 +74,7 @@
 											<td>{{ $categoriaImagen->nombre }}</td>
 											<td>{{ $categoriaImagen->ancho }}</td>
 											<td>{{ $categoriaImagen->alto }}</td>
-											<td>{{ str_limit($categoriaImagen->descripcion, 20) }}</td>
+											<td>{{ Str::limit($categoriaImagen->descripcion, 20) }}</td>
 											<td>
 												<a class="btn btn-outline-info btn-sm" href="{{ route('categoriaImagenEdit', $categoriaImagen) }}"><i class="fa fa-edit"></i></a></td>
 											</td>

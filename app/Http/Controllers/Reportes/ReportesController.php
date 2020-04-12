@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 use Validator;
+use Illuminate\Support\Str;
 
 class ReportesController extends Controller
 {
@@ -1203,7 +1204,7 @@ class ReportesController extends Controller
 			$saldo = $credito->saldoObligacion($solicitud->fecha_solicitud);
 			if($saldo != 0) {
 				$endeudamiento->push([
-					'concepto' => str_limit($credito->numero_obligacion . ' - ' . $credito->modalidadCredito->nombre, 40),
+					'concepto' => Str::limit($credito->numero_obligacion . ' - ' . $credito->modalidadCredito->nombre, 40),
 					'ingresos' => 0,
 					'deducciones' => ConversionHelper::conversionValorPeriodicidad($credito->valor_cuota, $credito->periodicidad, 'MENSUAL')
 				]);

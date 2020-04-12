@@ -86,7 +86,7 @@
 													{{ $tipoCuentaAhorros->nombre_producto }}
 												</a>
 											</td>
-											<td>{{ str_limit($tipoCuentaAhorros->capitalCuif->full, 50) }}</td>
+											<td>{{ Str::limit($tipoCuentaAhorros->capitalCuif->full, 50) }}</td>
 											<td class="text-right">${{ number_format($tipoCuentaAhorros->saldo_minimo, 0) }}</td>
 											<td class="text-right">{{ number_format($tipoCuentaAhorros->dias_para_inactivacion, 0) }}</td>
 											<td class="text-right">

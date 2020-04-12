@@ -384,7 +384,7 @@
 										if($saldo == 0)continue;
 									@endphp
 									<tr>
-										<td>{{ str_limit($credito->numero_obligacion . ' - ' . $credito->modalidadCredito->nombre, 40) }}</td>
+										<td>{{ Str::limit($credito->numero_obligacion . ' - ' . $credito->modalidadCredito->nombre, 40) }}</td>
 										<td class="text-right">${{ number_format($saldo, 0) }}</td>
 										<td class="text-right">-1.00</td>
 										<td class="text-right">${{ number_format(-$saldo, 0) }}</td>

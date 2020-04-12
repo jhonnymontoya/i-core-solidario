@@ -106,7 +106,7 @@
 									Descripción
 								</label>
 								<br>
-								{{ str_limit($proceso->descripcion, 50) }}
+								{{ Str::limit($proceso->descripcion, 50) }}
 							</div>
 						</div>
 					</div>

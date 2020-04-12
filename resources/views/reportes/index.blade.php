@@ -84,7 +84,7 @@
 										<tr>
 											<td><a href="{{ route('reportesReporte', $reporte->id) }}">{{ $reporte->nombre }}</a></td>
 											<td>{{ $reporte->modulo->nombre }}</td>
-											<td>{{ str_limit($reporte->descripcion, 50) }}</td>
+											<td>{{ Str::limit($reporte->descripcion, 50) }}</td>
 											<td>{{ $reporte->parametros->count() }}</td>
 											<td>
 												<a href="{{ route('reportesReporte', $reporte->id) }}" class="btn btn-outline-primary btn-sm"><i class="far fa-play-circle"></i></a>

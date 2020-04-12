@@ -104,7 +104,7 @@
 									@foreach ($cuentas as $cuenta)
 										<tr>
 											<td>{{ $cuenta->codigo }}</td>
-											<td>{{ str_limit($cuenta->nombre, 40) }}</td>
+											<td>{{ Str::limit($cuenta->nombre, 40) }}</td>
 											<td>{{ $cuenta->naturaleza }}</td>
 											<td>
 												<span class="badge badge-pill badge-{{ $cuenta->esta_activo?'success':'danger' }}">

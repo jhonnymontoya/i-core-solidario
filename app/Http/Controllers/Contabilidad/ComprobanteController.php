@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Session;
 use Log;
 use Route;
 use Validator;
+use Illuminate\Support\Str;
 
 class ComprobanteController extends Controller
 {
@@ -152,9 +153,9 @@ class ComprobanteController extends Controller
 		);
 		$resultado['item'] = array(
 			'id' => $dt->id,
-			'cuenta' => str_limit($dt->cuenta->full, 30),
-			'tercero' => str_limit($dt->terceroRelacion->nombre_completo, 30),
-			'referencia' => str_limit($dt->referencia, 30),
+			'cuenta' => Str::limit($dt->cuenta->full, 30),
+			'tercero' => Str::limit($dt->terceroRelacion->nombre_completo, 30),
+			'referencia' => Str::limit($dt->referencia, 30),
 			'debito' => number_format($dt->debito, 0),
 			'credito' => number_format($dt->credito, 0)
 		);

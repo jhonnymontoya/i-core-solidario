@@ -110,11 +110,11 @@
 											<td>
 												@if (strlen($comprobante->descripcion) <= 40)
 													<p>
-														{{ str_limit($comprobante->descripcion, 40) }}
+														{{ Str::limit($comprobante->descripcion, 40) }}
 													</p>
 												@else
 													<p data-toggle="tooltip" data-placement="right" title="{{ $comprobante->descripcion }}">
-														{{ str_limit($comprobante->descripcion, 40) }}
+														{{ Str::limit($comprobante->descripcion, 40) }}
 													</p>
 												@endif
 											</td>

@@ -83,9 +83,9 @@
 										<tr>
 											<td>{{ $tipo->codigo }}</td>
 											<td>{{ $tipo->nombre }}</td>
-											<td>{{ str_limit($tipo->capitalCuif->full, 20) }}</td>
-											<td>{{ str_limit($tipo->interesesCuif->full, 20) }}</td>
-											<td>{{ str_limit($tipo->interesesPorPagarCuif->full, 20) }}</td>
+											<td>{{ Str::limit($tipo->capitalCuif->full, 20) }}</td>
+											<td>{{ Str::limit($tipo->interesesCuif->full, 20) }}</td>
+											<td>{{ Str::limit($tipo->interesesPorPagarCuif->full, 20) }}</td>
 											<td>
 												@php
 													$label = $tipo->esta_activo ? 'success' : 'danger';

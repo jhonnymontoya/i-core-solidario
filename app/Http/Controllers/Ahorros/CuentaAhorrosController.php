@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Route;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class CuentaAhorrosController extends Controller
 {
@@ -66,7 +67,7 @@ class CuentaAhorrosController extends Controller
 		$cuentaAhorros->fill($request->all());
 		$cuentaAhorros->entidad_id = $entidad->id;
 		$cuentaAhorros->numero_cuenta = CuentaAhorro::obtenerSiguienteNumeroCuentaAhorros($entidad->id);
-		$cuentaAhorros->nombre_deposito = str_limit($cuentaAhorros->numero_cuenta . '-' . $cuentaAhorros->socioTitular->tercero->nombre, 50);
+		$cuentaAhorros->nombre_deposito = Str::limit($cuentaAhorros->numero_cuenta . '-' . $cuentaAhorros->socioTitular->tercero->nombre, 50);
 		$cuentaAhorros->cupo_flexible = 0;
 		$cuentaAhorros->estado = 'ACTIVA';
 		$cuentaAhorros->fecha_apertura = Carbon::now()->startOfDay();

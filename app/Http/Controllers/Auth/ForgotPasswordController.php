@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Password;
 use Route;
 use Validator;
 use \Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
@@ -160,7 +161,7 @@ class ForgotPasswordController extends Controller
         list($nombre, $dominio) = explode("@", $correo);
         $nombre = substr($nombre, 0, 2) . str_pad("", strlen($nombre) - 2, "*");
         $dominio = substr($dominio, 0, 2) . str_pad("", strlen($dominio) - 2, "*");
-        $correo = str_limit($nombre . "@" . $dominio, 40);
+        $correo = Str::limit($nombre . "@" . $dominio, 40);
         return $correo;
     }
 
