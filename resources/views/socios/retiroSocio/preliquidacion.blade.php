@@ -120,7 +120,7 @@
 					{!! Form::close() !!}
 
 					@if($preliquidacion->count())
-						<br>
+						<br><br>
 						<div class="row">
 							<div class="col-md-3">
 								<label>Socio</label><br>
@@ -175,6 +175,7 @@
 								{{ $fechaSaldo }}
 							</div>
 						</div>
+						<br><br>
 						<div class="row">
 							<div class="col-md-5 table-responsive">
 								<h3>Saldos a favor</h3>
@@ -243,6 +244,7 @@
 							</div>
 						</div>
 
+						<br><br>
 						<div class="row">
 							<div class="col-md-5 table-responsive">
 								<table class="table">
