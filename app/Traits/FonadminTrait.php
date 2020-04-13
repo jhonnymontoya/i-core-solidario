@@ -106,20 +106,7 @@ trait FonadminTrait
 		try{
 			$metadata["usuario_id"] = Auth::id();
 			$metadata["usuario"] = optional(Auth::user())->usuario;
-
-			if(is_null(optional(Request::route())->uri) == true) {
-				$metadata["entidad_id"] = Auth::getSession()->has('entidad') ? Auth::getSession()->get('entidad')->id : null;
-			}
-			else {
-				$ruta = optional(Request::route())->uri;
-				if(strpos($ruta, 'api/') === 0) {
-					$metadata["entidad_id"] = null;
-				}
-				else {
-					$metadata["entidad_id"] = Auth::getSession()->has('entidad') ? Auth::getSession()->get('entidad')->id : null;
-				}
-			}
-
+			$metadata["entidad_id"] = Auth::getSession()->has('entidad') ? Auth::getSession()->get('entidad')->id : null;
 			$metadata["direccion"] = Request::ip();
 			$metadata["user_agent"] = Request::header('User-Agent');
 			$metadata["verbo"] = Request::method();
