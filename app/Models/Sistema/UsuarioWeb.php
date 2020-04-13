@@ -2,6 +2,7 @@
 
 namespace App\Models\Sistema;
 
+use Laravel\Passport\HasApiTokens;
 use App\Models\Socios\Socio;
 use App\Traits\FonadminModelTrait;
 use App\Traits\FonadminTrait;
@@ -14,7 +15,7 @@ use Storage;
 
 class UsuarioWeb extends Authenticatable
 {
-	use SoftDeletes, Notifiable, FonadminTrait, FonadminModelTrait;
+	use HasApiTokens, SoftDeletes, Notifiable, FonadminTrait, FonadminModelTrait;
 
 	protected $guard = 'web';
 
@@ -68,11 +69,11 @@ class UsuarioWeb extends Authenticatable
 	/**
 	 * Getters personalizados
 	 */
-	
+
 	/**
 	 * Setters Personalizados
 	 */
-	
+
 	/**
 	 * Scopes
 	 */
@@ -81,15 +82,15 @@ class UsuarioWeb extends Authenticatable
 		$value = $value ? 1 : 0;
 		$query->where('esta_activo', $value);
 	}
-	
+
 	/**
 	 * Funciones
 	 */
-	 
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -101,7 +102,7 @@ class UsuarioWeb extends Authenticatable
 	/**
 	 * Relaciones Muchos a uno
 	 */
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
