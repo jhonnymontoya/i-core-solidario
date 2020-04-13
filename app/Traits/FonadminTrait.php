@@ -25,7 +25,7 @@ trait FonadminTrait
 
 	/**
 	 * Valida que el objeto pertenezca a la entidad
-	 * @param type $obj 
+	 * @param type $obj
 	 * @return type
 	 */
 	public function objEntidad($obj, $mensaje = 'No esta autorizado') {
@@ -44,8 +44,8 @@ trait FonadminTrait
 
 	/**
 	 * Valida si se encuentra cerrado para la fecha dada el módulo
-	 * @param integer $modulo 
-	 * @param Carbon|string $fecha 
+	 * @param integer $modulo
+	 * @param Carbon|string $fecha
 	 * @return booblean
 	 */
 	public function moduloCerrado($modulo, $fecha = null) {
@@ -106,7 +106,20 @@ trait FonadminTrait
 		try{
 			$metadata["usuario_id"] = Auth::id();
 			$metadata["usuario"] = optional(Auth::user())->usuario;
-			$metadata["entidad_id"] = Auth::getSession()->has('entidad') ? Auth::getSession()->get('entidad')->id : null;
+
+			if(is_null(optional(Request::route())->uri) == true) {
+				$metadata["entidad_id"] = Auth::getSession()->has('entidad') ? Auth::getSession()->get('entidad')->id : null;
+			}
+			else {
+				$ruta = optional(Request::route())->uri;
+				if(strpos($ruta, 'api/') === 0) {
+					$metadata["entidad_id"] = null;
+				}
+				else {
+					$metadata["entidad_id"] = Auth::getSession()->has('entidad') ? Auth::getSession()->get('entidad')->id : null;
+				}
+			}
+
 			$metadata["direccion"] = Request::ip();
 			$metadata["user_agent"] = Request::header('User-Agent');
 			$metadata["verbo"] = Request::method();
