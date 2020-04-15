@@ -59,6 +59,7 @@ class LoginController extends Controller
      */
     public function sendResetLinkEmail(ForgotPasswordRequest $request)
     {
+        $this->log("API: Envió link de restauración de contraseña: " . $request->usuario, 'INGRESAR');
         //Se busca el usuario
         $user = $this->getUser($request->only("usuario"));
 
