@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class ForgotPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,7 @@ class LoginRequest extends FormRequest
                 'string',
                 'min:3',
                 'exists:sqlsrv.sistema.usuarios_web,usuario,esta_activo,1,deleted_at,NULL'
-            ],
-            'password'  => 'bail|required|string|min:6'
+            ]
         ];
     }
 
@@ -49,14 +48,12 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'password.required'     => 'La :attribute es requerida.'
         ];
     }
 
     public function attributes()
     {
         return [
-            'password'  => 'contraseña'
         ];
     }
 }
