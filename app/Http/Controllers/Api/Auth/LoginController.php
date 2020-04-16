@@ -73,6 +73,11 @@ class LoginController extends Controller
         }
     }
 
+    public function ping(Request $request)
+    {
+        $this->log("API: Ping de token de seguridad: " . $request->usuario, 'INGRESAR');
+    }
+
     /**
      * Get the user for the given credentials.
      *
@@ -131,5 +136,6 @@ class LoginController extends Controller
         Route::post('1.0/login', 'Api\Auth\LoginController@login');
         Route::get('1.0/logout', 'Api\Auth\LoginController@logout');
         Route::post('1.0/forgotPassword', 'Api\Auth\LoginController@sendResetLinkEmail');
+        Route::post('1.0/ping', 'Api\Auth\LoginController@ping');
     }
 }
