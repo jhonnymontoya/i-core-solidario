@@ -11,6 +11,9 @@
 //Rutas de Login
 \App\Http\Controllers\Api\Auth\LoginController::routes();
 
+//Rutas de Socio
+\App\Http\Controllers\Api\Socio\SocioController::routes();
+
 
 /***********************************************************************
  * FIN RUTAS DE APIS MOVIL
