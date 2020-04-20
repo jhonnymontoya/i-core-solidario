@@ -27,6 +27,7 @@ class SocioController extends Controller
      */
     public function socio(Request $request)
     {
+        $this->log("API: Ingresó a socio: " . $request->usuario, 'INGRESAR');
         $usuario = $request->user();
         $socio = $this->getSocio($usuario);
         return response()->json($socio);
