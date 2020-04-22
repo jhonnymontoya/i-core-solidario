@@ -64,17 +64,17 @@ class ConsultaHelper {
 			->select(
 				DB::raw('SUM(capital_aplicado) + SUM(intereses_aplicado) + SUM(seguro_aplicado) as total_aplicado'),
 			)
-			->where('control_proceso_id', $controlProceso->id)
+			->where('control_proceso_id', optional($controlProceso)->id)
 			->get();
 		if($rec->count()) {
-			$this->recaudos->aplicado = $rec[0]->total_aplicado;
+			$this->recaudos->aplicado = $rec[0]->total_aplicado ?? 0;
 		}
 		$recaudoAplicado = $this->socio->pagaduria->calendarioRecaudos()
 			->whereHas('controlProceso', function($query){
 				$query->where('estado', 'APLICADO')->orWhere('estado', 'AJUSTADO');
 			})
 			->where('estado', 'EJECUTADO')->orderBy('fecha_recaudo', 'desc')->first();
-		$this->recaudos->fechaRecaudo = $recaudoAplicado->fecha_recaudo;
+		$this->recaudos->fechaRecaudo = $recaudoAplicado->fecha_recaudo ?? '00/00/0000';
 	}
 
 	public function ahorros() {

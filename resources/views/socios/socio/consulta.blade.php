@@ -167,7 +167,7 @@
 											<dd>{{ $socio->fecha_afiliacion }}</dd>
 										</dl>
 									</div>
-									
+
 									<div class="col-md-5">
 										<dl>
 											<dt>Estado</dt>
@@ -189,7 +189,7 @@
 											<dd>{!! empty($contacto) ? 'Sin información' : $mailLink !!}</dd>
 										</dl>
 									</div>
-									
+
 									<div class="col-md-5">
 										<dl>
 											<dt>Ingreso empresa</dt>
@@ -205,7 +205,7 @@
 											<dd>{{ empty($contacto) ? 'Sin información' : ($contacto->movil ?: $contacto->telefono) }}</dd>
 										</dl>
 									</div>
-									
+
 									<div class="col-md-5">
 										<dl>
 											<dt>Sueldo</dt>
@@ -328,7 +328,7 @@
 								<span class="info-box-number">${{ number_format($recaudos->aplicado) }}</span>
 								<div style="height: 12px;">&nbsp;</div>
 								<span class="progress-description">
-									Total aplicado en {{ $recaudoAplicado->fecha_recaudo }}
+									Total aplicado en {{ $recaudoAplicado->fecha_recaudo ?? '00/00/0000' }}
 								</span>
 							</div>
 						</div>

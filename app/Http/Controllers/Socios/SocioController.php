@@ -59,7 +59,7 @@ class SocioController extends Controller
 		$this->middleware('verEnt')->except(['socio']);
 		$this->middleware('verMenu')->except(['socio']);
 	}
-	
+
 	public function index(Request $request) {
 		$request->validate([
 			'name'	=> 'bail|nullable|string|max:300',
@@ -121,13 +121,13 @@ class SocioController extends Controller
 		$tercero->sexo_id								= empty($request->sexo) ? null : $request->sexo;
 		$tercero->es_asociado							= true;
 
-		$socio = new Socio;		
+		$socio = new Socio;
 		$socio->estado								= 'PROCESO';
 		$socio->estado_civil_id						= empty($request->estado_civil) ? null : $request->estado_civil;
 		$socio->es_mujer_cabeza_familia				= $request->mujer_cabeza_familia;
 
 		$banco = Banco::entidadBanco()->activo()->whereId($request->transferencia_banco_id)->first();
-		
+
 		try {
 			DB::transaction(function() use($tercero, $socio, $banco, $request) {
 				//Se guarda el tercero
@@ -181,12 +181,12 @@ class SocioController extends Controller
 		$obj->tercero->ciudad_expedicion_documento_id		= empty($request->ciudad_exp_doc_id) ? null : $request->ciudad_exp_doc_id;
 		$obj->tercero->sexo_id								= empty($request->sexo) ? null : $request->sexo;
 		$obj->tercero->es_asociado							= true;
-		
+
 		$obj->estado_civil_id						= empty($request->estado_civil) ? null : $request->estado_civil;
 		$obj->es_mujer_cabeza_familia				= $request->mujer_cabeza_familia;
 
 		$banco = Banco::entidadBanco()->activo()->whereId($request->transferencia_banco_id)->first();
-		
+
 		try {
 			DB::transaction(function() use($obj, $banco, $request) {
 				//Se guarda el tercero
@@ -354,7 +354,7 @@ class SocioController extends Controller
 
 		try {
 			DB::transaction(function() use($obj, $contactoResidencial, $contactoLaboral) {
-				
+
 				foreach($obj->tercero->contactos as $contacto) {
 					if($contacto->tipo_contacto == 'RESIDENCIAL' && $contactoResidencial->hayCampos()) {
 						$contacto->delete();
@@ -377,7 +377,7 @@ class SocioController extends Controller
 		Session::flash('message', 'Se ha actualizado el socio');
 		return redirect()->route('socioEditBeneficiarios', $obj->id);
 	}
-	
+
 	/**
 	 * Devuelve el formulario para edición de información financiera de socios
 	 * @param  Socio  $obj [description]
@@ -388,7 +388,7 @@ class SocioController extends Controller
 		$this->objEntidad($obj->tercero, 'No está autorizado a ingresar a la información del socio');
 		return view('socios.socio.informacionFinanciera')->withSocio($obj);
 	}
-	
+
 	/**
 	 * Modifica la información financiera de socios
 	 * @param  Socio   $obj Socio al que se le va a modificar la información
@@ -421,7 +421,7 @@ class SocioController extends Controller
 		Session::flash('message', 'Se ha actualizado el socio');
 		return redirect()->route('socioEditTarjetasCredito', $obj->id);
 	}
-	
+
 	/**
 	 * Devuelve el formulario para edición de beneficiarios de socios
 	 * @param  Socio  $obj [description]
@@ -506,7 +506,7 @@ class SocioController extends Controller
 			$beneficiario->socio_id = $obj->id;
 			$beneficiario->parentesco_id = $request->parentesco;
 			$beneficiario->porcentaje_beneficio = $request->beneficio;
-			
+
 			$tercero->beneficiarios()->save($beneficiario);
 			DB::commit();
 		}
@@ -616,7 +616,7 @@ class SocioController extends Controller
 		Session::flash('message', 'Se ha eliminado la tarjeta de crédito');
 		return redirect()->route('socioEditTarjetasCredito', $obj->id);
 	}
-	
+
 	/**
 	 * Devuelve el formulario para edición de obligaciones financieras de socios
 	 * @param  Socio  $obj [description]
@@ -675,7 +675,7 @@ class SocioController extends Controller
 		Session::flash('message', 'Se ha eliminado la obligación financiera');
 		return redirect()->route('socioEditObligacionesFinancieras', $obj->id);
 	}
-	
+
 	/**
 	 * Devuelve el formulario para edición de imagenes de socios
 	 * @param  Socio  $obj [description]
@@ -967,10 +967,10 @@ class SocioController extends Controller
 				->select(
 					DB::raw('SUM(capital_aplicado) + SUM(intereses_aplicado) + SUM(seguro_aplicado) as total_aplicado'),
 				)
-				->where('control_proceso_id', $controlProceso->id)
+				->where('control_proceso_id', optional($controlProceso)->id)
 				->get();
 			if($rec->count()) {
-				$recaudos->aplicado = $rec[0]->total_aplicado;
+				$recaudos->aplicado = $rec[0]->total_aplicado ?? 0;
 			}
 
 			$porcentajeMaximoEndeudamientoPermitido = ParametroInstitucional::entidadId($this->getEntidad()->id)->codigo('CR003')->first();
@@ -1116,7 +1116,7 @@ class SocioController extends Controller
 
 		$creditos = collect();
 		$codeudas = collect();
-		$saldados = collect();		
+		$saldados = collect();
 
 		$creditos = $obj->tercero
 			->solicitudesCreditos()
@@ -1357,7 +1357,7 @@ class SocioController extends Controller
 	public function documentacion(Socio $obj, Request $request) {
 		$entidad = $this->getEntidad();
 		$anioIc = $entidad->fecha_inicio_contabilidad->year;
-		$ai = $anioIc > 2018 ? $anioIc : 2018; 
+		$ai = $anioIc > 2018 ? $anioIc : 2018;
 		$v = Validator::make($request->all(), [
 			"certificado" => "bail|required|string|in:certificadoTributario",
 			"anio" => "bail|required|integer|min:$ai|max:3000"
@@ -1426,7 +1426,7 @@ class SocioController extends Controller
 		Route::get('socio/consulta/recaudos/{obj}/{objControlProceso}', 'Socios\SocioController@consultaSocioRecaudos')->name('socioConsultaRecaudos');
 		Route::get('socio/consulta/simulador/{obj}', 'Socios\SocioController@consultaSocioSimulador')->name('socio.consulta.simulador');
 		Route::get('socio/consulta/documentacion/{obj}', 'Socios\SocioController@consultaSocioDocumentacion')->name('socio.consulta.documentacion');
-		
+
 		Route::get('socio/consulta/obtenerPeriodicidadesPorModalidad', 'Socios\SocioController@getObtenerPeriodicidadesPorModalidad');
 		Route::get('socio/consulta/simularCredito', 'Socios\SocioController@simularCredito');
 
