@@ -39,7 +39,7 @@ class SocioController extends Controller
         $tercero = $socio->tercero;
         $data = [
             "tipoIdentificacion" => $tercero->tipoIdentificacion->codigo,
-            "identificacion" => $tercero->numero_identificacion,
+            "identificacion" => number_format($tercero->numero_identificacion, 0),
             "nombre" => Str::Title($tercero->nombre_corto),
             "entidad" => $tercero->entidad->terceroEntidad->nombre,
             "siglaEntidad" => $tercero->entidad->terceroEntidad->sigla,
