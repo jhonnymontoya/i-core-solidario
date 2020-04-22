@@ -38,7 +38,6 @@ class LoginController extends Controller
         $usuario = $request->user();
         $tokenRes = $usuario->createToken('I-Core Token');
         $token = $tokenRes->token;
-        $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         $this->log("API: Ingresó al sistema: " . $request->usuario, 'INGRESAR');
         return response()->json([
