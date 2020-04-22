@@ -74,7 +74,8 @@ class LoginController extends Controller
 
     public function ping(Request $request)
     {
-        $this->log("API: Ping de token de seguridad: " . $request->usuario, 'INGRESAR');
+        $usuario = $request->user();
+        $this->log("API: Ping de token de seguridad: " . $usuario->usuario, 'INGRESAR');
     }
 
     /**
