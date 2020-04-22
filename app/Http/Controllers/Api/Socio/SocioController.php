@@ -27,7 +27,8 @@ class SocioController extends Controller
      */
     public function socio(Request $request)
     {
-        $this->log("API: Ingresó a socio: " . $request->usuario, 'INGRESAR');
+        $usuario = $request->user();
+        $this->log("API: Ingresó al dashboard: " . $usuario->usuario, 'INGRESAR');
         $usuario = $request->user();
         $socio = $this->getSocio($usuario);
         return response()->json($socio);
@@ -40,6 +41,7 @@ class SocioController extends Controller
             "tipoIdentificacion" => $tercero->tipoIdentificacion->codigo,
             "identificacion" => $tercero->numero_identificacion,
             "nombre" => Str::Title($tercero->nombre_corto),
+            "siglaEntidad" => $tercero->entidad->terceroEntidad->sigla,
             "imagen" => $this->getImagen($socio),
             "ahorros" => Ahorros::getAhorros($socio),
             "creditos" => Creditos::getCreditos($socio),
