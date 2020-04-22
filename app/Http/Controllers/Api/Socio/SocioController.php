@@ -41,6 +41,7 @@ class SocioController extends Controller
             "tipoIdentificacion" => $tercero->tipoIdentificacion->codigo,
             "identificacion" => $tercero->numero_identificacion,
             "nombre" => Str::Title($tercero->nombre_corto),
+            "entidad" => $tercero->entidad->terceroEntidad->nombre,
             "siglaEntidad" => $tercero->entidad->terceroEntidad->sigla,
             "imagen" => $this->getImagen($socio),
             "ahorros" => Ahorros::getAhorros($socio),
