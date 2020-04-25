@@ -70,6 +70,9 @@ class Ahorros
         $ahorrosPor = $ahorros->where("tipo_ahorro", "PROGRAMADO");
         $data = [];
         foreach($ahorrosPor as $ahorro) {
+            if(intval($ahorro->saldo) == 0) {
+                continue;
+            }
             $cuotaMes = ConversionHelper::conversionValorPeriodicidad(
                 $ahorro->cuota,
                 $ahorro->periodicidad,
