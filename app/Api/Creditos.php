@@ -86,16 +86,16 @@ class Creditos
                 continue;
             }
             $ter = $sc->tercero;
-            $nom = "%s %s - %s";
-            $nom = sprintf(
-                $nom,
+            $identificacion = "%s %s";
+            $identificacion = sprintf(
+                $identificacion,
                 $ter->tipoIdentificacion->codigo,
-                $ter->numero_identificacion,
-                $ter->nombre_corto
+                number_format($ter->numero_identificacion, 0)
             );
 
             $dato = [
-                "deudor" => $nom,
+                "identificacion" => $identificacion,
+                "deudor" => $ter->nombre_corto,
                 "numeroObligacion" => $sc->numero_obligacion,
                 "fechaDesembolso" => $sc->fecha_desembolso->format("Y-m-d"),
                 "valorInicial" => number_format($sc->valor_credito, 0),
