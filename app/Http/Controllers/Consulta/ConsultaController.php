@@ -36,7 +36,7 @@ class ConsultaController extends Controller
 
 	public function index(Request $request) {
 		$this->logActividad("Ingresó a consulta de socios", $request);
-		
+
 		$socio = \Auth::user()->socios[0];
 		$tercero = $socio->tercero;
 		$genero = (object)["masculino" => true, "femenino" => false];
@@ -55,7 +55,7 @@ class ConsultaController extends Controller
 
 	public function ahorrosLista() {
 		$this->log("Ingresó a lista de ahorros de la consulta del socio");
-		
+
 		$socio = \Auth::user()->socios[0];
 		$tercero = $socio->tercero;
 
@@ -113,6 +113,7 @@ class ConsultaController extends Controller
 		$fechaInicial->subMonths(36);
 
 		$movimientos = $obj->movimientosAhorros()
+			->with(['movimiento', 'movimiento.tipoComprobante'])
 			->socioId($socio->id)
 			->whereBetween('fecha_movimiento', array($fechaInicial, $fechaConsulta))
 			->orderBy('fecha_movimiento', 'desc')
@@ -133,7 +134,7 @@ class ConsultaController extends Controller
 
 		$creditos = collect();
 		$codeudas = collect();
-		$saldados = collect();		
+		$saldados = collect();
 
 		$creditos = $tercero
 			->solicitudesCreditos()
@@ -383,7 +384,7 @@ class ConsultaController extends Controller
 		$socio = $usuario->socios[0];
 		$tercero = $socio->tercero;
 		//avatar,password
-		
+
 		if(!empty($request->password)) {
 			$usuario->password = bcrypt($request->password);
 			$this->log("Actualizó la contraseña", "ACTUALIZAR");
@@ -410,7 +411,7 @@ class ConsultaController extends Controller
 		$entidad = $this->getEntidad();
 		$socio = \Auth::user()->socios[0];
 		$anioIc = $entidad->fecha_inicio_contabilidad->year;
-		$ai = $anioIc > 2018 ? $anioIc : 2018; 
+		$ai = $anioIc > 2018 ? $anioIc : 2018;
 		$v = Validator::make($request->all(), [
 			"certificado" => [
 				"bail",
