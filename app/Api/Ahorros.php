@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 class Ahorros
 {
 
+    const POSITIVO = 'POSITIVO';
+    const NEGATIVO = 'NEGATIVO';
+
     public static function getAhorros($socio)
     {
         $fecha = Carbon::now()->startOfday();
@@ -54,7 +57,11 @@ class Ahorros
                 "id" => $ahorro->modalidad_ahorro_id,
                 "modalidad" => $ahorro->nombre,
                 "cuota" => number_format($ahorro->cuota, 0),
-                "periodicidad" => $ahorro->periodicidad,
+                "periodicidad" => mb_convert_case(
+                    $ahorro->periodicidad,
+                    MB_CASE_UPPER,
+                    "UTF-8"
+                ),
                 "cuotaMes" => number_format($cuotaMes, 0),
                 "saldo" => number_format($ahorro->saldo, 0),
                 "intereses" => number_format($ahorro->intereses, 2),
@@ -90,7 +97,11 @@ class Ahorros
                 "id" => $ahorro->modalidad_ahorro_id,
                 "modalidad" => $ahorro->nombre,
                 "cuota" => number_format($ahorro->cuota, 0),
-                "periodicidad" => $ahorro->periodicidad,
+                "periodicidad" => mb_convert_case(
+                    $ahorro->periodicidad,
+                    MB_CASE_UPPER,
+                    "UTF-8"
+                ),
                 "cuotaMes" => number_format($cuotaMes, 0),
                 "saldo" => number_format($ahorro->saldo, 0),
                 "intereses" => number_format($ahorro->intereses, 2),
@@ -136,6 +147,53 @@ class Ahorros
                 "saldo" => number_format($movimientos, 0),
                 "interesesReconocidos" => number_format($rendimientos, 0),
                 "estado" => $sdat->estado,
+            ];
+            array_push($data, $dato);
+        }
+        return $data;
+    }
+
+    public static function getDetalleAhorros($socio, $modalidad)
+    {
+        $data = [
+            "codigoModalidad" => $modalidad->codigo,
+            "nombreModalidad" => $modalidad->nombre,
+            "movimientos" => Ahorros::getAhorroMovimientos($socio, $modalidad)
+        ];
+        return $data;
+    }
+
+    private static function getAhorroMovimientos($socio, $modalidad)
+    {
+        $fecha = Carbon::now()->startOfday();
+        $fechaInicial = clone $fecha;
+        $fechaInicial->subMonths(36);
+
+        $movimientos = $modalidad->movimientosAhorros()
+            ->with(['movimiento', 'movimiento.tipoComprobante'])
+            ->socioId($socio->id)
+            ->whereBetween('fecha_movimiento', array($fechaInicial, $fecha))
+            ->orderBy('fecha_movimiento', 'desc')
+            ->get();
+
+        $data = [];
+        foreach ($movimientos as $movimiento) {
+            $valorMovimiento = intval($movimiento->valor_movimiento);
+            $signo = Ahorros::POSITIVO;
+            if($valorMovimiento >= 0) {
+                $signo = Ahorros::POSITIVO;
+            }
+            else {
+                $signo = Ahorros::NEGATIVO;
+            }
+            $valorMovimiento = abs($valorMovimiento);
+
+            $dato = [
+                "fecha" => $movimiento->fecha_movimiento->format("Y-m-d"),
+                "concepto" => $movimiento->movimiento->tipoComprobante->nombre,
+                "detalle" => $movimiento->movimiento->descripcion,
+                "valor" => number_format($valorMovimiento, 0),
+                "signoValor" => $signo
             ];
             array_push($data, $dato);
         }
