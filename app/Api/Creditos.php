@@ -114,7 +114,11 @@ class Creditos
     public static function getDetalleCredito($tercero, $credito)
     {
         $fecha = Carbon::now()->startOfday();
-        $amortizaciones = $credito->amortizaciones;
+        $amortizaciones = $credito->amortizaciones()
+            ->orderBy("fecha_cuota")
+            ->orderBy("naturaleza_cuota", "desc")
+            ->get();
+        $movimientos = Creditos::getCreditoMovimientos($credito, $fecha);
 
         $data = [
             "numeroObligacion" => $credito->numero_obligacion,
@@ -158,27 +162,40 @@ class Creditos
                 MB_CASE_UPPER,
                 "UTF-8"
             ),
-            "fechaInicioPago" => $credito->fecha_primer_pago->format("Y-m-d"),
-            "fechaFinPago" => $credito->fecha_primer_pago->format("Y-m-d"),
-            "fechaUltimoMovimiento" => Creditos::getFechaUltimoPagoObligacion(
+            "fechaInicioPago" => null,
+            "fechaFinPago" => Creditos::getFechaUltimoPagoObligacion(
                 $amortizaciones
             )->format("Y-m-d"),
+            "fechaUltimoMovimiento" => null,
             "tipoCuota" => mb_convert_case(
                 $credito->tipo_amortizacion,
                 MB_CASE_UPPER,
                 "UTF-8"
             ),
             "calificacion" => $credito->calificacion_obligacion,
-            "movimientosCreditos" => Creditos::getCreditoMovimientos(
-                $credito,
-                $fecha
-            ),
+            "movimientosCreditos" => $movimientos,
             "amortizacion" => Creditos::getCreditoAmortizacion(
                 $credito,
                 $amortizaciones
             ),
             "codeudores" => Creditos::getCreditoCodeudores($credito)
         ];
+        if(count($movimientos) > 0) {
+            $fechaInicio = $movimientos[count($movimientos) - 1]["fecha"];
+            $fechaFin = $movimientos[0]["fecha"];
+            $data["fechaInicioPago"] = $fechaInicio;
+            $data["fechaUltimoMovimiento"] = $fechaFin;
+        }
+        else {
+            $data["fechaInicioPago"] = "0000-00-00";
+            $data["fechaUltimoMovimiento"] = "0000-00-00";
+        }
+
+        if(is_null($credito->fecha_primer_pago) == false) {
+            $data["fechaInicioPago"] = $credito->fecha_primer_pago
+                ->format("Y-m-d");
+        }
+
         return $data;
     }
 
