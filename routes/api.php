@@ -4,15 +4,17 @@
  * RUTAS DE APIS MOVIL
  ***********************************************************************/
 
-/***************************************************************************************
- * Rutas Sistema
- ***************************************************************************************/
-
 //Rutas de Login
 \App\Http\Controllers\Api\Auth\LoginController::routes();
 
 //Rutas de Socio
 \App\Http\Controllers\Api\Socio\SocioController::routes();
+
+//Rutas de Ahorros
+\App\Http\Controllers\Api\Ahorros\AhorrosController::routes();
+
+//Rutas de Créditos
+\App\Http\Controllers\Api\Creditos\CreditosController::routes();
 
 
 /***********************************************************************
