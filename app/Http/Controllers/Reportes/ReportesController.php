@@ -68,7 +68,8 @@ class ReportesController extends Controller
 		}
 		catch(\InvalidArgumentException $e) {
 			$vista = '';
-		}//dd($request->all(), $fecha, "kkkkk");
+		}
+
 		switch($request->tipo_reporte) {
 			case 'ASOCIADOS' : {
 				$vista = $this->estadisticoAsociados($fecha);
@@ -279,8 +280,8 @@ class ReportesController extends Controller
 	public function estadisticoAhorros($fecha) {
 		$entidad = $this->getEntidad();
 
-		//Asociados por genero
-		$sql = "SELECT moda.codigo AS codigo, moda.nombre AS nombre, SUM(ma.valor_movimiento) AS valor FROM ahorros.movimientos_ahorros AS ma INNER JOIN ahorros.modalidades_ahorros AS moda ON ma.modalidad_ahorro_id = moda.id WHERE ma.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY moda.codigo, moda.nombre HAVING SUM(ma.valor_movimiento) <> 0 UNION SELECT tsd.codigo AS codigo, tsd.nombre AS nombre, SUM(msd.valor) AS valor FROM ahorros.tipos_sdat AS tsd INNER JOIN ahorros.sdats AS sds ON sds.tipo_sdat_id=tsd.id INNER JOIN ahorros.movimientos_sdat AS msd ON msd.sdat_id=sds.id WHERE tsd.entidad_id = ? AND general.fn_fecha_sin_hora(msd.fecha_movimiento) <= ? GROUP BY tsd.codigo, tsd.nombre HAVING SUM(msd.valor) <> 0 ORDER BY valor DESC";
+		//Saldos por modalidad
+		$sql = "SELECT moda.codigo AS codigo, moda.nombre AS nombre, SUM(ma.valor_movimiento) AS valor FROM ahorros.movimientos_ahorros AS ma INNER JOIN ahorros.modalidades_ahorros AS moda ON ma.modalidad_ahorro_id = moda.id WHERE ma.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY moda.codigo, moda.nombre HAVING SUM(ma.valor_movimiento) <> 0 UNION SELECT tsd.codigo AS codigo, tsd.nombre AS nombre, SUM(msd.valor) AS valor FROM ahorros.tipos_sdat AS tsd INNER JOIN ahorros.sdats AS sds ON sds.tipo_sdat_id = tsd.id INNER JOIN ahorros.movimientos_sdat AS msd ON msd.sdat_id = sds.id WHERE tsd.entidad_id = ? AND general.fn_fecha_sin_hora(msd.fecha_movimiento) <= ? GROUP BY tsd.codigo, tsd.nombre HAVING SUM(msd.valor) <> 0 ORDER BY valor DESC";
 		$saldosPorModalidad = DB::select($sql, [$entidad->id, $fecha, $entidad->id, $fecha]);
 		$total = 0;
 		foreach ($saldosPorModalidad as $saldo) $total += $saldo->valor;
@@ -290,9 +291,9 @@ class ReportesController extends Controller
 			}
 		}
 
-		//Ahorros posr rangos
-		$sql = "SELECT t.nombre, moda.codigo, moda.nombre AS modalidad, SUM(ma.valor_movimiento) AS valor FROM ahorros.movimientos_ahorros AS ma INNER JOIN ahorros.modalidades_ahorros AS moda ON ma.modalidad_ahorro_id = moda.id INNER JOIN socios.socios AS so ON ma.socio_id = so.id INNER JOIN general.terceros AS t ON so.tercero_id = t.id WHERE ma.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY t.nombre, moda.codigo, moda.nombre HAVING SUM(ma.valor_movimiento) > 0 ORDER BY moda.nombre ASC, SUM(ma.valor_movimiento) DESC";
-		$res = DB::select($sql, [$entidad->id, $fecha]);
+		//Ahorros por rangos
+		$sql = "SELECT t.nombre, moda.codigo, moda.nombre AS modalidad, SUM(ma.valor_movimiento) AS valor FROM ahorros.movimientos_ahorros AS ma INNER JOIN ahorros.modalidades_ahorros AS moda ON ma.modalidad_ahorro_id = moda.id INNER JOIN socios.socios AS so ON ma.socio_id = so.id INNER JOIN general.terceros AS t ON so.tercero_id = t.id WHERE ma.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY t.nombre, moda.codigo, moda.nombre HAVING SUM(ma.valor_movimiento) > 0 UNION SELECT t.nombre, tsd.codigo, tsd.nombre, SUM(msd.valor) FROM ahorros.tipos_sdat AS tsd INNER JOIN ahorros.sdats AS sds ON sds.tipo_sdat_id = tsd.id INNER JOIN ahorros.movimientos_sdat AS msd ON msd.sdat_id = sds.id INNER JOIN socios.socios AS s ON sds.socio_id = s.id INNER JOIN general.terceros AS t ON s.tercero_id = t.id WHERE tsd.entidad_id = ? AND general.fn_fecha_sin_hora(msd.fecha_movimiento) <= ? GROUP BY t.nombre, tsd.codigo, tsd.nombre HAVING SUM(msd.valor) > 0 ORDER BY nombre ASC, valor DESC";
+		$res = DB::select($sql, [$entidad->id, $fecha, $entidad->id, $fecha]);
 		$res = collect($res);
 		$rangosDeSaldos = $res->groupBy("nombre")->transform(function($item, $key){
 			return $item->sum('valor');
@@ -326,8 +327,8 @@ class ReportesController extends Controller
 		}
 
 		//Saldos por empresa
-		$sql = "SELECT p.nombre, SUM(ma.valor_movimiento) AS valor FROM ahorros.movimientos_ahorros AS ma INNER JOIN ahorros.modalidades_ahorros AS moda ON ma.modalidad_ahorro_id = moda.id INNER JOIN socios.socios AS so ON ma.socio_id = so.id INNER JOIN recaudos.pagadurias AS p ON so.pagaduria_id = p.id WHERE ma.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY p.nombre HAVING SUM(ma.valor_movimiento) > 0 ORDER BY SUM(ma.valor_movimiento) DESC";
-		$saldosPorEmpresa = DB::select($sql, [$entidad->id, $fecha]);
+		$sql = "WITH data AS( SELECT p.nombre, SUM(ma.valor_movimiento) AS valor FROM ahorros.movimientos_ahorros AS ma INNER JOIN ahorros.modalidades_ahorros AS moda ON ma.modalidad_ahorro_id = moda.id INNER JOIN socios.socios AS so ON ma.socio_id = so.id INNER JOIN recaudos.pagadurias AS p ON so.pagaduria_id = p.id WHERE ma.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY p.nombre HAVING SUM(ma.valor_movimiento) > 0 UNION SELECT p.nombre, SUM(msd.valor) FROM ahorros.tipos_sdat AS tsd INNER JOIN ahorros.sdats AS sds ON sds.tipo_sdat_id = tsd.id INNER JOIN ahorros.movimientos_sdat AS msd ON msd.sdat_id = sds.id INNER JOIN socios.socios AS s ON sds.socio_id = s.id INNER JOIN recaudos.pagadurias AS p ON s.pagaduria_id = p.id WHERE tsd.entidad_id = ? AND general.fn_fecha_sin_hora(msd.fecha_movimiento) <= ? GROUP BY p.nombre ) SELECT nombre, SUM(valor) AS valor FROM data GROUP BY nombre ORDER BY valor DESC";
+		$saldosPorEmpresa = DB::select($sql, [$entidad->id, $fecha, $entidad->id, $fecha]);
 		$total = 0;
 		foreach($saldosPorEmpresa as $saldo) $total += $saldo->valor;
 		foreach($saldosPorEmpresa as $saldo) {
@@ -338,7 +339,15 @@ class ReportesController extends Controller
 			return $item->sum('valor');
 		});
 		$consolidado = $consolidado->sort()->reverse()->take(10);
-		$topDiezPorModalidad = $res->groupBy("modalidad");
+		$topDiezPorModalidad = collect();
+
+		$tmp = $res->groupBy("modalidad");
+		$tmp->each(function($item, $key) use($topDiezPorModalidad){
+			$topDiezPorModalidad->put(
+				$key,
+				$item->sortByDesc("valor")
+			);
+		});
 
 		$sql = "exec ahorros.sp_comparativo_ahorros ?, ?";
 		$comparativoAhorros = DB::select($sql, [$entidad->id, $fecha]);
@@ -1487,13 +1496,13 @@ class ReportesController extends Controller
 
 				if(!is_null($cierrecartera->InicioPago))
 				$cierrecartera->InicioPago = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->InicioPago);
-			
+
 				if(!is_null($cierrecartera->FechaFinal))
 				$cierrecartera->FechaFinal = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->FechaFinal);
-			
+
 				if(!is_null($cierrecartera->UltimoPago))
 				$cierrecartera->UltimoPago = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->UltimoPago);
-			
+
 				if(!is_null($cierrecartera->FechaCancelación))
 				$cierrecartera->FechaCancelación = Carbon::createFromFormat('Y-m-d H:i:s.000', $cierrecartera->FechaCancelación);
 			}
