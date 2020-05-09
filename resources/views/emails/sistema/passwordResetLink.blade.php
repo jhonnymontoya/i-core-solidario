@@ -30,7 +30,7 @@
                         <tr>
                             <td class="header" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 25px 0; text-align: center;">
                                 <a href="https://i-core.co" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #bbbfc3; font-size: 19px; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 white;">
-                                    <img src="{{ asset('img/logos/ICore_96x96.png') }}" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 100%; border: none;">
+                                    <img src="{{ secure_asset('img/logos/ICore_96x96.png') }}" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 100%; border: none;">
                                 </a>
                             </td>
                         </tr>
@@ -65,7 +65,7 @@
                                             </table>
                                             <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Si usted no solicitó restaurar su contraseña, no se requiere que realice ninguna acción y omita el mensaje.</p>
                                             <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Gracias,<br>I-Core</p>
-                                            <table style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid rgb(237, 239, 242); margin-top: 25px; padding-top: 25px" width="100%" cellspacing="0" cellpadding="0"> 
+                                            <table style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid rgb(237, 239, 242); margin-top: 25px; padding-top: 25px" width="100%" cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                     <tr>
                                                         <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box">
