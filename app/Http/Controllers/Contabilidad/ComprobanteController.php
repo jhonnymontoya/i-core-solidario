@@ -245,15 +245,15 @@ class ComprobanteController extends Controller
 		if($respuesta[0]->ERROR == 1) {
 			Session::flash('faltantes', ['error' => $respuesta[0]->MENSAJE]);
 			return redirect()->route('comprobanteEdit', $obj);
-		}        
+		}
 		Session::flash('message', $respuesta[0]->MENSAJE);
 		return redirect('comprobante');
 	}
 
 	/**
-	 * Muestra el formulario para cargar plano con movimientos 
+	 * Muestra el formulario para cargar plano con movimientos
 	 * y los posibles errores que se puedan generar
-	 * @param MovimientoTemporal $obj 
+	 * @param MovimientoTemporal $obj
 	 * @return type
 	 */
 	public function getCargue(MovimientoTemporal $obj) {
@@ -299,11 +299,11 @@ class ComprobanteController extends Controller
 				continue;
 			}
 			$movimiento = collect([
-				'cuif_codigo' => $movimiento[0],
-				'tercero_identificacion' => $movimiento[1],
-				'referencia' => $movimiento[2],
-				'debito' => $movimiento[3],
-				'credito' => $movimiento[4]
+				'cuif_codigo' => trim($movimiento[0]),
+				'tercero_identificacion' => trim($movimiento[1]),
+				'referencia' => trim($movimiento[2]),
+				'debito' => trim($movimiento[3]),
+				'credito' => trim($movimiento[4])
 			]);
 			$resultadoValidacion = $this->validar($movimiento);
 			if($resultadoValidacion != null) {
@@ -469,7 +469,7 @@ class ComprobanteController extends Controller
 			$mt->detalleMovimientos()->saveMany($detalles->all());
 			DB::commit();
 			Session::flash("message", "Se ha duplicado el comprobante");
-			return redirect()->route('comprobanteEdit', $mt->id);            
+			return redirect()->route('comprobanteEdit', $mt->id);
 		} catch(Exception $e) {
 			DB::rollBack();
 			$mensaje = sprintf("Error duplicando el comprobante %s: %s", $obj->id, $e->getMessage());
