@@ -38,11 +38,6 @@ class SocioAfiliado extends Mailable
 		$sigla = $entidad->terceroEntidad->sigla;
 		$subject = "Bienvenid" . (optional(optional($this->socio->tercero)->sexo)->codigo == 2 ? "a a " : "o a ") . $sigla;
 
-		/*$this->withSwiftMessage(function($message) {
-			$message->getHeaders()
-				->addTextHeader('X-Mailgun-Tag', 'SocioAfiliado');
-		});*/
-
 		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $sigla)
 			->subject($subject)
 			->markdown('emails.socios.afiliado')

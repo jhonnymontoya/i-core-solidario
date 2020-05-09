@@ -31,11 +31,8 @@ class PasswordResetLink extends Mailable
 		$asunto = "Restaurar contraseña";
 		$url = route('password.reset', $this->token);
 
-		/*$this->withSwiftMessage(function($message) {
-			$message->getHeaders()
-				->addTextHeader('X-Mailgun-Tag', 'RestaurarPass');
-		});*/
-
-		return $this->view('emails.sistema.passwordResetLink')->withUrl($url)->subject($asunto);
+		return $this->subject($asunto)
+			->view('emails.sistema.passwordResetLink')
+			->withUrl($url);
 	}
 }
