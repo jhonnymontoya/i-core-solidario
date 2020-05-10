@@ -48,7 +48,7 @@
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
 						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 					{!! Form::close() !!}
@@ -70,6 +70,7 @@
 										<th>Nombre</th>
 										<th>Afecta cupo de crédito</th>
 										<th>Tipo cuota</th>
+										<th>Parámetros mínimos</th>
 										<th>Estado</th>
 										<th></th>
 									</tr>
@@ -82,8 +83,16 @@
 											<td>{{ $modalidad->afecta_cupo ? 'Sí' : 'No' }}</td>
 											<td>{{ $modalidad->tipo_cuota == 'FIJA' ? 'Fija compuesta' : 'Fija capital' }}</td>
 											<td>
-												<span class="badge badge-pill badge-{{ $modalidad->esta_activa?'success':'danger' }}">
-													{{ $modalidad->esta_activa?'activa':'inactiva' }}
+												@php
+													$estaParametrizada = $modalidad->estaParametrizada();
+												@endphp
+												<span class="badge badge-pill badge-{{ $estaParametrizada ? 'success' : 'danger' }}">
+													{{ $estaParametrizada ? 'Sí' : 'No' }}
+												</span>
+											</td>
+											<td>
+												<span class="badge badge-pill badge-{{ $modalidad->esta_activa ? 'success' : 'danger' }}">
+													{{ $modalidad->esta_activa ? 'activa' : 'inactiva' }}
 												</span>
 											</td>
 											<td><a class="btn btn-outline-info btn-sm" href="{{ route('modalidadCreditoEdit', $modalidad) }}"><i class="fa fa-edit"></i></a></td>
