@@ -161,6 +161,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('modalidadCreditoEditConsultaAsociado', $modalidad) }}">Consulta Asociado</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
@@ -353,7 +356,7 @@
 															break;
 														case 'MONTO':
 															$condicionadoPor = 'Monto';
-															break;														
+															break;
 														default:
 															$condicionadoPor = '';
 															break;
@@ -368,7 +371,7 @@
 															break;
 														case 'MONTO':
 															$tipoCondicion = 'Monto';
-															break;														
+															break;
 														default:
 															$tipoCondicion = '';
 															break;
@@ -535,7 +538,7 @@
 
 		$('input[name="tasa_condicionada"]').change(function(){
 			var tasaCondicionada = ($(this).val() == '1' ? true : false);
-			
+
 			if(tasaCondicionada)
 			{
 				$("#sinTasaCondicionada").hide();
@@ -597,7 +600,7 @@
 					rango = $("<tr></tr>").append($("<td></td>").text(result.condicionado_desde));
 					rango.append($("<td></td>").text(result.condicionado_hasta));
 					rango.append($("<td></td>").text(result.tipo_condicion_tasa));
-					rango.append($("<td></td>").append(botonEliminar));					
+					rango.append($("<td></td>").append(botonEliminar));
 					rango.attr("data-id", result.id);
 					rango.hide();
 					$(".rangos").find('tbody').append(rango);

@@ -462,7 +462,7 @@ class ConsultaController extends Controller
 
 		$socio = \Auth::user()->socios[0];
 
-		$modalidadesCredito = Modalidad::entidadId()->activa()->get();
+		$modalidadesCredito = Modalidad::entidadId()->activa()->usoSocio()->get();
 		$modalidades = array();
 		foreach($modalidadesCredito as $modalidad) {
 			if($modalidad->estaParametrizada() == false) {

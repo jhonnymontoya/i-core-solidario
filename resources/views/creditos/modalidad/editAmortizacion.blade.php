@@ -155,6 +155,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('modalidadCreditoEditConsultaAsociado', $modalidad) }}">Consulta Asociado</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
@@ -363,7 +366,7 @@
 	$(function(){
 		$('input[name="acepta_cuotas_extraordinarias"]').change(function(){
 			var aceptaCuotaExtraordinaria = ($(this).val() == '1' ? true : false);
-			
+
 			if(aceptaCuotaExtraordinaria)
 			{
 				$("#aceptaCuotaExtraordinaria").show(200);

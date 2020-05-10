@@ -155,6 +155,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('modalidadCreditoEditConsultaAsociado', $modalidad) }}">Consulta Asociado</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
@@ -298,7 +301,7 @@
 					obligatorio = $("<span></span>").addClass("label label-primary");
 					obligatorio.text(result.obligatorio);
 					documento.append($("<td></td>").append(obligatorio));
-					documento.append($("<td></td>").append(botonEliminar));					
+					documento.append($("<td></td>").append(botonEliminar));
 					documento.attr("data-id", result.id);
 					documento.hide();
 					$(".rangos").find('tbody').append(documento);

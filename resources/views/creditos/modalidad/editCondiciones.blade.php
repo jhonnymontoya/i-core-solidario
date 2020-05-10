@@ -155,6 +155,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('modalidadCreditoEditConsultaAsociado', $modalidad) }}">Consulta Asociado</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
@@ -188,7 +191,7 @@
 											@endif
 										</div>
 									</div>
-								</div>								
+								</div>
 								<div class="col-md-5">
 									<div class="form-group">
 										@php
@@ -232,7 +235,7 @@
 											@endif
 										</div>
 									</div>
-								</div>								
+								</div>
 								<div class="col-md-5">
 									<div class="form-group">
 										@php
@@ -275,7 +278,7 @@
 											@endif
 										</div>
 									</div>
-								</div>								
+								</div>
 								<div class="col-md-5">
 									<div class="form-group">
 										@php
@@ -318,7 +321,7 @@
 											@endif
 										</div>
 									</div>
-								</div>								
+								</div>
 								<div class="col-md-5">
 									<div class="form-group">
 										@php

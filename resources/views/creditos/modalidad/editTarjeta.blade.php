@@ -161,6 +161,9 @@
 						<li class="nav-item">
 							<a class="nav-link active" href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('modalidadCreditoEditConsultaAsociado', $modalidad) }}">Consulta Asociado</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">

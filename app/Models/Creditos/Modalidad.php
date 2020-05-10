@@ -66,6 +66,7 @@ class Modalidad extends Model
 		'acepta_pago_anual',
 		'uso_para_tarjeta',
 		'esta_activa',
+		'uso_socio'
 	];
 
 	/**
@@ -105,6 +106,7 @@ class Modalidad extends Model
 		'es_monto_cupo'						=> 'boolean',
 		'uso_para_tarjeta'					=> 'boolean',
 		'esta_activa'						=> 'boolean',
+		'uso_socio'							=> 'boolean'
 	];
 
 	/**
@@ -156,6 +158,10 @@ class Modalidad extends Model
 
 	public function scopeActiva($query, $value = true) {
 		return $query->whereEstaActiva($value);
+	}
+
+	public function scopeUsoSocio($query, $value = true) {
+		return $query->whereUsoSocio($value);
 	}
 
 	/**

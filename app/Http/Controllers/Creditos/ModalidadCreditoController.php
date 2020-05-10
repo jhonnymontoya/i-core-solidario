@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers\Creditos;
 
+use DB;
+use Route;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Traits\FonadminTrait;
+use App\Models\Creditos\Modalidad;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Creditos\Modalidad\CreateModalidadRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadAmortizacionRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadCondicionesRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadCupoRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadDocumentacionRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadDocumentosDocumentacionRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadPlazoRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadRangoCupoRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadRangoTasaRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadTarjetaRequest;
-use App\Http\Requests\Creditos\Modalidad\EditModalidadTasaRequest;
+use App\Models\Creditos\TipoGarantia;
+use Illuminate\Support\Facades\Session;
 use App\Models\Creditos\CondicionModalidad;
 use App\Models\Creditos\DocumentacionModalidad;
-use App\Models\Creditos\Modalidad;
 use App\Models\Creditos\RangoCondicionModalidad;
-use App\Models\Creditos\TipoGarantia;
-use App\Traits\FonadminTrait;
-use Carbon\Carbon;
-use DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Route;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadRequest;
+use App\Http\Requests\Creditos\Modalidad\CreateModalidadRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadCupoRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadTasaRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadPlazoRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadTarjetaRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadRangoCupoRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadRangoTasaRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadCondicionesRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadAmortizacionRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadDocumentacionRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadConsultaAsociadoRequest;
+use App\Http\Requests\Creditos\Modalidad\EditModalidadDocumentosDocumentacionRequest;
 
 class ModalidadCreditoController extends Controller
 {
@@ -293,7 +294,7 @@ class ModalidadCreditoController extends Controller
 
 	public function cupo(Modalidad $obj, EditModalidadCupoRequest $request) {
 		$msg = "Creó cupo a la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'CREAR');
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'CREAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -449,7 +450,7 @@ class ModalidadCreditoController extends Controller
 
 	public function condiciones(Modalidad $obj, EditModalidadCondicionesRequest $request) {
 		$msg = "Actualizó las condiciones de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -476,7 +477,7 @@ class ModalidadCreditoController extends Controller
 
 	public function documentacion(Modalidad $obj, EditModalidadDocumentacionRequest $request) {
 		$msg = "Actualizó la documentación de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -491,7 +492,7 @@ class ModalidadCreditoController extends Controller
 
 	public function updateDocumentacion(Modalidad $obj, EditModalidadDocumentosDocumentacionRequest $request) {
 		$msg = "Actualizó la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'CREAR');
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'CREAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$documento = new DocumentacionModalidad;
 		$documento->documento = $request->documento;
@@ -526,7 +527,7 @@ class ModalidadCreditoController extends Controller
 
 	public function updateGarantias(Modalidad $obj, Request $request) {
 		$msg = "Actualizó las garantías de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$request->validate([
 			'garantia'	=> [
@@ -564,16 +565,14 @@ class ModalidadCreditoController extends Controller
 		$msg = "Ingresó a editar la tarjeta de la modalidad de crédito '%s - %s'";
 		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
-		$this->log("Ingresó a editar información de tarjeta para la modalidad " . $obj->id);
 		$cantidadSolicitudes = $obj->solicitudesCreditos()->count();
 		return view('creditos.modalidad.editTarjeta')->withModalidad($obj)->withCantidadSolicitudes($cantidadSolicitudes);
 	}
 
 	public function updateTarjeta(Modalidad $obj, EditModalidadTarjetaRequest $request) {
 		$msg = "Actualizó la tarjeta de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
-		$this->log("Actualizó la modalidad con los siguientes parámetros " . json_encode($request->all()), "ACTUALIZAR");
 		$obj->nombre = $request->nombre;
 		$obj->es_exclusivo_de_socios = $request->es_exclusivo_de_socios;
 		$obj->esta_activa = $request->esta_activa;
@@ -587,6 +586,27 @@ class ModalidadCreditoController extends Controller
 		}
 		$obj->save();
 		return redirect()->route('modalidadCreditoEditTarjeta', $obj);
+	}
+
+	public function editConsultaAsociado(Modalidad $obj) {
+		$msg = "Ingresó a editar la consulta de asociado de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
+		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
+		return view('creditos.modalidad.editConsultaAsociado')->withModalidad($obj);
+	}
+
+	public function updateConsultaAsociado(Modalidad $obj, EditModalidadConsultaAsociadoRequest $request) {
+		$msg = "Actualizó la consulta de asociado de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
+		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
+		$obj->nombre = $request->nombre;
+		$obj->es_exclusivo_de_socios = $request->es_exclusivo_de_socios;
+		$obj->esta_activa = $request->esta_activa;
+		$obj->descripcion = $request->descripcion;
+		$obj->uso_socio = $request->uso_socio;
+		$obj->save();
+		Session::flash('message', 'Se ha actualizado la categoría Consulta Asociado');
+		return redirect()->route('modalidadCreditoEditConsultaAsociado', $obj);
 	}
 
 	public static function routes() {
@@ -628,5 +648,8 @@ class ModalidadCreditoController extends Controller
 
 		Route::get('modalidadCredito/{obj}/editTarjeta', 'Creditos\ModalidadCreditoController@editTarjeta')->name('modalidadCreditoEditTarjeta');
 		Route::put('modalidadCredito/{obj}/editTarjeta', 'Creditos\ModalidadCreditoController@updateTarjeta')->name('modalidadCreditoUpdateTarjeta');
+
+		Route::get('modalidadCredito/{obj}/consultaAsociado', 'Creditos\ModalidadCreditoController@editConsultaAsociado')->name('modalidadCreditoEditConsultaAsociado');
+		Route::put('modalidadCredito/{obj}/consultaAsociado', 'Creditos\ModalidadCreditoController@updateConsultaAsociado')->name('modalidadCreditoUpdateConsultaAsociado');
 	}
 }

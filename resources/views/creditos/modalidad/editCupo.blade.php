@@ -155,6 +155,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('modalidadCreditoEditTarjeta', $modalidad) }}">Tarjeta</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('modalidadCreditoEditConsultaAsociado', $modalidad) }}">Consulta Asociado</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
@@ -300,7 +303,7 @@
 														break;
 													case 'PLAZO':
 														$condicionadoPor = 'Plazo';
-														break;													
+														break;
 													default:
 														$condicionadoPor = '';
 														break;
@@ -315,7 +318,7 @@
 														break;
 													case 'MONTO':
 														$tipoCondicion = 'Monto';
-														break;													
+														break;
 													default:
 														$tipoCondicion = '';
 														break;
@@ -474,7 +477,7 @@
 
 		$('input[name="es_monto_condicionado"]').change(function(){
 			var montoCondicionado = ($(this).val() == '1' ? true : false);
-			
+
 			if(montoCondicionado) {
 				$("#sinMontoCondicionado").hide();
 				$("input[name='monto']").val('');
@@ -488,7 +491,7 @@
 
 		$('input[name="es_monto_cupo"]').change(function(){
 			var esMontoCupo = ($(this).val() == '1' ? true : false);
-			
+
 			if(esMontoCupo) {
 				$('input[name="monto"]').prop("readonly", true);
 			}
@@ -516,7 +519,7 @@
 					rango.append($("<td></td>").text(result.condicionado_hasta));
 					rango.append($("<td></td>").text(result.tipo_condicion_minimo));
 					rango.append($("<td></td>").text(result.tipo_condicion_maximo));
-					rango.append($("<td></td>").append(botonEliminar));					
+					rango.append($("<td></td>").append(botonEliminar));
 					rango.attr("data-id", result.id);
 					rango.hide();
 					$(".rangos").find('tbody').append(rango);
