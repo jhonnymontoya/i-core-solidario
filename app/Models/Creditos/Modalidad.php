@@ -227,62 +227,89 @@ class Modalidad extends Model
 	}
 
 	/**
-	 * Comprueba si la modalidad tiene tasa configurada o no
+	 * Comprueba si la modalidad tiene tasa configurada
 	 */
 	public function tieneTasa()
 	{
-		$hayTasa = false;
-		if(!empty($this->tipo_tasa)) {
-			switch($this->tipo_tasa) {
-				case 'FIJA':
-					if(empty($this->pago_interes)) {
-						break;
-					}
-					if(!empty($this->tasa)) {
-						$hayTasa = true;
-						break;
-					}
-					$condicion = $this->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
-					if($condicion == null) {
-						break;
-					}
-					if($condicion->rangosCondicionesModalidad->count()) {
-						$hayTasa = true;
-						break;
-					}
-					break;
-				case 'VARIABLE':
-					if(empty($this->pago_intereses)) {
-						break;
-					}
-					if(!empty($this->factor_condicion_variable_id)) {
-						$hayTasa = true;
-						break;
-					}
-					if(!empty($this->tasa)) {
-						$hayTasa = true;
-						break;
-					}
-					$condicion = $this->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
-					if($condicion == null) {
-						break;
-					}
-					if($condicion->rangosCondicionesModalidad->count()) {
-						$hayTasa = true;
-						break;
-					}
-					break;
-
-				case 'SINTASA':
-					$hayTasa = true;
-					break;
-
-				default:
-					$hayTasa = false;
-					break;
-			}
+		if(empty($this->tipo_tasa) == true) {
+			return false;
 		}
-		return $hayTasa;
+
+		switch($this->tipo_tasa) {
+			case 'FIJA':
+				if(empty($this->pago_interes) == true) {
+					return false;
+				}
+				if(empty($this->tasa) == false) {
+					return true;
+				}
+				$condicion = $this->condicionesModalidad
+					->where('tipo_condicion', 'TASA')->first();
+				if($condicion == null) {
+					return false;
+				}
+				return $condicion->rangosCondicionesModalidad->count() > 0 ? true : false;
+
+			case 'VARIABLE':
+				if(empty($this->pago_intereses) == true) {
+					return false;
+				}
+				if(empty($this->factor_condicion_variable_id) == false) {
+					return true;
+				}
+				if(empty($this->tasa) == false) {
+					return true;
+				}
+				$condicion = $this->condicionesModalidad
+					->where('tipo_condicion', 'TASA')->first();
+				if($condicion == null) {
+					return false;
+				}
+				return $condicion->rangosCondicionesModalidad->count() > 0 ? true : false;
+
+			case 'SINTASA':
+				return true;
+
+			default:
+				return false;
+		}
+		return false;
+	}
+
+	/**
+	 * Comprueba si la modalidad tiene plazo configurado
+	 */
+	public function tienePlazo()
+	{
+		if(is_null($this->es_plazo_condicionado) == true) {
+			return false;
+		}
+
+		if($this->es_plazo_condicionado) {
+			$condicion = $this->condicionesModalidad
+				->where('tipo_condicion', 'PLAZO')->first();
+			if($condicion == null) {
+				return false;
+			}
+			return $condicion->rangosCondicionesModalidad->count() > 0 ? true : false;
+		}
+		else {
+			return empty($this->plazo) == true ? false : true;
+		}
+		return false;
+	}
+
+	/**
+	 * Comprueba si la modalidad tiene amortización configurado
+	 */
+	public function tieneAmortizacion()
+	{
+		return is_null($this->tipo_cuota) == true ? false : true;
+	}
+
+	public function estaParametrizada()
+	{
+	    return $this->tieneTasa() && $this->tienePlazo() && $this->tieneAmortizacion();
 	}
 
 	/**
