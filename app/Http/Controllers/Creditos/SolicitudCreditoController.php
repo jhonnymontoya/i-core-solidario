@@ -163,6 +163,7 @@ class SolicitudCreditoController extends Controller
 		);
 		$solicitud->aplica_mora = $modalidadesCredito->aplica_mora;
 
+		$solicitud->quien_inicio_usuario = optional($this->getUser())->usuario;
 		$solicitud->quien_inicio = optional($this->getUser())->nombre_corto;
 		$solicitud->canal = 'OFICINA';
 		$solicitud->save();
@@ -256,6 +257,7 @@ class SolicitudCreditoController extends Controller
 			$msg = sprintf($msg, $obj->id, json_encode($request->all()));
 			$this->log($msg, 'ACTUALIZAR');
 			$obj->estado_solicitud = 'RADICADO';
+			$obj->quien_radico_usuario = optional($this->getUser())->usuario;
 			$obj->quien_radico = optional($this->getUser())->nombre_corto;
 			$obj->save();
 
@@ -515,6 +517,7 @@ class SolicitudCreditoController extends Controller
 		$this->actualizar($obj, $request);
 		$obj->fecha_aprobacion = $request->fecha_aprobacion;
 		$obj->estado_solicitud = 'APROBADO';
+		$obj->quien_aprobo_usuario = optional($this->getUser())->usuario;
 		$obj->quien_aprobo = optional($this->getUser())->nombre_corto;
 		$obj->save();
 		DB::statement('exec creditos.sp_amortizacion_credito ?', [$obj->id]);
@@ -1035,6 +1038,7 @@ class SolicitudCreditoController extends Controller
 				if($this->getEntidad()->usa_tarjeta) {
 					event(new CalcularAjusteAhorrosVista($obj->id, true));
 				}
+				$obj->quien_desembolso_usuario = optional($this->getUser())->usuario;
 				$obj->quien_desembolso = optional($this->getUser())->nombre_corto;
 				$obj->save();
 				Session::flash('message', $respuesta[0]->MENSAJE);
