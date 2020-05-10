@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use App\Models\Creditos\Amortizacion;
 use Carbon\Carbon;
-use Log;
 
 class FinancieroHelper
 {
@@ -26,7 +25,6 @@ class FinancieroHelper
 		//SE CONVIERTE LA TASA MV A LA PERIODICIDAD
 		$tasa = ConversionHelper::conversionValorPeriodicidad($tasaMV, 'MENSUAL', $periodicidad);
 		$tasa = $tasa / 100;
-		log::info("info", [$valorCredito, $tasa, $tasa, $plazo]);
 
 		$valorCuota = ($valorCredito * $tasa) / (1 - pow(1 + $tasa, -$plazo));
 
