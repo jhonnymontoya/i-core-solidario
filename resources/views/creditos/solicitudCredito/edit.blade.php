@@ -273,9 +273,9 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-12 text-right">
-							{!! Form::submit('Calcular amortización', ['class' => 'btn btn-outline-info']) !!}
+							{!! Form::submit('Calcular amortización', ['class' => 'btn btn-outline-info', "name" => "CALCULAR"]) !!}
 							@if($solicitud->amortizaciones->count())
-							<a href="{{ route('solicitudCreditoRadicar', $solicitud->id) }}" class="btn btn-outline-primary">Radicar</a>
+							{!! Form::submit('Radicar', ['class' => 'btn btn-outline-info', "name" => "RADICAR"]) !!}
 							@endif
 							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger">Volver</a>
 						</div>
