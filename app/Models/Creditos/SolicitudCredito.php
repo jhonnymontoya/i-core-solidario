@@ -39,8 +39,12 @@ class SolicitudCredito extends Model
 		'valor_credito',
 		'numero_obligacion',
 		'fecha_solicitud',
+		'quien_solicito',
+		'quien_radico',
 		'fecha_aprobacion',
+		'quien_aprobo',
 		'fecha_desembolso',
+		'quien_desembolso',
 		'fecha_cancelacion',
 		'fecha_primer_pago',
 		'fecha_primer_pago_intereses',
@@ -58,6 +62,7 @@ class SolicitudCredito extends Model
 		'calificacion_obligacion', //Posibles valores: A, B, C, D, E, K
 		'estado_solicitud', //Posibles valores: SALDADO, DESEMBOLSADO, APROBADO, ANULADO, RECHAZADO, RADICADO, BORRADOR
 		'observaciones',
+		'canal' //Posibles valores: DIGITAL, OFICINA -> Defecto OFICINA
 	];
 
 	/**
