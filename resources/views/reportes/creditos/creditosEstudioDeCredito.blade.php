@@ -11,7 +11,7 @@
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
 			<br>
-			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }} 
+			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }}
 		</strong>
 		<h4>
 			Estudio de crédito
@@ -532,7 +532,7 @@
 			</div>
 			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
-				<strong>Usuario:</strong> I-Core
+				<strong>Usuario:</strong> {{ $solicitud->quien_radico ?? 'I-Core' }}
 			</div>
 		</div>
 	</div>
@@ -544,7 +544,7 @@
 			</div>
 			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
-				<strong>Usuario:</strong> I-Core
+				<strong>Usuario:</strong> {{ $solicitud->quien_aprobo }}
 			</div>
 		</div>
 	</div>
@@ -556,7 +556,7 @@
 			</div>
 			<div style="height: 50px;"></div>
 			<div class="text-center" style="border-top:1px solid #000;">
-				<strong>Usuario:</strong> I-Core
+				<strong>Usuario:</strong> {{ $solicitud->quien_desembolso }}
 			</div>
 		</div>
 	</div>
