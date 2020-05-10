@@ -4,11 +4,18 @@ namespace App\Helpers;
 
 use App\Models\Creditos\Amortizacion;
 use Carbon\Carbon;
+use Log;
 
 class FinancieroHelper
 {
 	static public function obtenerValorCuota($valorCredito = 0, $plazo = 0, $tipoAmortizacion = 'CAPITAL', $tasaMV = 0, $periodicidad = 'MENSUAL') {
-		
+		//Si la tasaMV es cero o nula se obliga a que el tipo de amortización
+		//sea Capital
+		if(empty($tasaMV)) {
+			$tipoAmortizacion = 'CAPITAL';
+		}
+
+
 		//SI EL TIPO DE AMORTIZACIÓN ES CAPITAL, SE TOMA EL VALOR DEL CRÉDITO Y SE DIVIDE ENTRE EL PLAZO
 		if($tipoAmortizacion == 'CAPITAL') {
 			if($plazo == 0) return 0;
@@ -19,6 +26,7 @@ class FinancieroHelper
 		//SE CONVIERTE LA TASA MV A LA PERIODICIDAD
 		$tasa = ConversionHelper::conversionValorPeriodicidad($tasaMV, 'MENSUAL', $periodicidad);
 		$tasa = $tasa / 100;
+		log::info("info", [$valorCredito, $tasa, $tasa, $plazo]);
 
 		$valorCuota = ($valorCredito * $tasa) / (1 - pow(1 + $tasa, -$plazo));
 
@@ -173,7 +181,7 @@ class FinancieroHelper
 			$amortizacion->abono_seguro_cartera = $saldoSeguro;
 			$amortizacion->nuevo_saldo_capital = 0;
 			$amortizacion->total_cuota = $saldoCapital + $saldoIntereses + $saldoSeguro;
-			
+
 			$amortizacion->estado_cuota = 'PENDIENTE';
 			$nuevaAmortizacion->push($amortizacion);
 			return $nuevaAmortizacion;
