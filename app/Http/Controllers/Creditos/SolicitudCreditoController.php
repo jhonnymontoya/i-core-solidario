@@ -162,6 +162,9 @@ class SolicitudCreditoController extends Controller
 			$tercero->socio->fecha_antiguedad
 		);
 		$solicitud->aplica_mora = $modalidadesCredito->aplica_mora;
+
+		$solicitud->quien_inicio = optional($this->getUser())->nombre_corto;
+		$solicitud->canal = 'OFICINA';
 		$solicitud->save();
 
 		//Se agregan los documentos
@@ -170,6 +173,8 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function edit(SolicitudCredito $obj) {
+		$msg = "Ingresó a editar la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'BORRADOR') {
 			Session::flash('error', 'No es posible editar una solicitud de crédito con un estado diferente a BORRADOR');
@@ -185,6 +190,10 @@ class SolicitudCreditoController extends Controller
 
 	public function update(EditSolicitudCreditoRequest $request, SolicitudCredito $obj)	{
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
+		if($obj->estado_solicitud != 'BORRADOR') {
+			Session::flash('error', 'No es posible editar una solicitud de crédito con un estado diferente a BORRADOR');
+			return redirect('solicitudCredito');
+		}
 		$this->actualizar($obj, $request);
 		$condiciones = $obj->modalidadCredito->condicionesModalidad;
 		foreach($condiciones as $condicion) {
@@ -241,7 +250,27 @@ class SolicitudCreditoController extends Controller
 				return redirect()->route('solicitudCreditoEdit', $obj);
 			}
 		}
-		return redirect()->route('solicitudCreditoEdit', $obj);
+
+		if($request->has("RADICAR")) {
+			$msg = "Radicó la solicitud de crédito '%s' con los siguientes parámetros %s";
+			$msg = sprintf($msg, $obj->id, json_encode($request->all()));
+			$this->log($msg, 'ACTUALIZAR');
+			$obj->estado_solicitud = 'RADICADO';
+			$obj->quien_radico = optional($this->getUser())->nombre_corto;
+			$obj->save();
+
+			//Se sincronizan los documentos
+			$obj->documentos()->sync($obj->modalidadCredito->documentacionModalidad->pluck('id'));
+			$this->validarCondiciones($obj);
+			Session::flash('message', 'Se ha radicado la solicitud de crédito, ahora puede continuar con las siguientes etapas');
+			return redirect('solicitudCredito');
+		}
+		else {
+			$msg = "Actualizó la solicitud de crédito '%s' con los siguientes parámetros %s";
+			$msg = sprintf($msg, $obj->id, json_encode($request->all()));
+			$this->log($msg, 'ACTUALIZAR');
+			return redirect()->route('solicitudCreditoEdit', $obj);
+		}
 	}
 
 	public function getTasaCondicionada(Request $request, SolicitudCredito $obj) {
@@ -264,22 +293,9 @@ class SolicitudCreditoController extends Controller
 		return response()->json(["tasa" => $tasa]);
 	}
 
-	public function radicar(SolicitudCredito $obj) {
-		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
-		if(!$obj->estado_solicitud == 'BORRADOR' && !$obj->amortizaciones->count()) {
-			return redirect()->route('solicitudCreditoEdit', $obj->id);
-		}
-		$obj->estado_solicitud = 'RADICADO';
-		$obj->save();
-
-		//Se sincronizan los documentos
-		$obj->documentos()->sync($obj->modalidadCredito->documentacionModalidad->pluck('id'));
-		$this->validarCondiciones($obj);
-		Session::flash('message', 'Se ha radicado la solicitud de crédito, ahora puede continuar con las siguientes etapas');
-		return redirect('solicitudCredito');
-	}
-
 	public function aprobar(SolicitudCredito $obj) {
+		$msg = "Ingresó a aprobar la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'RADICADO') {
 			Session::flash('error', 'No es posible aprobar una solicitud de crédito con un estado diferente a RADICADO');
@@ -420,6 +436,8 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function anular(SolicitudCredito $obj) {
+		$msg = "Ingresó a anular la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'BORRADOR' && $obj->estado_solicitud != 'RADICADO' && $obj->estado_solicitud != 'APROBADO') {
 			Session::flash('error', 'No es posible anular la solicitud de crédito ya que se encuentra en estado ' . $obj->estado_solicitud);
@@ -429,6 +447,8 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function anularUpdate(SolicitudCredito $obj) {
+		$msg = "Anuló la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'BORRADOR' && $obj->estado_solicitud != 'RADICADO' && $obj->estado_solicitud != 'APROBADO') {
 			Session::flash('error', 'No es posible anular la solicitud de crédito ya que se encuentra en estado ' . $obj->estado_solicitud);
@@ -448,6 +468,8 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function rechazar(SolicitudCredito $obj) {
+		$msg = "Ingresó a rechazar la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'RADICADO') {
 			Session::flash('error', 'No es posible rechazar la solicitud de crédito ya que se encuentra en estado ' . $obj->estado_solicitud);
@@ -457,6 +479,8 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function rechazarUpdate(SolicitudCredito $obj, Request $request) {
+		$msg = "Rechazó la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		Validator::make($request->all(), [
 			'observaciones' => 'bail|required|string|min:5|max:1000',
@@ -484,10 +508,14 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function aprobarUpdate(SolicitudCredito $obj, AprobarSolicitudCreditoRequest $request) {
+		$msg = "Aprobó la solicitud de crédito '%s' con los siguientes parámetros %s";
+		$msg = sprintf($msg, $obj->id, json_encode($request->all()));
+		$this->log($msg, 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		$this->actualizar($obj, $request);
 		$obj->fecha_aprobacion = $request->fecha_aprobacion;
 		$obj->estado_solicitud = 'APROBADO';
+		$obj->quien_aprobo = optional($this->getUser())->nombre_corto;
 		$obj->save();
 		DB::statement('exec creditos.sp_amortizacion_credito ?', [$obj->id]);
 
@@ -500,6 +528,8 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function desembolsar(SolicitudCredito $obj) {
+		$msg = "Ingresó a desembolsar la solicitud de crédito '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'APROBADO') {
 			Session::flash('error', 'No es posible desembolsar una solicitud de crédito con un estado diferente a APROBADO');
@@ -514,6 +544,9 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function desembolsarUpdate(SolicitudCredito $obj, DesembolsarSolicitudCreditoRequest $request) {
+		$msg = "Ingresó a desembolsar la solicitud de crédito '%s' con los siguientes parámetros %s";
+		$msg = sprintf($msg, $obj->id, json_encode($request->all()));
+		$this->log($msg, 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'APROBADO') {
 			Session::flash('error', 'No es posible desembolsar una solicitud de crédito con un estado diferente a APROBADO');
@@ -754,6 +787,9 @@ class SolicitudCreditoController extends Controller
 	}
 
 	public function procesar(SolicitudCredito $obj, Request $request) {
+		$msg = "Desembolsó la solicitud de crédito '%s' con los siguientes parámetros %s";
+		$msg = sprintf($msg, $obj->id, json_encode($request->all()));
+		$this->log($msg, 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		if($obj->estado_solicitud != 'APROBADO') {
 			Session::flash('error', 'No es posible procesar una solicitud de crédito con un estado diferente a APROBADO');
@@ -999,6 +1035,8 @@ class SolicitudCreditoController extends Controller
 				if($this->getEntidad()->usa_tarjeta) {
 					event(new CalcularAjusteAhorrosVista($obj->id, true));
 				}
+				$obj->quien_desembolso = optional($this->getUser())->nombre_corto;
+				$obj->save();
 				Session::flash('message', $respuesta[0]->MENSAJE);
 				DB::commit();
 			}
@@ -1313,7 +1351,6 @@ class SolicitudCreditoController extends Controller
 		Route::put('solicitudCredito/{obj}', 'Creditos\SolicitudCreditoController@update');
 		Route::get('solicitudCredito/calcularAmortizacion', 'Creditos\SolicitudCreditoController@calcularAmortizacion');
 		Route::get('solicitudCredito/{obj}/getTasaCondicionada', 'Creditos\SolicitudCreditoController@getTasaCondicionada');
-		Route::get('solicitudCredito/{obj}/radicar', 'Creditos\SolicitudCreditoController@radicar')->name('solicitudCreditoRadicar');
 		Route::get('solicitudCredito/{obj}/aprobar', 'Creditos\SolicitudCreditoController@aprobar')->name('solicitudCreditoAprobar');
 		Route::put('solicitudCredito/{obj}/aprobar', 'Creditos\SolicitudCreditoController@aprobarUpdate');
 		Route::get('solicitudCredito/{obj}/alternarCondicion', 'Creditos\SolicitudCreditoController@alternarCondicion')->name('solicitudCreditoAlternarCondicion');
