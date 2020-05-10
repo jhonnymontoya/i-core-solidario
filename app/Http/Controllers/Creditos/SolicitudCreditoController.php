@@ -47,7 +47,7 @@ class SolicitudCreditoController extends Controller
 
 	/**
 	 * Devuelve las solicitudes de crédito con filtros para el index
-	 * @param Request $request 
+	 * @param Request $request
 	 * @return type
 	 */
 	public function index(Request $request) {
@@ -90,7 +90,12 @@ class SolicitudCreditoController extends Controller
 		$solicitudesCreditos = $solicitudesCreditos->orderBy('fecha_solicitud', 'desc')->paginate();
 		$modalidadesCredito = Modalidad::entidadId()->get();
 		$modalidades = array();
-		foreach($modalidadesCredito as $modalidad)$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		foreach($modalidadesCredito as $modalidad) {
+			if($modalidad->estaParametrizada() == false) {
+				continue;
+			}
+			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		}
 
 		$estados = [
 			'BORRADOR'			=> 'Borrador',
@@ -112,7 +117,12 @@ class SolicitudCreditoController extends Controller
 		$this->log("Ingresó a crear una solicitud de crédito", 'INGRESAR');
 		$modalidadesCredito = Modalidad::entidadId()->activa()->usoParaTarjeta(false)->get();
 		$modalidades = array();
-		foreach($modalidadesCredito as $modalidad)$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;		
+		foreach($modalidadesCredito as $modalidad) {
+			if($modalidad->estaParametrizada() == false) {
+				continue;
+			}
+			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		}
 		return view('creditos.solicitudCredito.create')->withModalidades($modalidades);
 	}
 
@@ -231,7 +241,7 @@ class SolicitudCreditoController extends Controller
 				return redirect()->route('solicitudCreditoEdit', $obj);
 			}
 		}
-		return redirect()->route('solicitudCreditoEdit', $obj);		
+		return redirect()->route('solicitudCreditoEdit', $obj);
 	}
 
 	public function getTasaCondicionada(Request $request, SolicitudCredito $obj) {
@@ -250,7 +260,7 @@ class SolicitudCreditoController extends Controller
 			if(!empty($condicion)) {
 				$tasa = number_format($condicion->valorCondicionado($valor), 2);
 			}
-		}		
+		}
 		return response()->json(["tasa" => $tasa]);
 	}
 
@@ -298,7 +308,7 @@ class SolicitudCreditoController extends Controller
 				case 'MONTO':
 					return number_format($condicion->valorCondicionado($obj->valor_credito), 0);
 					break;
-				
+
 				default:
 					return 0;
 					break;
@@ -353,7 +363,7 @@ class SolicitudCreditoController extends Controller
 					break;
 				case 'MONTO':
 					return $condicion->valorCondicionado($obj->valor_credito);
-					break;				
+					break;
 				default:
 					return 0;
 					break;
@@ -392,7 +402,7 @@ class SolicitudCreditoController extends Controller
 	public function alternarDocumento(SolicitudCredito $obj, Request $request) {
 		$this->objEntidad($obj, 'No está autorizado a ingresar a la solicitud de crédito');
 		Validator::make($request->all(), ['documento' => 'required',])->validate();
-		
+
 		$cumple = $obj->documentos->where('id', $request->documento)->first()->pivot->cumple;
 		$cumple = !$cumple;
 		$obj->documentos()->updateExistingPivot($request->documento, ['cumple' => $cumple]);
@@ -809,7 +819,7 @@ class SolicitudCreditoController extends Controller
 				break;
 			case 'tercero':
 				$tipoComprobante = $tipoComprobante->whereCodigo('DCOT');
-				break;			
+				break;
 			default:
 				break;
 		}
@@ -984,7 +994,7 @@ class SolicitudCreditoController extends Controller
 				$item->serie = $serie++;
 			});
 			$movimientoTemporal->detalleMovimientos()->saveMany($detalles);
-			$respuesta = DB::select('exec creditos.sp_contabilizar_desembolso_credito ?, ?', [$movimientoTemporal->id, $obj->id]);		
+			$respuesta = DB::select('exec creditos.sp_contabilizar_desembolso_credito ?, ?', [$movimientoTemporal->id, $obj->id]);
 			if($respuesta[0]->ERROR == '0') {
 				if($this->getEntidad()->usa_tarjeta) {
 					event(new CalcularAjusteAhorrosVista($obj->id, true));

@@ -47,9 +47,15 @@ class ProcesoCreditoLoteController extends Controller
 			]
 		]);
 		$res = collect($res);
-		$modalidadesCredito = Modalidad::entidadId()
-			->activa()
-			->pluck('nombre', 'id');
+
+		$modalidadesCredito = Modalidad::entidadId()->get();
+		$modalidades = array();
+		foreach($modalidadesCredito as $modalidad) {
+			if($modalidad->estaParametrizada() == false) {
+				continue;
+			}
+			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		}
 
 		$procesoCreditosLote = ProcesoCreditosLote::with('modalidad')
 			->entidadId()
@@ -66,13 +72,18 @@ class ProcesoCreditoLoteController extends Controller
 		$procesoCreditosLote = $procesoCreditosLote->paginate();
 		return view('creditos.procesoCreditoLote.index')
 			->withProcesos($procesoCreditosLote)
-			->withModalidades($modalidadesCredito);
+			->withModalidades($modalidades);
 	}
 
 	public function create() {
 		$modalidadesCredito = Modalidad::entidadId()->activa()->get();
 		$modalidades = array();
-		foreach($modalidadesCredito as $modalidad)$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		foreach($modalidadesCredito as $modalidad) {
+			if($modalidad->estaParametrizada() == false) {
+				continue;
+			}
+			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		}
 		return view('creditos.procesoCreditoLote.create')->withModalidades($modalidades);
 	}
 

@@ -31,7 +31,6 @@ class ConsultaController extends Controller
 
 	public function __construct() {
 		$this->middleware('auth:web');
-		//$this->middleware('verEnt');
 	}
 
 	public function index(Request $request) {
@@ -50,7 +49,9 @@ class ConsultaController extends Controller
 			$genero->masculino = true;
 			$genero->femenino = false;
 		}
-		return view('consulta.consulta.index')->withSocio($socio)->withGenero($genero);
+		return view('consulta.consulta.index')
+			->withSocio($socio)
+			->withGenero($genero);
 	}
 
 	public function ahorrosLista() {
@@ -463,7 +464,12 @@ class ConsultaController extends Controller
 
 		$modalidadesCredito = Modalidad::entidadId()->activa()->get();
 		$modalidades = array();
-		foreach($modalidadesCredito as $modalidad)$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		foreach($modalidadesCredito as $modalidad) {
+			if($modalidad->estaParametrizada() == false) {
+				continue;
+			}
+			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+		}
 
 		return view('consulta.consulta.simulador')
 			->withSocio($socio)
