@@ -39,7 +39,7 @@ class SolicitudCredito extends Model
 		'valor_credito',
 		'numero_obligacion',
 		'fecha_solicitud',
-		'quien_solicito',
+		'quien_inicio',
 		'quien_radico',
 		'fecha_aprobacion',
 		'quien_aprobo',
