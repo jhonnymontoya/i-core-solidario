@@ -41,7 +41,7 @@ class ModalidadCreditoController extends Controller
 		return view('creditos.modalidad.index')->withModalidades($modalidadesCreditos);
 	}
 
-	public function create() {		
+	public function create() {
 		return view('creditos.modalidad.create');
 	}
 
@@ -70,7 +70,7 @@ class ModalidadCreditoController extends Controller
 			$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'PLAZO')->first();
 			if($condicion == null) {
 				$condicion = new CondicionModalidad;
-				
+
 				$condicion->tipo_condicion = 'PLAZO';
 				$condicion->condicionado_por = $request->condicionPor;
 				$obj->condicionesModalidad()->save($condicion);
@@ -79,7 +79,7 @@ class ModalidadCreditoController extends Controller
 				$condicion->tipo_condicion = 'PLAZO';
 				$condicion->condicionado_por = $request->condicionPor;
 				$condicion->save();
-			}		
+			}
 
 			Session::flash('message', 'Se ha actualizado la categoría plazo, proceda a agregar los rangos de la condición');
 			return redirect()->route('modalidadCreditoEditTasa', $obj);
@@ -154,7 +154,7 @@ class ModalidadCreditoController extends Controller
 
 					$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
 					if($condicion == null) {
-						$condicion = new CondicionModalidad;						
+						$condicion = new CondicionModalidad;
 						$condicion->tipo_condicion = 'TASA';
 						$condicion->condicionado_por = $request->condicionPor;
 						$obj->condicionesModalidad()->save($condicion);
@@ -191,7 +191,7 @@ class ModalidadCreditoController extends Controller
 
 					$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
 					if($condicion == null) {
-						$condicion = new CondicionModalidad;						
+						$condicion = new CondicionModalidad;
 						$condicion->tipo_condicion = 'TASA';
 						$condicion->condicionado_por = $request->condicionPor;
 						$obj->condicionesModalidad()->save($condicion);
@@ -285,7 +285,7 @@ class ModalidadCreditoController extends Controller
 
 			$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'MONTO')->first();
 			if($condicion == null) {
-				$condicion = new CondicionModalidad;				
+				$condicion = new CondicionModalidad;
 				$condicion->tipo_condicion = 'MONTO';
 				$condicion->condicionado_por = $request->condicionPor;
 				$obj->condicionesModalidad()->save($condicion);
@@ -352,60 +352,11 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function editAmortizacion(Modalidad $obj) {
+		$msg = "Ingresó a editar la amortización de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
-		$hayTasa = false;
-		if(!empty($obj->tipo_tasa)) {
-			switch($obj->tipo_tasa) {
-				case 'FIJA':
-					if(empty($obj->pago_interes)) {
-						break;
-					}
-					if(!empty($obj->tasa)) {
-						$hayTasa = true;
-						break;
-					}
-					$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
-					if($condicion == null) {
-						break;
-					}
-					if($condicion->rangosCondicionesModalidad->count()) {
-						$hayTasa = true;
-						break;
-					}
-					break;
-				case 'VARIABLE':
-					if(empty($obj->pago_intereses)) {
-						break;
-					}
-					if(!empty($obj->factor_condicion_variable_id)) {
-						$hayTasa = true;
-						break;
-					}
-					if(!empty($obj->tasa)) {
-						$hayTasa = true;
-						break;
-					}
-					$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
-					if($condicion == null) {
-						break;
-					}
-					if($condicion->rangosCondicionesModalidad->count()) {
-						$hayTasa = true;
-						break;
-					}
-					break;
 
-				case 'SINTASA':
-					$hayTasa = true;
-					break;
-				
-				default:
-					$hayTasa = false;
-					break;
-			}
-		}
-
-		if($hayTasa) {
+		if($obj->tieneTasa()) {
 			return view('creditos.modalidad.editAmortizacion')->withModalidad($obj);
 		}
 		else {

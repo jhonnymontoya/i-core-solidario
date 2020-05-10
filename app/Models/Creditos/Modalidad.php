@@ -110,7 +110,7 @@ class Modalidad extends Model
 	/**
 	 * Getters personalizados
 	 */
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -132,7 +132,7 @@ class Modalidad extends Model
 			$this->attributes['nombre'] = null;
 		}
 	}
-	
+
 	/**
 	 * Scopes
 	 */
@@ -157,7 +157,7 @@ class Modalidad extends Model
 	public function scopeActiva($query, $value = true) {
 		return $query->whereEstaActiva($value);
 	}
-	
+
 	/**
 	 * Funciones
 	 */
@@ -225,11 +225,70 @@ class Modalidad extends Model
 			return empty($this->tasa) ? 0 : $this->tasa;
 		}
 	}
-	 
+
+	/**
+	 * Comprueba si la modalidad tiene tasa configurada o no
+	 */
+	public function tieneTasa()
+	{
+		$hayTasa = false;
+		if(!empty($this->tipo_tasa)) {
+			switch($this->tipo_tasa) {
+				case 'FIJA':
+					if(empty($this->pago_interes)) {
+						break;
+					}
+					if(!empty($this->tasa)) {
+						$hayTasa = true;
+						break;
+					}
+					$condicion = $this->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
+					if($condicion == null) {
+						break;
+					}
+					if($condicion->rangosCondicionesModalidad->count()) {
+						$hayTasa = true;
+						break;
+					}
+					break;
+				case 'VARIABLE':
+					if(empty($this->pago_intereses)) {
+						break;
+					}
+					if(!empty($this->factor_condicion_variable_id)) {
+						$hayTasa = true;
+						break;
+					}
+					if(!empty($this->tasa)) {
+						$hayTasa = true;
+						break;
+					}
+					$condicion = $this->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
+					if($condicion == null) {
+						break;
+					}
+					if($condicion->rangosCondicionesModalidad->count()) {
+						$hayTasa = true;
+						break;
+					}
+					break;
+
+				case 'SINTASA':
+					$hayTasa = true;
+					break;
+
+				default:
+					$hayTasa = false;
+					break;
+			}
+		}
+		return $hayTasa;
+	}
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -265,7 +324,7 @@ class Modalidad extends Model
 	public function entidad() {
 		return $this->belongsTo(Entidad::class, 'entidad_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
