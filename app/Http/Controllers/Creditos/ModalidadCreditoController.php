@@ -37,26 +37,33 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function index(Request $request) {
+		$this->log("Ingresó a modalidades de crédito");
 		$modalidadesCreditos = Modalidad::entidadId()->search($request->name)->paginate();
 		return view('creditos.modalidad.index')->withModalidades($modalidadesCreditos);
 	}
 
 	public function create() {
+		$this->log("Ingresó a crear nueva modalidad de crédito");
 		return view('creditos.modalidad.create');
 	}
 
 	public function store(CreateModalidadRequest $request) {
+		$this->log("Creó una modalidad de crédito con los siguientes parámetros " . json_encode($request->all()), 'CREAR');
 		$modalidad = $this->getEntidad()->modalidadesCreditos()->create($request->all());
 		Session::flash('message', 'Se ha creado la modalidad de crédito \'' . $modalidad->codigo . ' - ' . $modalidad->nombre . '\'');
 		return redirect()->route('modalidadCreditoEdit', $modalidad);
 	}
 
 	public function edit(Modalidad $obj) {
+		$msg = "Ingresó a editar la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj);
 		return view('creditos.modalidad.edit')->withModalidad($obj);
 	}
 
 	public function update(Modalidad $obj, EditModalidadRequest $request) {
+		$msg = "Actualizó la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj);
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -100,6 +107,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function updatePlazo(Modalidad $obj, EditModalidadPlazoRequest $request) {
+		$msg = "Actualizó el plazo de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj);
 		$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'PLAZO')->first();
 		if($condicion == null)return;
@@ -124,16 +133,22 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function deletePlazo(RangoCondicionModalidad $obj) {
+		$msg = "Eliminó el plazo '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ELIMINAR');
 		$obj->delete();
 		return response()->json(['ok' => true]);
 	}
 
 	public function editTasa(Modalidad $obj) {
+		$msg = "Ingresó a editar la tasa de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		return view('creditos.modalidad.editTasa')->withModalidad($obj);
 	}
 
 	public function tasa(Modalidad $obj, EditModalidadTasaRequest $request) {
+		$msg = "Ingresó a editar la tasa de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -235,6 +250,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function updateTasa(Modalidad $obj, EditModalidadRangoTasaRequest $request) {
+		$msg = "Actualizó la tasa de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'TASA')->first();
 
@@ -260,17 +277,23 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function deleteTasa(RangoCondicionModalidad $obj) {
+		$msg = "Eliminó la tasa '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ELIMINAR');
 		$obj->delete();
 		return response()->json(['ok' => true]);
 	}
 
 	public function editCupo(Modalidad $obj) {
+		$msg = "Ingresó a editar el cupo de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->monto = substr($obj->monto, 0, strpos($obj->monto, "."));
 		return view('creditos.modalidad.editCupo')->withModalidad($obj);
 	}
 
 	public function cupo(Modalidad $obj, EditModalidadCupoRequest $request) {
+		$msg = "Creó cupo a la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'CREAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -321,6 +344,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function updateCupo(Modalidad $obj, EditModalidadRangoCupoRequest $request) {
+		$msg = "Actualizó el cupo de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$condicion = $obj->condicionesModalidad->where('tipo_condicion', 'MONTO')->first();
 
@@ -347,6 +372,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function deleteCupo(RangoCondicionModalidad $obj) {
+		$msg = "Eliminó el cupo '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ELIMINAR');
 		$obj->delete();
 		return response()->json(['ok' => true]);
 	}
@@ -366,6 +393,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function amortizacion(Modalidad $obj, EditModalidadAmortizacionRequest $request) {
+		$msg = "Actualizó la categoría de la amortización de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -412,11 +441,15 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function editCondiciones(Modalidad $obj) {
+		$msg = "Ingresó a editar las condiciones de modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		return view('creditos.modalidad.editCondiciones')->withModalidad($obj);
 	}
 
 	public function condiciones(Modalidad $obj, EditModalidadCondicionesRequest $request) {
+		$msg = "Actualizó las condiciones de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -435,11 +468,15 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function editDocumentacion(Modalidad $obj) {
+		$msg = "Ingresó a editar la documentación de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		return view('creditos.modalidad.editDocumentacion')->withModalidad($obj);
 	}
 
 	public function documentacion(Modalidad $obj, EditModalidadDocumentacionRequest $request) {
+		$msg = "Actualizó la documentación de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
@@ -453,6 +490,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function updateDocumentacion(Modalidad $obj, EditModalidadDocumentosDocumentacionRequest $request) {
+		$msg = "Actualizó la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'CREAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$documento = new DocumentacionModalidad;
 		$documento->documento = $request->documento;
@@ -470,24 +509,30 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function deleteDocumentacion(DocumentacionModalidad $obj) {
+		$msg = "Eliminó el documento '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ELIMINAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->delete();
 		return response()->json(['ok' => true]);
 	}
 
 	public function editGarantias(Modalidad $obj) {
+		$msg = "Ingresó a editar las garantías de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$tipoGarantias = TipoGarantia::entidadId()->activa()->orderBy('nombre')->pluck('nombre', 'id');
 		return view('creditos.modalidad.garantias')->withModalidad($obj)->withTiposGarantias($tipoGarantias);
 	}
 
 	public function updateGarantias(Modalidad $obj, Request $request) {
+		$msg = "Actualizó las garantías de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$request->validate([
 			'garantia'	=> [
-							'bail',
-							'exists:sqlsrv.creditos.tipos_garantia,id,entidad_id,' . $this->getEntidad()->id . ',deleted_at,NULL'
-						]
+				'bail',
+				'exists:sqlsrv.creditos.tipos_garantia,id,entidad_id,' . $this->getEntidad()->id . ',deleted_at,NULL'
+			]
 		]);
 
 		$tipoGarantia = TipoGarantia::find($request->garantia);
@@ -501,6 +546,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function deleteGarantias(Modalidad $obj, TipoGarantia $garantia) {
+		$msg = "Eliminó la garantía de la modalidad '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'ELIMINAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$id = DB::table('creditos.garantia_modalidad')->whereModalidadCreditoId($obj->id)
 				->select('id')
@@ -514,6 +561,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function editTarjeta(Modalidad $obj) {
+		$msg = "Ingresó a editar la tarjeta de la modalidad de crédito '%s - %s'";
+		$this->log(sprintf($msg, $obj->codigo, $obj->nombre));
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$this->log("Ingresó a editar información de tarjeta para la modalidad " . $obj->id);
 		$cantidadSolicitudes = $obj->solicitudesCreditos()->count();
@@ -521,6 +570,8 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function updateTarjeta(Modalidad $obj, EditModalidadTarjetaRequest $request) {
+		$msg = "Actualizó la tarjeta de la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
+		$this->log(springf($msg, $obj->codigo, $obj->nombre), 'ACTUALIZAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$this->log("Actualizó la modalidad con los siguientes parámetros " . json_encode($request->all()), "ACTUALIZAR");
 		$obj->nombre = $request->nombre;
