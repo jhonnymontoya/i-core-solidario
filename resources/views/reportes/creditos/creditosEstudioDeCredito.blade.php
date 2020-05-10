@@ -66,108 +66,111 @@
 		</div>
 	</div>
 </div>
+
+{{-- RESÚMEN CONDICIONES --}}
+@if ($solicitud->cumplimientoCondiciones->count())
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>RESUMEN CONDICIONES</strong></div>
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-12 table_responsive">
-					@if ($solicitud->cumplimientoCondiciones->count())
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Condición</th>
-									<th>Valor parámetro</th>
-									<th>Valor solicitud</th>
-									<th>Cumple</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($solicitud->cumplimientoCondiciones as $condicion)
-									@if($condicion->condicion == 'Cupo')
-										<tr>
-											<td>{{ $condicion->condicion }}</td>
-											<td>{{ number_format($condicion->valor_parametro, 0) }}</td>
-											<td>{{ number_format($condicion->valor_solicitud, 0) }}</td>
-											<td>
-												<?php
-													$cumple = $condicion->cumple_parametro;
-													$aprobado = false;
-													if(!$cumple)
-													{
-														$cumple = empty($condicion->es_aprobada) ? false : true;
-														$aprobado = $cumple;
-													}
-													if($cumple) {
-														if($aprobado) {
-															echo "aprobado";
-														}
-														else {
-															echo "Sí";
-														}
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Condición</th>
+								<th>Valor parámetro</th>
+								<th>Valor solicitud</th>
+								<th>Cumple</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($solicitud->cumplimientoCondiciones as $condicion)
+								@if($condicion->condicion == 'Cupo')
+									<tr>
+										<td>{{ $condicion->condicion }}</td>
+										<td>{{ number_format($condicion->valor_parametro, 0) }}</td>
+										<td>{{ number_format($condicion->valor_solicitud, 0) }}</td>
+										<td>
+											<?php
+												$cumple = $condicion->cumple_parametro;
+												$aprobado = false;
+												if(!$cumple)
+												{
+													$cumple = empty($condicion->es_aprobada) ? false : true;
+													$aprobado = $cumple;
+												}
+												if($cumple) {
+													if($aprobado) {
+														echo "aprobado";
 													}
 													else {
-														echo "No";
+														echo "Sí";
 													}
-												?>
-											</td>
-										</tr>
-									@else
-										<tr>
-											<td>{{ $condicion->condicion }}</td>
-											<td>
-												@if($condicion->condicion == 'Plazo')
-													{{ number_format($condicion->valor_parametro, 0) }}M
-												@elseif($condicion->condicion == 'Endeudamiento')
-													{{ number_format($condicion->valor_parametro, 0) }}%
-												@else
-													{{ number_format($condicion->valor_parametro, 0) }}
-												@endif
-											</td>
-											<td>
-												@if($condicion->condicion == 'Plazo')
-													{{ number_format($condicion->valor_solicitud, 0) }}M
-												@elseif($condicion->condicion == 'Endeudamiento')
-													{{ number_format($condicion->valor_solicitud, 0) }}%
-												@else
-													{{ number_format($condicion->valor_solicitud, 0) }}
-												@endif
-											</td>
-											<td>
-												<?php
-													$cumple = $condicion->cumple_parametro;
-													$aprobado = false;
-													if(!$cumple)
-													{
-														$cumple = empty($condicion->es_aprobada) ? false : true;
-														$aprobado = $cumple;
-													}
-													if($cumple) {
-														if($aprobado) {
-															echo "aprobado";
-														}
-														else {
-															echo "Sí";
-														}
+												}
+												else {
+													echo "No";
+												}
+											?>
+										</td>
+									</tr>
+								@else
+									<tr>
+										<td>{{ $condicion->condicion }}</td>
+										<td>
+											@if($condicion->condicion == 'Plazo')
+												{{ number_format($condicion->valor_parametro, 0) }}M
+											@elseif($condicion->condicion == 'Endeudamiento')
+												{{ number_format($condicion->valor_parametro, 0) }}%
+											@else
+												{{ number_format($condicion->valor_parametro, 0) }}
+											@endif
+										</td>
+										<td>
+											@if($condicion->condicion == 'Plazo')
+												{{ number_format($condicion->valor_solicitud, 0) }}M
+											@elseif($condicion->condicion == 'Endeudamiento')
+												{{ number_format($condicion->valor_solicitud, 0) }}%
+											@else
+												{{ number_format($condicion->valor_solicitud, 0) }}
+											@endif
+										</td>
+										<td>
+											<?php
+												$cumple = $condicion->cumple_parametro;
+												$aprobado = false;
+												if(!$cumple)
+												{
+													$cumple = empty($condicion->es_aprobada) ? false : true;
+													$aprobado = $cumple;
+												}
+												if($cumple) {
+													if($aprobado) {
+														echo "aprobado";
 													}
 													else {
-														echo "No";
+														echo "Sí";
 													}
-												?>
-											</td>
-										</tr>
-									@endif
-								@endforeach
-							</tbody>
-						</table>
-					@else
-						Sin datos
-					@endif
+												}
+												else {
+													echo "No";
+												}
+											?>
+										</td>
+									</tr>
+								@endif
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+@endif
+{{-- FIN DE RESÚMEN CONDICIONES --}}
+
+
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>AMORTIZACIÓN</strong></div>
@@ -202,59 +205,61 @@
 		</div>
 	</div>
 </div>
+
+{{-- CRÉDITOS RECOGIDOS --}}
+@if($creditosRecogidos->count())
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>CRÉDITOS RECOGIDOS</strong></div>
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-12 table_responsive">
-					@if($creditosRecogidos->count())
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>Número obligación</th>
-									<th class="text-center">Capital recogido</th>
-									<th class="text-center">Interes por pagar</th>
-									<th class="text-center">Total consolidación obligación</th>
-								</tr>
-							</thead>
-							<tbody>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Número obligación</th>
+								<th class="text-center">Capital recogido</th>
+								<th class="text-center">Interes por pagar</th>
+								<th class="text-center">Total consolidación obligación</th>
+							</tr>
+						</thead>
+						<tbody>
+							@php
+								$total = 0;
+							@endphp
+							@foreach ($creditosRecogidos as $creditoRecogido)
 								@php
-									$total = 0;
+									$total += $creditoRecogido->total;
 								@endphp
-								@foreach ($creditosRecogidos as $creditoRecogido)
-									@php
-										$total += $creditoRecogido->total;
-									@endphp
-									<tr>
-										<td>{{ $creditoRecogido->creditoConsolidado->numero_obligacion }}</td>
-										<td class="text-right">${{ number_format($creditoRecogido->pago_capital) }}</td>
-										<td class="text-right">${{ number_format($creditoRecogido->pago_intereses) }}</td>
-										<td class="text-right">${{ number_format($creditoRecogido->total) }}</td>
-									</tr>
-								@endforeach
-							</tbody>
-							<tfoot>
 								<tr>
-									<th colspan="2"></th>
-									<td>Total recogido:</td>
-									<td class="text-right">${{ number_format($total) }}</td>
+									<td>{{ $creditoRecogido->creditoConsolidado->numero_obligacion }}</td>
+									<td class="text-right">${{ number_format($creditoRecogido->pago_capital) }}</td>
+									<td class="text-right">${{ number_format($creditoRecogido->pago_intereses) }}</td>
+									<td class="text-right">${{ number_format($creditoRecogido->total) }}</td>
 								</tr>
-								<tr>
-									<th colspan="2"></th>
-									<th>Exedente para desembolso:</th>
-									<th class="text-right">${{ number_format($solicitud->valor_credito - $total) }}</th>
-								</tr>
-							</tfoot>
-						</table>
-					@else
-						Sin datos
-					@endif
+							@endforeach
+						</tbody>
+						<tfoot>
+							<tr>
+								<th colspan="2"></th>
+								<td>Total recogido:</td>
+								<td class="text-right">${{ number_format($total) }}</td>
+							</tr>
+							<tr>
+								<th colspan="2"></th>
+								<th>Exedente para desembolso:</th>
+								<th class="text-right">${{ number_format($solicitud->valor_credito - $total) }}</th>
+							</tr>
+						</tfoot>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+@endif
+{{-- FIN DE CRÉDITOS RECOGIDOS --}}
+
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>GARANTÍAS - CODEUDORES</strong></div>
@@ -293,6 +298,8 @@
 		</div>
 	</div>
 </div>
+
+{{--
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>GARANTÍAS - REAL</strong></div>
@@ -305,6 +312,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>GARANTÍAS - FONDO DE GARANTÍAS</strong></div>
@@ -317,6 +325,8 @@
 		</div>
 	</div>
 </div>
+--}}
+
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>CUPO</strong></div>
@@ -412,6 +422,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="container-fluid">
 	<div class="card card-default card-outline">
 		<div class="card-header with-border"><strong>ENDEUDAMIENTO MENSUAL</strong></div>
@@ -468,6 +479,9 @@
 		</div>
 	</div>
 </div>
+
+{{-- DOCUMENTACIÓN --}}
+@if ($solicitud->documentos->count())
 <div class="row">
 	<div class="col-md-12">
 		<div class="card card-default card-outline">
@@ -475,55 +489,56 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-12 table_responsive">
-						@if ($solicitud->documentos->count())
-							<table class="table table-striped">
-								<thead>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Documento</th>
+									<th>Obligatorio</th>
+									<th>Cumple</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach($solicitud->documentos as $documento)
 									<tr>
-										<th>Documento</th>
-										<th>Obligatorio</th>
-										<th>Cumple</th>
+										<td>{{ $documento->documento }}</td>
+										<td>{{ $documento->obligatorio ? 'Si' : 'Opcional' }}</td>
+										<td>
+											<?php
+												$cumple = $documento->pivot->cumple;
+												echo $cumple ? 'Sí' : 'No';
+											?>
+										</td>
 									</tr>
-								</thead>
-								<tbody>
-									@foreach($solicitud->documentos as $documento)
-										<tr>
-											<td>{{ $documento->documento }}</td>
-											<td>{{ $documento->obligatorio ? 'Si' : 'Opcional' }}</td>
-											<td>
-												<?php
-													$cumple = $documento->pivot->cumple;
-													echo $cumple ? 'Sí' : 'No';
-												?>
-											</td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						@else
-							Sin datos
-						@endif
+								@endforeach
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="container-fluid">
-	<div class="card card-default card-outline">
-		<div class="card-header with-border"><strong>OBSERVACIONES</strong></div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-12 table_responsive">
-					@if ($solicitud->observaciones)
+@endif
+{{-- FIN DE DOCUMENTACIÓN --}}
+
+{{-- OBSERVACIONES --}}
+@if ($solicitud->observaciones)
+	<div class="container-fluid">
+		<div class="card card-default card-outline">
+			<div class="card-header with-border"><strong>OBSERVACIONES</strong></div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12 table_responsive">
 						<p>{{ $solicitud->observaciones }}</p>
-					@else
-						Sin datos
-					@endif
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+@endif
+{{-- FIN DE OBSERVACIONES --}}
+
+{{-- FIRMAS --}}
 <div class="row">
 	<div class="col-4">
 		<div style="border:1px solid #000; height: 100px;">
@@ -561,4 +576,5 @@
 		</div>
 	</div>
 </div>
+{{-- FIN DE FIRMAS --}}
 <br>
