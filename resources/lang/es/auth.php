@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Contraseña incorrecta.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Credenciales no coinciden con nuestros registros.',
+    'throttle' => 'Demasiados intentos. Por favor intente de nuevo en :seconds segundos.',
 
 ];

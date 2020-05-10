@@ -14,9 +14,10 @@ return [
     */
 
     'password' => 'Contraseña debe tener al menos seis caracteres y coincidir con la confirmación.',
-    'reset' => 'Su contraseña ha sido restablecida!',
+    'reset' => '¡Su contraseña ha sido restablecida!',
     'sent' => 'Hemos enviado via email el enlace para restaurar la contraseña a:',
-    'token' => 'El usuario no corresponde con el solicitante.',
-    'user' => "No encontramos un usuario con el usuario suministrado.",
+    'token' => 'Este token de restablecimiento de contraseña es inválido.',
+    'user' => "No encontramos el usuario.",
+    'throttled' => 'Por favor espere antes de volver a intentarlo.',
 
 ];
