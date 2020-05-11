@@ -34,6 +34,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Socios\ChequearSocioEnListasControl',
         ],
 
+        /*EVENTOS DE CREDITOS*/
+        'App\Events\Creditos\SolicitudCreditoAprobado' => [
+            'App\Listeners\Creditos\EnviarCorreoSolicitudCreditoAprobado'
+        ],
+
         /*EVENTOS DE TARJETAS*/
         'App\Events\Tarjeta\TarjetaHabienteCreado' => [
             'App\Listeners\Tarjeta\CrearTarjetaHabienteEnRed'
