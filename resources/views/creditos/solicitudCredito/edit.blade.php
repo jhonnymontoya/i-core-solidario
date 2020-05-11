@@ -193,7 +193,13 @@
 									$valid = $errors->has('periodicidad') ? 'is-invalid' : '';
 								@endphp
 								<label class="control-label">Periodicidad de pago</label>
-								{!! Form::select('periodicidad', $periodicidades, null, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una periodicidad']) !!}
+								<?php
+									$default = null;
+									if(count($periodicidades) == 1) {
+										$default = array_keys($periodicidades)[0];
+									}
+									echo Form::select('periodicidad', $periodicidades, $default, ['class' => [$valid, 'form-control', 'select2'], 'placeholder' => 'Seleccione una periodicidad']);
+								?>
 								@if ($errors->has('periodicidad'))
 									<div class="invalid-feedback">{{ $errors->first('periodicidad') }}</div>
 								@endif
@@ -275,7 +281,7 @@
 						<div class="col-md-12 text-right">
 							{!! Form::submit('Calcular amortización', ['class' => 'btn btn-outline-info', "name" => "CALCULAR"]) !!}
 							@if($solicitud->amortizaciones->count())
-							{!! Form::submit('Radicar', ['class' => 'btn btn-outline-info', "name" => "RADICAR"]) !!}
+							{!! Form::submit('Radicar', ['class' => 'btn btn-outline-success', "name" => "RADICAR"]) !!}
 							@endif
 							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger">Volver</a>
 						</div>
