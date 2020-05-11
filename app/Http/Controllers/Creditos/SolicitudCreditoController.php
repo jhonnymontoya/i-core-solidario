@@ -2,38 +2,39 @@
 
 namespace App\Http\Controllers\Creditos;
 
-use App\Helpers\ConversionHelper;
-use App\Http\Controllers\Controller;
-use App\Events\Tarjeta\CalcularAjusteAhorrosVista;
-use App\Http\Requests\Creditos\SolicitudCredito\AprobarSolicitudCreditoRequest;
-use App\Http\Requests\Creditos\SolicitudCredito\DesembolsarSolicitudCreditoRequest;
-use App\Http\Requests\Creditos\SolicitudCredito\EditConsolidacionSaldoRequest;
-use App\Http\Requests\Creditos\SolicitudCredito\EditSolicitudCreditoRequest;
-use App\Http\Requests\Creditos\SolicitudCredito\MakeCuotaExtraordinariaRequest;
-use App\Http\Requests\Creditos\SolicitudCredito\ValidarSolicitudCreditoRequest;
-use App\Models\Contabilidad\Cuif;
-use App\Models\Contabilidad\DetalleMovimientoTemporal;
-use App\Models\Contabilidad\MovimientoTemporal;
-use App\Models\Contabilidad\TipoComprobante;
-use App\Models\Creditos\Codeudor;
-use App\Models\Creditos\CumplimientoCondicion;
-use App\Models\Creditos\CuotaExtraordinaria;
-use App\Models\Creditos\Modalidad;
-use App\Models\Creditos\MovimientoCapitalCredito;
-use App\Models\Creditos\ObligacionConsolidacion;
-use App\Models\Creditos\ParametroContable;
-use App\Models\Creditos\SolicitudCredito;
-use App\Models\Creditos\TipoGarantia;
-use App\Models\General\ParametroInstitucional;
-use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
-use Carbon\Carbon;
 use DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Validation\Rule;
 use Route;
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Traits\FonadminTrait;
+use App\Models\General\Tercero;
+use Illuminate\Validation\Rule;
+use App\Helpers\ConversionHelper;
+use App\Models\Contabilidad\Cuif;
+use App\Models\Creditos\Codeudor;
+use App\Models\Creditos\Modalidad;
+use App\Http\Controllers\Controller;
+use App\Models\Creditos\TipoGarantia;
+use Illuminate\Support\Facades\Session;
+use App\Models\Creditos\SolicitudCredito;
+use App\Models\Creditos\ParametroContable;
+use App\Models\Contabilidad\TipoComprobante;
+use App\Models\Creditos\CuotaExtraordinaria;
+use App\Models\Creditos\CumplimientoCondicion;
+use App\Models\General\ParametroInstitucional;
+use App\Models\Contabilidad\MovimientoTemporal;
+use App\Models\Creditos\ObligacionConsolidacion;
+use App\Events\Creditos\SolicitudCreditoAprobado;
+use App\Models\Creditos\MovimientoCapitalCredito;
+use App\Events\Tarjeta\CalcularAjusteAhorrosVista;
+use App\Models\Contabilidad\DetalleMovimientoTemporal;
+use App\Http\Requests\Creditos\SolicitudCredito\EditSolicitudCreditoRequest;
+use App\Http\Requests\Creditos\SolicitudCredito\EditConsolidacionSaldoRequest;
+use App\Http\Requests\Creditos\SolicitudCredito\AprobarSolicitudCreditoRequest;
+use App\Http\Requests\Creditos\SolicitudCredito\MakeCuotaExtraordinariaRequest;
+use App\Http\Requests\Creditos\SolicitudCredito\ValidarSolicitudCreditoRequest;
+use App\Http\Requests\Creditos\SolicitudCredito\DesembolsarSolicitudCreditoRequest;
 
 class SolicitudCreditoController extends Controller
 {
@@ -521,6 +522,9 @@ class SolicitudCreditoController extends Controller
 		//Se sincronizan los documentos
 		$obj->documentos()->sync($obj->modalidadCredito->documentacionModalidad->pluck('id'));
 		$this->validarCondiciones($obj);
+
+		//Se envia correo al asociado por la aprobación de su solicitud de crédito
+		event(new SolicitudCreditoAprobado($obj));
 
 		Session::flash('message', 'Se ha aprobado la solicitud de crédito, ahora puede continuar con las siguientes etapas');
 		return redirect('solicitudCredito');
