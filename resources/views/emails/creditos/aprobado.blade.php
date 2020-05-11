@@ -1,4 +1,4 @@
-@component('mail::message')
+@component('mail::message', ['subcopy' => $subcopy])
 {{ $data->fecha }}
 
 # {{ $data->titulo }}

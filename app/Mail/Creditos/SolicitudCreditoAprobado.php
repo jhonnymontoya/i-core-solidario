@@ -50,10 +50,13 @@ class SolicitudCreditoAprobado extends Mailable
 
         $subject = "Acerca de su solicitud de crédito";
 
+        $subcopy = "Este es un mensaje automático, favor abstenerse de contestarlo";
+
         return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $sigla)
             ->subject($subject)
             ->markdown('emails.creditos.aprobado')
-            ->withData($data);
+            ->withData($data)
+            ->withSubcopy($subcopy);
     }
 
     private function getFecha($fechaAprobacion){
