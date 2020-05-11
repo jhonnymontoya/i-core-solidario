@@ -90,7 +90,7 @@ class TarjetaHabienteController extends Controller
 			// modalidad de crédito
 			if($producto->credito) {
 				$tarjetahabiente->asignarNumeroCuentaCorriente();
-				
+
 				$solicitudCredito = $this->crearObligacionFinanciera($tarjetahabiente, $request);
 				$tarjetahabiente->solicitud_credito_id = $solicitudCredito->id;
 				$tarjetahabiente->cupo = $request->cupo;
@@ -120,8 +120,8 @@ class TarjetaHabienteController extends Controller
 	/**
 	 * Obtiene el plazo según la periodicidad del tercero->socio
 	 * si no es socio, es mensual
-	 * @param type $terceroId 
-	 * @param type $plazo 
+	 * @param type $terceroId
+	 * @param type $plazo
 	 * @return type
 	 */
 	private function obtenerPlazo($terceroId, $plazo) {
@@ -141,8 +141,8 @@ class TarjetaHabienteController extends Controller
 	/**
 	 * Obtiene la periodicidad tercero->socio
 	 * si no es socio, es mensual
-	 * @param type $terceroId 
-	 * @param type $plazo 
+	 * @param type $terceroId
+	 * @param type $plazo
 	 * @return type
 	 */
 	private function obtenerPeriodicidad($terceroId) {
@@ -155,8 +155,8 @@ class TarjetaHabienteController extends Controller
 	/**
 	 * Obtiene la forma de pago
 	 * si no es socio, es mensual
-	 * @param type $terceroId 
-	 * @param type $plazo 
+	 * @param type $terceroId
+	 * @param type $plazo
 	 * @return type
 	 */
 	private function obtenerFormaPago($terceroId) {
@@ -171,6 +171,7 @@ class TarjetaHabienteController extends Controller
 	 * @return type
 	 */
 	public function crearObligacionFinanciera($tarjetahabiente, $request) {
+		$usuario = $this->getUser();
 		$solicitudCredito = null;
 		try {
 			$entidad = $this->getEntidad();
@@ -189,8 +190,16 @@ class TarjetaHabienteController extends Controller
 				'valor_credito' => $request->cupo,
 				'numero_obligacion' => $numeroObligacion,
 				'fecha_solicitud' => date('d/m/Y'),
+				'quien_inicio_usuario' => optional($usuario)->usuario,
+				'quien_inicio' => optional($usuario)->nombre_corto,
+				'quien_radico_usuario' => optional($usuario)->usuario,
+				'quien_radico' => optional($usuario)->nombre_corto,
 				'fecha_aprobacion' => date('d/m/Y'),
+				'quien_aprobo_usuario' => optional($usuario)->usuario,
+				'quien_aprobo' => optional($usuario)->nombre_corto,
 				'fecha_desembolso' => date('d/m/Y'),
+				'quien_desembolso_usuario' => optional($usuario)->usuario,
+				'quien_desembolso' => optional($usuario)->nombre_corto,
 				'valor_cuota' => 0,
 				'plazo' => $this->obtenerPlazo($request->tercero_id, $modalidadCredito->plazo),
 				'periodicidad' => $this->obtenerPeriodicidad($request->tercero_id),
@@ -205,6 +214,7 @@ class TarjetaHabienteController extends Controller
 				'calificacion_obligacion' => 'A',
 				'estado_solicitud' => 'DESEMBOLSADO',
 				'observaciones' => "Crédito rotativo vinculado a tarjeta afinidad",
+				'canal' => 'OFICINA'
 			]);
 			$solicitudCredito->save();
 		} catch(Exception $e) {
