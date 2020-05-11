@@ -48,26 +48,29 @@
 					<h3 class="card-title">Solicitudes de crédito</h3>
 				</div>
 				<div class="card-body">
-					{!! Form::model(Request::only('name', 'inicio', 'fin', 'modalidad', 'estado'), ['url' => '/solicitudCredito', 'method' => 'GET', 'role' => 'search']) !!}
+					{!! Form::model(Request::only('name', 'inicio', 'fin', 'modalidad', 'canal', 'estado'), ['url' => '/solicitudCredito', 'method' => 'GET', 'role' => 'search']) !!}
 					<div class="row">
-						<div class="col-md-3 col-sm-12">
+						<div class="col">
 							{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Buscar', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-3 col-sm-12">
+						<div class="col-3">
 							<div class="input-daterange input-group" id="fecha">
 								{!! Form::text('inicio', null, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off']); !!}
 								<span class="input-group-addon">a</span>
 								{!! Form::text('fin', null, ['class' => 'form-control', 'placeholder' => 'dd/mm/yyyy', 'autocomplete' => 'off']); !!}
 							</div>
 						</div>
-						<div class="col-md-3 col-sm-12">
+						<div class="col-3">
 							{!! Form::select('modalidad', $modalidades, null, ['class' => 'form-control select2', 'placeholder' => 'Modalidad', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-2 col-sm-12">
+						<div class="col">
+							{!! Form::select('canal', $canales, null, ['class' => 'form-control select2', 'placeholder' => 'Canal', 'autocomplete' => 'off']); !!}
+						</div>
+						<div class="col">
 							{!! Form::select('estado', $estados, null, ['class' => 'form-control select2', 'placeholder' => 'Estado', 'autocomplete' => 'off']); !!}
 						</div>
-						<div class="col-md-1 col-sm-12">
-							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>								
+						<div class="col-1">
+							<button type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 					{!! Form::close() !!}
@@ -82,7 +85,7 @@
 						</p>
 					@else
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-hover table-striped">
 								<thead>
 									<tr>
 										<th>Cliente</th>
@@ -92,6 +95,7 @@
 										<th>Fecha</th>
 										<th>Valor</th>
 										<th>Tasa M.V.</th>
+										<th>Canal</th>
 										<th>Estado</th>
 										<th></th>
 									</tr>
@@ -123,7 +127,7 @@
 											?>
 											<td><a href="{{ $link }}">{{ $nombre }}</a></td>
 											<td>{{ $solicitud->modalidadCredito->codigo }} - {{ $solicitud->modalidadCredito->nombre }}</td>
-											<td>{{ $solicitud->id }}</td>										
+											<td>{{ $solicitud->id }}</td>
 											<td>{{ empty($solicitud->numero_obligacion) ? '-' : $solicitud->numero_obligacion }}</td>
 											<td>
 												<?php
@@ -151,6 +155,7 @@
 											</td>
 											<td class="text-right">${{ number_format($solicitud->valor_credito) }}</td>
 											<td>{{ number_format($solicitud->tasa, 2) }}%</td>
+											<td>{{ Str::title($solicitud->canal) }}</td>
 											<td>
 												<?php
 													$label = 'secondary';
@@ -193,17 +198,17 @@
 															<a class="btn btn-outline-success btn-sm" href="{{ route('solicitudCreditoAprobar', $solicitud) }}" title="Aprobar"><i class="far fa-thumbs-up"></i></a>
 															<a class="btn btn-outline-danger btn-sm" href="{{ route('solicitudCreditoRechazar', $solicitud) }}" title="Rechazar"><i class="far fa-thumbs-down"></i></a>
 															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="far fa-times-circle"></i></a>
-															<a class="btn btn-outline-secondary btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
+															<a class="btn btn-outline-secondary btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio" target="_blank"><i class="fa fa-print"></i></a>
 															<?php
 															break;
 														case 'APROBADO':
 															?>
 															<a class="btn btn-outline-success btn-sm" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Desembolsar"><i class="fas fa-money-bill"></i></a>
 															<a class="btn btn-outline-warning btn-sm" href="{{ route('solicitudCreditoAnular', $solicitud) }}" title="Anular"><i class="far fa-times-circle"></i></a>
-															<a class="btn btn-outline-secondary btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio"><i class="fa fa-print"></i></a>
+															<a class="btn btn-outline-secondary btn-sm" href="{{ route('reportesReporte', 8) }}?numeroRadicado={{ $solicitud->id }}" title="Estudio" target="_blank"><i class="fa fa-print"></i></a>
 															<?php
 															break;
-														
+
 														default:
 															break;
 													}
@@ -217,7 +222,7 @@
 					@endif
 					<div class="row">
 						<div class="col-md-12 text-center">
-							{!! $solicitudes->appends(Request::only('name', 'inicio', 'fin', 'modalidad', 'estado'))->render() !!}
+							{!! $solicitudes->appends(Request::only('name', 'inicio', 'fin', 'modalidad', 'canal', 'estado'))->render() !!}
 						</div>
 					</div>
 				</div>
