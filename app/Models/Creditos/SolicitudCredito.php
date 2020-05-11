@@ -457,6 +457,33 @@ class SolicitudCredito extends Model
 	}
 
 	/**
+	 * Obtiene los canales disponibles
+	 */
+	public static function getCanales()
+	{
+	    return [
+			'OFICINA'	=> 'Oficina',
+			'DIGITAL'	=> 'Digital'
+		];
+	}
+
+	/**
+	 * Obtiene los estados disponibles
+	 */
+	public static function getEstados()
+	{
+	    return [
+			'BORRADOR'		=> 'Borrador',
+			'RADICADO'		=> 'Radicado',
+			'APROBADO'		=> 'Aprobado',
+			'DESEMBOLSADO'	=> 'Desembolsado',
+			'SALDADO'		=> 'Saldado',
+			'ANULADO'		=> 'Anulado',
+			'RECHAZADO'		=> 'Rechazado',
+		];
+	}
+
+	/**
 	 * Relaciones Uno a Uno
 	 */
 

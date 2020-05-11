@@ -97,20 +97,11 @@ class SolicitudCreditoController extends Controller
 			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
 		}
 
-		$estados = [
-			'BORRADOR'			=> 'Borrador',
-			'RADICADO'			=> 'Radicado',
-			'APROBADO'			=> 'Aprobado',
-			'DESEMBOLSADO'		=> 'Desembolsado',
-			'SALDADO'			=> 'Saldado',
-			'ANULADO'			=> 'Anulado',
-			'RECHAZADO'			=> 'Rechazado',
-		];
-
 		return view('creditos.solicitudCredito.index')
-						->withSolicitudes($solicitudesCreditos)
-						->withModalidades($modalidades)
-						->withEstados($estados);
+			->withSolicitudes($solicitudesCreditos)
+			->withModalidades($modalidades)
+			->withEstados(SolicitudCredito::getEstados())
+			->withCanales(SolicitudCredito::getCanales());
 	}
 
 	public function create() {
