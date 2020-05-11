@@ -28,14 +28,14 @@ class EditSolicitudCreditoRequest extends FormRequest
 	 *
 	 * @return array
 	 */
-	public function rules() {
+	public function rules() {//dd($this->solicitud->fecha_solicitud);
 		$reglas = [
-			'valor_credito'								=> 'bail|required|numeric|min:1',
-			'plazo'										=> 'bail|required|integer|min:1|max:1000',
-			'forma_pago'								=> 'bail|required|string|in:NOMINA,PRIMA,CAJA',
-			'periodicidad'								=> 'bail|required|string|in:ANUAL,SEMESTRAL,CUATRIMESTRAL,TRIMESTRAL,BIMESTRAL,MENSUAL,QUINCENAL,CATORCENAL,DECADAL,SEMANAL',
-			'fecha_primer_pago'							=> 'bail|required|date_format:"d/m/Y"|modulocerrado:7',
-			'observaciones'								=> 'bail|nullable|string|max:1000',
+			'valor_credito'		=> 'bail|required|numeric|min:1',
+			'plazo'				=> 'bail|required|integer|min:1|max:1000',
+			'forma_pago'		=> 'bail|required|string|in:NOMINA,PRIMA,CAJA',
+			'periodicidad'		=> 'bail|required|string|in:ANUAL,SEMESTRAL,CUATRIMESTRAL,TRIMESTRAL,BIMESTRAL,MENSUAL,QUINCENAL,CATORCENAL,DECADAL,SEMANAL',
+			'fecha_primer_pago'	=> 'bail|required|date_format:"d/m/Y"|after:' . $this->solicitud->fecha_solicitud . '|modulocerrado:7',
+			'observaciones'		=> 'bail|nullable|string|max:1000',
 		];
 
 		if($this->solicitud->modalidadCredito->tipo_cuota == 'CAPITAL') {

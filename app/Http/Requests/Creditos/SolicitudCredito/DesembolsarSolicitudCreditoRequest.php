@@ -64,7 +64,7 @@ class DesembolsarSolicitudCreditoRequest extends FormRequest
 			'plazo'					=> 'bail|required|integer|min:1|max:1000',
 			'forma_pago'			=> 'bail|required|string|in:NOMINA,PRIMA,CAJA',
 			'periodicidad'			=> 'bail|required|string|in:ANUAL,SEMESTRAL,CUATRIMESTRAL,TRIMESTRAL,BIMESTRAL,MENSUAL,QUINCENAL,CATORCENAL,DECADAL,SEMANAL',
-			'fecha_primer_pago'		=> 'bail|required|date_format:"d/m/Y"',
+			'fecha_primer_pago'		=> 'bail|required|date_format:"d/m/Y"|after:' . $this->solicitud->fecha_solicitud . '|modulocerrado:7',
 			'observaciones'			=> 'bail|nullable|string|max:1000',
 		];
 
