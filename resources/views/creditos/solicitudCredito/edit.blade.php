@@ -279,9 +279,9 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-12 text-right">
-							{!! Form::submit('Calcular amortización', ['class' => 'btn btn-outline-info', "name" => "CALCULAR"]) !!}
+							{!! Form::submit('Calcular amortización', ['class' => 'btn btn-outline-info btn-accion', "name" => "CALCULAR"]) !!}
 							@if($solicitud->amortizaciones->count())
-							{!! Form::submit('Radicar', ['class' => 'btn btn-outline-success', "name" => "RADICAR"]) !!}
+							{!! Form::submit('Radicar', ['class' => 'btn btn-outline-success btn-accion', "name" => "RADICAR"]) !!}
 							@endif
 							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger">Volver</a>
 						</div>
@@ -370,6 +370,13 @@
 	$(function(){
 		$(window).load(function(){
 			$("input[name='valor_credito']").maskMoney('mask');
+		});
+		var sent = false;
+		$("form[name='solicitud_credito']").submit(function(e){
+			if(sent == true) {
+				e.preventDefault();
+			}
+			sent = true;
 		});
 
 		$(".select2").select2();

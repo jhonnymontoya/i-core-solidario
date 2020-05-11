@@ -268,7 +268,7 @@
 						<div class="col-md-8">
 							<label class="control-label">&nbsp;</label>
 							<br>
-							{!! Form::submit('Aprobar solicitud', ['class' => 'btn btn-outline-success']) !!}
+							{!! Form::submit('Aprobar solicitud', ['class' => 'btn btn-outline-success btn-accion']) !!}
 							<a href="{{ url('solicitudCredito') }}" class="btn btn-outline-danger pull-right">Volver</a>
 						</div>
 					</div>
@@ -559,6 +559,11 @@
 	$(function(){
 		$(window).load(function(){
 			$("input[name='valor_credito']").maskMoney('mask');
+		});
+
+		$("form[name='solicitud_credito']").submit(function(e){
+			$(".btn-accion").attr("disabled", true);
+			$(".btn-accion").val("Procesando...");
 		});
 
 		$(".select2").select2();
