@@ -186,6 +186,13 @@ class SolicitudCredito extends Model
 		}
 	}
 
+	public function scopeCanal($query, $value)
+	{
+		if(empty($value) == false) {
+			return $query->whereCanal($value);
+		}
+	}
+
 	/**
 	 * Funciones
 	 */
