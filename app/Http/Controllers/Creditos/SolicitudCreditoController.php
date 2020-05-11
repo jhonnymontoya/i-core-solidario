@@ -28,6 +28,7 @@ use App\Models\Creditos\ObligacionConsolidacion;
 use App\Events\Creditos\SolicitudCreditoAprobado;
 use App\Models\Creditos\MovimientoCapitalCredito;
 use App\Events\Tarjeta\CalcularAjusteAhorrosVista;
+use App\Events\Creditos\SolicitudCreditoDesembolsado;
 use App\Models\Contabilidad\DetalleMovimientoTemporal;
 use App\Http\Requests\Creditos\SolicitudCredito\EditSolicitudCreditoRequest;
 use App\Http\Requests\Creditos\SolicitudCredito\EditConsolidacionSaldoRequest;
@@ -1043,6 +1044,9 @@ class SolicitudCreditoController extends Controller
 				$obj->save();
 				Session::flash('message', $respuesta[0]->MENSAJE);
 				DB::commit();
+
+				//Se dispara evento cuando la solicitud de crédito se desembolsa
+				event(new SolicitudCreditoDesembolsado($obj));
 			}
 			else {
 				Session::flash('error', $respuesta[0]->MENSAJE);
