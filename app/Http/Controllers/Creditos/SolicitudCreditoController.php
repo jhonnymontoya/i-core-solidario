@@ -60,6 +60,7 @@ class SolicitudCreditoController extends Controller
 							'nullable',
 							'exists:sqlsrv.creditos.modalidades,id,deleted_at,NULL',
 						],
+			'canal'		=> 'bail|nullable|string|in:OFICINA,DIGITAL',
 			'estado'	=> 'bail|nullable|string|in:SALDADO,DESEMBOLSADO,APROBADO,ANULADO,RECHAZADO,RADICADO,BORRADOR',
 		])->validate();
 
@@ -79,6 +80,10 @@ class SolicitudCreditoController extends Controller
 		}
 		if(!empty($request->modalidad)) {
 			$solicitudesCreditos->whereModalidadCreditoId($request->modalidad);
+			$existenFiltros = true;
+		}
+		if(!empty($request->canal)) {
+			$solicitudesCreditos->canal($request->canal);
 			$existenFiltros = true;
 		}
 		if(!empty($request->estado)) {
