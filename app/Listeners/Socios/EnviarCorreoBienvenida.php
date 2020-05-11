@@ -29,7 +29,6 @@ class EnviarCorreoBienvenida implements ShouldQueue
 		$socio = $event->socio;
 		$password = $event->password;
 
-		$tercero = $socio->tercero;
 		$mail = null;
 		$contactos = $socio->tercero->contactos;
 		if($contactos){
