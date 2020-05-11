@@ -37,6 +37,7 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function index(Request $request) {
+		$this->log("Ingresó a solicitudes de crédito en lote", 'INGRESAR');
 		$res = $request->validate([
 			"name" => "nullable|string|max:50",
 			"modalidad" => [
@@ -76,6 +77,7 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function create() {
+		$this->log("Ingresó a crear nueva solicitud de crédito en lote", 'INGRESAR');
 		$modalidadesCredito = Modalidad::entidadId()->activa()->get();
 		$modalidades = array();
 		foreach($modalidadesCredito as $modalidad) {
@@ -88,6 +90,9 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function store(CreateProcesoCreditosLoteRequest $request) {
+		$msg = "Creó la solicitud de crédito en lote con los siguientes parámetros %s";
+		$msg = sprintf($msg, json_encode($request->all()));
+		$this->log($msg, 'CREAR');
 		$consecutivo = ProcesoCreditosLote::entidadId()->select(DB::raw("count(id) as consecutivo"))->first();
 		if(empty($consecutivo)) {
 			$consecutivo = 1;
@@ -108,10 +113,11 @@ class ProcesoCreditoLoteController extends Controller
 		Session::flash('message', 'Se ha creado el proceso');
 
 		return redirect()->route('procesoCreditoLoteCargarCreditos', ['obj' => $proceso->id]);
-
 	}
 
 	public function cargarCreditos(ProcesoCreditosLote $obj) {
+		$msg = "Ingresó a cargar créditos de solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'PRECARGA') {
 			Session::flash('error', 'Error: ya se ha cargado un archivo de créditos');
@@ -121,6 +127,8 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function updateCargarCreditos(ProcesoCreditosLote $obj, Request $request) {
+		$msg = "Cargó archivo créditos para solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ACTUALIZAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'PRECARGA') {
 			Session::flash('error', 'Error: ya se ha cargado un archivo de créditos');
@@ -198,6 +206,7 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	private function construirSolicitudCredito($procesoCreditosLote, $modalidadCredito, $credito) {
+		$usuario = $this->getUser();
 		$error = null;
 		$tercero = Tercero::entidadTercero()->whereNumeroIdentificacion($credito['tercero_id'])->first();
 		if($tercero == null) {
@@ -226,6 +235,8 @@ class ProcesoCreditoLoteController extends Controller
 		$solicitudCredito->valor_solicitud = $credito['valor_credito'];
 		$solicitudCredito->valor_credito = $credito['valor_credito'];
 		$solicitudCredito->fecha_solicitud = $procesoCreditosLote->fecha_proceso;
+		$solicitudCredito->quien_inicio_usuario = optional($usuario)->usuario;
+		$solicitudCredito->quien_inicio = optional($usuario)->nombre_corto;
 		$solicitudCredito->fecha_primer_pago = $calendario->fecha_recaudo;
 		$solicitudCredito->fecha_primer_pago_intereses = $calendario->fecha_recaudo;
 		$solicitudCredito->plazo = $credito['plazo'];
@@ -253,6 +264,7 @@ class ProcesoCreditoLoteController extends Controller
 		$solicitudCredito->forma_pago = 'NOMINA';
 		$solicitudCredito->calificacion_obligacion = 'A';
 		$solicitudCredito->estado_solicitud = 'BORRADOR';
+		$solicitudCredito->canal = 'OFICINA';
 		return $solicitudCredito;
 	}
 
@@ -293,6 +305,8 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function anular(ProcesoCreditosLote $obj) {
+		$msg = "Ingresó a anular la solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'PRECARGA' && $obj->estado != 'CARGADO') {
 			Session::flash('error', 'Error: No se puede anular un proceso en estado diferente a PRECARGA o CARGADO');
@@ -302,6 +316,8 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function updateAnular(ProcesoCreditosLote $obj) {
+		$msg = "Anuló la solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ACTUALIZAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'PRECARGA' && $obj->estado != 'CARGADO') {
 			Session::flash('error', 'Error: No se puede anular un proceso en estado diferente a PRECARGA o CARGADO');
@@ -315,6 +331,8 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function limpiar(ProcesoCreditosLote $obj) {
+		$msg = "Ingresó a limpiar la solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'CARGADO') {
 			Session::flash('error', 'Error: No se puede limpiar un proceso en estado diferente a CARGADO');
@@ -324,6 +342,8 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function updateLimpiar(ProcesoCreditosLote $obj) {
+		$msg = "Limpió la solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ACTUALIZAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'CARGADO') {
 			Session::flash('error', 'Error: No se puede limpiar un proceso en estado diferente a CARGADO');
@@ -333,10 +353,12 @@ class ProcesoCreditoLoteController extends Controller
 		$obj->estado = 'PRECARGA';
 		$obj->save();
 		Session::flash('message', 'Se ha limpiado la carga del proceso ' . $obj->consecutivo_proceso);
-		return redirect('procesoCreditoLote');
+		return redirect()->route('procesoCreditoLoteCargarCreditos', $obj);
 	}
 
 	public function desembolsar(ProcesoCreditosLote $obj) {
+		$msg = "Ingresó a desembolsar la solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'INGRESAR');
 		$this->objEntidad($obj);
 		if($obj->estado != 'CARGADO') {
 			Session::flash('error', 'Error: No se puede desembolsar un proceso en estado diferente a CARGADO');
@@ -350,7 +372,11 @@ class ProcesoCreditoLoteController extends Controller
 	}
 
 	public function updateDesembolsar(ProcesoCreditosLote $obj) {
+		$msg = "Desembolsó la solicitud de crédito en lote '%s'";
+		$this->log(sprintf($msg, $obj->id), 'ACTUALIZAR');
 		$this->objEntidad($obj);
+
+		$usuario = $this->getUser();
 		if($obj->estado != 'CARGADO') {
 			Session::flash('error', 'Error: No se puede desembolsar un proceso en estado diferente a CARGADO');
 			return redirect('procesoCreditoLote');
@@ -393,6 +419,12 @@ class ProcesoCreditoLoteController extends Controller
 
 			$solicitudes = $obj->getSolicitudesCreditos();
 			foreach ($solicitudes as &$solicitud) {
+				$solicitud->quien_radico_usuario = optional($usuario)->usuario;
+				$solicitud->quien_radico = optional($usuario)->nombre_corto;
+				$solicitud->quien_aprobo_usuario = optional($usuario)->usuario;
+				$solicitud->quien_aprobo = optional($usuario)->nombre_corto;
+				$solicitud->quien_desembolso_usuario = optional($usuario)->usuario;
+				$solicitud->quien_desembolso = optional($usuario)->nombre_corto;
 				$solicitud->estado_solicitud = 'DESEMBOLSADO';
 				$solicitud->fecha_aprobacion = $solicitud->fecha_solicitud;
 				$solicitud->fecha_desembolso = $solicitud->fecha_solicitud;
