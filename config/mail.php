@@ -60,6 +60,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'No responder I-Core'),
     ],
 
+    'reply_to' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'),
+        'name' => env('MAIL_FROM_NAME', 'No responder I-Core'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol
