@@ -12,8 +12,8 @@ class NotificacionesRetroalimentacionController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin')->except(['postSNS']);
-        $this->middleware('verEnt')->except(['postSNS']);
-        $this->middleware('verMenu')->except(['postSNS']);
+        //$this->middleware('verEnt')->except(['postSNS']);
+        //$this->middleware('verMenu')->except(['postSNS']);
     }
 
     public function index(Request $request)
