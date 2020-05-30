@@ -15,6 +15,9 @@
     //Rutas de profile
     \App\Http\Controllers\Sistema\ProfileController::routes();
 
+    //Rutas de Retroalimentacion de notificaciones
+    \App\Http\Controllers\Sistema\NotificacionesRetroalimentacionController::routes();
+
 /***************************************************************************************
  * Rutas de Generales
  ***************************************************************************************/
