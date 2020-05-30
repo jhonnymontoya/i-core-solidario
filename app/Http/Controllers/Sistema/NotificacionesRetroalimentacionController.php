@@ -35,11 +35,11 @@ class NotificacionesRetroalimentacionController extends Controller
     {
         Route::get(
             'notificacionesRetroalimentacion',
-            'Sistema/NotificacionesRetroalimentacionController@index'
+            'Sistema\NotificacionesRetroalimentacionController@index'
         );
         Route::post(
             'notificacionesRetroalimentacion/sns',
-            'Sistema/NotificacionesRetroalimentacionController@postSNS'
+            'Sistema\NotificacionesRetroalimentacionController@postSNS'
         );
     }
 }
