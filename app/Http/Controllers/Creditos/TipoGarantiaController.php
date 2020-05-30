@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Creditos\TiposGarantias\CreateTipoGarantiaRequest;
 use App\Http\Requests\Creditos\TiposGarantias\EditTipoGarantiaRequest;
 use App\Models\Creditos\TipoGarantia;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class TipoGarantiaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

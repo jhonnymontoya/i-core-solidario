@@ -6,14 +6,14 @@ use App\Models\General\Entidad;
 use App\Models\General\Tercero;
 use App\Models\Socios\ObligacionFinanciera;
 use App\Models\Socios\TarjetaCredito;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Banco extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Contabilidad\Impuesto;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
 
 class CreateConceptoRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $impuesto;
 

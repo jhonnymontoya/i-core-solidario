@@ -7,7 +7,7 @@ use App\Http\Requests\Socio\RetiroSocio\CreateRetiroSocioRequest;
 use App\Models\Socios\CausaRetiro;
 use App\Models\Socios\Socio;
 use App\Models\Socios\SocioRetiro;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ use Auth;
 
 class RetiroSocioController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

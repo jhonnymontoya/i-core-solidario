@@ -5,8 +5,8 @@ namespace App\Models\Sistema;
 use App\Models\Creditos\CumplimientoCondicion;
 use App\Models\General\ControlCierreModulo;
 use App\Models\General\TipoIdentificacion;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\UploadedFile;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class Usuario extends Authenticatable
 {
-	use SoftDeletes, Notifiable, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, Notifiable, ICoreTrait, ICoreModelTrait;
 
 	protected $guard = 'admin';
 

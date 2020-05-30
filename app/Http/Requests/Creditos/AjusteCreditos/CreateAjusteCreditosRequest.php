@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Creditos\AjusteCreditos;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class CreateAjusteCreditosRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $obligacion;
 	private $valorCapitalDespuesDeAjuste;

@@ -3,8 +3,8 @@
 namespace App\Models\Ahorros;
 
 use App\Models\Socios\Socio;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class RendimientoSDAT extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

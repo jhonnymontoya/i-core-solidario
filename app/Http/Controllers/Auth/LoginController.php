@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\General\Tercero;
 use App\Models\Sistema\Usuario;
 use App\Models\Sistema\UsuarioWeb;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +29,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers, FonadminTrait;
+    use AuthenticatesUsers, ICoreTrait;
 
     const ADMINISTRADOR = 1;
     const SOCIO = 2;

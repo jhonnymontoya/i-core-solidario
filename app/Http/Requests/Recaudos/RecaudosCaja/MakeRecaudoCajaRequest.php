@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Recaudos\RecaudosCaja;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Creditos\SolicitudCredito;
 use Validator;
@@ -10,7 +10,7 @@ use DB;
 
 class MakeRecaudoCajaRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $errorData = "Error en la data";
 	private $entidad = null;

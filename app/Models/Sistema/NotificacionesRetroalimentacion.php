@@ -2,14 +2,14 @@
 
 namespace App\Models\Sistema;
 
-use App\Traits\FonadminTrait;
-use App\Traits\FonadminModelTrait;
+use App\Traits\ICoreTrait;
+use App\Traits\ICoreModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class NotificacionesRetroalimentacion extends Model
 {
-    use SoftDeletes, FonadminTrait, FonadminModelTrait;
+    use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
     /**
      * La tabla que está asociada con el modelo

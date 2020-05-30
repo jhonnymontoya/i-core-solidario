@@ -9,7 +9,7 @@ use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Creditos\Modalidad;
 use App\Models\Recaudos\ConceptoRecaudos;
 use App\Models\Recaudos\Pagaduria;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -18,7 +18,7 @@ use Validator;
 
 class ConceptosRecaudosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

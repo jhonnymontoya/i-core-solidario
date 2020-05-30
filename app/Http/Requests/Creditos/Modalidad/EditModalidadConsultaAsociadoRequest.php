@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Creditos\Modalidad;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class EditModalidadConsultaAsociadoRequest extends FormRequest
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     private $obj;
 

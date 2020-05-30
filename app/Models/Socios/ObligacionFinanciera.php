@@ -3,15 +3,15 @@
 namespace App\Models\Socios;
 
 use App\Models\Tesoreria\Banco;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ObligacionFinanciera extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

@@ -13,7 +13,7 @@ use App\Models\General\ParametroInstitucional;
 use App\Models\General\Reporte;
 use App\Models\General\Tercero;
 use App\Models\Recaudos\ControlProceso;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Database\QueryException;
@@ -25,7 +25,7 @@ use Illuminate\Support\Str;
 
 class ReportesController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

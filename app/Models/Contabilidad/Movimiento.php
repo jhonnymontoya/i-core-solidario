@@ -8,15 +8,15 @@ use App\Models\General\Entidad;
 use App\Models\Recaudos\RecaudoCaja;
 use App\Models\Socios\SocioRetiro;
 use App\Models\Tarjeta\LogMovimientoTransaccionRecibido;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Movimiento extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

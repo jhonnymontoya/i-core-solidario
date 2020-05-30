@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Recaudos\RecaudoNomina;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class CargarPlanoRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct(Route $route) {
 	}

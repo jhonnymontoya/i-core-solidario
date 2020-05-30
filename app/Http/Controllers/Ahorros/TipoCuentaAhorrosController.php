@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Ahorros\TipoCuentaAhorros\CreateTipoCuentaAhorrosRequest;
 use App\Http\Requests\Ahorros\TipoCuentaAhorros\EditTipoCuentaAhorrosRequest;
 use App\Models\Ahorros\TipoCuentaAhorro;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class TipoCuentaAhorrosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

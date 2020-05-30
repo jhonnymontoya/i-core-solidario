@@ -18,7 +18,7 @@ use App\Models\Creditos\MovimientoCapitalCredito;
 use App\Models\Creditos\ParametroContable;
 use App\Models\Creditos\SolicitudCredito;
 use App\Models\General\ParametroInstitucional;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -28,7 +28,7 @@ use Validator;
 
 class AjusteCreditosLoteController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Socio\TipoCuotaObligatoria\CreateTipoCuotaObligatoriaRequest;
 use App\Http\Requests\Socio\TipoCuotaObligatoria\EditTipoCuotaObligatoriaRequest;
 use App\Models\Ahorros\ModalidadAhorro;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class TipoCuotaObligatoriaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

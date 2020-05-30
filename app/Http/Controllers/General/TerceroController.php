@@ -9,7 +9,7 @@ use App\Models\General\Contacto;
 use App\Models\General\Sexo;
 use App\Models\General\Tercero;
 use App\Models\General\TipoIdentificacion;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -19,7 +19,7 @@ use Validator;
 
 class TerceroController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin')->except(['getTerceroActivo']);

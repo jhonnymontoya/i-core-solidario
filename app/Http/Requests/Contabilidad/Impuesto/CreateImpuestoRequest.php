@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Contabilidad\Impuesto;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateImpuestoRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Determine if the user is authorized to make this request.

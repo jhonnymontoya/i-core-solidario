@@ -12,7 +12,7 @@ use Request;
 /**
  * Métodos de uso general
  */
-trait FonadminTrait
+trait ICoreTrait
 {
 
 	/**

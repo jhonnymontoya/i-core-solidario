@@ -3,14 +3,14 @@
 namespace App\Http\Requests\Ahorros\AjusteAhorros;
 
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use DB;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class CreateAjusteAhorrosRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct(Route $route) {
 		//$this->socio = $route->obj;

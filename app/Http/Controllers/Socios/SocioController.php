@@ -39,7 +39,7 @@ use App\Models\Socios\TarjetaCredito;
 use App\Models\Socios\TipoVivienda;
 use App\Models\Tesoreria\Banco;
 use App\Models\Tesoreria\Franquicia;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Exception;
@@ -52,7 +52,7 @@ use Illuminate\Support\Str;
 
 class SocioController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin')->except(['socio']);

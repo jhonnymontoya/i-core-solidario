@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Creditos\SolicitudCredito;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Routing\Route;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MakeCuotaExtraordinariaRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $solicitud;
 

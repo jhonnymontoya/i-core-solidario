@@ -8,7 +8,7 @@ use App\Http\Requests\Recaudos\Pagaduria\EditPagaduriaRequest;
 use App\Models\General\Tercero;
 use App\Models\Recaudos\CalendarioRecaudo;
 use App\Models\Recaudos\Pagaduria;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +16,7 @@ use Route;
 
 class PagaduriaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $periodicidades = array(
 		'DIARIO' => 'Diario',

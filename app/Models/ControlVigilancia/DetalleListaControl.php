@@ -2,12 +2,12 @@
 
 namespace App\Models\ControlVigilancia;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class DetalleListaControl extends Model
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api\Creditos;
 use Route;
 use App\Api\Creditos;
 use Illuminate\Http\Request;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Creditos\SolicitudCredito;
 
 class CreditosController extends Controller
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct()
     {

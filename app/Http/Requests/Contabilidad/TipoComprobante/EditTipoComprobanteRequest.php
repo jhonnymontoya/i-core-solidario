@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Contabilidad\TipoComprobante;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class EditTipoComprobanteRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $obj;
 	public function __construct(Route $route) {

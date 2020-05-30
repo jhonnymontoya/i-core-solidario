@@ -11,7 +11,7 @@ use App\Models\Creditos\SolicitudCredito;
 use App\Models\General\Tercero;
 use App\Models\Tarjeta\Producto;
 use App\Models\Tarjeta\Tarjetahabiente;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ use Session;
 
 class TarjetaHabienteController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

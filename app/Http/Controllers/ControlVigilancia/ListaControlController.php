@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ControlVigilancia\ListaControl\UploadListaControlRequest;
 use App\Models\ControlVigilancia\DetalleListaControl;
 use App\Models\ControlVigilancia\ListaControl;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ use SimpleXMLElement;
 
 class ListaControlController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

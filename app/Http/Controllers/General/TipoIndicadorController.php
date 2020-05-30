@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\General\TipoIndicador\CreateTipoIndicadorRequest;
 use App\Http\Requests\General\TipoIndicador\EditTipoIndicadorRequest;
 use App\Models\General\TipoIndicador;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class TipoIndicadorController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -19,7 +19,7 @@ use App\Models\Contabilidad\MovimientoImpuestoTemporal;
 use App\Models\Contabilidad\MovimientoTemporal;
 use App\Models\Contabilidad\TipoComprobante;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Exception;
@@ -33,7 +33,7 @@ use Illuminate\Support\Str;
 
 class ComprobanteController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -6,7 +6,7 @@ use DB;
 use Route;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use App\Models\Creditos\Modalidad;
 use App\Http\Controllers\Controller;
 use App\Models\Creditos\TipoGarantia;
@@ -30,7 +30,7 @@ use App\Http\Requests\Creditos\Modalidad\EditModalidadDocumentosDocumentacionReq
 
 class ModalidadCreditoController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 	public function __construct() {
 		$this->middleware('auth:admin');
 		$this->middleware('verEnt');

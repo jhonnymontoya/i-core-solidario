@@ -4,8 +4,8 @@ namespace App\Models\Sistema;
 
 use Laravel\Passport\HasApiTokens;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\UploadedFile;
@@ -15,7 +15,7 @@ use Storage;
 
 class UsuarioWeb extends Authenticatable
 {
-	use HasApiTokens, SoftDeletes, Notifiable, FonadminTrait, FonadminModelTrait;
+	use HasApiTokens, SoftDeletes, Notifiable, ICoreTrait, ICoreModelTrait;
 
 	protected $guard = 'web';
 

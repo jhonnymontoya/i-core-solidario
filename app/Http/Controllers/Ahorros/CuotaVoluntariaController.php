@@ -7,14 +7,14 @@ use App\Http\Requests\Ahorros\CuotaVoluntaria\CreateCuotaVoluntariaRequest;
 use App\Models\Ahorros\CuotaVoluntaria;
 use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class CuotaVoluntariaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

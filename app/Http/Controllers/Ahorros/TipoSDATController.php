@@ -9,7 +9,7 @@ use App\Http\Requests\Ahorros\TipoSDAT\MakeCondicionMontoRequest;
 use App\Http\Requests\Ahorros\TipoSDAT\MakeCondicionPeriodoRequest;
 use App\Models\Ahorros\CondicionSDAT;
 use App\Models\Ahorros\TipoSDAT;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Route;
 use Session;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class TipoSDATController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -4,15 +4,15 @@ namespace App\Models\Contabilidad;
 
 use App\Models\Contabilidad\MovimientoImpuestoTemporal;
 use App\Models\General\Entidad;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class MovimientoTemporal extends Model
 {
-	use FonadminTrait, FonadminModelTrait;
+	use ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

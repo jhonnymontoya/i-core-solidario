@@ -23,7 +23,7 @@ use App\Models\Creditos\SolicitudCredito;
 use App\Models\General\ParametroInstitucional;
 use App\Models\Recaudos\RecaudoAhorro;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -32,7 +32,7 @@ use Session;
 
 class RecaudoAhorroController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

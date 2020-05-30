@@ -8,7 +8,7 @@ use App\Http\Requests\Creditos\CupoCredito\EditCupoCreditoRequest;
 use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Ahorros\TipoSDAT;
 use App\Models\General\ParametroInstitucional;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Log;
@@ -17,7 +17,7 @@ use Validator;
 
 class CupoCreditoController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
     public function __construct() {
 		$this->middleware('auth:admin');

@@ -8,14 +8,14 @@ use App\Http\Requests\Contabilidad\Impuesto\CreateImpuestoRequest;
 use App\Http\Requests\Contabilidad\Impuesto\EditImpuestoRequest;
 use App\Models\Contabilidad\ConceptoImpuesto;
 use App\Models\Contabilidad\Impuesto;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class ImpuestoController extends Controller
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct()
     {

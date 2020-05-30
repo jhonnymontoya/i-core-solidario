@@ -4,14 +4,14 @@ namespace App\Providers;
 
 use DB;
 use Exception;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
 
 class CustomValidationRulesProvider extends ServiceProvider
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     /**
      * Register services.

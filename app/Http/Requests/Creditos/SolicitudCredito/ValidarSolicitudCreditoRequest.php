@@ -4,7 +4,7 @@ namespace App\Http\Requests\Creditos\SolicitudCredito;
 
 use App\Models\Creditos\Modalidad;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
@@ -12,7 +12,7 @@ use Illuminate\Routing\Route;
 class ValidarSolicitudCreditoRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $mensajes = [
 		'fecha_solicitud.modulocerrado' => 'Módulo de cartera cerrado para la fecha'

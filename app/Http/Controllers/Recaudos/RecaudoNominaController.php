@@ -10,7 +10,7 @@ use App\Models\General\Tercero;
 use App\Models\Recaudos\ControlProceso;
 use App\Models\Recaudos\DatoParaAplicar;
 use App\Models\Recaudos\Pagaduria;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ use Validator;
 
 class RecaudoNominaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

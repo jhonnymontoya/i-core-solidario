@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Creditos\CobroAdministrativo;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class EditCobroAdministrativoRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $cobro;
 

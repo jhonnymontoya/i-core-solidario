@@ -4,7 +4,7 @@ namespace App\Http\Requests\Creditos\SolicitudCredito;
 
 use App\Models\Creditos\Modalidad;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
@@ -12,7 +12,7 @@ use Illuminate\Routing\Route;
 class AprobarSolicitudCreditoRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $mensajes = [
 		'fecha_primer_pago_intereses.before_or_equal' => 'El primer pago de intereses no puede ser posterior al primer pago de capital',

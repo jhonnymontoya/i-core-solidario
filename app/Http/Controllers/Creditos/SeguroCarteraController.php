@@ -7,14 +7,14 @@ use App\Http\Requests\Creditos\SeguroCartera\CreateSeguroCarteraRequest;
 use App\Http\Requests\Creditos\SeguroCartera\EditSeguroCarteraRequest;
 use App\Models\Creditos\Modalidad;
 use App\Models\Creditos\SeguroCartera;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class SeguroCarteraController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

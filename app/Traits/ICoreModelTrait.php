@@ -10,7 +10,7 @@ use Log;
 /**
  * Métodos para Log de actividades en los Models
  */
-trait FonadminModelTrait
+trait ICoreModelTrait
 {
 
 	public static function boot() {

@@ -7,14 +7,14 @@ use App\Models\General\Dependencia;
 use App\Models\General\Entidad;
 use App\Models\General\Tercero;
 use App\Models\Presupuesto\CentroCosto;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class DetalleMovimientoTemporal extends Model
 {
-	use FonadminTrait;
+	use ICoreTrait;
 	/**
 	 * La tabla que está asociada con el modelo
 	 * @var String

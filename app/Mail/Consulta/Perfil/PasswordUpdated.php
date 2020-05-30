@@ -3,7 +3,7 @@
 namespace App\Mail\Consulta\Perfil;
 
 use App\Models\Sistema\UsuarioWeb;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 
 class PasswordUpdated extends Mailable
 {
-	use Queueable, SerializesModels, FonadminTrait;
+	use Queueable, SerializesModels, ICoreTrait;
 
 	private $usuario;
 

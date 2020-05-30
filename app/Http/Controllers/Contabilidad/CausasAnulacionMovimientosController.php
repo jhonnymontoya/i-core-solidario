@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contabilidad\CausaAnulacionMovimiento\CreateCausaAnulacionMovimientoRequest;
 use App\Http\Requests\Contabilidad\CausaAnulacionMovimiento\EditCausaAnulacionMovimientoRequest;
 use App\Models\Contabilidad\CausaAnulacionMovimiento;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
@@ -16,7 +16,7 @@ use Route;
  */
 class CausasAnulacionMovimientosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

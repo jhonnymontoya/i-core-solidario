@@ -20,7 +20,7 @@ use App\Models\Creditos\SolicitudCredito;
 use App\Models\General\ParametroInstitucional;
 use App\Models\General\Tercero;
 use App\Models\Recaudos\RecaudoCaja;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ use Session;
 
 class RecaudoCajaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -10,14 +10,14 @@ use App\Http\Requests\Creditos\CobroAdministrativo\EditCobroAdministrativoReques
 use App\Models\Creditos\CobroAdministrativo;
 use App\Models\Creditos\CondicionCobroAdministrativoRango;
 use App\Models\Creditos\Modalidad;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class CobroAdministrativoController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

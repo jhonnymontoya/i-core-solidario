@@ -19,7 +19,7 @@ use App\Models\Contabilidad\MovimientoImpuesto;
 use App\Models\Contabilidad\MovimientoTemporal;
 use App\Models\Contabilidad\TipoComprobante;
 use App\Models\General\ParametroInstitucional;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Exception;
@@ -30,7 +30,7 @@ use Session;
 
 class SDATController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

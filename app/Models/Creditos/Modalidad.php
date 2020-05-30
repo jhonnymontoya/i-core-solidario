@@ -7,15 +7,15 @@ use App\Models\Creditos\TipoGarantia;
 use App\Models\General\Entidad;
 use App\Models\Recaudos\ConceptoRecaudos;
 use App\Models\Tarjeta\Producto;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Modalidad extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

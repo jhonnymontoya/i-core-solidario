@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ControlVigilancia;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ControlVigilancia\ArhivosSES\DescargarReporteRequest;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Route;
@@ -15,7 +15,7 @@ use DB;
 class ArchivosSESController extends Controller
 {
 
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct()
     {

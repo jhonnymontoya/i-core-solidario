@@ -10,7 +10,7 @@ use App\Models\General\Entidad;
 use App\Models\General\TipoIdentificacion;
 use App\Models\Sistema\Perfil;
 use App\Models\Sistema\Usuario;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -19,7 +19,7 @@ use Route;
 
 class UsuarioController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

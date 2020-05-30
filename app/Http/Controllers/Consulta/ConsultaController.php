@@ -15,7 +15,7 @@ use App\Models\General\ParametroInstitucional;
 use App\Models\General\TipoIdentificacion;
 use App\Models\Recaudos\ControlProceso;
 use App\Models\Recaudos\RecaudoNomina;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +27,7 @@ use Illuminate\Support\Str;
 
 class ConsultaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:web');

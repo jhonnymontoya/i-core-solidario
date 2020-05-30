@@ -6,14 +6,14 @@ use App\Models\Contabilidad\Cuif;
 use App\Models\Contabilidad\Movimiento;
 use App\Models\General\Entidad;
 use App\Models\General\Tercero;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class RecaudoAhorro extends Model
 {
-	use FonadminTrait, FonadminModelTrait;
+	use ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

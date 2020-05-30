@@ -8,7 +8,7 @@ use App\Http\Requests\Ahorros\CuentaAhorros\EditCuentaAhorrosRequest;
 use App\Models\Ahorros\CuentaAhorro;
 use App\Models\Ahorros\TipoCuentaAhorro;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 
 class CuentaAhorrosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Ahorros\SDAT;
 
 use App\Models\Contabilidad\Cuif;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
@@ -11,7 +11,7 @@ use \Carbon\Carbon;
 
 class SaldarSDATRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $sdat;
 

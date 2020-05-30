@@ -8,8 +8,8 @@ use App\Models\Recaudos\ConceptoRecaudos;
 use App\Models\Recaudos\Pagaduria;
 use App\Models\Recaudos\RecaudoNomina;
 use App\Models\Socios\CuotaObligatoria;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use App\Helpers\CalendarioHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModalidadAhorro extends Model
 {
-    use SoftDeletes, FonadminTrait, FonadminModelTrait;
+    use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
     /**
 	 * La tabla que está asociada con el modelo

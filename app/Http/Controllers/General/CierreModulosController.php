@@ -12,7 +12,7 @@ use App\Models\Contabilidad\MovimientoTemporal;
 use App\Models\General\ControlCierreModulo;
 use App\Models\General\ControlPeriodoCierre;
 use App\Models\Recaudos\Pagaduria;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,7 @@ use Route;
 
 class CierreModulosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Constructor con middlewares

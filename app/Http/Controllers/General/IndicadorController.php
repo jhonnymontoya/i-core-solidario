@@ -7,7 +7,7 @@ use App\Http\Requests\General\Indicador\CreateIndicadorRequest;
 use App\Http\Requests\General\Indicador\EditIndicadorRequest;
 use App\Models\General\Indicador;
 use App\Models\General\TipoIndicador;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +16,7 @@ use Validator;
 
 class IndicadorController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

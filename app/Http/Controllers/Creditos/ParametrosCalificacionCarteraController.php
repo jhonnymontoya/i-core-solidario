@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Creditos;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Creditos\ParametrosCalificacionCartera\CreateOrUpdateParametroCalificacionCarteraRequest;
 use App\Models\Creditos\ParametroCalificacionCartera;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Route;
 
 class ParametrosCalificacionCarteraController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Constructor y verifica que el usuario se encuentre logueado,

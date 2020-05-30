@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Creditos\ParametrosDeterioroIndividual\CreateParametroDeterioroIndividualRequest;
 use App\Http\Requests\Creditos\ParametrosDeterioroIndividual\SelectParametrosDeterioroIndividualRequest;
 use App\Models\Creditos\ParametroDeterioroIndividual;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Route;
 
 class ParametrosDeteioroIndividualController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

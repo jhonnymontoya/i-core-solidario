@@ -8,8 +8,8 @@ use App\Models\General\Tercero;
 use App\Models\Recaudos\RecaudoNomina;
 use App\Models\Tarjeta\LogMovimientoTransaccionEnviado;
 use App\Models\Tarjeta\Tarjetahabiente;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SolicitudCredito extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

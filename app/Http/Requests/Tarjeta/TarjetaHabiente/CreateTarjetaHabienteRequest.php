@@ -6,12 +6,12 @@ use App\Models\Ahorros\CuentaAhorro;
 use App\Models\General\Tercero;
 use App\Models\Tarjeta\Producto;
 use App\Models\Tarjeta\Tarjeta;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTarjetaHabienteRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *

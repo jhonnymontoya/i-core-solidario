@@ -7,7 +7,7 @@ use Route;
 use Validator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use App\Models\General\Tercero;
 use Illuminate\Validation\Rule;
 use App\Helpers\ConversionHelper;
@@ -39,7 +39,7 @@ use App\Http\Requests\Creditos\SolicitudCredito\DesembolsarSolicitudCreditoReque
 
 class SolicitudCreditoController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Route;
 
 class DashboardController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Create a new controller instance.

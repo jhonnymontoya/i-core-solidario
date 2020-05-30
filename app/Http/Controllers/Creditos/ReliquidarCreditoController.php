@@ -8,7 +8,7 @@ use App\Http\Requests\Creditos\ReliquidarCredito\EditReliquidarCreditoRequest;
 use App\Models\Creditos\SolicitudCredito;
 use App\Models\General\ControlCierreModulo;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +16,7 @@ use Route;
 
 class ReliquidarCreditoController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct(Request $request) {
 		$this->middleware('auth:admin');

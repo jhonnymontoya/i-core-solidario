@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Ahorros\CuentaAhorros;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class EditCuentaAhorrosRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $obj;
 

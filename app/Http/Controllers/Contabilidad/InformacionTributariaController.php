@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Contabilidad;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contabilidad\Impuesto;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Route;
 
 class InformacionTributariaController extends Controller
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct() {
         $this->middleware('auth:admin');

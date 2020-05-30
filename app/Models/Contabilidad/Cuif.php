@@ -12,14 +12,14 @@ use App\Models\Creditos\ProcesoCreditosLote;
 use App\Models\General\Entidad;
 use App\Models\Recaudos\Pagaduria;
 use App\Models\Recaudos\RecaudoCaja;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cuif extends Model
 {
-	use SoftDeletes, FonadminTrait, FonadminModelTrait;
+	use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

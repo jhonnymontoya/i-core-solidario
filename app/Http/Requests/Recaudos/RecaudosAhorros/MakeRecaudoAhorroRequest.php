@@ -5,7 +5,7 @@ namespace App\Http\Requests\Recaudos\RecaudosAhorros;
 use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Creditos\SolicitudCredito;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Foundation\Http\FormRequest;
@@ -13,7 +13,7 @@ use Validator;
 
 class MakeRecaudoAhorroRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $errorData = "Error en la data";
 

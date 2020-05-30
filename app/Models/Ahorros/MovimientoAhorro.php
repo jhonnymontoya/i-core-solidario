@@ -5,15 +5,15 @@ namespace App\Models\Ahorros;
 use App\Models\Contabilidad\Movimiento;
 use App\Models\General\Entidad;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MovimientoAhorro extends Model
 {
-    use SoftDeletes, FonadminTrait, FonadminModelTrait;
+    use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
     /**
 	 * La tabla que está asociada con el modelo

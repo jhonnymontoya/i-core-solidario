@@ -4,12 +4,12 @@ namespace App\Http\Requests\Recaudos\RecaudosAhorros;
 
 use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRecaudoAhorroRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Determine if the user is authorized to make this request.

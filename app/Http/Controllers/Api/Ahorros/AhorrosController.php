@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api\Ahorros;
 use Route;
 use App\Api\Ahorros;
 use Illuminate\Http\Request;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use App\Http\Controllers\Controller;
 use App\Models\Ahorros\ModalidadAhorro;
 
 class AhorrosController extends Controller
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct()
     {

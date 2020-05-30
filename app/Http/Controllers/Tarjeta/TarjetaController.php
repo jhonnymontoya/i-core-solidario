@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tarjeta;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tarjeta\Tarjetas\CreateTarjetasRequest;
 use App\Models\Tarjeta\Tarjeta;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Route;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 
 class TarjetaController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

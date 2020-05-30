@@ -8,14 +8,14 @@ use App\Api\Creditos;
 use App\Api\Recaudos;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 
 class SocioController extends Controller
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct()
     {

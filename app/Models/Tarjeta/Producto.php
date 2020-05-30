@@ -4,14 +4,14 @@ namespace App\Models\Tarjeta;
 
 use App\Models\Contabilidad\Cuif;
 use App\Models\Creditos\Modalidad;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
 {
-    use SoftDeletes, FonadminTrait, FonadminModelTrait;
+    use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
 	/**
 	 * La tabla que está asociada con el modelo

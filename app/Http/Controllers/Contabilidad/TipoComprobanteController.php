@@ -8,14 +8,14 @@ use App\Http\Requests\Contabilidad\TipoComprobante\EditTipoComprobanteRequest;
 use App\Models\Contabilidad\Modulo;
 use App\Models\Contabilidad\TipoComprobante;
 use App\Models\General\Entidad;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
 
 class TipoComprobanteController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin')->except(['getTipoComprobante']);

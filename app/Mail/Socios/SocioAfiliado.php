@@ -3,7 +3,7 @@
 namespace App\Mail\Socios;
 
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class SocioAfiliado extends Mailable
 {
-	use Queueable, SerializesModels, FonadminTrait;
+	use Queueable, SerializesModels, ICoreTrait;
 
 	private $socio;
 	private $password;

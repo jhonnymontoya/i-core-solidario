@@ -6,7 +6,7 @@ use App\Http\Requests\Tarjeta\Producto\CreateProductoRequest;
 use App\Http\Requests\Tarjeta\Producto\EditProductoRequest;
 use App\Models\Creditos\Modalidad;
 use App\Models\Tarjeta\Producto;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
@@ -14,7 +14,7 @@ use Validator;
 
 class ProductoController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

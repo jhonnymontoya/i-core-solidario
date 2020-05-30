@@ -3,12 +3,12 @@
 namespace App\Http\Requests\Tarjeta\Tarjetas;
 
 use App\Models\Tarjeta\Tarjeta;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTarjetasRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Determine if the user is authorized to make this request.

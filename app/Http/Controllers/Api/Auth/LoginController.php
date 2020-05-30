@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use App\Models\Sistema\UsuarioWeb;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ use App\Http\Requests\Api\Auth\ForgotPasswordRequest;
 
 class LoginController extends Controller
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     public function __construct()
     {

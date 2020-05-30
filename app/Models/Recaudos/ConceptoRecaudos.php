@@ -4,13 +4,13 @@ namespace App\Models\Recaudos;
 
 use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Creditos\Modalidad;
-use App\Traits\FonadminModelTrait;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreModelTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class ConceptoRecaudos extends Model
 {
-	use FonadminTrait, FonadminModelTrait;
+	use ICoreTrait, ICoreModelTrait;
 	/**
 	 * La tabla que está asociada con el modelo
 	 * @var String

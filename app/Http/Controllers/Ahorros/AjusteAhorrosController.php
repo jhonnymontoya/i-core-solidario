@@ -12,7 +12,7 @@ use App\Models\Contabilidad\MovimientoTemporal;
 use App\Models\Contabilidad\TipoComprobante;
 use App\Models\General\Tercero;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ use Validator;
 
 class AjusteAhorrosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

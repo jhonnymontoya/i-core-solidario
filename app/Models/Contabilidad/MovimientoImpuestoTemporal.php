@@ -9,13 +9,13 @@ use App\Models\Contabilidad\Impuesto;
 use App\Models\Contabilidad\MovimientoTemporal;
 use App\Models\General\Entidad;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class MovimientoImpuestoTemporal extends Model
 {
-    use FonadminTrait;
+    use ICoreTrait;
 
     /**
      * La tabla que está asociada con el modelo

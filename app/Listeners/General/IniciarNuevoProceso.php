@@ -4,14 +4,14 @@ namespace App\Listeners\General;
 
 use App\Events\General\ProcesoCerrado;
 use App\Models\General\ControlPeriodoCierre;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 class IniciarNuevoProceso
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Create the event listener.

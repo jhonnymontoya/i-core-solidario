@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Recaudos\Pagaduria;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
@@ -10,7 +10,7 @@ use Illuminate\Routing\Route;
 class EditPagaduriaRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $obj;
 	private $anioProcesado = false;

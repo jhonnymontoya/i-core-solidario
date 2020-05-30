@@ -15,7 +15,7 @@ use App\Models\Creditos\ParametroContable;
 use App\Models\Creditos\SolicitudCredito;
 use App\Models\General\ParametroInstitucional;
 use App\Models\General\Tercero;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ use Validator;
 
 class AjusteCreditosController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

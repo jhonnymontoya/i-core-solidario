@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests\Ahorros\CuotaVoluntaria;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class CreateCuotaVoluntariaRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $socio;
 

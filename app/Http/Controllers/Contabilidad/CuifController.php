@@ -8,7 +8,7 @@ use App\Http\Requests\Contabilidad\Cuif\EditCuifRequest;
 use App\Models\Contabilidad\Cuif;
 use App\Models\Contabilidad\Modulo;
 use App\Models\General\Entidad;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Route;
@@ -16,7 +16,7 @@ use Validator;
 
 class CuifController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin');

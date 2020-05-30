@@ -20,7 +20,7 @@ use App\Models\General\Tercero;
 use App\Models\General\TipoIdentificacion;
 use App\Models\Sistema\Usuario;
 use App\Models\Socios\Socio;
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Auth;
 use DB;
 use Exception;
@@ -35,7 +35,7 @@ use Illuminate\Support\Str;
 
 class EntidadController extends Controller
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	public function __construct() {
 		$this->middleware('auth:admin')->except([

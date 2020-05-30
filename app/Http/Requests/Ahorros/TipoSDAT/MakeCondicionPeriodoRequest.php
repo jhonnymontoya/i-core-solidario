@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Ahorros\TipoSDAT;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 class MakeCondicionPeriodoRequest extends FormRequest
 {
-	use FonadminTrait;
+	use ICoreTrait;
 
 	private $tipo = null;
 

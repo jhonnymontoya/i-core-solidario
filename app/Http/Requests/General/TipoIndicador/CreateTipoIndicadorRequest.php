@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\General\TipoIndicador;
 
-use App\Traits\FonadminTrait;
+use App\Traits\ICoreTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTipoIndicadorRequest extends FormRequest
 {
 
-	use FonadminTrait;
+	use ICoreTrait;
 
 	/**
 	 * Determine if the user is authorized to make this request.
