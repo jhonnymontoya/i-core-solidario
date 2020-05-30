@@ -7,7 +7,7 @@ use App\Traits\ICoreModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class NotificacionesRetroalimentacion extends Model
+class NotificacionRetroalimentacion extends Model
 {
     use SoftDeletes, ICoreTrait, ICoreModelTrait;
 
@@ -23,6 +23,7 @@ class NotificacionesRetroalimentacion extends Model
      * @var array
      */
     protected $fillable = [
+        'trama'
     ];
 
     /**
@@ -41,6 +42,7 @@ class NotificacionesRetroalimentacion extends Model
     protected $dates = [
         'created_at',
         'updated_at',
+        'deleted_at'
     ];
 
     /**
@@ -51,6 +53,7 @@ class NotificacionesRetroalimentacion extends Model
     protected $casts = [
         'created_at'        => 'datetime:Y-m-d',
         'updated_at'        => 'datetime:Y-m-d',
+        'deleted_at'        => 'datetime:Y-m-d',
     ];
 
     /**
