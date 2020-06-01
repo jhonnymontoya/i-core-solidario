@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sistema\NotificacionRetroalimentacion;
 
+use AwsSnsMessageValidatorMessage;
+use AwsSnsMessageValidatorMessageValidator;
+use GuzzleHttpClient;
+use Log;
+
 class NotificacionesRetroalimentacionController extends Controller
 {
     use ICoreTrait;
@@ -35,8 +40,35 @@ class NotificacionesRetroalimentacionController extends Controller
             "Se creó una retroalimentación de notificación desde AWS SNS",
             'CREAR'
         );
-        $trama = json_encode($request->all());
-        $obj = NotificacionRetroalimentacion::create(["trama" => $trama]);
+
+        try {
+            // Create a message from the post data and validate its signature
+            $message = Message::fromRawPostData();
+            $validator = new MessageValidator();
+            $validator->validate($message);
+        }
+        catch (Exception $e) {
+            Log::error(
+                sprintf(
+                    "Mensaje proveniente de AWS no validado '%s'",
+                    $message
+                )
+            );
+        }
+
+        //$message->get('Type') === 'SubscriptionConfirmation'
+        //$message->get('Type') === 'Notification'
+
+        if($message->get('Type') === 'SubscriptionConfirmation') {
+            // Send a request to the SubscribeURL to complete subscription
+            (new Client)->get($message->get('SubscribeURL'))->send();
+        }
+        elseif ($message->get('Type') === 'Notification') {
+            $obj = NotificacionRetroalimentacion::create(["trama" => $message]);
+        }
+
+        //$trama = file_get_contents('php://input');
+
         return ;
     }
 
