@@ -14,7 +14,7 @@
 			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }}
 		</strong>
 		<h4>
-			Libro Mayor oficial
+			Libro Mayor
 		</h4>
 		<h5>Año {{ $anio }} Mes {{ $mes }}</h5>
 	</div>
