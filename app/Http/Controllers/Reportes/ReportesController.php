@@ -883,6 +883,77 @@ class ReportesController extends Controller
 					->render();
 	}
 
+	public function libroDiario(Request $request)
+	{
+	    $e = $this->getEntidad();
+		$validate = Validator::make($request->all(), [
+			'anio'	=> 'bail|required|integer|digits:4|min:2000|max:3000',
+			'mes'	=> 'bail|required|digits_between:1,2|min:1|max:13',
+		]);
+		if($validate->fails())return "";
+
+		$query = "exec contabilidad.sp_libro_diario_por_cuenta_tipo_documento ?, ?, ?";
+		$res = DB::select($query, [$e->id, $request->anio, $request->mes]);
+		if(!$res)return "";
+
+		if(isset($res[0]->ERROR)) {
+			Session::flash("error", $res[0]->MENSAJE);
+			return "";
+		}
+
+		foreach($res as &$movimiento) {
+			$movimiento->debitos = floatval($movimiento->debitos);
+			$movimiento->creditos = floatval($movimiento->creditos);
+		}
+
+		$res = collect($res);
+		$res = $res->groupBy("cuenta_codigo");
+
+		return view("reportes.contabilidad.libroDiario")
+			->withEntidad($e)
+			->withDetalles($res)
+			->withAnio($request->anio)
+			->withMes($request->mes)
+			->render();
+
+	}
+
+	public function libroMayor(Request $request)
+	{
+	    $e = $this->getEntidad();
+		$validate = Validator::make($request->all(), [
+			'anio'	=> 'bail|required|integer|digits:4|min:2000|max:3000',
+			'mes'	=> 'bail|required|digits_between:1,2|min:1|max:13',
+		]);
+		if($validate->fails())return "";
+
+		$query = "exec contabilidad.sp_libro_mayor ?, ?, ?";
+		$res = DB::select($query, [$e->id, $request->anio, $request->mes]);
+		if(!$res)return "";
+
+		if(isset($res[0]->ERROR)) {
+			Session::flash("error", $res[0]->MENSAJE);
+			return "";
+		}
+
+		foreach($res as &$movimiento) {
+			$movimiento->saldo_anterior = floatval($movimiento->saldo_anterior);
+			$movimiento->debitos = floatval($movimiento->debitos);
+			$movimiento->creditos = floatval($movimiento->creditos);
+			$movimiento->nuevo_saldo = floatval($movimiento->nuevo_saldo);
+		}
+
+		$res = collect($res);
+
+		return view("reportes.contabilidad.libroMayor")
+			->withEntidad($e)
+			->withDetalles($res)
+			->withAnio($request->anio)
+			->withMes($request->mes)
+			->render();
+
+	}
+
 	/*FIN CONTABILIDAD*/
 
 	/*INICIO AHORROS*/
