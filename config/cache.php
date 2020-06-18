@@ -43,8 +43,8 @@ return [
 
         'database' => [
             'driver' => 'database',
-            'table' => 'cache',
-            'connection' => null,
+            'table' => 'sistema.cache',
+            'connection' => 'sqlsrv',
         ],
 
         'file' => [
