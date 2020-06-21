@@ -3,7 +3,7 @@
         $entidad = Auth::getSession()->get('entidad');
         if (!$entidad) {
             $url = env('APP_URL');
-            $imagen = secure_asset('img/logos/ICore_96x96.png');
+            $imagen = secure_asset('img/logos/I-Core_96x96.png');
         }
         else {
             $url = $entidad->pagina_web;

@@ -27,7 +27,7 @@
 						<tr>
 							<td class="body" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 25px 0; text-align: center; background-color: #FFFFFF;">
 								<a href="{{ url('/') }}" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #bbbfc3; font-size: 19px; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 white;">
-									<img src="{{ asset('img/logos/ICore_96x96.png') }}" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 100%; border: none;">
+									<img src="{{ asset('img/logos/I-Core_96x96.png') }}" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; max-width: 100%; border: none;">
 								</a>
 							</td>
 						</tr>
