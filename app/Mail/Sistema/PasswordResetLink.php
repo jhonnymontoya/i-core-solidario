@@ -33,7 +33,7 @@ class PasswordResetLink extends Mailable
 
 		$this->withSwiftMessage(function($message) {
 			$message->getHeaders()
-				->addTextHeader('X-ICore-Tag', 'RestaurarContraseña');
+				->addTextHeader('X-ICore-Tag', 'RestaurarPass');
 		});
 
 		return $this->subject($asunto)

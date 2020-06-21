@@ -32,6 +32,11 @@ class PasswordUpdated extends Mailable
 		$titulo = "Estimado " . $this->usuario->nombre_corto;
 		$subject = "Se ha actualizado su contraseña";
 
+		$this->withSwiftMessage(function($message) {
+			$message->getHeaders()
+				->addTextHeader('X-ICore-Tag', 'FuncionarioPassActualizado');
+		});
+
 		return $this->subject($subject)
 			->view('emails.sistema.passwordUpdated')
 			->withUsuario($this->usuario);

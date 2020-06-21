@@ -53,6 +53,11 @@ class SolicitudCreditoDesembolsado extends Mailable
 
         $subcopy = "Este es un mensaje automático, favor abstenerse de contestarlo";
 
+        $this->withSwiftMessage(function($message) {
+            $message->getHeaders()
+                ->addTextHeader('X-ICore-Tag', 'CreditoDesembolsado');
+        });
+
         return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $sigla)
             ->subject($subject)
             ->markdown('emails.creditos.desembolsado')
