@@ -2,7 +2,7 @@
 
 <aside class="main-sidebar sidebar-light-danger elevation-0">
 	<a href="{{ url('/dashboard') }}" class="brand-link">
-		<img src="{{ asset('img/logo32x32.png') }}" alt="I-Core" class="brand-image img-circle">
+		<img src="{{ asset('img/I-Core.png') }}" alt="I-Core" class="brand-image img-circle">
 		<span class="brand-text font-weight-light">I-Core</span>
 	</a>
 

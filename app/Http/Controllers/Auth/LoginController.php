@@ -64,7 +64,7 @@ class LoginController extends Controller
     }
 
     private function realm($request) {
-        $realmAvatar = "img/logos/icore.png";
+        $realmAvatar = "img/logos/I-Core.png";
         $realm = $request->validate([
             'realm' => [
                 'bail',

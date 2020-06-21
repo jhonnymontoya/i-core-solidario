@@ -5,33 +5,33 @@
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>I-Core</title>
-		
+
 		<link rel="canonical" href="{{ url('/') }}">
-		
+
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 
 		<!-- Google Font: Source Sans Pro -->
   		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-		
+
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" sizes="16x16 24x24 32x32 64x64"/>
-		<link rel="apple-touch-icon" href="/img/logos/ICore_iOS_60x60.png"/>
-		<link rel="apple-touch-icon" sizes="76x76" href="/img/logos/ICore_iOS_76x76.png"/>
-		<link rel="apple-touch-icon" sizes="120x120" href="/img/logos/ICore_iOS_120x120.png"/>
-		<link rel="apple-touch-icon" sizes="152x152" href="/img/logos/ICore_iOS_152x152.png"/>
-		<link rel="image_src" href="/img/logos/ICore_256x256.png"/>
+		<link rel="apple-touch-icon" href="/img/logos/I-Core_iOS_60x60.png"/>
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/logos/I-Core_iOS_76x76.png"/>
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/logos/I-Core_iOS_120x120.png"/>
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/logos/I-Core_iOS_152x152.png"/>
+		<link rel="image_src" href="/img/logos/I-Core_256x256.png"/>
 		<link rel="manifest" href="/manifest.json"/>
-		
-		<meta name="application-name" content="Moderno sistema para la gestión empresarial">
-		
+
+		<meta name="application-name" content="I-Core, Moderno sistema para la gestión empresarial">
+
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:site" value="@jhonny_montoya">
 
 		<meta property="og:url" content="{{ url('/') }}" />
 		<meta property="og:site_name" content="I-Core" />
-		<meta property="og:image" content="{{ asset('/img/logos/ICore_256x256.png') }}">		
+		<meta property="og:image" content="{{ asset('/img/logos/I-Core_256x256.png') }}">
 		<meta property="og:title" content="I-Core" />
-		<meta property="og:description" content="Moderno sistema para la gestión empresarial">
-		<meta name="description" content="Moderno sistema para la gestión empresarial">
+		<meta property="og:description" content="I-Core, Moderno sistema para la gestión empresarial">
+		<meta name="description" content="I-Core, Moderno sistema para la gestión empresarial">
 
 		@stack('style')
 
@@ -42,7 +42,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-	
+
 	<body style="width: 100%; margin: 0 auto;">
 		<div class="login-page">
 			<div class="login-box">

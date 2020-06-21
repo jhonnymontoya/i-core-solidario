@@ -1,38 +1,56 @@
 {
-  "name": "Moderno sistema para la gestión empresarial",
+  "name": "I-Core",
   "short_name": "I-Core",
+  "description": "Moderno sistema para la gestión empresarial",
+  "start_url": "/login",
+  "display": "standalone",
+  "background_color": "#4158d0",
+  "theme_color": "#4158d0",
+  "scope": "/",
   "icons": [
     {
-      "src": "img/logos/ICore_36x36.png",
       "sizes": "36x36",
+      "src": "img/logos/I-Core_36x36.png",
       "type": "image/png"
     },
     {
-      "src": "img/logos/ICore_48x48.png",
       "sizes": "48x48",
+      "src": "img/logos/I-Core_48x48.png",
       "type": "image/png"
     },
     {
-      "src": "img/logos/ICore_72x72.png",
       "sizes": "72x72",
+      "src": "img/logos/I-Core_72x72.png",
       "type": "image/png"
     },
     {
-      "src": "img/logos/ICore_96x96.png",
       "sizes": "96x96",
+      "src": "img/logos/I-Core_96x96.png",
       "type": "image/png"
     },
     {
-      "src": "img/logos/ICore_144x144.png",
       "sizes": "144x144",
+      "src": "img/logos/I-Core_144x144.png",
       "type": "image/png"
     },
     {
-      "src": "img/logos/ICore_192x192.png",
       "sizes": "192x192",
+      "src": "img/logos/I-Core_192x192.png",
       "type": "image/png"
     }
   ],
-  "start_url": "/",
-  "display": "standalone"
+  "shortcuts": [
+    {
+      "name": "Iniciar Sesión",
+      "short_name": "Iniciar Sesión",
+      "description": "Iniciar sesión en I-Core",
+      "url": "/login"
+    },
+    {
+      "name": "Olvidé mi contraseña",
+      "short_name": "Olvidé mi contraseña",
+      "description": "He olvidado mi contraseña, la quiero restaurar",
+      "url": "/password/reset"
+    }
+  ]
 }

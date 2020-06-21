@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="login-pic" data-tilt>
-	<img src="{{ asset('img/logos/icore.png') }}">
+	<img src="{{ asset('img/logos/I-Core.png') }}">
 </div>
 <div class="login-form">
 	{!! Form::open(['url' => '/password/reset', 'method' => 'post', 'role' => 'form']) !!}
