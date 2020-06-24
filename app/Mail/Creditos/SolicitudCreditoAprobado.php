@@ -57,7 +57,8 @@ class SolicitudCreditoAprobado extends Mailable
                 ->addTextHeader('X-ICore-Tag', 'CreditoAprobado');
         });
 
-        return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $sigla)
+        $from = config('mail.from.address', 'noresponder@i-core.co');
+        return $this->from($from, $sigla)
             ->subject($subject)
             ->markdown('emails.creditos.aprobado')
             ->withData($data)

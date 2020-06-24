@@ -41,7 +41,8 @@ class PasswordUpdated extends Mailable
 				->addTextHeader('X-Mailgun-Tag', 'SocioPassActualizado');
 		});
 
-		return $this->from(env('MAIL_FROM_ADDRESS', 'noresponder@i-core.co'), $this->getEntidad()->terceroEntidad->sigla)
+		$from = config('mail.from.address', 'noresponder@i-core.co');
+		return $this->from($from, $this->getEntidad()->terceroEntidad->sigla)
 						->subject($subject)
 						->view('emails.consulta.passwordUpdated')
 						->withUsuario($this->usuario)
