@@ -42,7 +42,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-	<body class="sidebar-mini layout-fixed {{ Auth::getUser()->ui_configuracion }}">
+	<body class="sidebar-mini layout-fixed {{ optional(Auth::getUser())->ui_configuracion }}">
 
 		<div class="wrapper">
 			{{-- Header --}}
