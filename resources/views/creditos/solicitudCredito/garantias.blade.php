@@ -143,7 +143,7 @@
 										<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 										<?php
 										break;
-									
+
 									default:
 										break;
 								}
@@ -352,7 +352,7 @@
 								?>
 								<a class="btn btn-outline-danger pull-right" href="{{ route('solicitudCreditoDesembolsar', $solicitud) }}" title="Volver a solicitud">Volver a solicitud</a>
 								<?php
-								break;							
+								break;
 							default:
 								break;
 						}
@@ -391,8 +391,7 @@
 					return {
 						q: params.term,
 						page: params.page,
-						estado: 'ACTIVO',
-						tipo: 'NATURAL'
+						estado: 'ACTIVO'
 					};
 				},
 				processResults: function (data, params) {
