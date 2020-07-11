@@ -43,7 +43,7 @@ class SDATController extends Controller
 		$SDATs = SDAT::entidadId()
 			->search($request->name)
 			->estado($request->estado)
-			->orderBy('estado', 'desc')
+			->orderBy('estado', 'asc')
 			->orderBy('fecha_constitucion', 'desc')
 			->paginate();
 		$estados = [
@@ -135,7 +135,7 @@ class SDATController extends Controller
 
 		$total = ($request->valor + $interesEstimado) - $retefuenteEstimado;
 		$data->put("total", $total);
-		
+
 		if($radicar) {
 			$sdat = new SDAT;
 
@@ -308,7 +308,7 @@ class SDATController extends Controller
 		$cuentaRetefuente = Cuif::entidadId()->whereCodigo((int)$cuentaRetefuente->valor)->first();
 
 		$porcentajeRetefuente = ParametroInstitucional::entidadId($this->getEntidad()->id)
-				->codigo('AH003')
+				->codigo('AH002')
 				->first();
 		if(!$porcentajeRetefuente) {
 			Session::flash("error", "No se encontró el parámetro institucional 'AH002'");
