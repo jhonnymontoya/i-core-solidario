@@ -24,6 +24,7 @@ use App\Models\General\TipoIdentificacion;
 use App\Certificados\CertificadoTributario;
 use App\Mail\Consulta\Perfil\PasswordUpdated;
 use App\Models\General\ParametroInstitucional;
+use App\Events\Creditos\SolicitudCreditoDigitalEnviada;
 use App\Http\Requests\Consulta\Perfil\EditPerfilRequest;
 use App\Http\Requests\Consulta\Consulta\CreateSolicitudCreditoRequest;
 
@@ -515,6 +516,8 @@ class ConsultaController extends Controller
 			$request->plazo,
 			$request->observaciones
 		);
+
+		event(new SolicitudCreditoDigitalEnviada($solicitud->id, $socio->id));
 
 		Session::flash("message", "Se ha enviado con exito la solicitud de crédito");
 
