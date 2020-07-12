@@ -131,8 +131,9 @@
 							<span class="info-box-icon"><i class="fas fa-hammer"></i></span>
 							<div class="info-box-content">
 								<span class="info-box-text">Herramientas</span>
-								<span class="info-box-number"><a href="{{ route('consulta.documentacion') }}" class="link">Documentación</a></span>
+								<span class="info-box-number"><a href="{{ url('consulta/solicitarCredito') }}" class="link">Solicitar crédito</a></span>
 								<span class="info-box-number"><a href="{{ url('consulta/simulador') }}" class="link">Simulador</a></span>
+								<span class="info-box-number"><a href="{{ route('consulta.documentacion') }}" class="link">Documentación</a></span>
 								<div style="height: 12px;">&nbsp;</div>
 							</div>
 						</div>

@@ -55,7 +55,7 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label class="control-label">
-									Plazo
+									Plazo (cuotas)
 								</label>
 								{!! Form::text('plazo', null, ['class' => 'form-control text-right']) !!}
 							</div>
@@ -71,11 +71,12 @@
 					</div>
 					<div class="row">
 						<div class="col-md-4">
-							<a href="#" class="btn btn-outline-primary simular">Simular</a>
+							<a href="#" class="btn btn-outline-success simular">Simular</a>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
+							<br>
 							<h4 id="error" style="display: none; color: #dd4b39;">&nbsp;</h4>
 						</div>
 					</div>
@@ -105,7 +106,7 @@
 										</tbody>
 									</table>
 								</div>
-							</div>	
+							</div>
 						</div>
 					</div>
 				</div>
@@ -136,11 +137,12 @@
 	});
 	$(".simular").click(function(e){
 		e.preventDefault();
-		var $data = "socio={{ $socio->id }}&fechaConsulta={{ $fechaConsulta }}&modalidad=";
-		$data += $("select[name='modalidad']").val() + "&valorCredito=";
-		$data += $("input[name='valorCredito']").maskMoney("cleanvalue") + "&plazo=";
-		$data += $("input[name='plazo']").maskMoney("cleanvalue") + "&periodicidad=";
-		$data += $("select[name='periodicidad']").val();
+		var $data = "modalidad=:0&valorCredito=:1&plazo=:2&periodicidad=:3";
+		$data = $data.replace(":0", $("select[name='modalidad']").val());
+		$data = $data.replace(":1", $("input[name='valorCredito']").maskMoney("cleanvalue"));
+		$data = $data.replace(":2", $("input[name='plazo']").maskMoney("cleanvalue"));
+		$data = $data.replace(":3", $("select[name='periodicidad']").val());
+		$("#error").hide();
 		$.ajax({
 			url: '{{ url('consulta/simularCredito') }}',
 			dataType: 'json',
@@ -162,10 +164,13 @@
 			});
 		}).fail(function(data){
 			$(".tableSimulador").hide();
-			var $error = jQuery.parseJSON(data.responseText);
-			$("#error").html($error.error);
+			var $error = data.responseJSON.errors;
+			var $msg = "";
+			for(var k in $error){
+				$msg += $error[k] + "<br>\n";
+			}
+			$("#error").html($msg);
 			$("#error").show();
-			$("#error").fadeOut(5000);
 		});
 	});
 </script>
