@@ -2,14 +2,15 @@
 
 namespace App\Models\Contabilidad;
 
-use App\Models\General\ControlCierreModulo;
+use App\Traits\ICoreTrait;
+use Illuminate\Support\Str;
 use App\Models\General\Entidad;
 use App\Models\General\Reporte;
 use App\Traits\ICoreModelTrait;
-use App\Traits\ICoreTrait;
+use App\Models\Notificaciones\Funcion;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\General\ControlCierreModulo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class Modulo extends Model
 {
@@ -54,11 +55,11 @@ class Modulo extends Model
 	/**
 	 * Getters personalizados
 	 */
-	
+
 	/**
 	 * Setters Personalizados
 	 */
-	
+
 	public function setNombreAttribute($value) {
 		$this->attributes['nombre'] = Str::title($value);
 	}
@@ -66,7 +67,7 @@ class Modulo extends Model
 	/**
 	 * Scopes
 	 */
-	
+
 	public function scopeSearch($query, $value) {
 		if(trim($value) != '') {
 			$query->where('nombre', 'like', "%$value%");
@@ -78,15 +79,15 @@ class Modulo extends Model
 			$query->where('esta_activo', $value);
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
-	 
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -106,7 +107,12 @@ class Modulo extends Model
 	public function reportes() {
 		return $this->hasMany(Reporte::class, 'categoria_modulo_id', 'id');
 	}
-	
+
+	public function funciones()
+	{
+	    return $this->hasMany(Funcion::class, 'modulo_id', 'id');
+	}
+
 	/**
 	 * Relaciones Muchos a uno
 	 */
@@ -114,7 +120,7 @@ class Modulo extends Model
 	public function entidad() {
 		return $this->belongsTo(Entidad::class, 'entidad_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */

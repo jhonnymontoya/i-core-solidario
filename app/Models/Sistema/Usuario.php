@@ -2,18 +2,19 @@
 
 namespace App\Models\Sistema;
 
-use App\Models\Creditos\CumplimientoCondicion;
-use App\Models\General\ControlCierreModulo;
-use App\Models\General\TipoIdentificacion;
-use App\Traits\ICoreModelTrait;
-use App\Traits\ICoreTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Notifications\Notifiable;
 use Image;
 use Storage;
+use App\Traits\ICoreTrait;
 use Illuminate\Support\Str;
+use App\Traits\ICoreModelTrait;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Notifications\Notifiable;
+use App\Models\General\TipoIdentificacion;
+use App\Models\General\ControlCierreModulo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Creditos\CumplimientoCondicion;
+use App\Models\Notificaciones\ConfiguracionFuncion;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Usuario extends Authenticatable
 {
@@ -102,7 +103,7 @@ class Usuario extends Authenticatable
 		$resp = trim($resp);
 		return $resp;
 	}
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -149,11 +150,11 @@ class Usuario extends Authenticatable
 	public function setUsuarioAttribute($value) {
 		$this->attributes['usuario'] = mb_strtolower($value);
 	}
-	
+
 	/**
 	 * Scopes
 	 */
-	
+
 	public function scopeSearch($query, $value) {
 		if(!empty($value)) {
 			$query->where("primer_nombre", "like", "%$value%")
@@ -192,7 +193,7 @@ class Usuario extends Authenticatable
 			$query->where('esta_activo', $value);
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
@@ -206,11 +207,11 @@ class Usuario extends Authenticatable
 
 		return $valor;
 	}
-	 
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -230,7 +231,12 @@ class Usuario extends Authenticatable
 	public function logsEventos() {
 		return $this->hasMany(LogEvento::class, 'usuario_id', 'id');
 	}
-	
+
+	public function configuracionesFuncion()
+    {
+        return $this->hasMany(ConfiguracionFuncion::class, 'usuario_id', 'id');
+    }
+
 	/**
 	 * Relaciones Muchos a uno
 	 */
@@ -238,11 +244,11 @@ class Usuario extends Authenticatable
 	public function tipoIdentificacion() {
 		return $this->belongsTo(TipoIdentificacion::class, 'tipo_identificacion_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
-	
+
 	public function perfiles() {
 		return $this->belongsToMany(Perfil::class, 'sistema.usuario_perfil', 'usuario_id', 'perfil_id')->withTimestamps();
 	}

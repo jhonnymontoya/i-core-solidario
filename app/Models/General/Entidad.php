@@ -2,56 +2,57 @@
 
 namespace App\Models\General;
 
-use App\Models\Ahorros\AjusteAhorroLote;
-use App\Models\Ahorros\CondicionSDAT;
-use App\Models\Ahorros\ModalidadAhorro;
-use App\Models\Ahorros\MovimientoAhorro;
-use App\Models\Ahorros\RendimientoSDAT;
+use Carbon\Carbon;
+use App\Traits\ICoreTrait;
 use App\Models\Ahorros\SDAT;
-use App\Models\Ahorros\TipoCuentaAhorro;
+use App\Models\Sistema\Perfil;
+use App\Models\Tarjeta\Tarjeta;
+use App\Models\Tesoreria\Banco;
+use App\Traits\ICoreModelTrait;
 use App\Models\Ahorros\TipoSDAT;
-use App\Models\Contabilidad\CausaAnulacionMovimiento;
+use App\Models\Tarjeta\Producto;
 use App\Models\Contabilidad\Cuif;
-use App\Models\Contabilidad\DetalleMovimiento;
-use App\Models\Contabilidad\Impuesto;
-use App\Models\Contabilidad\Modulo;
-use App\Models\Contabilidad\Movimiento;
-use App\Models\Contabilidad\MovimientoImpuesto;
-use App\Models\Contabilidad\MovimientoImpuestoTemporal;
-use App\Models\Contabilidad\TipoComprobante;
-use App\Models\Creditos\AjusteCreditoLote;
-use App\Models\Creditos\CierreCartera;
-use App\Models\Creditos\CobroAdministrativo;
+use App\Models\Socios\Parentesco;
 use App\Models\Creditos\Deterioro;
 use App\Models\Creditos\Modalidad;
-use App\Models\Creditos\ParametroCalificacionCartera;
-use App\Models\Creditos\ParametroContable;
-use App\Models\Creditos\ParametroDeterioroIndividual;
-use App\Models\Creditos\ProcesoCreditosLote;
-use App\Models\Creditos\SolicitudCredito;
-use App\Models\Creditos\TipoGarantia;
-use App\Models\General\ControlPeriodoCierre;
-use App\Models\Presupuesto\CentroCosto;
 use App\Models\Recaudos\Pagaduria;
-use App\Models\Recaudos\RecaudoCaja;
-use App\Models\Sistema\Perfil;
 use App\Models\Socios\CausaRetiro;
-use App\Models\Socios\CuotaObligatoria;
 use App\Models\Socios\EstadoCivil;
-use App\Models\Socios\Parentesco;
+use App\Models\Contabilidad\Modulo;
 use App\Models\Socios\TipoVivienda;
+use App\Models\Recaudos\RecaudoCaja;
+use App\Models\Tesoreria\Franquicia;
+use App\Models\Ahorros\CondicionSDAT;
+use App\Models\Contabilidad\Impuesto;
+use App\Models\Creditos\TipoGarantia;
+use App\Models\Creditos\CierreCartera;
+use App\Models\Ahorros\ModalidadAhorro;
+use App\Models\Ahorros\RendimientoSDAT;
+use App\Models\Contabilidad\Movimiento;
+use App\Models\Presupuesto\CentroCosto;
+use App\Models\Socios\CuotaObligatoria;
+use App\Models\Tarjeta\Tarjetahabiente;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Ahorros\AjusteAhorroLote;
+use App\Models\Ahorros\MovimientoAhorro;
+use App\Models\Ahorros\TipoCuentaAhorro;
+use App\Models\Creditos\SolicitudCredito;
+use App\Models\Creditos\AjusteCreditoLote;
+use App\Models\Creditos\ParametroContable;
+use App\Models\Contabilidad\TipoComprobante;
+use App\Models\Creditos\CobroAdministrativo;
+use App\Models\Creditos\ProcesoCreditosLote;
+use App\Models\General\ControlPeriodoCierre;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Contabilidad\DetalleMovimiento;
+use App\Models\Contabilidad\MovimientoImpuesto;
+use App\Models\Notificaciones\ConfiguracionFuncion;
+use App\Models\Contabilidad\CausaAnulacionMovimiento;
+use App\Models\Creditos\ParametroCalificacionCartera;
+use App\Models\Creditos\ParametroDeterioroIndividual;
+use App\Models\Contabilidad\MovimientoImpuestoTemporal;
 use App\Models\Tarjeta\LogMovimientoTransaccionEnviado;
 use App\Models\Tarjeta\LogMovimientoTransaccionRecibido;
-use App\Models\Tarjeta\Producto;
-use App\Models\Tarjeta\Tarjeta;
-use App\Models\Tarjeta\Tarjetahabiente;
-use App\Models\Tesoreria\Banco;
-use App\Models\Tesoreria\Franquicia;
-use App\Traits\ICoreModelTrait;
-use App\Traits\ICoreTrait;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entidad extends Model
 {
@@ -479,6 +480,11 @@ class Entidad extends Model
 
 	public function recaudosAhorro() {
 		return $this->hasMany(RecaudoAhorro::class, 'entidad_id', 'id');
+	}
+
+	public function configuracionesFuncion()
+	{
+	    return $this->hasMany(ConfiguracionFuncion::class, 'entidad_id', 'id');
 	}
 
 	/**
