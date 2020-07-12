@@ -193,7 +193,7 @@ class SolicitudCreditoController extends Controller
 			Session::flash('error', 'No es posible editar una solicitud de crédito con un estado diferente a BORRADOR');
 			return redirect('solicitudCredito');
 		}
-		$this->actualizar($obj, $request);
+		$this->actualizar($obj, $request, true);
 		$condiciones = $obj->modalidadCredito->condicionesModalidad;
 		foreach($condiciones as $condicion) {
 			switch($condicion->condicionado_por) {
@@ -616,14 +616,16 @@ class SolicitudCreditoController extends Controller
 		return $liquidacion;
 	}
 
-	private function actualizar($obj, $request) {
+	private function actualizar($obj, $request, $calcularAmortizacion = false) {
 		if($obj->estado_solicitud == 'BORRADOR') $obj->valor_solicitud = $request->valor_credito;
 		$obj->valor_credito = $request->valor_credito;
 		$obj->plazo = $request->plazo;
 		$obj->forma_pago = $request->forma_pago;
 		$obj->periodicidad = $request->periodicidad;
 		$obj->fecha_primer_pago = $request->fecha_primer_pago;
-		$obj->observaciones = $request->observaciones;
+		if($calcularAmortizacion == false){
+			$obj->observaciones = $request->observaciones;
+		}
 
 		if($obj->modalidadCredito->tipo_cuota == 'CAPITAL') {
 			$obj->fecha_primer_pago_intereses = $request->fecha_primer_pago_intereses;
