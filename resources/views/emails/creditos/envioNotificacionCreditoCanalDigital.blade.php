@@ -1,9 +1,7 @@
 @component('mail::message', ['subcopy' => $subcopy])
 {{ $data->fecha }}
 
-# {{ $data->titulo }}
-
-El <strong>{{ $data->entidad }}</strong> le informa que se ha registrado la solicitud de crédito con los siguientes datos:
+Se ha registrado el envío de una nueva solicitud de crédito desde el canal digital con los siguientes datos:
 
 <strong>Solicitante</strong>: {{ $data->solicitante }}.\
 <strong>Número solicitud</strong>: {{ $data->numeroSolicitud }}.\
