@@ -3,7 +3,9 @@
 namespace App\Api;
 
 use Carbon\Carbon;
+use App\Models\Creditos\Modalidad;
 use Illuminate\Support\Facades\DB;
+use App\Models\Creditos\SolicitudCredito;
 
 class Creditos
 {
@@ -344,6 +346,53 @@ class Creditos
             array_push($data, $dato);
         }
         return $data;
+    }
+
+    public static function crearSolicitudCredito($socio, $modalidadCredito, $valorSolicitado, $plazo, $observaciones){
+        $modalidadesCredito = Modalidad::find($modalidadCredito);
+        $tercero = $socio->tercero;
+        $fechaSolicitud = Carbon::now()->startOfDay();
+
+        $seguroCartera = null;
+        if($modalidadesCredito->segurosCartera->count() > 0) {
+            $seguroCartera = $modalidadesCredito->segurosCartera[0];
+        }
+
+        $solicitud = new SolicitudCredito;
+        $solicitud->entidad_id = $tercero->entidad_id;
+        $solicitud->tercero_id = $tercero->id;
+        $solicitud->modalidad_credito_id = $modalidadesCredito->id;
+        $solicitud->seguro_cartera_id = optional($seguroCartera)->id;
+
+        $solicitud->valor_solicitud = $valorSolicitado;
+        $solicitud->valor_credito = $valorSolicitado;
+        $solicitud->fecha_solicitud = $fechaSolicitud;
+        $solicitud->tipo_pago_intereses = $modalidadesCredito->pago_interes;
+        $solicitud->tipo_amortizacion = $modalidadesCredito->tipo_cuota;
+        $solicitud->tipo_tasa = $modalidadesCredito->tipo_tasa;
+        $solicitud->tasa = $modalidadesCredito->obtenerValorTasa(
+            $valorSolicitado,
+            0,
+            $fechaSolicitud,
+            $socio->fecha_ingreso,
+            $socio->fecha_antiguedad
+        );
+        $solicitud->aplica_mora = $modalidadesCredito->aplica_mora;
+
+        $solicitud->quien_inicio_usuario = $tercero->numero_identificacion;
+        $solicitud->quien_inicio = $tercero->nombre_corto;
+        $solicitud->canal = 'DIGITAL';
+        $solicitud->periodicidad = $socio->pagaduria->periodicidad_pago;
+        $solicitud->plazo = $plazo;
+        $solicitud->observaciones = $observaciones;
+        $solicitud->save();
+
+        //Se agregan los documentos
+        $solicitud
+            ->documentos()
+            ->sync($solicitud->modalidadCredito->documentacionModalidad->pluck('id'));
+
+        return $solicitud;
     }
 
 }
