@@ -75,6 +75,11 @@ class ConfiguracionFuncion extends Model
      * Getters personalizados
      */
 
+    public function getEmailAttribute()
+    {
+        return $this->usuario->email;
+    }
+
     /**
      * Setters Personalizados
      */
@@ -87,6 +92,23 @@ class ConfiguracionFuncion extends Model
     {
         $value = empty($value) ? $this->getEntidad()->id : $value;
         $query->whereEntidadId($value);
+    }
+
+    public function scopeUsuarioActivo($query)
+    {
+        $query->whereHas("usuario", function($q){
+            $q->activo(1);
+        });
+    }
+
+    public function scopeCorreo($query)
+    {
+        $query->whereEnviarCorreo(1);
+    }
+
+    public function scopeNotificacion($query)
+    {
+        $query->whereEnviarNotificacion(1);
     }
 
     /**
@@ -117,7 +139,7 @@ class ConfiguracionFuncion extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_is', 'id');
+        return $this->belongsTo(Usuario::class, 'usuario_id', 'id');
     }
 
     /**

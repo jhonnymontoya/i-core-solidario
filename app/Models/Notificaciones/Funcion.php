@@ -25,7 +25,7 @@ class Funcion extends Model
      */
     protected $fillable = [
         'modulo_id',
-        'funcion',
+        'nombre',
         'descripcion'
     ];
 
@@ -81,12 +81,36 @@ class Funcion extends Model
     public function scopeModuloId($query, $value = 0)
     {
         $value = empty($value) ? $this->getEntidad()->id : $value;
-        $query->whereEntidadId($value);
+        $query->whereModuloId($value);
+    }
+
+    public function scopeFuncion($query, $value)
+    {
+        if(empty($value) == false) {
+            $query->whereNombre($value);
+        }
     }
 
     /**
      * Funciones
      */
+
+    public function getCorreos($entidadId = 0)
+    {
+        if(empty($entidadId)) {
+            $entidadId = $this->getEntidad()->id;
+        }
+        $correos = [];
+        $cf = $this->configuracionesFuncion()
+            ->entidadId($entidadId)
+            ->usuarioActivo()
+            ->correo()
+            ->get();
+        foreach ($cf as $u) {
+            $correos[] = $u->email;
+        }
+        return $correos;
+    }
 
     /**
      * Relaciones Uno a Uno
