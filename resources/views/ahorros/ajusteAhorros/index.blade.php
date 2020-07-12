@@ -9,13 +9,13 @@
 				<div class="col-6">
 					<h1>
 						Ajuste ahorros
-						<small>Ahoroos</small>
+						<small>Ahorros</small>
 					</h1>
 				</div>
 				<div class="col-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-						<li class="breadcrumb-item"><a href="#"> Ahoroos</a></li>
+						<li class="breadcrumb-item"><a href="#"> Ahorros</a></li>
 						<li class="breadcrumb-item active">Ajuste ahorros</li>
 					</ol>
 				</div>
@@ -70,7 +70,7 @@
 						<div class="col-md-1 col-sm-12">
 							<label class="control-label">&nbsp;</label>
 							<br>
-							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>								
+							<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 					{!! Form::close() !!}
@@ -324,7 +324,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12 text-right">							
+							<div class="col-md-12 text-right">
 								<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmacion">Continuar</button>
 								<a href="{{ url('ajusteAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
 							</div>
@@ -448,7 +448,7 @@
 				cache: true
 			}
 		});
-		
+
 		@if(Request::has('socio'))
 			var saldoAhorros = 0;
 			var saldoIntereses = 0;
