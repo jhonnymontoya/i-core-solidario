@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers\Consulta;
 
-use App\Certificados\CertificadoTributario;
+use Route;
+use Session;
+use Validator;
+use Carbon\Carbon;
+use App\Api\Creditos;
+use App\Traits\ICoreTrait;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Helpers\ConversionHelper;
 use App\Helpers\FinancieroHelper;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Consulta\Perfil\EditPerfilRequest;
-use App\Mail\Consulta\Perfil\PasswordUpdated;
-use App\Models\Ahorros\ModalidadAhorro;
 use App\Models\Creditos\Modalidad;
-use App\Models\Creditos\SolicitudCredito;
-use App\Models\General\ParametroInstitucional;
-use App\Models\General\TipoIdentificacion;
-use App\Models\Recaudos\ControlProceso;
-use App\Models\Recaudos\RecaudoNomina;
-use App\Traits\ICoreTrait;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use Route;
-use Validator;
-use Session;
-use Illuminate\Support\Str;
+use App\Models\Recaudos\RecaudoNomina;
+use App\Models\Ahorros\ModalidadAhorro;
+use App\Models\Recaudos\ControlProceso;
+use App\Models\Creditos\SolicitudCredito;
+use App\Models\General\TipoIdentificacion;
+use App\Certificados\CertificadoTributario;
+use App\Mail\Consulta\Perfil\PasswordUpdated;
+use App\Models\General\ParametroInstitucional;
+use App\Http\Requests\Consulta\Perfil\EditPerfilRequest;
+use App\Http\Requests\Consulta\Consulta\CreateSolicitudCreditoRequest;
 
 class ConsultaController extends Controller
 {
@@ -278,27 +280,28 @@ class ConsultaController extends Controller
 
 	public function simularCredito(Request $request) {
 		Validator::make($request->all(), [
-			'fechaConsulta'		=> 'bail|required|date_format:"d/m/Y"',
-			'modalidad'			=> [
-									'bail',
-									'required',
-									'exists:sqlsrv.creditos.modalidades,id,entidad_id,' . $this->getEntidad()->id . ',esta_activa,1,deleted_at,NULL',
-								],
-			'valorCredito'		=> 'bail|required|integer|min:1',
-			'plazo'				=> 'bail|required|integer|min:1|max:1000',
-			'periodicidad'		=> 'bail|required|string|in:ANUAL,SEMESTRAL,CUATRIMESTRAL,TRIMESTRAL,BIMESTRAL,MENSUAL,QUINCENAL,CATORCENAL,DECADAL,SEMANAL,DIARIO',
-		], [
-			'modalidad.required'		=> 'La :attribute es requerida',
-			'modalidad.exists'			=> 'La :attribute seleccionada no es válida',
-			'valorCredito.min'			=> 'El :attribute debe ser un valor válido',
-			'periodicidad.required'		=> 'La :attribute es requerida',
-			'plazo.max'					=> 'El :attribute de la simulación no es coherente, se espera el número de cuotas'
-		], [
-			'valorCredito'			=> 'valor de credito'
+			'modalidad' => [
+				'bail',
+				'required',
+				'exists:sqlsrv.creditos.modalidades,id,entidad_id,' . $this->getEntidad()->id . ',esta_activa,1,deleted_at,NULL',
+			],
+			'valorCredito' => 'bail|required|integer|min:1',
+			'plazo' => 'bail|required|integer|min:1|max:1000',
+			'periodicidad' => 'bail|required|string|in:ANUAL,SEMESTRAL,CUATRIMESTRAL,TRIMESTRAL,BIMESTRAL,MENSUAL,QUINCENAL,CATORCENAL,DECADAL,SEMANAL,DIARIO',
+		],
+		[
+			'modalidad.required' => 'La :attribute es requerida',
+			'modalidad.exists' => 'La :attribute seleccionada no es válida',
+			'valorCredito.min' => 'El :attribute debe ser un valor válido',
+			'periodicidad.required' => 'La :attribute es requerida',
+			'plazo.max' => 'El :attribute de la simulación no es coherente, se espera el número de cuotas'
+		],
+		[
+			'valorCredito' => 'valor de credito'
 		])->validate();
 
 		$socio = \Auth::user()->socios[0];
-		$fechaCredito = Carbon::createFromFormat("d/m/Y", $request->fechaConsulta)->startOfDay();
+		$fechaCredito = Carbon::now()->startOfDay();
 		$modalidad = Modalidad::find($request->modalidad);
 		$valorCredito = $request->valorCredito;
 		$plazo = $request->plazo;
@@ -458,9 +461,6 @@ class ConsultaController extends Controller
 
 	public function simular() {
 		$this->log("Ingresó al simulador de crédito de la consulta del socio");
-		$fechaConsulta = Carbon::now()->startOfDay();
-
-		$socio = \Auth::user()->socios[0];
 
 		$modalidadesCredito = Modalidad::entidadId()->activa()->usoSocio()->get();
 		$modalidades = array();
@@ -468,13 +468,59 @@ class ConsultaController extends Controller
 			if($modalidad->estaParametrizada() == false) {
 				continue;
 			}
-			$modalidades[$modalidad->id] = $modalidad->codigo . ' - ' . $modalidad->nombre;
+			$modalidades[$modalidad->id] = $modalidad->nombre;
 		}
 
 		return view('consulta.consulta.simulador')
-			->withSocio($socio)
+			->withModalidades($modalidades);
+	}
+
+	public function solicitarCredito(Request $request)
+	{
+		$this->log("Ingresó a solicitar crédito en la consulta del socio");
+
+		$modalidadesCredito = Modalidad::entidadId()->activa()->usoSocio()->get();
+		$modalidades = array();
+		foreach($modalidadesCredito as $modalidad) {
+			if($modalidad->estaParametrizada() == false) {
+				continue;
+			}
+			$modalidades[$modalidad->id] = $modalidad->nombre;
+		}
+
+		$cupoDisponible = 0;
+		$socio = \Auth::user()->socios[0];
+		$cupoDisponible = $socio
+			->tercero
+			->cupoDisponible(Carbon::now()->startOfDay());
+
+		$cupoDisponible = $cupoDisponible < 0 ? 0 : $cupoDisponible;
+
+		return view('consulta.consulta.solicitarCredito')
 			->withModalidades($modalidades)
-			->withFechaConsulta($fechaConsulta);
+			->withCupoDisponible($cupoDisponible);
+	}
+
+	public function crearSolicitarCredito(CreateSolicitudCreditoRequest $request)
+	{
+		$msg = "Ingresó a crear crédito en la consulta del socio con los siguientes parametros: '%s'";
+		$msg = sprintf($msg, json_encode($request->all()));
+		$this->log($msg, 'CREAR');
+
+		$socio = \Auth::user()->socios[0];
+		$solicitud = Creditos::crearSolicitudCredito(
+			$socio,
+			$request->modalidad,
+			$request->valorCredito,
+			$request->plazo,
+			$request->observaciones
+		);
+
+		Session::flash("message", "Se ha enviado con exito la solicitud de crédito");
+
+		return view("consulta.consulta.solicitarCreditoConfirmacion")
+			->withSocio($socio)
+			->withSolicitudCredito($solicitud);
 	}
 
 	public static function routes() {
@@ -496,5 +542,8 @@ class ConsultaController extends Controller
 
 		Route::get('consulta/documentacion', 'Consulta\ConsultaController@consultaDocumentacion')->name('consulta.documentacion');
 		Route::get('consulta/documentacion/tritutario', 'Consulta\ConsultaController@documentacion');
+
+		Route::get('consulta/solicitarCredito', 'Consulta\ConsultaController@solicitarCredito');
+		Route::post('consulta/solicitarCredito', 'Consulta\ConsultaController@crearSolicitarCredito');
 	}
 }
