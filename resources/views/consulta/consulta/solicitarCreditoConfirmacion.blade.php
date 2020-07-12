@@ -42,30 +42,33 @@
 					</div>
 					<br>
 					<dl class="row">
+						<dt class="col-md-2">Número solicitud</dt>
+						<dd class="col">{{ $solicitudCredito->id }}</dd>
+
 						<dt class="col-md-2">Modalidad</dt>
 						<dd class="col">{{ $solicitudCredito->modalidadCredito->nombre }}</dd>
+					</dl>
 
+					<dl class="row">
 						<dt class="col-md-2">Fecha</dt>
 						<dd class="col">{{ $solicitudCredito->fecha_solicitud }}</dd>
-					</dl>
 
-					<dl class="row">
 						<dt class="col-md-2">Empresa</dt>
 						<dd class="col">{{ $socio->pagaduria->terceroEmpresa->nombre }}</dd>
+					</dl>
 
+					<dl class="row">
 						<dt class="col-md-2">Valor</dt>
 						<dd class="col">${{ number_format($solicitudCredito->valor_solicitud, 0) }}</dd>
-					</dl>
 
-					<dl class="row">
 						<dt class="col-md-2">Tasa M.V.</dt>
 						<dd class="col">{{ number_format($solicitudCredito->tasa, 3) }}%</dd>
-
-						<dt class="col-md-2">Plazo (cuotas)</dt>
-						<dd class="col">{{ $solicitudCredito->plazo }}</dd>
 					</dl>
 
 					<dl class="row">
+						<dt class="col-md-2">Plazo (cuotas)</dt>
+						<dd class="col">{{ $solicitudCredito->plazo }}</dd>
+
 						<dt class="col-md-2">Periodicidad</dt>
 						<dd class="col">{{ $solicitudCredito->periodicidad }}</dd>
 					</dl>
