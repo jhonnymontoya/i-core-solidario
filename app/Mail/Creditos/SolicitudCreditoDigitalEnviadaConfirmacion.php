@@ -58,7 +58,7 @@ class SolicitudCreditoDigitalEnviadaConfirmacion extends Mailable
             "sigla" => $sigla
         ];
 
-        $subject = "Confirmación envio solicitud de crédito";
+        $subject = "Confirmación envío solicitud de crédito";
 
         $subcopy = "Este es un mensaje automático, favor abstenerse de contestarlo";
 
@@ -70,7 +70,7 @@ class SolicitudCreditoDigitalEnviadaConfirmacion extends Mailable
         $from = config('mail.from.address', 'noresponder@i-core.co');
         return $this->from($from, $sigla)
             ->subject($subject)
-            ->markdown('emails.creditos.envioConfirmacionCreitoSocio')
+            ->markdown('emails.creditos.envioConfirmacionCreditoSocio')
             ->withData($data)
             ->withSubcopy($subcopy);
     }
