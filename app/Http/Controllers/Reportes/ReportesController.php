@@ -1588,6 +1588,74 @@ class ReportesController extends Controller
 					->render();
 	}
 
+	/**
+	 * CARTERA CORTO Y LARGO PLAZO
+	 * @param type $request
+	 * @return type
+	 */
+	public function carteraCortoLargoPlazo($request) {
+		$e = $this->getEntidad();
+		$validate = Validator::make($request->all(), [
+			'anio'	=> 'bail|required|integer|digits:4|min:2000|max:3000',
+			'mes'	=> 'bail|required|digits_between:1,2|min:1|max:12',
+		]);
+
+		if($validate->fails())return "";
+
+		$query = "exec creditos.sp_cartera_corto_largo_plazo ?, ?, ?";
+		$res = DB::select($query, [$e->id, $request->anio, $request->mes]);
+		if(!$res)return "";
+
+		$totales = (object)[
+			"saldo" => 0,
+			"corto_plazo" => 0,
+			"largo_plazo" => 0,
+			"porcentaje_largo_plazo" => 0,
+			"porcentaje_corto_plazo" => 0
+		];
+		foreach($res as &$dato) {
+			$dato->saldo = floatval($dato->saldo);
+			$dato->corto_plazo = floatval($dato->corto_plazo);
+			$dato->largo_plazo = floatval($dato->largo_plazo);
+			$dato->porcentaje_largo_plazo = floatval($dato->porcentaje_largo_plazo);
+			$dato->porcentaje_corto_plazo = floatval($dato->porcentaje_corto_plazo);
+
+			$totales->saldo += $dato->saldo;
+			$totales->corto_plazo += $dato->corto_plazo;
+			$totales->largo_plazo += $dato->largo_plazo;
+		}
+
+		$totales->porcentaje_corto_plazo = ($totales->corto_plazo * 100) / $totales->saldo;
+		$totales->porcentaje_largo_plazo = ($totales->largo_plazo * 100) / $totales->saldo;
+
+		$res = collect($res);
+
+		$mesTexto = "";
+		switch (intval($request->mes)) {
+			case 1: $mesTexto = "Enero"; break;
+			case 2: $mesTexto = "Febrero"; break;
+			case 3: $mesTexto = "Marzo"; break;
+			case 4: $mesTexto = "Abril"; break;
+			case 5: $mesTexto = "Mayo"; break;
+			case 6: $mesTexto = "Junio"; break;
+			case 7: $mesTexto = "Julio"; break;
+			case 8: $mesTexto = "Agosto"; break;
+			case 9: $mesTexto = "Septiembre"; break;
+			case 10: $mesTexto = "Octubre"; break;
+			case 11: $mesTexto = "Noviembre"; break;
+			case 12: $mesTexto = "Diciembre"; break;
+		}
+
+		return view("reportes.creditos.carteraCortoLargoPlazo")
+			->withEntidad($e)
+			->withSaldos($res)
+			->withAnio($request->anio)
+			->withMes($request->mes)
+			->withMesTexto($mesTexto)
+			->withTotales($totales)
+			->render();
+	}
+
 
 	/*FIN CRÉDITOS*/
 
