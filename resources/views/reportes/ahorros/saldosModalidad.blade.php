@@ -11,7 +11,7 @@
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
 			<br>
-			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }} 
+			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }}
 		</strong>
 		<h4>
 			Saldos de ahorros individuales por modalidad
@@ -27,17 +27,23 @@
 					<th class="text-center">Identificación</th>
 					<th>Nombre</th>
 					<th>Modalidad</th>
+					<th class="text-center">Valor cuota</th>
+					<th>Periodicidad cuota</th>
+					<th class="text-center">Cuota mensual</th>
 					<th class="text-center">Saldo</th>
-					
+
 				</tr>
 			</thead>
 			<tbody>
 				@foreach ($saldos as $saldo)
 					<tr>
-						<td class="text-right">{{ $saldo->Identificacion }}</td>
-						<td>{{ $saldo->Nombre}}</td>
-						<td>{{ $saldo->Modalidad }}</td>
-						<td class="text-right">${{ number_format($saldo->Saldo) }}</td>
+						<td class="text-right">{{ $saldo->identificacion }}</td>
+						<td>{{ $saldo->nombre}}</td>
+						<td>{{ $saldo->modalidad }}</td>
+						<td class="text-right">${{ number_format($saldo->valor_cuota) }}</td>
+						<td>{{ $saldo->periodicidad }}</td>
+						<td class="text-right">${{ number_format($saldo->valor_cuota_mes) }}</td>
+						<td class="text-right">${{ number_format($saldo->saldo) }}</td>
 					</tr>
 				@endforeach
 			</tbody>

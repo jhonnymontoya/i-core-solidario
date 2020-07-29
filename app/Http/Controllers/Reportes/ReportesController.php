@@ -960,7 +960,7 @@ class ReportesController extends Controller
 	/*SALDOS AHORROS POR MODALIDAD*/
 	public function ahorrosSaldosModalidad($request) {
 		$validate = Validator::make($request->all(), [
-			'fechaCorte'		=> 'bail|required|date_format:"Y/m/d"',
+			'fechaCorte' => 'bail|required|date_format:"Y/m/d"',
 		]);
 
 		if($validate->fails())return "";
@@ -968,8 +968,8 @@ class ReportesController extends Controller
 		$fechaCorte = Carbon::createFromFormat('Y/m/d', $request->fechaCorte)->startOfDay();
 		$entidad = $this->getEntidad();
 
-		$query = "SELECT t.numero_identificacion AS Identificacion,t.nombre AS Nombre, md.nombre AS Modalidad, SUM(ma.valor_movimiento) AS Saldo FROM ahorros.movimientos_ahorros AS ma INNER JOIN socios.socios AS s	ON ma.socio_id=s.id INNER JOIN general.terceros AS t ON s.tercero_id=t.id INNER JOIN ahorros.modalidades_ahorros AS md ON ma.modalidad_ahorro_id=md.id WHERE t.entidad_id = ? AND general.fn_fecha_sin_hora(ma.fecha_movimiento) <= ? GROUP BY t.numero_identificacion, t.nombre, md.nombre HAVING SUM(ma.valor_movimiento) <> 0 ORDER BY t.numero_identificacion DESC";
-		$DSSaldosAhorros = DB::select($query, [$entidad->id, $fechaCorte ]);
+		$query = "ahorros.sp_saldos_por_modalidad ?, ?";
+		$DSSaldosAhorros = DB::select($query, [$entidad->id, $fechaCorte]);
 		if(!$DSSaldosAhorros)return "";
 
 		return view("reportes.ahorros.saldosModalidad")
