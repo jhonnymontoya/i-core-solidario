@@ -978,6 +978,37 @@ class ReportesController extends Controller
 					->render();
 	}
 
+	public function cuotasAhorros($request) {
+		$validate = Validator::make($request->all(), [
+			'fecha' => 'bail|required|date_format:"Y/m/d"',
+		]);
+
+		if($validate->fails())return "";
+
+		$fechaCorte = Carbon::createFromFormat('Y/m/d', $request->fecha)->startOfDay();
+		$entidad = $this->getEntidad();
+
+		$query = "ahorros.sp_cuotas_ahorro ?, ?";
+		$DSCuotasAhorros = DB::select($query, [$entidad->id, $fechaCorte]);
+		if(!$DSCuotasAhorros)return "";
+		foreach($DSCuotasAhorros as $cuota){
+			$cuota->valor_mes = floatval($cuota->valor_mes);
+			$cuota->valor = floatval($cuota->valor);
+			if(is_null($cuota->fecha_inicio) == false){
+				$cuota->fecha_inicio = new Carbon($cuota->fecha_inicio);
+			}
+			if(is_null($cuota->fecha_fin) == false){
+				$cuota->fecha_fin = new Carbon($cuota->fecha_fin);
+			}
+		}
+
+		return view("reportes.ahorros.cuotasAhorros")
+			->withEntidad($entidad)
+			->withCuotas($DSCuotasAhorros)
+			->withFecha($fechaCorte)
+			->render();
+	}
+
 	/*FIN AHORROS*/
 
 	/*INICIO RECAUDOS*/
