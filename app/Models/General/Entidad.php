@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Ahorros\AjusteAhorroLote;
 use App\Models\Ahorros\MovimientoAhorro;
 use App\Models\Ahorros\TipoCuentaAhorro;
+use App\Models\ControlVigilancia\Alerta;
 use App\Models\Creditos\SolicitudCredito;
 use App\Models\Creditos\AjusteCreditoLote;
 use App\Models\Creditos\ParametroContable;
@@ -493,6 +494,11 @@ class Entidad extends Model
 	public function oficialesCumplimiento()
 	{
 	    return $this->hasMany(OficialCumplimiento::class, 'entidad_id', 'id');
+	}
+
+	public function alertas()
+	{
+	    return $this->hasMany(Alerta::class, 'entidad_id', 'id');
 	}
 
 	/**
