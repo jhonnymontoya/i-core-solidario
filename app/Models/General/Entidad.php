@@ -48,6 +48,7 @@ use App\Models\Contabilidad\DetalleMovimiento;
 use App\Models\Contabilidad\MovimientoImpuesto;
 use App\Models\Notificaciones\ConfiguracionFuncion;
 use App\Models\Contabilidad\CausaAnulacionMovimiento;
+use App\Models\ControlVigilancia\OficialCumplimiento;
 use App\Models\Creditos\ParametroCalificacionCartera;
 use App\Models\Creditos\ParametroDeterioroIndividual;
 use App\Models\Contabilidad\MovimientoImpuestoTemporal;
@@ -485,6 +486,13 @@ class Entidad extends Model
 	public function configuracionesFuncion()
 	{
 	    return $this->hasMany(ConfiguracionFuncion::class, 'entidad_id', 'id');
+	}
+
+	//RELACIONES DE CONTROL Y VIGILANCIA
+
+	public function oficialesCumplimiento()
+	{
+	    return $this->hasMany(OficialCumplimiento::class, 'entidad_id', 'id');
 	}
 
 	/**
