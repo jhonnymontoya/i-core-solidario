@@ -36,11 +36,14 @@
 			   {{ Session::get('error') }}
 			</div>
 		@endif
-		<div class="row">
-			<div class="col-md-2">
-				<a href="{{ url('oficialCumplimiento/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
+
+		@if ($oficialCumplimiento == null)
+			<div class="row">
+				<div class="col-md-2">
+					<a href="{{ url('oficialCumplimiento/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
+				</div>
 			</div>
-		</div>
+		@endif
 		<br>
 		<div class="container-fluid">
 			<div class="card card-{{ $oficialCumplimiento != null ?'primary':'danger' }} card-outline">
