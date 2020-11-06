@@ -76,7 +76,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("input[name='name']").enfocar();
-		$(window).formularioCrear("{{ url('tipoIdentificacion/create') }}");
+		$(window).formularioCrear("{{ url('oficialCumplimiento/create') }}");
 	});
 </script>
 @endpush
