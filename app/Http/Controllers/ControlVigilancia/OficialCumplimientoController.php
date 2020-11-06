@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Models\ControlVigilancia\OficialCumplimiento;
+use App\Http\Requests\ControlVigilancia\OficialCumplimiento\EditOficialCumplimientoRequest;
 use App\Http\Requests\ControlVigilancia\OficialCumplimiento\CreateOficialCumplimientoRequest;
 
 class OficialCumplimientoController extends Controller
@@ -67,14 +68,45 @@ class OficialCumplimientoController extends Controller
         return redirect("oficialCumplimiento");
     }
 
-    public function edit(OficialCumplimiento $obj, Request $request)
+    public function edit()
     {
-        echo "edit";
+        $oficialCumplimiento = OficialCumplimiento::entidadId()
+            ->activo()
+            ->orderBy("id", "desc")
+            ->first();
+
+        if($oficialCumplimiento == null) {
+            Session::flash("error", "No existe ningún oficial de cumplimiento");
+            return redirect("oficialCumplimiento");
+        }
+
+        return view("controlVigilancia.oficialCumplimplimiento.edit")
+            ->withOficialCumplimiento($oficialCumplimiento);
     }
 
-    public function update(Modelo $obj)
+    public function update(EditOficialCumplimientoRequest $request)
     {
-        echo "update";
+        $oficialCumplimiento = OficialCumplimiento::entidadId()
+            ->activo()
+            ->orderBy("id", "desc")
+            ->first();
+
+        if($oficialCumplimiento == null) {
+            Session::flash("error", "No existe ningún oficial de cumplimiento");
+            return redirect("oficialCumplimiento");
+        }
+
+        $oficialCumplimiento->delete();
+
+        $entidadId = $this->getEntidad()->id;
+        $oficialCumplimiento = new OficialCumplimiento;
+        $oficialCumplimiento->fill($request->all());
+        $oficialCumplimiento->entidad_id = $entidadId;
+        $oficialCumplimiento->email_copia = $request->emailcc;
+        $oficialCumplimiento->save();
+
+        Session::flash("message", "Se ha actualizado con éxito el oficial de cumplimiento");
+        return redirect("oficialCumplimiento");
     }
 
     public static function routes()
@@ -95,12 +127,12 @@ class OficialCumplimientoController extends Controller
         );
 
         Route::get(
-            'oficialCumplimiento/{obj}/edit',
+            'oficialCumplimiento/edit',
             'ControlVigilancia\OficialCumplimientoController@edit'
-        )->name('oficialCumplimiento.edit');
+        );
 
         Route::put(
-            'oficialCumplimiento/{obj}',
+            'oficialCumplimiento',
             'ControlVigilancia\OficialCumplimientoController@update'
         );
     }
