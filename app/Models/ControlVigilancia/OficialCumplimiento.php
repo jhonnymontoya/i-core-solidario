@@ -78,6 +78,10 @@ class OficialCumplimiento extends Model
      * Setters Personalizados
      */
 
+    public function setNombreAttribute($value) {
+        $this->attributes['nombre'] = mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+    }
+
     /**
      * Scopes
      */
