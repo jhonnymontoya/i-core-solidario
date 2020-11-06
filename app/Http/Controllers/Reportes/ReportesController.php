@@ -1742,7 +1742,7 @@ class ReportesController extends Controller
 		$fechaFin = Carbon::createFromFormat('Y/m/d', $request->fechaFin)->startOfDay();
 		$entidad = $this->getEntidad();
 
-		$query = "SELECT created_at AS fecha_proceso, usuario AS usuario, numero_identificacion AS identificacion, primer_nombre AS primer_nombre, segundo_nombre AS segundo_nombre, primer_apellido AS primer_apellido, segundo_apellido AS segundo_apellido, es_tercero AS tercero, es_asociado AS asociado, es_empleado AS empleado, es_proveedor AS proveedor, es_pep AS pep, departamento AS departamento, ciudad AS ciudad, porcentaje_coincidencia AS coincidencia, tipo_coincidencia AS tipo, tipo_lista AS lista, fecha_lista AS fecha_lista, numero_documento AS documento_lista, lista_primer_nombre AS lista_primer_nombre, lista_segundo_nombre AS lista_segundo_nombre, lista_primer_apellido AS lista_primer_apellido, lista_segundo_apellido AS lista_segundo_apellido FROM controlVigilancia.chequeos_listas_control WHERE entidad_id = ? AND general.fn_fecha_sin_hora(created_at) BETWEEN ? AND ?";
+		$query = "EXEC controlVigilancia.sp_chequeo_listas_control_por_rango_tiempo ?, ?, ?";
 		$DSChequeosListas = DB::select($query, [$entidad->id, $fechaInicio, $fechaFin ]);
 		if(!$DSChequeosListas)return "";
 
