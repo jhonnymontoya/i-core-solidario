@@ -71,6 +71,11 @@ class EventServiceProvider extends ServiceProvider
 
         'App\Events\Tarjeta\CalcularAjusteAhorrosVista' => [
             'App\Listeners\Tarjeta\CalcularAjusteAhorroVista'
+        ],
+
+        /*EVENTOS DE CRON JOB*/
+        'App\Events\ICoreCronJob' => [
+            'App\Listeners\ControlVigilancia\DespachaAlertasSarlaft'
         ]
     ];
 
