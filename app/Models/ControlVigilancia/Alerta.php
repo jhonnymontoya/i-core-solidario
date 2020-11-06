@@ -28,13 +28,13 @@ class Alerta extends Model
         //'entidad_id',
         //'nombre',
         //'diario',
-        //'fecha_ultima_diario',
+        //'fecha_proximo_diario',
         //'semanal',
-        //'fecha_ultima_semanal',
+        //'fecha_proximo_semanal',
         //'mensual',
-        //'fecha_ultima_mensual',
+        //'fecha_proximo_mensual',
         //'anual',
-        //'fecha_ultima_anual',
+        //'fecha_proximo_anual',
     ];
 
     /**
@@ -51,10 +51,10 @@ class Alerta extends Model
      * @var array
      */
     protected $dates = [
-        'fecha_ultima_diario',
-        'fecha_ultima_semanal',
-        'fecha_ultima_mensual',
-        'fecha_ultima_anual',
+        'fecha_proximo_diario',
+        'fecha_proximo_semanal',
+        'fecha_proximo_mensual',
+        'fecha_proximo_anual',
 
         'created_at',
         'updated_at',
@@ -67,10 +67,10 @@ class Alerta extends Model
      * @var array
      */
     protected $casts = [
-        'fecha_ultima_diario'       => 'datetime:Y-m-d',
-        'fecha_ultima_semanal'      => 'datetime:Y-m-d',
-        'fecha_ultima_mensual'      => 'datetime:Y-m-d',
-        'fecha_ultima_anual'        => 'datetime:Y-m-d',
+        'fecha_proximo_diario'       => 'datetime:Y-m-d',
+        'fecha_proximo_semanal'      => 'datetime:Y-m-d',
+        'fecha_proximo_mensual'      => 'datetime:Y-m-d',
+        'fecha_proximo_anual'        => 'datetime:Y-m-d',
 
         'diario'                    => 'boolean',
         'semanal'                   => 'boolean',
