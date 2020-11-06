@@ -21,9 +21,6 @@ class OficialCumplimientoController extends Controller
         $this->middleware('verMenu');
     }
 
-    /**
-     * Lista los recursos
-     */
     public function index()
     {
         $oficialCumplimiento = OficialCumplimiento::entidadId()
@@ -35,58 +32,48 @@ class OficialCumplimientoController extends Controller
             ->withOficialCumplimiento($oficialCumplimiento);
     }
 
-    /**
-     * Recupera un recurso
-     */
     public function create()
     {
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->count();
 
-        if($oficialCumplimiento == 0) {
+        if($oficialCumplimiento > 0) {
             Session::flash("error", "Ya existe un oficial de cumplimiento");
             return redirect("oficialCumplimiento");
         }
         return view("controlVigilancia.oficialCumplimplimiento.create");
     }
 
-    /**
-     * Crea un recurso
-     */
     public function store(CreateOficialCumplimientoRequest $request)
     {
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->count();
 
-        if($oficialCumplimiento == 0) {
+        if($oficialCumplimiento > 0) {
             Session::flash("error", "Ya existe un oficial de cumplimiento");
             return redirect("oficialCumplimiento");
         }
-        dd($request->all());
-        echo "store";
+
+        $entidadId = $this->getEntidad()->id;
+        $oficialCumplimiento = new OficialCumplimiento;
+        $oficialCumplimiento->fill($request->all());
+        $oficialCumplimiento->entidad_id = $entidadId;
+        Session::flash("message", "Se ha creado con éxito el oficial de cumplimiento");
+        return redirect("oficialCumplimiento");
     }
 
-    /**
-     * Modifica un recurso
-     */
     public function edit(OficialCumplimiento $obj, Request $request)
     {
         echo "edit";
     }
 
-    /**
-     * Elimina un recurso
-     */
     public function update(Modelo $obj)
     {
         echo "update";
     }
 
-    /**
-     * Establece las rutas
-     */
     public static function routes()
     {
         Route::get(
