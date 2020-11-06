@@ -216,6 +216,9 @@
     //Rutas de Listas de control SARLAF
     \App\Http\Controllers\ControlVigilancia\ListaControlController::routes();
 
+    //Rutas de oficial de cumplimiento
+    \App\Http\Controllers\ControlVigilancia\OficialCumplimientoController::routes();
+
 /***************************************************************************************
  * Rutas de Home
  ***************************************************************************************/
