@@ -52,6 +52,17 @@
 					{!! Form::close() !!}
 					<br>
 					@if($alertas->count())
+						@if ($cantidadOficialCumplimiento == 0)
+						<div class="row">
+							<div class="col-md-auto text-danger">
+								<strong><i class="fas fa-exclamation-triangle"></i> ALERTA:</strong> No se ha configurado un oficial de cumplimiento.
+								<br><br>
+							</div>
+							<div class="col-md-auto">
+								<a href="{{ url('oficialCumplimiento/create') }}" class="btn btn-outline-primary btn-sm">Configurar oficial de cumplimiento</a>
+							</div>
+						</div>
+						@endif
 						<div class="row">
 							<div class="col-md-12 table-responsive">
 								<table class="table table-striped table-hover">

@@ -7,6 +7,7 @@ use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ControlVigilancia\Alerta;
+use App\Models\ControlVigilancia\OficialCumplimiento;
 
 class AlertaSarlaftController extends Controller
 {
@@ -23,11 +24,17 @@ class AlertaSarlaftController extends Controller
     {
         $this->log('Ingresó a consultar las alertas SARLAFT');
         $alertas = Alerta::entidadId()
+            ->nombre($request->nombre)
             ->orderBy("nombre")
-            ->get();dd($alertas);
+            ->get();
+
+        $oficialCumplimientoCantidad = OficialCumplimiento::entidadId()
+            ->activo()
+            ->count();
 
         return view("controlVigilancia.alertasSarlaft.index")
-            ->withAlertas($alertas);
+            ->withAlertas($alertas)
+            ->withCantidadOficialCumplimiento($oficialCumplimientoCantidad);
     }
 
     public function edit(Alerta $obj)
@@ -75,10 +82,10 @@ class AlertaSarlaftController extends Controller
         Route::get(
             'alertasSarlaft/{obj}/edit',
             'ControlVigilancia\AlertaSarlaftController@edit'
-        );
+        )->name('alertasSarlaft.edit');
 
         Route::put(
-            'alertasSarlaft',
+            'alertasSarlaft/{obj}',
             'ControlVigilancia\AlertaSarlaftController@update'
         );
     }
