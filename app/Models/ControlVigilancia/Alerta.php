@@ -24,10 +24,17 @@ class Alerta extends Model
      * @var array
      */
     protected $fillable = [
-        'entidad_id',
-        'nombre',
-        'periodicidad', //DIARIO, SEMANAL, MENSUAL, SEMESTRAL, ANUAL
-        'fecha_proxima_ejecucion'
+        //Ninguna es fillable, ya que son parámetros por defecto
+        //'entidad_id',
+        //'nombre',
+        //'diario',
+        //'fecha_ultima_diario',
+        //'semanal',
+        //'fecha_ultima_semanal',
+        //'mensual',
+        //'fecha_ultima_mensual',
+        //'anual',
+        //'fecha_ultima_anual',
     ];
 
     /**
@@ -44,8 +51,10 @@ class Alerta extends Model
      * @var array
      */
     protected $dates = [
-        'fecha_proxima_ejecucion',
-        'fecha_ultima_ejecucion',
+        'fecha_ultima_diario',
+        'fecha_ultima_semanal',
+        'fecha_ultima_mensual',
+        'fecha_ultima_anual',
 
         'created_at',
         'updated_at',
@@ -58,8 +67,15 @@ class Alerta extends Model
      * @var array
      */
     protected $casts = [
-        'fecha_proxima_ejecucion'   => 'datetime:Y-m-d',
-        'fecha_ultima_ejecucion'    => 'datetime:Y-m-d',
+        'fecha_ultima_diario'       => 'datetime:Y-m-d',
+        'fecha_ultima_semanal'      => 'datetime:Y-m-d',
+        'fecha_ultima_mensual'      => 'datetime:Y-m-d',
+        'fecha_ultima_anual'        => 'datetime:Y-m-d',
+
+        'diario'                    => 'boolean',
+        'semanal'                   => 'boolean',
+        'mensual'                   => 'boolean',
+        'anual'                     => 'boolean',
 
         'created_at'                => 'datetime:Y-m-d',
         'updated_at'                => 'datetime:Y-m-d',
@@ -95,7 +111,7 @@ class Alerta extends Model
     }
 
     public function scopeNombre($query, $value) {
-        $query->where('nombre', $value);
+        $query->where("nombre", "like", "%$value%");
     }
 
     /**
