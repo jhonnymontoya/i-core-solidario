@@ -60,7 +60,40 @@
 							</div>
 						</p>
 					@else
-						Existe
+						<div class="row">
+							<div class="col-md-11 offset-md-1">
+								<h4>Datos del oficial de cumplimiento:</h4>
+							</div>
+						</div>
+
+						<br>
+						<div class="row">
+							<div class="col-md-9 offset-md-2">
+								<dl class="row">
+									<dt class="col-2">Nombre:</dt>
+									<dd class="col-md-10">{{ $oficialCumplimiento->nombre }}</dd>
+
+									<dt class="col-2">Correo electrónico:</dt>
+									<dd class="col-md-10">
+										<a href="mailto:{{ $oficialCumplimiento->email }}">
+											{{ $oficialCumplimiento->email }}
+										</a>
+									</dd>
+
+									@if(empty($oficialCumplimiento->email_copia) == false)
+										<dt class="col-2">Copia correo electrónico:</dt>
+										<dd class="col-md-10">
+											<a href="mailto:{{ $oficialCumplimiento->email_copia }}">
+												{{ $oficialCumplimiento->email_copia }}
+											</a>
+										</dd>
+									@endif
+								</dl>
+							</div>
+						</div>
+						<div class="text-right">
+		                    <a href="{{ url('oficialCumplimiento/edit') }}" class="btn btn-outline-primary pull-right">Editar</a>
+		                </div>
 					@endif
 				</div>
 				<div class="card-footer">
