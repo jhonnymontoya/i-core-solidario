@@ -6,6 +6,7 @@ use Route;
 use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use App\Models\ControlVigilancia\OficialCumplimiento;
 use App\Http\Requests\ControlVigilancia\OficialCumplimiento\CreateOficialCumplimientoRequest;
 
@@ -39,6 +40,14 @@ class OficialCumplimientoController extends Controller
      */
     public function create()
     {
+        $oficialCumplimiento = OficialCumplimiento::entidadId()
+            ->activo()
+            ->count();
+
+        if($oficialCumplimiento == 0) {
+            Session::flash("error", "Ya existe un oficial de cumplimiento");
+            return redirect("oficialCumplimiento");
+        }
         return view("controlVigilancia.oficialCumplimplimiento.create");
     }
 
@@ -47,6 +56,14 @@ class OficialCumplimientoController extends Controller
      */
     public function store(CreateOficialCumplimientoRequest $request)
     {
+        $oficialCumplimiento = OficialCumplimiento::entidadId()
+            ->activo()
+            ->count();
+
+        if($oficialCumplimiento == 0) {
+            Session::flash("error", "Ya existe un oficial de cumplimiento");
+            return redirect("oficialCumplimiento");
+        }
         dd($request->all());
         echo "store";
     }
