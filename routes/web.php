@@ -219,6 +219,9 @@
     //Rutas de oficial de cumplimiento
     \App\Http\Controllers\ControlVigilancia\OficialCumplimientoController::routes();
 
+    //Rutas de alertas sarlaft
+    \App\Http\Controllers\ControlVigilancia\AlertaSarlaftController::routes();
+
 /***************************************************************************************
  * Rutas de Home
  ***************************************************************************************/
