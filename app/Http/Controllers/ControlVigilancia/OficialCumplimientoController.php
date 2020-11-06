@@ -24,6 +24,7 @@ class OficialCumplimientoController extends Controller
 
     public function index()
     {
+        $this->log('Ingresó a consultar el oficial de cumplimiento');
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->orderBy("id", "desc")
@@ -35,6 +36,7 @@ class OficialCumplimientoController extends Controller
 
     public function create()
     {
+        $this->log('Ingresó a crear el oficial de cumplimiento');
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->count();
@@ -48,6 +50,7 @@ class OficialCumplimientoController extends Controller
 
     public function store(CreateOficialCumplimientoRequest $request)
     {
+        $this->log("Creó el oficial de cumplimiento con los siguientes parámetros " . json_encode($request->all()), 'CREAR');
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->count();
@@ -70,6 +73,7 @@ class OficialCumplimientoController extends Controller
 
     public function edit()
     {
+        $this->log('Ingresó a editar el oficial de cumplimiento');
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->orderBy("id", "desc")
@@ -86,6 +90,7 @@ class OficialCumplimientoController extends Controller
 
     public function update(EditOficialCumplimientoRequest $request)
     {
+        $this->log("Creó el oficial de cumplimiento con los siguientes parámetros " . json_encode($request->all()), 'ACTUALIZAR');
         $oficialCumplimiento = OficialCumplimiento::entidadId()
             ->activo()
             ->orderBy("id", "desc")
