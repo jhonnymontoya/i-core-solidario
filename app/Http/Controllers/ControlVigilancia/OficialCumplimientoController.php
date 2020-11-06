@@ -60,6 +60,8 @@ class OficialCumplimientoController extends Controller
         $oficialCumplimiento = new OficialCumplimiento;
         $oficialCumplimiento->fill($request->all());
         $oficialCumplimiento->entidad_id = $entidadId;
+        $oficialCumplimiento->save();
+
         Session::flash("message", "Se ha creado con éxito el oficial de cumplimiento");
         return redirect("oficialCumplimiento");
     }
