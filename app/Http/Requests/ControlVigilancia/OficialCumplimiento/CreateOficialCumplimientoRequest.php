@@ -25,8 +25,8 @@ class CreateOficialCumplimientoRequest extends FormRequest
     {
         return [
             'nombre'    => 'required|string|min:6|max:255',
-            'email'     => 'required|email|max:255',
-            'emailcc'   => 'nullable|email|max:255'
+            'email'     => 'required|email:strict,dns|max:255',
+            'emailcc'   => 'nullable|email:strict,dns|max:255'
         ];
     }
 
