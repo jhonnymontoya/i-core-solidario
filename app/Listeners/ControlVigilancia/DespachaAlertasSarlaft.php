@@ -3,7 +3,11 @@
 namespace App\Listeners\ControlVigilancia;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Events\ICoreCronJob;
+use App\Models\General\Entidad;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -16,7 +20,6 @@ class DespachaAlertasSarlaft
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -36,7 +39,6 @@ class DespachaAlertasSarlaft
         {
             $oficialCumlimiento = $entidad->oficialesCumplimiento->first();
             $alertas = $entidad->alertas;
-
             foreach($alertas as $alerta){
                 $this->despacharAlerta($oficialCumlimiento, $alerta);
             }
@@ -142,47 +144,87 @@ class DespachaAlertasSarlaft
 
     private function logDeListas($oficialCumlimiento, $alerta, $periodicidades)
     {
-        if($periodicidades['DIARIO'])
-        {
-            $this->actualizarProximo($alerta, 'DIARIO');
-        }
+        $fechaFin = Carbon::now()->startOfDay();
+        $fechaInicio = $fechaFin->clone();
 
-        if($periodicidades['SEMANAL'])
-        {
-            $this->actualizarProximo($alerta, 'SEMANAL');
-        }
+        foreach ($periodicidades as $periodicidad => $value) {
+            if($value == false)
+            {
+                continue;
+            }
 
-        if($periodicidades['MENSUAL'])
-        {
-            $this->actualizarProximo($alerta, 'MENSUAL');
-        }
+            if($periodicidad == 'DIARIO')
+            {
+                $fechaInicio->subDays(20);
+                $this->actualizarProximo($alerta, 'DIARIO');
+            }
 
-        if($periodicidades['ANUAL'])
-        {
-            $this->actualizarProximo($alerta, 'ANUAL');
+            if($periodicidad = 'SEMANAL')
+            {
+                $fechaInicio->subWeek();
+                $this->actualizarProximo($alerta, 'SEMANAL');
+            }
+
+            if($periodicidad == 'MENSUAL')
+            {
+                $fechaInicio->subMonth();
+                $this->actualizarProximo($alerta, 'MENSUAL');
+            }
+
+            if($periodicidad == 'ANUAL')
+            {
+                $fechaInicio->subYear();
+                $this->actualizarProximo($alerta, 'ANUAL');
+            }
+
+            $query = "EXEC controlVigilancia.sp_chequeo_listas_control_por_rango_tiempo ?, ?, ?";
+            $datos = DB::select($query, [$alerta->entidad_id, $fechaInicio, $fechaFin]);
+
+            $archivo = "app%s%s";
+            $archivo = sprintf($archivo, DIRECTORY_SEPARATOR, Str::uuid());
+            $archivo = storage_path($archivo);
+
+            $fp = fopen($archivo, 'w');
+            if($datos)
+            {
+                fputcsv($fp, array_keys((array)$datos[0]));
+                foreach($datos as $data) {
+                    fputcsv($fp, (array)$data);
+                }
+            }
+            fclose($fp);
         }
     }
 
     private function transaccionesEnEfectivo($oficialCumlimiento, $alerta, $periodicidades)
     {
-        if($periodicidades['DIARIO'])
-        {
-            $this->actualizarProximo($alerta, 'DIARIO');
-        }
+        $fechaFin = Carbon::now()->startOfDay();
+        $fechaInicio = $fechaFin->clone();
 
-        if($periodicidades['SEMANAL'])
-        {
-            $this->actualizarProximo($alerta, 'SEMANAL');
-        }
+        foreach ($periodicidades as $periodicidad => $value) {
+            if($periodicidad == 'DIARIO' && $value)
+            {
+                $fechaInicio->subDays(20);
+                $this->actualizarProximo($alerta, 'DIARIO');
+            }
 
-        if($periodicidades['MENSUAL'])
-        {
-            $this->actualizarProximo($alerta, 'MENSUAL');
-        }
+            if($periodicidad = 'SEMANAL' && $value)
+            {
+                $fechaInicio->subWeek();
+                $this->actualizarProximo($alerta, 'SEMANAL');
+            }
 
-        if($periodicidades['ANUAL'])
-        {
-            $this->actualizarProximo($alerta, 'ANUAL');
+            if($periodicidad == 'MENSUAL' && $value)
+            {
+                $fechaInicio->subMonth();
+                $this->actualizarProximo($alerta, 'MENSUAL');
+            }
+
+            if($periodicidad == 'ANUAL' && $value)
+            {
+                $fechaInicio->subYear();
+                $this->actualizarProximo($alerta, 'ANUAL');
+            }
         }
     }
 }
