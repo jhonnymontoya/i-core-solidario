@@ -6,6 +6,8 @@ use Route;
 use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ControlVigilancia\OficialCumplimiento;
+use App\Http\Requests\ControlVigilancia\OficialCumplimiento\CreateOficialCumplimientoRequest;
 
 class OficialCumplimientoController extends Controller
 {
@@ -21,9 +23,15 @@ class OficialCumplimientoController extends Controller
     /**
      * Lista los recursos
      */
-    public function index(Request $request)
+    public function index()
     {
-        echo "index";
+        $oficialCumplimiento = OficialCumplimiento::entidadId()
+            ->activo()
+            ->orderBy("id", "desc")
+            ->first();
+
+        return view("controlVigilancia.oficialCumplimplimiento.index")
+            ->withOficialCumplimiento($oficialCumplimiento);
     }
 
     /**
@@ -31,14 +39,15 @@ class OficialCumplimientoController extends Controller
      */
     public function create()
     {
-        echo "create";
+        return view("controlVigilancia.oficialCumplimplimiento.create");
     }
 
     /**
      * Crea un recurso
      */
-    public function store(Request $request)
+    public function store(CreateOficialCumplimientoRequest $request)
     {
+        dd($request->all());
         echo "store";
     }
 
