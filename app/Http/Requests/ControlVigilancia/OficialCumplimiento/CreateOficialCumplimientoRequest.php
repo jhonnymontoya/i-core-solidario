@@ -24,7 +24,9 @@ class CreateOficialCumplimientoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre'    => 'required|string|min:6|max:255',
+            'email'     => 'required|email|max:255',
+            'emailcc'   => 'nullable|email|max:255'
         ];
     }
 
@@ -48,6 +50,8 @@ class CreateOficialCumplimientoRequest extends FormRequest
     public function attributes()
     {
         return [
+            'email'     => 'correo electrónico',
+            'emailcc'   => 'copia correo electrónico'
         ];
     }
 }
