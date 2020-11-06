@@ -30,6 +30,12 @@
 			   {{ Session::get('message') }}
 			</div>
 		@endif
+		@if (Session::has('error'))
+			<div class="alert alert-danger alert-dismissible" data-closable>
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+			   {{ Session::get('error') }}
+			</div>
+		@endif
 		<div class="row">
 			<div class="col-md-2">
 				<a href="{{ url('oficialCumplimiento/create') }}" class="btn btn-outline-primary">Crear nuevo</a>
