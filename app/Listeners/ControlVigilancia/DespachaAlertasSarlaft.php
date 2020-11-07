@@ -7,9 +7,12 @@ use Illuminate\Support\Str;
 use App\Events\ICoreCronJob;
 use App\Models\General\Entidad;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Mail\ControlVigilancia\AlertaChekeoListasControl;
+use App\Mail\ControlVigilancia\AlertaTransaccionesEnEfectivo;
 
 class DespachaAlertasSarlaft
 {
@@ -155,11 +158,11 @@ class DespachaAlertasSarlaft
 
             if($periodicidad == 'DIARIO')
             {
-                $fechaInicio->subDays(20);
+                $fechaInicio->subDay();
                 $this->actualizarProximo($alerta, 'DIARIO');
             }
 
-            if($periodicidad = 'SEMANAL')
+            if($periodicidad == 'SEMANAL')
             {
                 $fechaInicio->subWeek();
                 $this->actualizarProximo($alerta, 'SEMANAL');
@@ -180,8 +183,13 @@ class DespachaAlertasSarlaft
             $query = "EXEC controlVigilancia.sp_chequeo_listas_control_por_rango_tiempo ?, ?, ?";
             $datos = DB::select($query, [$alerta->entidad_id, $fechaInicio, $fechaFin]);
 
-            $archivo = "app%s%s";
-            $archivo = sprintf($archivo, DIRECTORY_SEPARATOR, Str::uuid());
+            $archivo = "app%stemp%s%s";
+            $archivo = sprintf(
+                $archivo,
+                DIRECTORY_SEPARATOR,
+                DIRECTORY_SEPARATOR,
+                Str::uuid()
+            );
             $archivo = storage_path($archivo);
 
             $fp = fopen($archivo, 'w');
@@ -193,6 +201,22 @@ class DespachaAlertasSarlaft
                 }
             }
             fclose($fp);
+
+            $correo = new AlertaChekeoListasControl(
+                $oficialCumlimiento,
+                $periodicidad,
+                $archivo
+            );
+            if(empty($oficialCumlimiento->email_copia) == false)
+            {
+                Mail::to($oficialCumlimiento->email)
+                    ->cc($oficialCumlimiento->email_copia)
+                    ->send($correo);
+            }
+            else
+            {
+                Mail::to($oficialCumlimiento->email)->send($correo);
+            }
         }
     }
 
@@ -202,28 +226,71 @@ class DespachaAlertasSarlaft
         $fechaInicio = $fechaFin->clone();
 
         foreach ($periodicidades as $periodicidad => $value) {
-            if($periodicidad == 'DIARIO' && $value)
+            if($value == false)
             {
-                $fechaInicio->subDays(20);
+                continue;
+            }
+
+            if($periodicidad == 'DIARIO')
+            {
+                $fechaInicio->subDay();
                 $this->actualizarProximo($alerta, 'DIARIO');
             }
 
-            if($periodicidad = 'SEMANAL' && $value)
+            if($periodicidad == 'SEMANAL')
             {
                 $fechaInicio->subWeek();
                 $this->actualizarProximo($alerta, 'SEMANAL');
             }
 
-            if($periodicidad == 'MENSUAL' && $value)
+            if($periodicidad == 'MENSUAL')
             {
                 $fechaInicio->subMonth();
                 $this->actualizarProximo($alerta, 'MENSUAL');
             }
 
-            if($periodicidad == 'ANUAL' && $value)
+            if($periodicidad == 'ANUAL')
             {
                 $fechaInicio->subYear();
                 $this->actualizarProximo($alerta, 'ANUAL');
+            }
+
+            $query = "EXEC controlVigilancia.sp_transacciones_efectivo ?, ?, ?";
+            $datos = DB::select($query, [$alerta->entidad_id, $fechaInicio, $fechaFin]);
+
+            $archivo = "app%stemp%s%s";
+            $archivo = sprintf(
+                $archivo,
+                DIRECTORY_SEPARATOR,
+                DIRECTORY_SEPARATOR,
+                Str::uuid()
+            );
+            $archivo = storage_path($archivo);
+
+            $fp = fopen($archivo, 'w');
+            if($datos)
+            {
+                fputcsv($fp, array_keys((array)$datos[0]));
+                foreach($datos as $data) {
+                    fputcsv($fp, (array)$data);
+                }
+            }
+            fclose($fp);
+
+            $correo = new AlertaTransaccionesEnEfectivo(
+                $oficialCumlimiento,
+                $periodicidad,
+                $archivo
+            );
+            if(empty($oficialCumlimiento->email_copia) == false)
+            {
+                Mail::to($oficialCumlimiento->email)
+                    ->cc($oficialCumlimiento->email_copia)
+                    ->send($correo);
+            }
+            else
+            {
+                Mail::to($oficialCumlimiento->email)->send($correo);
             }
         }
     }
