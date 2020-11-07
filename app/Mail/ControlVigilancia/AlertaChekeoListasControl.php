@@ -34,7 +34,7 @@ class AlertaChekeoListasControl extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $titulo = "Estimada/a " . $this->oficialCumplimiento->nombre;
+        $titulo = "Estimado/a " . $this->oficialCumplimiento->nombre;
         $entidad = $this->oficialCumplimiento->entidad;
         $sigla = $entidad->terceroEntidad->sigla;
         $subject = "Reporte log listas de control %s";
@@ -52,7 +52,7 @@ class AlertaChekeoListasControl extends Mailable implements ShouldQueue
 
         $this->withSwiftMessage(function($message) {
             $message->getHeaders()
-                ->addTextHeader('X-ICore-Tag', 'ReporteLogListasControl');
+                ->addTextHeader('X-ICore-Tag', 'ReporteAlertasLogListasControl');
         });
 
         $from = config('mail.from.address', 'noresponder@i-core.co');
@@ -61,6 +61,7 @@ class AlertaChekeoListasControl extends Mailable implements ShouldQueue
             ->markdown('emails.controlVigilancia.alertaChekeoListasControl')
             ->withSigla($sigla)
             ->withTitulo($titulo)
+            ->withPeriodicidad($this->periodicidad)
             ->attach($this->archivo, [
                 'as' => $nombreArchivo,
                 'mime' => 'text/csv'
