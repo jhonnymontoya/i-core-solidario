@@ -16,7 +16,7 @@
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
 						<li class="breadcrumb-item"><a href="#"> SARLAFT</a></li>
-						<li class="breadcrumb-item active">Aleras</li>
+						<li class="breadcrumb-item active">Alertas</li>
 					</ol>
 				</div>
 			</div>
