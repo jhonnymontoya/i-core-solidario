@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Providers\RouteServiceProvider;
-use App\Http\Controllers\Controller;
-use App\Models\General\Tercero;
-use App\Models\Sistema\Usuario;
-use App\Models\Sistema\UsuarioWeb;
-use App\Traits\ICoreTrait;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Route;
 use Session;
 use Validator;
+use App\Traits\ICoreTrait;
+use Illuminate\Http\Request;
+use App\Models\Sistema\Modulo;
+use App\Models\General\Tercero;
+use App\Models\Sistema\Usuario;
+use App\Models\Sistema\UsuarioWeb;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -108,6 +109,15 @@ class LoginController extends Controller
                 $mensaje = ['usuario' => ['Usuario no existe o inactivo']];
                 return redirect()->back()->withInput()->withErrors($mensaje);
             }
+
+            if($tipoUsuario == LoginController::SOCIO){
+                $activo = $this->validarModuloSocioActivo($request->usuario);
+                if($activo == false){
+                    $mensaje = ['usuario' => ['Consulta WEB no activa']];
+                    return redirect()->back()->withInput()->withErrors($mensaje);
+                }
+            }
+
             $avatar = $this->obtenerAvatar($request->usuario, $tipoUsuario);
             Session::put("usuario", $request->usuario);
             Session::put("tipoUsuario", $tipoUsuario);
@@ -296,6 +306,18 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user) {
         auth()->logoutOtherDevices($request->password);
+    }
+
+    protected function validarModuloSocioActivo($socio)
+    {
+        $socio = UsuarioWeb::with([
+            'socios',
+            'socios.tercero'
+        ])->whereUsuario($socio)->first();
+        $entidad_id = $socio->socios[0]->tercero->entidad_id;
+        $modulo = Modulo::entidadId($entidad_id)->codigo('CONWEB')->first();
+        if(is_null($modulo) == true) return false;
+        return $modulo->esta_activo;
     }
 
     /**

@@ -18,6 +18,9 @@
     //Rutas de Retroalimentacion de notificaciones
     \App\Http\Controllers\Sistema\NotificacionesRetroalimentacionController::routes();
 
+    //Rutas de control de módulos
+    \App\Http\Controllers\Sistema\ControlModulos::routes();
+
 /***************************************************************************************
  * Rutas de Generales
  ***************************************************************************************/
