@@ -40,7 +40,7 @@
 		<div class="container-fluid">
 			<div class="card card-{{ $modulos->total()?'primary':'danger' }} card-outline">
 				<div class="card-header with-border">
-					<h3 class="card-title">Solicitudes de crédito</h3>
+					<h3 class="card-title">Control de módulos</h3>
 				</div>
 				<div class="card-body">
 					{!! Form::model(Request::only('name', 'entidad', 'estado'), ['url' => '/controlModulos', 'method' => 'GET', 'role' => 'search']) !!}
