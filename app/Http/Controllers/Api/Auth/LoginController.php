@@ -32,7 +32,7 @@ class LoginController extends Controller
     {
         $credenciales = request(['usuario', 'password']);
         if(!Auth::attempt($credenciales)) {
-            $this->log("API: Intento de ingreso al sistema " . $request->usuario, 'INGRESAR');
+            $this->log("API: Intentó de ingreso al sistema " . $request->usuario, 'INGRESAR');
             return response()->json(['message' => 'No autorizado'], 401);
         }
         $usuario = $request->user();
