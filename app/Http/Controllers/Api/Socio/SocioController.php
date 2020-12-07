@@ -48,6 +48,7 @@ class SocioController extends Controller
             "entidad" => $tercero->entidad->terceroEntidad->nombre,
             "siglaEntidad" => $tercero->entidad->terceroEntidad->sigla,
             "imagen" => $this->getImagen($socio),
+            "esImagenReal" => $socio->esAvatarReal(),
             "ahorros" => Ahorros::getAhorros($socio),
             "creditos" => Creditos::getCreditos($socio),
             "recaudo" => Recaudos::getRecaudos($socio),
