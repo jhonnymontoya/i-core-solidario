@@ -6,10 +6,11 @@ use DB;
 use Route;
 use Validator;
 use Carbon\Carbon;
+use App\Traits\ICoreTrait;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Traits\ICoreTrait;
+use App\Models\Sistema\Modulo;
 use App\Models\Sistema\UsuarioWeb;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credenciales = request(['usuario', 'password']);
-        $activo = $this->validarModuloAppActivo($credenciales->usuario);
+        $activo = $this->validarModuloAppActivo($credenciales["usuario"]);
         if($activo == false){
             $this->log("API: Intentó de ingreso al sistema con APP Movil desabilitada" . $request->usuario, 'INGRESAR');
             return response()->json(['message' => 'App Movil no activa'], 412);
