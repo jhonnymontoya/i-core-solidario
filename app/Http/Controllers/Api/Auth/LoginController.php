@@ -31,6 +31,12 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $credenciales = request(['usuario', 'password']);
+        $activo = $this->validarModuloAppActivo($credenciales->usuario);
+        if($activo == false){
+            $this->log("API: Intentó de ingreso al sistema con APP Movil desabilitada" . $request->usuario, 'INGRESAR');
+            return response()->json(['message' => 'App Movil no activa'], 412);
+        }
+
         if(!Auth::attempt($credenciales)) {
             $this->log("API: Intentó de ingreso al sistema " . $request->usuario, 'INGRESAR');
             return response()->json(['message' => 'No autorizado'], 401);
@@ -126,6 +132,18 @@ class LoginController extends Controller
             }
         }
         return $correos;
+    }
+
+    protected function validarModuloAppActivo($socio)
+    {
+        $socio = UsuarioWeb::with([
+            'socios',
+            'socios.tercero'
+        ])->whereUsuario($socio)->first();
+        $entidad_id = $socio->socios[0]->tercero->entidad_id;
+        $modulo = Modulo::entidadId($entidad_id)->codigo('APPMOVIL')->first();
+        if(is_null($modulo) == true) return false;
+        return $modulo->esta_activo;
     }
 
     /**
