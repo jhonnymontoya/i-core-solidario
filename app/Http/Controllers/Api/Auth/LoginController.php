@@ -34,7 +34,7 @@ class LoginController extends Controller
         $credenciales = request(['usuario', 'password']);
         $activo = $this->validarModuloAppActivo($credenciales["usuario"]);
         if($activo == false){
-            $this->log("API: Intentó de ingreso al sistema con APP Movil desabilitada" . $request->usuario, 'INGRESAR');
+            $this->log("API: Intentó de ingreso al sistema con APP Movil desabilitada " . $request->usuario, 'INGRESAR');
             return response()->json(['message' => 'App Movil no activa'], 412);
         }
 
