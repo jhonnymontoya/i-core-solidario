@@ -26,6 +26,9 @@ class Ahorros
         catch(\ErrorException $e) {}
 
         $res = DB::select("exec ahorros.sp_estado_cuenta_ahorros ?, ?", [$socio->id, $fecha]);
+        foreach($res as &$dato) {
+            $dato->modalidad_ahorro_id = intval($dato->modalidad_ahorro_id);
+        }
         $ahorros = collect($res);
 
         $cuotas = $ahorros->sum("cuota");
