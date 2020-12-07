@@ -82,7 +82,7 @@ class Socio extends Model
 	/**
 	 * Getters personalizados
 	 */
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -197,7 +197,7 @@ class Socio extends Model
 			$this->attributes['fecha_fin_contrato'] = null;
 		}
 	}
-	
+
 	/**
 	 * Scopes
 	 */
@@ -228,7 +228,7 @@ class Socio extends Model
 			return $query->where('estado', $value);
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
@@ -278,7 +278,11 @@ class Socio extends Model
 		}
 		return $avatar;
 	}
-	 
+
+	public function esAvatarReal() {
+		return strlen($this->avatar) > 0 ? true : false;
+	}
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
@@ -286,7 +290,7 @@ class Socio extends Model
 	public function tercero() {
 		return $this->hasOne(Tercero::class, 'id', 'tercero_id');
 	}
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
@@ -338,7 +342,7 @@ class Socio extends Model
 	public function rendimientosSDAT() {
 		return $this->hasMany(RendimientoSDAT::class, 'socio_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a uno
 	 */
@@ -346,7 +350,7 @@ class Socio extends Model
 	public function pagaduria() {
 		return $this->belongsTo(Pagaduria::class, 'pagaduria_id', 'id');
 	}
-	
+
 	public function dependencia() {
 		return $this->belongsTo(Dependencia::class, 'dependencia_id', 'id');
 	}
