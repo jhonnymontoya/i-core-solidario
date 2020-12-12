@@ -34,12 +34,12 @@ class LoginController extends Controller
         $credenciales = request(['usuario', 'password']);
         $activo = $this->validarModuloAppActivo($credenciales["usuario"]);
         if($activo == false){
-            $this->log("API: Intentó de ingreso al sistema con APP Movil desabilitada " . $request->usuario, 'INGRESAR');
+            $this->log("API: Intentó ingresar al sistema con APP Movil desabilitada " . $request->usuario, 'INGRESAR');
             return response()->json(['message' => 'App Movil no activa'], 412);
         }
 
         if(!Auth::attempt($credenciales)) {
-            $this->log("API: Intentó de ingreso al sistema " . $request->usuario, 'INGRESAR');
+            $this->log("API: Intentó ingresar al sistema " . $request->usuario, 'INGRESAR');
             return response()->json(['message' => 'No autorizado'], 401);
         }
         $usuario = $request->user();
@@ -51,6 +51,22 @@ class LoginController extends Controller
             'token' => $tokenRes->accessToken,
             'fechaExpiracion' => $token->expires_at
         ]);
+    }
+
+    public function validarCredenciales(LoginRequest $request)
+    {
+        $credenciales = request(['usuario', 'password']);
+
+        $respuesta = false;
+        $usuario = $request->user();
+        $respuesta = $usuario->usuario == $credenciales["usuario"]
+            && Hash::check($credenciales["password"], $usuario->password);
+        if(!$respuesta) {
+            $this->log("API: Intentó validar credenciales  " . $request->usuario, 'INGRESAR');
+            return response()->json(['message' => 'No autorizado'], 401);
+        }
+        $this->log("API: Validó credenciales para Biometrico: " . $request->usuario, 'INGRESAR');
+        return response()->json();
     }
 
     public function logout(Request $request)
@@ -153,6 +169,7 @@ class LoginController extends Controller
     public static function routes()
     {
         Route::post('1.0/login', 'Api\Auth\LoginController@login');
+        Route::post('1.0/validarCredenciales', 'Api\Auth\LoginController@validarCredenciales');
         Route::get('1.0/logout', 'Api\Auth\LoginController@logout');
         Route::post('1.0/forgotPassword', 'Api\Auth\LoginController@sendResetLinkEmail');
         Route::post('1.0/ping', 'Api\Auth\LoginController@ping');
