@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use \Illuminate\Support\Facades\Hash;
 use App\Mail\Sistema\PasswordResetLink;
 use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Requests\Api\Auth\ResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ForgotPasswordRequest;
 
 class LoginController extends Controller
@@ -62,10 +63,10 @@ class LoginController extends Controller
         $respuesta = $usuario->usuario == $credenciales["usuario"]
             && Hash::check($credenciales["password"], $usuario->password);
         if(!$respuesta) {
-            $this->log("API: Intentó validar credenciales  " . $request->usuario, 'INGRESAR');
+            $this->log("API: Intentó validar credenciales  " . $request->usuario, 'CONSULTAR');
             return response()->json(['message' => 'No autorizado'], 401);
         }
-        $this->log("API: Validó credenciales para Biometrico: " . $request->usuario, 'INGRESAR');
+        $this->log("API: Validó credenciales para Biometrico: " . $request->usuario, 'CONSULTAR');
         return response()->json();
     }
 
@@ -95,10 +96,30 @@ class LoginController extends Controller
         }
     }
 
+    public function cambiarPassword(ResetPasswordRequest $request)
+    {
+        $credenciales = request(['usuario', 'passwordActual', 'password']);
+
+        $respuesta = false;
+        $usuario = $request->user();
+        $respuesta = $usuario->usuario == $credenciales["usuario"]
+            && Hash::check($credenciales["passwordActual"], $usuario->password);
+        if(!$respuesta) {
+            $this->log("API: Intentó cambiar la contraseña sin exito " . $request->usuario, 'ACTUALIZAR');
+            return response()->json(['message' => 'No autorizado'], 401);
+        }
+
+        $usuario->password = bcrypt($credenciales["password"]);
+        $usuario->save();
+
+        $this->log("API: Actualizó la contraseña: " . $request->usuario, 'ACTUALIZAR');
+        return response()->json();
+    }
+
     public function ping(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ping de token de seguridad: " . $usuario->usuario, 'INGRESAR');
+        $this->log("API: Ping de token de seguridad: " . $usuario->usuario, 'CONSULTAR');
     }
 
     /**
@@ -172,6 +193,7 @@ class LoginController extends Controller
         Route::post('1.0/validarCredenciales', 'Api\Auth\LoginController@validarCredenciales');
         Route::get('1.0/logout', 'Api\Auth\LoginController@logout');
         Route::post('1.0/forgotPassword', 'Api\Auth\LoginController@sendResetLinkEmail');
+        Route::post('1.0/cambiarPassword', 'Api\Auth\LoginController@cambiarPassword');
         Route::post('1.0/ping', 'Api\Auth\LoginController@ping');
     }
 }
