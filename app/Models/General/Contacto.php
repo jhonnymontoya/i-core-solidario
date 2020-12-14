@@ -58,24 +58,24 @@ class Contacto extends Model
 	/**
 	 * Getters personalizados
 	 */
-	
+
 	/**
 	 * Setters Personalizados
 	 */
 
 	/**
 	 * Se guarda el email en minúscula
-	 * @param type $value 
+	 * @param type $value
 	 * @return type
 	 */
 	public function setEmailAttribute($value) {
 		$this->attributes['email'] = mb_convert_case($value, MB_CASE_LOWER, "UTF-8");
 	}
-	
+
 	/**
 	 * Scopes
 	 */
-	
+
 	/**
 	 * Funciones
 	 */
@@ -101,15 +101,26 @@ class Contacto extends Model
 
 		return false;
 	}
-	 
+
+	public function getTelefono()
+	{
+		if(!empty($this->attributes["movil"])){
+			return $this->attributes["movil"];
+		}
+		elseif(!empty($this->attributes["telefono"])){
+			return $this->attributes["telefono"];
+		}
+		return "";
+	}
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
-	
+
 	/**
 	 * Relaciones Muchos a uno
 	 */
@@ -125,7 +136,7 @@ class Contacto extends Model
 	public function tipoVivienda() {
 		return $this->belongsTo(TipoVivienda::class, 'tipo_vivienda_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
