@@ -28,7 +28,7 @@ class AhorrosController extends Controller
         $this->validarPermisoModalidadUsuario($socio, $obj);
         $log = "API: Usuario '%s' consultó los ahorros de la modalidad '%s'";
         $log = sprintf($log, $usuario->usuario, $obj->nombre);
-        $this->log($log, 'INGRESAR');
+        $this->log($log, 'CONSULTAR');
 
         $data = Ahorros::getDetalleAhorros($socio, $obj);
         return response()->json($data);

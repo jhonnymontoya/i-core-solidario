@@ -29,7 +29,7 @@ class CreditosController extends Controller
         $this->validarPermisoCreditoUsuario($tercero, $obj);
         $log = "API: Usuario '%s' consultó el crédito '%s'";
         $log = sprintf($log, $usuario->usuario, $obj->numero_obligacion);
-        $this->log($log, 'INGRESAR');
+        $this->log($log, 'CONSULTAR');
 
         $data = Creditos::getDetalleCredito($tercero, $obj);
         return response()->json($data);
@@ -48,17 +48,17 @@ class CreditosController extends Controller
             $solicitudCredito->numero_obligacion
         );
         if($tercero->entidad_id != $solicitudCredito->entidad_id) {
-            $this->log($log, 'INGRESAR');
+            $this->log($log, 'CONSULTAR');
             return abort(401, 'No está autorizado a ingresar a la información');
         }
 
         if($solicitudCredito->estado_solicitud != 'DESEMBOLSADO') {
-            $this->log($log, 'INGRESAR');
+            $this->log($log, 'CONSULTAR');
             return abort(401, 'No está autorizado a ingresar a la información');
         }
 
         if($solicitudCredito->tercero_id != $tercero->id) {
-            $this->log($log, 'INGRESAR');
+            $this->log($log, 'CONSULTAR');
             return abort(401, 'No está autorizado a ingresar a la información');
         }
     }

@@ -33,7 +33,7 @@ class SocioController extends Controller
     public function socio(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ingresó al dashboard: " . $usuario->usuario, 'INGRESAR');
+        $this->log("API: Ingresó al dashboard: " . $usuario->usuario, 'CONSULTAR');
         $usuario = $request->user();
         $socio = $this->getSocio($usuario);
         return response()->json($socio);
@@ -45,7 +45,7 @@ class SocioController extends Controller
     public function perfil(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ingresó al perfil: " . $usuario->usuario, 'INGRESAR');
+        $this->log("API: Ingresó al perfil: " . $usuario->usuario, 'CONSULTAR');
         $usuario = $request->user();
         $perfil = $this->getPerfil($usuario);
         return response()->json($perfil);
@@ -57,7 +57,7 @@ class SocioController extends Controller
     public function beneficiarios(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ingresó al beneficiarios: " . $usuario->usuario, 'INGRESAR');
+        $this->log("API: Ingresó al beneficiarios: " . $usuario->usuario, 'CONSULTAR');
         $usuario = $request->user();
         $perfil = $this->getBeneficiarios($usuario);
         return response()->json($perfil);
