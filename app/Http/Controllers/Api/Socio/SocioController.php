@@ -163,7 +163,7 @@ class SocioController extends Controller
                     $apellido2
                 ),
                 "parentesco" => $parentesco->nombre,
-                "porcentajeBeneficio" => number_format($beneficiario->porcentaje_beneficio, 2),
+                "porcentajeBeneficio" => number_format($beneficiario->porcentaje_beneficio, 0),
             ];
 
             $data->push($dato);
