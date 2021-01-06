@@ -2,22 +2,24 @@
 
 namespace App\Listeners\Tarjeta;
 
-use App\Events\Tarjeta\ProcesarTransaccionesProvenientesRed;
+use Log;
+use Exception;
+use Carbon\Carbon;
+use App\Models\General\Tercero;
+use App\Models\Tarjeta\Producto;
 use App\Helpers\ConversionHelper;
 use App\Helpers\FinancieroHelper;
-use App\Models\Contabilidad\DetalleMovimientoTemporal;
-use App\Models\Contabilidad\MovimientoTemporal;
-use App\Models\Contabilidad\TipoComprobante;
-use App\Models\Creditos\MovimientoCapitalCredito;
-use App\Models\General\Tercero;
-use App\Models\Tarjeta\LogMovimientoTransaccionRecibido;
-use App\Models\Tarjeta\Producto;
-use Carbon\Carbon;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
-use Exception;
-use Log;
+use App\Models\Ahorros\ModalidadAhorro;
+use App\Models\Ahorros\MovimientoAhorro;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\Contabilidad\TipoComprobante;
+use App\Models\Contabilidad\MovimientoTemporal;
+use App\Models\Creditos\MovimientoCapitalCredito;
+use App\Models\Contabilidad\DetalleMovimientoTemporal;
+use App\Models\Tarjeta\LogMovimientoTransaccionRecibido;
+use App\Events\Tarjeta\ProcesarTransaccionesProvenientesRed;
 
 class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 {
@@ -105,23 +107,23 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 		}
 
 		switch ($data->S008) {
-			//Caso aumento de cupo
+			//Caso aumento de cupo crédito o disminución ahorro
 			case '00':
 			case '01':
 			case '02':
 			case '03':
 			case 'CP':
 			case 'CQ':
-				$this->prosesarTransaccionAumentoCredito();
+				$this->retiroRecursos($data);
 				break;
 
-			//Caso disminución de cupo
+			//Caso disminución de cupo crédito o aumento de ahorro
 			case '20':
 			case '21':
 			case '22':
 			case '40':
 			case '42':
-				$this->prosesarTransaccionDisminucionCredito();
+				$this->depositoRecursos($data);
 				break;
 
 			//Solo costo
@@ -182,6 +184,318 @@ class ProcesarTransaccionesProvenientesDeRed implements ShouldQueue
 				$this->prosesarTransaccionOmitir();
 				break;
 		}
+	}
+
+	private function retiroRecursos($data)
+	{
+		switch ($data->S03A) {
+			case '10': //Operación de ahorros
+				$this->prosesarTransaccionDisminucionAhorros();
+				break;
+
+			case '50': //Operación de crédito
+				$this->prosesarTransaccionAumentoCredito();
+				break;
+
+			default:
+				$this->prosesarTransaccionOmitir();
+				break;
+		}
+	}
+
+	private function depositoRecursos($data)
+	{
+		switch ($data->S03A) {
+			case '10': //Operación de ahorros
+				$this->prosesarTransaccionAumentoAhorros();
+				break;
+
+			case '50': //Operación de crédito
+				$this->prosesarTransaccionDisminucionCredito();
+				break;
+
+			default:
+				$this->prosesarTransaccionOmitir();
+				break;
+		}
+	}
+
+	private function prosesarTransaccionDisminucionAhorros()
+	{
+		$s032 = $this->tr->getValor("S032");
+		if ($s032 == 0) {
+			$this->prosesarTransaccionSoloCosto();
+			return;
+		}
+		if ($this->tr->getCostoTransaccion() + $s032 == 0) {
+			//Tiene costo cero
+			$this->prosesarTransaccionOmitir();
+			return;
+		}
+		$data = $this->tr->jsonData();
+		$s037 = $this->tr->getValor("S037");
+		$s056 = $this->tr->getValor("S056");
+		$t = $this->tr->tercero;
+		$p = $this->tr->producto;
+		$ma = ModalidadAhorro::with("cuenta")
+			->entidadId($t->entidad_id)
+			->activa()
+			->whereCodigo("VIS")
+			->first();
+
+		try {
+			DB::beginTransaction();
+			$detalleMovimientos = collect();
+			$valores = array();
+
+			//Detalles contables
+			$detalleMovimientos->push($this->construirDetalleContable(
+				$ma->cuenta, //Cuenta
+				$s032, //Débito
+				0, //Crédito
+				sprintf("VIS-%s", $t->numero_identificacion) //Referencia
+			));
+			$valores[] = $s032;
+			if ($s037 > 0 && $s056 > 0) {
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$ma->cuenta, //Cuenta
+					$s037, //Débito
+					0, //Crédito
+					sprintf("VIS-%s", $t->numero_identificacion) //Referencia
+				));
+				$valores[] = $s037;
+				if ($s037 == $s056){
+					$detalleMovimientos->push($this->construirDetalleContable(
+						$p->cuentaCompensacion, //Cuenta
+						0, //Débito
+						$s037 + $s032, //Crédito
+						$data->S030 //Referencia
+					));
+				}
+				else {
+					$diff = $s056 - $s037;
+					$c = $diff > 0 ? $p->egresoComision : $p->ingresoComision;
+					$detalleMovimientos->push($this->construirDetalleContable(
+						$c, //Cuenta
+						$diff > 0 ? $diff : 0, //Débito
+						$diff > 0 ? 0 : abs($diff), //Crédito
+						$data->S030 //Referencia
+					));
+					$detalleMovimientos->push($this->construirDetalleContable(
+						$p->cuentaCompensacion, //Cuenta
+						0, //Débito
+						$s056 + $s032, //Crédito
+						$data->S030 //Referencia
+					));
+				}
+			}
+			else if ($s037 > 0) {
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$ma->cuenta, //Cuenta
+					$s037, //Débito
+					0, //Crédito
+					sprintf("VIS-%s", $t->numero_identificacion) //Referencia
+				));
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$p->ingresoComision, //Cuenta
+					0, //Débito
+					$s037, //Crédito
+					$data->S030 //Referencia
+				));
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$p->cuentaCompensacion, //Cuenta
+					0, //Débito
+					$s032, //Crédito
+					$data->S030 //Referencia
+				));
+				$valores[] = $s037;
+			}
+			else {
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$p->cuentaCompensacion, //Cuenta
+					0, //Débito
+					$s032, //Crédito
+					$data->S030 //Referencia
+				));
+			}
+			$mt = $this->guardarDetallesmovimiento($detalleMovimientos);
+			$res = DB::select(
+				'exec tarjeta.sp_contabilizar_transaccion ?',
+				[$mt->id]
+			);
+			if (!$res || $res[0]->ERROR == 1) {
+				$men = "Error contabilizando transacción %s en disminución ";
+				$men .= "ahorro (%s)";
+				throw new Exception(
+					printf($mensaje, $this->tr->id, $res[0]->MENSAJE)
+				);
+			}
+			//Se obtiene el id del movimiento contabilizado
+			$this->tr->movimiento_id = $res[0]->MENSAJE;
+			foreach ($valores as $valor) {
+				$mva = MovimientoAhorro::create([
+					'entidad_id' => $t->entidad_id,
+					'socio_id' => $t->socio->id,
+					'modalidad_ahorro_id' => $ma->id,
+					'movimiento_id' => $res[0]->MENSAJE,
+					'fecha_movimiento' => $mt->fecha_movimiento,
+					'valor_movimiento' => -$valor
+				]);
+			}
+			DB::commit();
+		} catch(Exception | \InvalidArgumentException $e) {
+			$this->tr->es_erroneo = true;
+			DB::rollBack();
+			$mensaje = "Error procesando transacción %s en %s, %s";
+			$mensaje = sprintf(
+				$mensaje,
+				$this->tr->id,
+				"ProcesarTransaccionesProvenientesDeRed",
+				$e->getMessage()
+			);
+			Log::error($mensaje);
+		}
+		$this->tr->esta_procesado = true;
+		$this->tr->save();
+	}
+
+	private function prosesarTransaccionAumentoAhorros()
+	{
+		$s032 = $this->tr->getValor("S032");
+		if ($s032 == 0) {
+			$this->prosesarTransaccionSoloCosto();
+			return;
+		}
+		if ($this->tr->getCostoTransaccion() + $s032 == 0) {
+			//Tiene costo cero
+			$this->prosesarTransaccionOmitir();
+			return;
+		}
+		$data = $this->tr->jsonData();
+		$s037 = $this->tr->getValor("S037");
+		$s056 = $this->tr->getValor("S056");
+		$t = $this->tr->tercero;
+		$p = $this->tr->producto;
+		$ma = ModalidadAhorro::with("cuenta")
+			->entidadId($t->entidad_id)
+			->activa()
+			->whereCodigo("VIS")
+			->first();
+
+		try {
+			DB::beginTransaction();
+			$detalleMovimientos = collect();
+			$valores = array();
+
+			//Detalles contables
+			$detalleMovimientos->push($this->construirDetalleContable(
+				$ma->cuenta, //Cuenta
+				0, //Débito
+				$s032, //Crédito
+				sprintf("VIS-%s", $t->numero_identificacion) //Referencia
+			));
+			$valores[] = $s032;
+			if ($s037 > 0 && $s056 > 0) {
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$ma->cuenta, //Cuenta
+					$s037, //Débito
+					0, //Crédito
+					sprintf("VIS-%s", $t->numero_identificacion) //Referencia
+				));
+				$valores[] = -$s037;
+				if ($s037 == $s056){
+					$detalleMovimientos->push($this->construirDetalleContable(
+						$p->cuentaCompensacion, //Cuenta
+						0, //Débito
+						$s037 + $s032, //Crédito
+						$data->S030 //Referencia
+					));
+				}
+				else {
+					$diff = $s056 - $s037;
+					$c = $diff > 0 ? $p->egresoComision : $p->ingresoComision;
+					$detalleMovimientos->push($this->construirDetalleContable(
+						$c, //Cuenta
+						$diff > 0 ? $diff : 0, //Débito
+						$diff > 0 ? 0 : abs($diff), //Crédito
+						$data->S030 //Referencia
+					));
+					$detalleMovimientos->push($this->construirDetalleContable(
+						$p->cuentaCompensacion, //Cuenta
+						0, //Débito
+						$s056 + $s032, //Crédito
+						$data->S030 //Referencia
+					));
+				}
+			}
+			else if ($s037 > 0) {
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$ma->cuenta, //Cuenta
+					$s037, //Débito
+					0, //Crédito
+					sprintf("VIS-%s", $t->numero_identificacion) //Referencia
+				));
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$p->ingresoComision, //Cuenta
+					0, //Débito
+					$s037, //Crédito
+					$data->S030 //Referencia
+				));
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$p->cuentaCompensacion, //Cuenta
+					0, //Débito
+					$s032, //Crédito
+					$data->S030 //Referencia
+				));
+				$valores[] = -$s037;
+			}
+			else {
+				$detalleMovimientos->push($this->construirDetalleContable(
+					$p->cuentaCompensacion, //Cuenta
+					$s032, //Débito
+					0, //Crédito
+					$data->S030 //Referencia
+				));
+			}
+			$mt = $this->guardarDetallesmovimiento($detalleMovimientos);
+			$res = DB::select(
+				'exec tarjeta.sp_contabilizar_transaccion ?',
+				[$mt->id]
+			);
+			if (!$res || $res[0]->ERROR == 1) {
+				$men = "Error contabilizando transacción %s en aumento ";
+				$men .= "ahorro (%s)";
+				throw new Exception(
+					printf($mensaje, $this->tr->id, $res[0]->MENSAJE)
+				);
+			}
+			//Se obtiene el id del movimiento contabilizado
+			$this->tr->movimiento_id = $res[0]->MENSAJE;
+			foreach ($valores as $valor) {
+				$mva = MovimientoAhorro::create([
+					'entidad_id' => $t->entidad_id,
+					'socio_id' => $t->socio->id,
+					'modalidad_ahorro_id' => $ma->id,
+					'movimiento_id' => $res[0]->MENSAJE,
+					'fecha_movimiento' => $mt->fecha_movimiento,
+					'valor_movimiento' => $valor
+				]);
+			}
+			DB::commit();
+		} catch(Exception | \InvalidArgumentException $e) {
+			$this->tr->es_erroneo = true;
+			DB::rollBack();
+			$mensaje = "Error procesando transacción %s en %s, %s";
+			$mensaje = sprintf(
+				$mensaje,
+				$this->tr->id,
+				"ProcesarTransaccionesProvenientesDeRed",
+				$e->getMessage()
+			);
+			Log::error($mensaje);
+		}
+		$this->tr->esta_procesado = true;
+		$this->tr->save();
 	}
 
 	private function prosesarTransaccionAumentoCredito()
