@@ -2,16 +2,17 @@
 
 namespace App\Models\Contabilidad;
 
-use App\Models\Contabilidad\ConceptoImpuesto;
-use App\Models\Contabilidad\Cuif;
-use App\Models\Contabilidad\DetalleMovimientoTemporal;
-use App\Models\Contabilidad\Impuesto;
-use App\Models\Contabilidad\MovimientoTemporal;
+use Exception;
+use Carbon\Carbon;
+use App\Traits\ICoreTrait;
 use App\Models\General\Entidad;
 use App\Models\General\Tercero;
-use App\Traits\ICoreTrait;
+use App\Models\Contabilidad\Cuif;
+use App\Models\Contabilidad\Impuesto;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use App\Models\Contabilidad\ConceptoImpuesto;
+use App\Models\Contabilidad\MovimientoTemporal;
+use App\Models\Contabilidad\DetalleMovimientoTemporal;
 
 class MovimientoImpuestoTemporal extends Model
 {
@@ -73,11 +74,11 @@ class MovimientoImpuestoTemporal extends Model
     /**
      * Getters personalizados
      */
-    
+
     /**
      * Setters Personalizados
      */
-    
+
     public function setFechaMovimientoAttribute($value) {
         if(!empty($value)) {
             $this->attributes['fecha_movimiento'] = Carbon::createFromFormat('d/m/Y', $value)->startOfDay();
@@ -90,7 +91,7 @@ class MovimientoImpuestoTemporal extends Model
     /**
      * Scopes
      */
-    
+
     /**
      * Funciones
      */
@@ -116,15 +117,15 @@ class MovimientoImpuestoTemporal extends Model
         $this->attributes["cuif_codigo"] = $c->codigo;
         $this->attributes["cuif_nombre"] = $c->nombre;
     }
-     
+
     /**
      * Relaciones Uno a Uno
      */
-    
+
     /**
      * Relaciones Uno a muchos
      */
-    
+
     /**
      * Relaciones Muchos a uno
      */
@@ -160,7 +161,7 @@ class MovimientoImpuestoTemporal extends Model
     public function cuif() {
         return $this->belongsTo(Cuif::class, 'cuif_id', 'id');
     }
-    
+
     /**
      * Relaciones Muchos a Muchos
      */
