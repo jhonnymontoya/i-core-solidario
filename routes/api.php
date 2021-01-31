@@ -16,6 +16,9 @@
 //Rutas de Créditos
 \App\Http\Controllers\Api\Creditos\CreditosController::routes();
 
+//Rutas de Documentación
+\App\Http\Controllers\Api\Documentacion\DocumentacionController::routes();
+
 
 /***********************************************************************
  * FIN RUTAS DE APIS MOVIL
