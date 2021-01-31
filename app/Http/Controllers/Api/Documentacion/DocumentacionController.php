@@ -78,7 +78,7 @@ class DocumentacionController extends Controller
         );
         Mail::to($correos->keys())->send($correo);
         $mensaje = "Se ha enviado su certificado tributario a: " . $mails;
-        return response()->json(["mensaje" => $mensaje], 200);
+        return response()->json(["respuesta" => $mensaje], 200);
     }
 
     /**
