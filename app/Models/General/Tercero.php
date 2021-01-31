@@ -112,7 +112,7 @@ class Tercero extends Model
 		}
 		return $nombre;
 	}
-	
+
 	/**
 	 * Setters Personalizados
 	 */
@@ -120,11 +120,11 @@ class Tercero extends Model
 	public function setRazonSocialAttribute($value) {
 		$this->attributes['razon_social'] = mb_convert_case($value, MB_CASE_UPPER, "UTF-8");
 	}
-	
+
 	public function setNumeroIdentificacionAttribute($value) {
 		if(!empty($value)) {
 			$nit = trim($value);
-			$this->attributes['numero_identificacion'] = $nit;			
+			$this->attributes['numero_identificacion'] = $nit;
 			$dv = self::digitoVerificacion($value);
 			$this->attributes['digito_verificacion'] = $dv;
 		}
@@ -149,7 +149,7 @@ class Tercero extends Model
 	public function setSegundoApellidoAttribute($value) {
 		$this->attributes['segundo_apellido'] = mb_convert_case($value, MB_CASE_UPPER, "UTF-8");
 	}
-	
+
 	public function setFechaNacimientoAttribute($value) {
 		if(!empty($value)) {
 			$this->attributes['fecha_nacimiento'] = Carbon::createFromFormat('d/m/Y', $value)->startOfDay();
@@ -158,7 +158,7 @@ class Tercero extends Model
 			$this->attributes['fecha_nacimiento'] = null;
 		}
 	}
-	
+
 	public function setFechaConstitucionAttribute($value) {
 		if(!empty($value)) {
 			$this->attributes['fecha_constitucion'] = Carbon::createFromFormat('d/m/Y', $value)->startOfDay();
@@ -167,7 +167,7 @@ class Tercero extends Model
 			$this->attributes['fecha_constitucion'] = null;
 		}
 	}
-		
+
 	public function setFechaExpedicionDocumentoIdentidadAttribute($value) {
 		if(!empty($value)) {
 			$this->attributes['fecha_expedicion_documento_identidad'] = Carbon::createFromFormat('d/m/Y', $value)->startOfDay();
@@ -176,11 +176,11 @@ class Tercero extends Model
 			$this->attributes['fecha_expedicion_documento_identidad'] = null;
 		}
 	}
-		
+
 	/**
 	 * Scopes
 	 */
-	
+
 	public function scopeActivo($query, $value = true) {
 		return $query->where('esta_activo', $value);
 	}
@@ -213,7 +213,7 @@ class Tercero extends Model
 			return $query->where('tipo_tercero', $value);
 		}
 	}
-	
+
 	/**
 	 * Funciones
 	 */
@@ -295,7 +295,27 @@ class Tercero extends Model
 		}
 		return $contacto;
 	}
-	 
+
+	public function getCorreos()
+	{
+		$correos = collect();
+		$contactos = $this->contactos;
+		if($contactos->count() == 0) {
+			return $correos;
+		}
+		foreach($contactos as $contacto)
+		{
+			if($contacto->esEmailValido() == true)
+			{
+				$correos->put(
+					$contacto->email,
+					$contacto->emailEnmascarado()
+				);
+			}
+		}
+		return $correos;
+	}
+
 	/**
 	 * Relaciones Uno a Uno
 	 */
@@ -303,11 +323,11 @@ class Tercero extends Model
 	public function socio() {
 		return $this->hasOne(Socio::class, 'tercero_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Uno a muchos
 	 */
-	
+
 	public function informacionesFinancieras() {
 		return $this->hasMany(InformacionFinanciera::class, 'tercero_id', 'id');
 	}
@@ -443,7 +463,7 @@ class Tercero extends Model
 	public function ciudadNacimiento() {
 		return $this->belongsTo(Ciudad::class, 'ciudad_nacimiento_id', 'id');
 	}
-	
+
 	/**
 	 * Relaciones Muchos a Muchos
 	 */
