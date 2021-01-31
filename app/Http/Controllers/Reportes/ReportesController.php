@@ -535,6 +535,9 @@ class ReportesController extends Controller
 		$sql = "WITH consolidado AS( SELECT oc.solicitud_credito_id, SUM(COALESCE(oc.pago_capital, 0) + COALESCE(oc.pago_intereses, 0)) consolidado FROM creditos.obligaciones_consolidacion AS oc INNER JOIN creditos.solicitudes_creditos AS sc ON oc.solicitud_credito_id = sc.id WHERE sc.entidad_id = ? AND oc.deleted_at IS NULL GROUP BY oc.solicitud_credito_id ) SELECT COALESCE(p.nombre, '') empresa, COUNT(sc.id) cantidad, SUM(sc.valor_credito) monto, SUM(COALESCE(oc.consolidado, 0)) consolidado, SUM(sc.valor_credito) - SUM(COALESCE(oc.consolidado, 0)) neto FROM creditos.solicitudes_creditos AS sc INNER JOIN general.terceros AS t ON sc.tercero_id = t.id LEFT JOIN socios.socios AS s ON s.tercero_id = t.id LEFT JOIN recaudos.pagadurias AS p on s.pagaduria_id = p.id LEFT JOIN consolidado AS oc ON oc.solicitud_credito_id = sc.id WHERE sc.entidad_id = ? AND general.fn_fecha_sin_hora(sc.fecha_desembolso) BETWEEN ? AND ? AND sc.estado_solicitud IN ('DESEMBOLSADO', 'SALDADO') GROUP BY p.nombre ORDER BY neto DESC";
 		$colocacionesPorEmpresa = DB::select($sql, [$entidad->id, $entidad->id, $fecha->copy()->startOfMonth(), $fecha]);
 
+		$sql = "exec creditos.sp_solicitudes_por_canal_por_mes ?, ?";
+		$colocacionesPorCanal = DB::select($sql, [$entidad->id, $fecha]);
+
 		$sql = "exec creditos.sp_comparativo_colocacion_mes ?, ?";
 		$comparativoColocaciones = DB::select($sql, [$entidad->id, $fecha]);
 
@@ -561,6 +564,7 @@ class ReportesController extends Controller
 			->withFecha($fecha)
 			->withColocacionesPorModalidad($colocacionesPorModalidad)
 			->withColocacionesPorEmpresa($colocacionesPorEmpresa)
+			->withColocacionesPorCanal($colocacionesPorCanal)
 			->withComparativoColocaciones($comparativoColocaciones)
 			->withConsolidadoColocacionesAnio($consolidadoColocacionesAnio)
 			->render();

@@ -11,7 +11,7 @@
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
 			<br>
-			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }} 
+			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }}
 		</strong>
 		<h4>
 			Cartera
@@ -314,6 +314,51 @@
 				<th class="text-right">${{ number_format($solicitud) }}</th>
 				<th class="text-right">${{ number_format($consolidado) }}</th>
 				<th class="text-right">${{ number_format($neto) }}</th>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6 col-sm-12 table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th colspan="3">Colocación por canal</th>
+				</tr>
+				<tr>
+					<th>Canal</th>
+					<th class="text-center">#</th>
+					<th class="text-center">%</th>
+					<th class="text-center">Monto</th>
+					<th class="text-center">%</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					$cantidadCreditos = 0;
+					$monto = 0;
+					foreach ($colocacionesPorCanal as $element) {
+						$cantidadCreditos += $element->cantidad;
+						$monto += $element->monto;
+						?>
+						<tr>
+							<td>{{ Str::title($element->canal) }}</td>
+							<td class="text-right">{{ number_format($element->cantidad) }}</td>
+							<td class="text-right">{{ number_format($element->porcentaje_cantidad, 2) }}%</td>
+							<td class="text-right">${{ number_format($element->monto) }}</td>
+							<td class="text-right">{{ number_format($element->porcentaje_monto, 2) }}%</td>
+						</tr>
+						<?php
+					}
+				?>
+			</tbody>
+			<tfoot>
+				<th>Totales:</th>
+				<th class="text-right">{{ number_format($cantidadCreditos) }}</th>
+				<th class="text-right">100%</th>
+				<th class="text-right">${{ number_format($monto) }}</th>
+				<th class="text-right">100%</th>
 			</tfoot>
 		</table>
 	</div>
