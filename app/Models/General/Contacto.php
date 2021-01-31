@@ -4,6 +4,7 @@ namespace App\Models\General;
 
 use Validator;
 use App\Traits\ICoreTrait;
+use Illuminate\Support\Str;
 use App\Traits\ICoreModelTrait;
 use App\Models\Socios\TipoVivienda;
 use Illuminate\Database\Eloquent\Model;
@@ -126,10 +127,10 @@ class Contacto extends Model
     public function esEmailValido()
     {
         $val = Validator::make(
-            ["email" => $contacto->email],
+            ["email" => $this->attributes["email"]],
             ["email" => "bail|required|email"]
         );
-        return $val->fails();
+        return !$val->fails();
     }
 
     /**
