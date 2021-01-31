@@ -39,7 +39,8 @@ class CertificadoTributario
 	 * @return type
 	 */
 	protected function getEntidad() {
-		return Auth::getSession()->get('entidad');
+		$entidad = $this->socio->tercero->entidad;
+		return $entidad;
 	}
 
 	public function getRuta() {
