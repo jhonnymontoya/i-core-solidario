@@ -201,8 +201,8 @@ class ReportesController extends Controller
 		}
 
 		//retiros del mes
-		$sql = "WITH saldoCartera AS( SELECT t.id, mcc.valor_movimiento, mcc.fecha_movimiento FROM creditos.movimientos_capital_credito AS mcc INNER JOIN creditos.solicitudes_creditos AS sc ON mcc.solicitud_credito_id = sc.id INNER JOIN general.terceros AS t ON sc.tercero_id = t.id INNER JOIN socios.socios AS s ON s.tercero_id = t.id WHERE t.entidad_id = ? ) SELECT DISTINCT t.numero_identificacion, t.nombre, s.fecha_retiro, cr.nombre causal, cr.tipo_causa_retiro, pa.nombre AS pagaduria, (SELECT COALESCE(SUM(ma.valor_movimiento), 0) FROM ahorros.movimientos_ahorros AS ma WHERE ma.socio_id = s.id AND ma.fecha_movimiento <= DATEADD(DAY, -1, s.fecha_retiro)) ahorros, (SELECT COALESCE(SUM(x.valor_movimiento), 0) FROM saldoCartera AS x WHERE x.id = t.id AND x.fecha_movimiento <= DATEADD(DAY, -1, s.fecha_retiro)) cartera FROM socios.socios AS s INNER JOIN general.terceros AS t ON s.tercero_id = t.id INNER JOIN socios.socios_retiros AS sr on sr.socio_id = s.id INNER JOIN socios.causas_retiro AS cr ON sr.causa_retiro_id = cr.id INNER JOIN recaudos.pagadurias AS pa ON s.pagaduria_id = pa.id WHERE t.entidad_id = ? AND s.fecha_retiro BETWEEN DATEADD(DAY, -(DAY(?) - 1), ?) AND ?;";
-		$retirosDelMes = DB::select($sql, [$entidad->id, $entidad->id, $fecha, $fecha, $fecha]);
+		$sql = "exec socios.sp_retiros_por_mes ?, ?";
+		$retirosDelMes = DB::select($sql, [$entidad->id, $fecha]);
 		foreach ($retirosDelMes as &$item) {
 			$diff = substr($item->fecha_retiro, 0, 10);
 			$item->fecha_retiro = Carbon::createFromFormat('Y-m-d', $diff)->startOfDay();
