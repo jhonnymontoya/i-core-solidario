@@ -99,6 +99,9 @@
     //Rutas de Reportes
     \App\Http\Controllers\Reportes\ReportesController::routes();
 
+    //Rutas de configuración extracto social
+    \App\Http\Controllers\Reportes\ConfiguracionExtractoSocialController::routes();
+
 /***************************************************************************************
  * Rutas de Ahorros
  ***************************************************************************************/
