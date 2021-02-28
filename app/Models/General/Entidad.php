@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Contabilidad\DetalleMovimiento;
 use App\Models\Contabilidad\MovimientoImpuesto;
 use App\Models\Notificaciones\ConfiguracionFuncion;
+use App\Models\Reportes\ConfiguracionEstractoSocial;
 use App\Models\Contabilidad\CausaAnulacionMovimiento;
 use App\Models\ControlVigilancia\OficialCumplimiento;
 use App\Models\Creditos\ParametroCalificacionCartera;
@@ -501,7 +502,12 @@ class Entidad extends Model
         return $this->hasMany(Alerta::class, 'entidad_id', 'id');
     }
 
+    //RELACIONES DE REPORTES
 
+    public function configuracionesEstractosSociales()
+    {
+        return $this->hasMany(ConfiguracionEstractoSocial::class, 'entidad_id', 'id');
+    }
 
     /**
      * Relaciones Muchos a uno
