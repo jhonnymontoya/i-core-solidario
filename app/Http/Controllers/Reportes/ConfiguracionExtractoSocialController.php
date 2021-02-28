@@ -56,10 +56,10 @@ class ConfiguracionExtractoSocialController extends Controller
 
     public static function routes()
     {
-        Route::get('extractoSocial', 'Reportes/ConfiguracionExtractoSocialController@index');
-        Route::get('extractoSocial/create', 'Reportes/ConfiguracionExtractoSocialController@create');
-        Route::post('extractoSocial', 'Reportes/ConfiguracionExtractoSocialController@store');
-        Route::get('extractoSocial/{obj}/edit', 'Reportes/ConfiguracionExtractoSocialController@edit')->name("extractoSocial.edit");
-        Route::put('extractoSocial/{obj}', 'Reportes/ConfiguracionExtractoSocialController@update');
+        Route::get('extractoSocial', 'Reportes\ConfiguracionExtractoSocialController@index');
+        Route::get('extractoSocial/create', 'Reportes\ConfiguracionExtractoSocialController@create');
+        Route::post('extractoSocial', 'Reportes\ConfiguracionExtractoSocialController@store');
+        Route::get('extractoSocial/{obj}/edit', 'Reportes\ConfiguracionExtractoSocialController@edit')->name("extractoSocial.edit");
+        Route::put('extractoSocial/{obj}', 'Reportes\ConfiguracionExtractoSocialController@update');
     }
 }
