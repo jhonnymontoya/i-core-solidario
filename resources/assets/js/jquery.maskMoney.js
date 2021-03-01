@@ -21,11 +21,11 @@
 		//agregada
 		unmask : function () {
 			var value = ($(this).val() || "0"), isNegative = value.indexOf("-") !== -1;
-			value = value.replace(/\D/g, "");
+			//value = value.replace(/\D/g, "");
 			if (isNegative) {
 				value = "-" + value;
 			}
-			value = parseInt(value);
+			value = parseFloat(value);
 			$(this).trigger('destroy');
 			var allowZero = $(this).data("allowzero");
 			if(allowZero == undefined || allowZero == false) {
@@ -444,7 +444,7 @@
 			$.error("Method " +  method + " does not exist on jQuery.maskMoney");
 		}
 	};
-	
+
 	//agregado
 	$(window).load(function(){
 		$("input[data-maskMoney]").each(function(index, value){
