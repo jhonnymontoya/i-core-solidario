@@ -51,7 +51,7 @@
 			@include('layouts.uiConsulta.footer')
 		</div>
 
-		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/MtZqgurQ9cx13G5.js') }}"></script>
 
 		@stack('scripts')
 	</body>
