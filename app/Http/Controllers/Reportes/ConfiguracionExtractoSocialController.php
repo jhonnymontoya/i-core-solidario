@@ -22,19 +22,23 @@ class ConfiguracionExtractoSocialController extends Controller
     public function index(Request $request)
     {
         $this->log("Ingresó a la configuración de extracto social con los siguientes parámetros " . json_encode($request->all()));
-        dd("index");
+        $configuraciones = ConfiguracionExtractoSocial::entidadId()
+            ->orderBy("anio", "desc")
+            ->paginate();
+        return view("reportes.extractoSocial.index")
+            ->withConfiguraciones($configuraciones);
     }
 
     public function create()
     {
         $this->log("Ingresó a crear configuración de extracto social");
-        dd("create");
+        return view("reportes.extractoSocial.create");
     }
 
     public function store(Request $request)
     {
         $this->log("Creó configuración de extracto social con los siguientes parámetros " . json_encode($request->all()), "CREAR");
-        dd("store");
+        dd("store", $request->all());
     }
 
     public function edit(ConfiguracionExtractoSocial $obj)
