@@ -73,9 +73,9 @@ class ConfiguracionExtractoSocial extends Model
     protected $casts = [
         'tasa_promedio_ahorros_externa'     => 'number',
         'tasa_promedio_creditos_externa'    => 'number',
-        'gasto_social_total'                => 'number',
-        'gasto_social_individual'           => 'number',
-        'fecha_inicio_socio_visible'        => 'number',
+        'gasto_social_total'                => 'integer',
+        'gasto_social_individual'           => 'integer',
+        'fecha_inicio_socio_visible'        => 'datetime:Y-m-d',
         'fecha_fin_socio_visible'           => 'datetime:Y-m-d',
         'created_at'                        => 'datetime:Y-m-d',
         'updated_at'                        => 'datetime:Y-m-d',
