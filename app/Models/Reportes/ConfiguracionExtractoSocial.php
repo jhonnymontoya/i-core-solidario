@@ -96,6 +96,24 @@ class ConfiguracionExtractoSocial extends Model
      * Setters Personalizados
      */
 
+    public function setFechaInicioSocioVisibleAttribute($value) {
+        if(!empty($value)) {
+            $this->attributes['fecha_inicio_socio_visible'] = Carbon::createFromFormat('d/m/Y', $value)->startOfDay();
+        }
+        else {
+            $this->attributes['fecha_inicio_socio_visible'] = null;
+        }
+    }
+
+    public function setFechaFinSocioVisibleAttribute($value) {
+        if(!empty($value)) {
+            $this->attributes['fecha_fin_socio_visible'] = Carbon::createFromFormat('d/m/Y', $value)->startOfDay();
+        }
+        else {
+            $this->attributes['fecha_fin_socio_visible'] = null;
+        }
+    }
+
     /**
      * Scopes
      */
