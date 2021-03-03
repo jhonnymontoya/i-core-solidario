@@ -53,41 +53,53 @@
 					@else
 						<br>
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
-										<th>Nombre</th>
-										<th>Cuenta</th>
-										<th class="text-center">Saldo mínimo.</th>
-										<th class="text-center">Días para inactivación</th>
-										<th class="text-center">Cuentas de ahorros</th>
-										<th>Estado</th>
+										<th></th>
+										<th colspan="2" class="text-center">Tasa promedio externa</th>
+										<th colspan="2" class="text-center">Gasto social</th>
+										<th colspan="2" class="text-center">Fecha socio visible</th>
+										<th colspan="5" class="text-center">Mensaje</th>
+										<th></th>
+									</tr>
+									<tr>
+										<th>Año</th>
+										<th class="text-center">Ahorros</th>
+										<th class="text-center">Créditos</th>
+										<th class="text-center">Individual</th>
+										<th class="text-center">Total</th>
+										<th>Inicio</th>
+										<th>Fin</th>
+										<th>General</th>
+										<th>Ahorros</th>
+										<th>Créditos</th>
+										<th>Convenios</th>
+										<th>Inversión social</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($configuraciones as $tipoCuentaAhorros)
+									@foreach ($configuraciones as $configuracion)
 										<tr>
 											<td>
-												<a href="{{ route('tipoCuentaAhorros.edit', $tipoCuentaAhorros->id) }}" title="Editar">
-													{{ $tipoCuentaAhorros->nombre_producto }}
+												<a href="{{ route('extractoSocial.edit', $configuracion->id) }}" title="Editar">
+													{{ $configuracion->anio }}
 												</a>
 											</td>
-											<td>{{ Str::limit($tipoCuentaAhorros->capitalCuif->full, 50) }}</td>
-											<td class="text-right">${{ number_format($tipoCuentaAhorros->saldo_minimo, 0) }}</td>
-											<td class="text-right">{{ number_format($tipoCuentaAhorros->dias_para_inactivacion, 0) }}</td>
-											<td class="text-right">
-												<a href="{{ url('cuentaAhorros') . '?tipoCuenta=' . $tipoCuentaAhorros->id }}">
-													{{ number_format($tipoCuentaAhorros->cuentasAhorros->count(), 0) }}
-												</a>
-											</td>
+											<td class="text-right">{{ number_format($configuracion->tasa_promedio_ahorros_externa, 2) }}%</td>
+											<td class="text-right">{{ number_format($configuracion->tasa_promedio_creditos_externa, 2) }}%</td>
+											<td class="text-right">${{ number_format($configuracion->gasto_social_individual, 0) }}</td>
+											<td class="text-right">${{ number_format($configuracion->gasto_social_total, 0) }}</td>
+											<td class="text-right">{{ $configuracion->fecha_inicio_socio_visible }}</td>
+											<td class="text-right">{{ $configuracion->fecha_fin_socio_visible }}</td>
+											<td>{{ Str::limit($configuracion->mensaje_general, 20) }}</td>
+											<td>{{ Str::limit($configuracion->mensaje_ahorros, 20) }}</td>
+											<td>{{ Str::limit($configuracion->mensaje_creditos, 20) }}</td>
+											<td>{{ Str::limit($configuracion->mensaje_convenios, 20) }}</td>
+											<td>{{ Str::limit($configuracion->mensaje_inversion_social, 20) }}</td>
 											<td>
-												<span class="badge badge-pill badge-{{ $tipoCuentaAhorros->esta_activa ? 'success' : 'danger' }}">
-													{{ $tipoCuentaAhorros->esta_activa ? 'ACTIVA' : 'INACTIVA' }}
-												</span>
-											</td>
-											<td>
-												<a href="{{ route('tipoCuentaAhorros.edit', $tipoCuentaAhorros->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
+												<a href="{{ route('extractoSocial.edit', $configuracion->id) }}" class="btn btn-outline-info btn-sm" title="Editar">
 													<i class="fa fa-edit"></i>
 												</a>
 											</td>
