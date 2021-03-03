@@ -45,7 +45,7 @@
                                     $valid = $errors->has('anio') ? 'is-invalid' : '';
                                 @endphp
                                 <label class="control-label">Año</label>
-                                {!! Form::text('anio', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Año']) !!}
+                                {!! Form::text('anio', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Año', 'autofocus']) !!}
                                 @if ($errors->has('anio'))
                                     <div class="invalid-feedback">{{ $errors->first('anio') }}</div>
                                 @endif
@@ -235,7 +235,7 @@
                 </div>
                 <div class="card-footer text-right">
                     {!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
-                    <a href="{{ url('tipoCuentaAhorros') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
+                    <a href="{{ url('extractoSocial') }}" class="btn btn-outline-danger pull-right">Cancelar</a>
                 </div>
             </div>
         </div>
