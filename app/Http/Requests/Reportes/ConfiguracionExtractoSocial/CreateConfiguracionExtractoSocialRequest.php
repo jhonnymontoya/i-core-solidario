@@ -118,12 +118,14 @@ class CreateConfiguracionExtractoSocialRequest extends FormRequest
     public function messages()
     {
         return [
+            'anio.unique' => 'Ya se encuentra una configuración para el :attribute'
         ];
     }
 
     public function attributes()
     {
         return [
+            'anio' => 'año'
         ];
     }
 
