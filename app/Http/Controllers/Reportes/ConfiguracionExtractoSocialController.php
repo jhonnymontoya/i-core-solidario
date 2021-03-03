@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Models\Reportes\ConfiguracionExtractoSocial;
+use App\Http\Requests\Reportes\ConfiguracionExtractoSocial\EditConfiguracionExtractoSocialRequest;
 use App\Http\Requests\Reportes\ConfiguracionExtractoSocial\CreateConfiguracionExtractoSocialRequest;
 
 class ConfiguracionExtractoSocialController extends Controller
@@ -61,23 +62,23 @@ class ConfiguracionExtractoSocialController extends Controller
         $msg = "Ingresó a editar la configuración de extracto social '%s'";
         $this->log(sprintf($msg, $obj->id));
         $this->objEntidad($obj);
-        dd("edit");
-        return view("reportes.extractoSocial.create");
+        return view("reportes.extractoSocial.edit")
+            ->withConfiguracion($obj);
     }
 
-    public function update(ConfiguracionExtractoSocial $obj, Request $request)
+    public function update(ConfiguracionExtractoSocial $obj, EditConfiguracionExtractoSocialRequest $request)
     {
         $msg = "Actalizó la configuración de extracto social '%s' con los siguientes parámetros %s";
         $msg = sprintf($msg, $obj->id, json_encode($request->all()));
         $this->log($msg, "ACTUALIZAR");
         $this->objEntidad($obj);
-        dd("update", $request->all());
 
         $obj->fill($request->all());
+        $obj->entidad_id = $this->getEntidad()->id;
         $obj->save();
 
-        $msg = "Se ha actualizado extractoSocial '%s'";
-        $msg = sprintf($msg, $obj->nombre);
+        $msg = "Se ha actualizado la configuración de extracto social para eñ año '%s'";
+        $msg = sprintf($msg, $obj->anio);
         Session::flash('message', $msg);
         return redirect('extractoSocial');
     }
