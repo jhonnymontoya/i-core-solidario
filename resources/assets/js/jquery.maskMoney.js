@@ -22,6 +22,7 @@
 		unmask : function () {
 			var value = ($(this).val() || "0"), isNegative = value.indexOf("-") !== -1;
 			//value = value.replace(/\D/g, "");
+			value = value.replaceAll(",", "");
 			if (isNegative) {
 				value = "-" + value;
 			}
@@ -38,11 +39,12 @@
 		//agregada
 		cleanvalue : function () {
 			var value = ($(this).val() || "0"), isNegative = value.indexOf("-") !== -1;
-			value = value.replace(/\D/g, "");
+			//value = value.replace(/\D/g, "");
+			value = value.replaceAll(",", "");
 			if (isNegative) {
 				value = "-" + value;
 			}
-			value = parseInt(value);
+			value = parseFloat(value);
 			return value;
 		},
 		//agregada
