@@ -36,11 +36,21 @@
 							<ul class="list-unstyled">
 								<li>
 									<strong>
-										<a href="#" data-toggle="modal" data-target="#mct">
+										<a href="#" data-toggle="modal" data-target="#modalTributario">
 											<i class="fa fa-file-pdf-o"></i> Certificado tributario
 										</a>:
 									</strong> Descargue el certificado tributario
 								</li>
+
+								@if($extractosSociales->count() > 0)
+								<li>
+									<strong>
+										<a href="#" data-toggle="modal" data-target="#modalExtractoSocial">
+											<i class="fa fa-file-pdf-o"></i> Extracto social
+										</a>:
+									</strong> Descargue el certificado de extractos sociales
+								</li>
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -51,9 +61,8 @@
 	</section>
 </div>
 {{-- Fin de contenido principal de la página --}}
-<div class="modal fade" id="mct" tabindex="-1" role="dialog" aria-labelledby="mLabel">
+<div class="modal fade" id="modalTributario" tabindex="-1" role="dialog" aria-labelledby="mLabel">
 	{!! Form::open(["url" => "consulta/documentacion/tritutario", "method" => "get", "target" => "_blank"]) !!}
-	{!! Form::hidden("certificado", "certificadoTributario") !!}
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -87,6 +96,47 @@
 								$anioActual--;
 							}
 							if(!count($anios)) $anios[date("Y")] = date("Y");
+						?>
+						{!! Form::select('anio', $anios, null, ['class' => 'form-control']) !!}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+				{!! Form::submit("Descargar", ["class" => "btn btn-outline-success"]) !!}
+			</div>
+		</div>
+	</div>
+	{!! Form::close() !!}
+</div>
+
+<div class="modal fade" id="modalExtractoSocial" tabindex="-1" role="dialog" aria-labelledby="mLabel">
+	{!! Form::open(["url" => "consulta/documentacion/tritutario", "method" => "get", "target" => "_blank"]) !!}
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="mLabel">Certificado extracto social</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						Descargue el certificado extracto social
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-12">
+						<label class="col-sm-3 control-label">Seleccione año</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<?php
+							$anios = [];
+							foreach($extractosSociales as $extractoSocial) {
+								$anios[] = $extractoSocial->anio;
+							}
 						?>
 						{!! Form::select('anio', $anios, null, ['class' => 'form-control']) !!}
 					</div>
