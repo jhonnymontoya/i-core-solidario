@@ -2,6 +2,7 @@
 
 namespace App\Models\Reportes;
 
+use Exception;
 use Carbon\Carbon;
 use App\Traits\ICoreTrait;
 use App\Models\General\Entidad;
@@ -121,6 +122,15 @@ class ConfiguracionExtractoSocial extends Model
     public function scopeEntidadId($query, $value = 0) {
         $value = empty($value) ? $this->getEntidad()->id : $value;
         $query->where('entidad_id', $value);
+    }
+
+    public function scopeActivosParaSocios($query, $fecha) {
+        if (!($fecha instanceof Carbon)) {
+            $mensaje = "Error: Se esperaba una fecha válida";
+            throw new Exception($mensaje);
+        }
+        $query->where('fecha_inicio_socio_visible', "<=", $fecha)
+            ->where('fecha_fin_socio_visible', ">=", $fecha);
     }
 
     /**
