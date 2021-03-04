@@ -111,7 +111,7 @@
 </div>
 
 <div class="modal fade" id="modalExtractoSocial" tabindex="-1" role="dialog" aria-labelledby="mLabel">
-	{!! Form::open(["url" => "consulta/documentacion/tritutario", "method" => "get", "target" => "_blank"]) !!}
+	{!! Form::open(["url" => "consulta/documentacion/extractoSocial", "method" => "get", "target" => "_blank"]) !!}
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
