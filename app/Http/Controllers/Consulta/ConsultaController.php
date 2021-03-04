@@ -24,6 +24,8 @@ use App\Models\General\TipoIdentificacion;
 use App\Certificados\CertificadoTributario;
 use App\Mail\Consulta\Perfil\PasswordUpdated;
 use App\Models\General\ParametroInstitucional;
+use App\Certificados\CertificadoExtractoSocial;
+use App\Models\Reportes\ConfiguracionExtractoSocial;
 use App\Events\Creditos\SolicitudCreditoDigitalEnviada;
 use App\Http\Requests\Consulta\Perfil\EditPerfilRequest;
 use App\Http\Requests\Consulta\Consulta\CreateSolicitudCreditoRequest;
@@ -412,18 +414,30 @@ class ConsultaController extends Controller
 		return redirect('consulta/perfil');
 	}
 
-	public function documentacion(Request $request) {
+	public function consultaDocumentacion() {
+		$this->log("Ingresó a lista de documentación de la consulta del socio");
+		$fechaConsulta = Carbon::now()->startOfDay();
+		$socio = \Auth::user()->socios[0];
+
+		$entidadId = $socio->tercero->entidad_id;
+		$fecha = Carbon::now();
+		$extractosSociales = ConfiguracionExtractoSocial::entidadId($entidadId)
+			->activosParaSocios($fecha)
+			->orderBy("anio", "desc")
+			->get();
+
+		return view('consulta.consulta.consultaDocumentacion')
+			->withSocio($socio)
+			->withFechaConsulta($fechaConsulta)
+			->withExtractosSociales($extractosSociales);
+	}
+
+	public function documentacionTributario(Request $request) {
 		$entidad = $this->getEntidad();
 		$socio = \Auth::user()->socios[0];
 		$anioIc = $entidad->fecha_inicio_contabilidad->year;
 		$ai = $anioIc > 2018 ? $anioIc : 2018;
 		$v = Validator::make($request->all(), [
-			"certificado" => [
-				"bail",
-				"required",
-				"string",
-				"in:certificadoTributario"
-			],
 			"anio" => [
 				"bail",
 				"required",
@@ -435,14 +449,9 @@ class ConsultaController extends Controller
 		if($v->fails()) {
 			abort(401, "No se pudo procesar los datos (Año no válido)");
 		}
-		$this->log(sprintf("Descargó de documentacion '%s'", $request->certificado));
+		$this->log("Descargó de documentacion 'Certificado tributario'");
 
-		$pdf = null;
-		switch ($request->certificado) {
-			case 'certificadoTributario':
-				$pdf = new CertificadoTributario($socio, $request->anio);
-				break;
-		}
+		$pdf = new CertificadoTributario($socio, $request->anio);
 		$pdf = $pdf->getRuta();
 		$nombre = "Certificado tributario %s %s";
 		$nombre = sprintf($nombre, $socio->tercero->numero_identificacion, $socio->tercero->nombre_corto);
@@ -450,14 +459,31 @@ class ConsultaController extends Controller
 		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
 	}
 
-	public function consultaDocumentacion() {
-		$this->log("Ingresó a lista de documentación de la consulta del socio");
-		$fechaConsulta = Carbon::now()->startOfDay();
-
+	public function documentacionExtractoSocial(Request $request)
+	{
+	    $entidad = $this->getEntidad();
 		$socio = \Auth::user()->socios[0];
-		return view('consulta.consulta.consultaDocumentacion')
-			->withSocio($socio)
-			->withFechaConsulta($fechaConsulta);
+		$v = Validator::make($request->all(), [
+			"anio" => [
+				"bail",
+				"required",
+				"integer",
+				"min:2010",
+				"max:3000",
+				"exists:sqlsrv.reportes.configuraciones_extracto_social,anio,entidad_id," . $entidad->id . ",deleted_at,NULL"
+			]
+		]);
+		if($v->fails()) {
+			abort(401, "No se pudo procesar los datos (Año no válido)");
+		}
+		$this->log("Descargó de documentacion 'Extracto Social'");
+
+		$pdf = new CertificadoExtractoSocial($socio, $request->anio);
+		$pdf = $pdf->getRuta();
+		$nombre = "Extracto Social %s %s";
+		$nombre = sprintf($nombre, $socio->tercero->numero_identificacion, $socio->tercero->nombre_corto);
+		$nombre = Str::slug($nombre, "_") . ".pdf";
+		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
 	}
 
 	public function simular() {
@@ -544,7 +570,8 @@ class ConsultaController extends Controller
 		Route::put('consulta/perfil', 'Consulta\ConsultaController@perfilUpdate');
 
 		Route::get('consulta/documentacion', 'Consulta\ConsultaController@consultaDocumentacion')->name('consulta.documentacion');
-		Route::get('consulta/documentacion/tritutario', 'Consulta\ConsultaController@documentacion');
+		Route::get('consulta/documentacion/tritutario', 'Consulta\ConsultaController@documentacionTributario');
+		Route::get('consulta/documentacion/extractoSocial', 'Consulta\ConsultaController@documentacionExtractoSocial');
 
 		Route::get('consulta/solicitarCredito', 'Consulta\ConsultaController@solicitarCredito');
 		Route::post('consulta/solicitarCredito', 'Consulta\ConsultaController@crearSolicitarCredito');
