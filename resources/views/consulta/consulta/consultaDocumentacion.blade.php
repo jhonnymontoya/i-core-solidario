@@ -135,7 +135,7 @@
 						<?php
 							$anios = [];
 							foreach($extractosSociales as $extractoSocial) {
-								$anios[] = $extractoSocial->anio;
+								$anios[$extractoSocial->anio] = $extractoSocial->anio;
 							}
 						?>
 						{!! Form::select('anio', $anios, null, ['class' => 'form-control']) !!}

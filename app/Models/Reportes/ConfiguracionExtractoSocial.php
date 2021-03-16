@@ -133,6 +133,10 @@ class ConfiguracionExtractoSocial extends Model
             ->where('fecha_fin_socio_visible', ">=", $fecha);
     }
 
+    public function scopeAnio($query, $value) {
+        $query->whereAnio($value);
+    }
+
     /**
      * Funciones
      */

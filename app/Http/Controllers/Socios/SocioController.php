@@ -2,53 +2,55 @@
 
 namespace App\Http\Controllers\Socios;
 
-use App\Certificados\CertificadoTributario;
-use App\Events\Socios\SocioAfiliado;
-use App\Helpers\ConversionHelper;
-use App\Helpers\FinancieroHelper;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Socio\Socio\CreateSocioRequest;
-use App\Http\Requests\Socio\Socio\EditAfiliacionRequest;
-use App\Http\Requests\Socio\Socio\EditSocioInformacionBeneficiarioRequest;
-use App\Http\Requests\Socio\Socio\EditSocioInformacionContactoRequest;
-use App\Http\Requests\Socio\Socio\EditSocioInformacionFinancieraRequest;
-use App\Http\Requests\Socio\Socio\EditSocioInformacionLaboralRequest;
-use App\Http\Requests\Socio\Socio\EditSocioInformacionObligacionFinancieraRequest;
-use App\Http\Requests\Socio\Socio\EditSocioInformacionTarjetaCreditoRequest;
-use App\Http\Requests\Socio\Socio\EditSocioRequest;
-use App\Http\Requests\Socio\Socio\SelectSocioConParametrosRequest;
-use App\Models\Ahorros\ModalidadAhorro;
-use App\Models\Creditos\Modalidad;
-use App\Models\Creditos\SolicitudCredito;
-use App\Models\General\Contacto;
-use App\Models\General\InformacionFinanciera;
-use App\Models\General\ParametroInstitucional;
-use App\Models\General\Sexo;
-use App\Models\General\Tercero;
-use App\Models\General\TipoIdentificacion;
-use App\Models\Recaudos\ControlProceso;
-use App\Models\Recaudos\Pagaduria;
-use App\Models\Recaudos\RecaudoNomina;
-use App\Models\Sistema\UsuarioWeb;
-use App\Models\Socios\Beneficiario;
-use App\Models\Socios\EstadoCivil;
-use App\Models\Socios\ObligacionFinanciera;
-use App\Models\Socios\Parentesco;
-use App\Models\Socios\Socio;
-use App\Models\Socios\TarjetaCredito;
-use App\Models\Socios\TipoVivienda;
-use App\Models\Tesoreria\Banco;
-use App\Models\Tesoreria\Franquicia;
-use App\Traits\ICoreTrait;
-use Carbon\Carbon;
 use DB;
-use Exception;
-use Illuminate\Http\Request;
 use Log;
 use Route;
 use Session;
+use Exception;
 use Validator;
+use Carbon\Carbon;
+use App\Traits\ICoreTrait;
 use Illuminate\Support\Str;
+use App\Models\General\Sexo;
+use App\Models\Socios\Socio;
+use Illuminate\Http\Request;
+use App\Models\General\Tercero;
+use App\Models\Tesoreria\Banco;
+use App\Models\General\Contacto;
+use App\Helpers\ConversionHelper;
+use App\Helpers\FinancieroHelper;
+use App\Models\Socios\Parentesco;
+use App\Models\Creditos\Modalidad;
+use App\Models\Recaudos\Pagaduria;
+use App\Models\Sistema\UsuarioWeb;
+use App\Models\Socios\EstadoCivil;
+use App\Models\Socios\Beneficiario;
+use App\Models\Socios\TipoVivienda;
+use App\Events\Socios\SocioAfiliado;
+use App\Http\Controllers\Controller;
+use App\Models\Tesoreria\Franquicia;
+use App\Models\Socios\TarjetaCredito;
+use App\Models\Recaudos\RecaudoNomina;
+use App\Models\Ahorros\ModalidadAhorro;
+use App\Models\Recaudos\ControlProceso;
+use App\Models\Creditos\SolicitudCredito;
+use App\Models\General\TipoIdentificacion;
+use App\Certificados\CertificadoTributario;
+use App\Models\Socios\ObligacionFinanciera;
+use App\Models\General\InformacionFinanciera;
+use App\Models\General\ParametroInstitucional;
+use App\Certificados\CertificadoExtractoSocial;
+use App\Http\Requests\Socio\Socio\EditSocioRequest;
+use App\Models\Reportes\ConfiguracionExtractoSocial;
+use App\Http\Requests\Socio\Socio\CreateSocioRequest;
+use App\Http\Requests\Socio\Socio\EditAfiliacionRequest;
+use App\Http\Requests\Socio\Socio\SelectSocioConParametrosRequest;
+use App\Http\Requests\Socio\Socio\EditSocioInformacionLaboralRequest;
+use App\Http\Requests\Socio\Socio\EditSocioInformacionContactoRequest;
+use App\Http\Requests\Socio\Socio\EditSocioInformacionFinancieraRequest;
+use App\Http\Requests\Socio\Socio\EditSocioInformacionBeneficiarioRequest;
+use App\Http\Requests\Socio\Socio\EditSocioInformacionTarjetaCreditoRequest;
+use App\Http\Requests\Socio\Socio\EditSocioInformacionObligacionFinancieraRequest;
 
 class SocioController extends Controller
 {
@@ -1083,9 +1085,14 @@ class SocioController extends Controller
 		$this->logActividad("Ingresó a consulta de documentacion", $request);
 		$this->objEntidad($obj->tercero);
 
+		$extractosSociales = ConfiguracionExtractoSocial::entidadId()
+			->orderBy("anio", "desc")
+			->get();
+
 		return view('socios.socio.consultaDocumentacion')
 			->withSocio($obj)
-			->withFechaConsulta($fechaConsulta);
+			->withFechaConsulta($fechaConsulta)
+			->withExtractosSociales($extractosSociales);
 	}
 
 	public function consultaSocioSimulador(Socio $obj, Request $request) {
@@ -1354,26 +1361,49 @@ class SocioController extends Controller
 		return response()->json($resultado);
 	}
 
-	public function documentacion(Socio $obj, Request $request) {
+	public function documentacionTributario(Socio $obj, Request $request) {
 		$entidad = $this->getEntidad();
 		$anioIc = $entidad->fecha_inicio_contabilidad->year;
 		$ai = $anioIc > 2018 ? $anioIc : 2018;
 		$v = Validator::make($request->all(), [
-			"certificado" => "bail|required|string|in:certificadoTributario",
 			"anio" => "bail|required|integer|min:$ai|max:3000"
 		]);
 		if($v->fails()) {
 			abort(401, "No se pudo procesar los datos (Año no válido)");
 		}
+		$this->log("Descargó de documentacion 'Certificado tributario'");
 
-		$pdf = null;
-		switch ($request->certificado) {
-			case 'certificadoTributario':
-				$pdf = new CertificadoTributario($obj, $request->anio);
-				break;
-		}
+		$pdf = new CertificadoTributario($obj, $request->anio);
 		$pdf = $pdf->getRuta();
 		$nombre = "Certificado tributario %s %s";
+		$nombre = sprintf($nombre, $obj->tercero->numero_identificacion, $obj->tercero->nombre_corto);
+		$nombre = Str::slug($nombre, "_") . ".pdf";
+		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
+	}
+
+	public function documentacionExtractoSocial(Socio $obj, Request $request) {
+		$entidad = $this->getEntidad();
+		$v = Validator::make($request->all(), [
+			"anio" => [
+				"bail",
+				"required",
+				"integer",
+				"min:2010",
+				"max:3000",
+				"exists:sqlsrv.reportes.configuraciones_extracto_social,anio,entidad_id," . $entidad->id . ",deleted_at,NULL"
+			]
+		]);
+		if($v->fails()) {
+			abort(401, "No se pudo procesar los datos (Año no válido)");
+		}
+		$this->log("Descargó de documentacion 'Extracto Social'");
+
+		$configuracionExtractoSocial = ConfiguracionExtractoSocial::entidadId()
+			->anio($request->anio)
+			->first();
+		$pdf = new CertificadoExtractoSocial($obj, $request->anio, $configuracionExtractoSocial);
+		$pdf = $pdf->getRuta();
+		$nombre = "Extracto Social %s %s";
 		$nombre = sprintf($nombre, $obj->tercero->numero_identificacion, $obj->tercero->nombre_corto);
 		$nombre = Str::slug($nombre, "_") . ".pdf";
 		return response()->file($pdf, ["Content-Disposition" => "filename=\"$nombre\""]);
@@ -1430,6 +1460,7 @@ class SocioController extends Controller
 		Route::get('socio/consulta/obtenerPeriodicidadesPorModalidad', 'Socios\SocioController@getObtenerPeriodicidadesPorModalidad');
 		Route::get('socio/consulta/simularCredito', 'Socios\SocioController@simularCredito');
 
-		Route::get('socio/consulta/{obj}/documentacion', 'Socios\SocioController@documentacion')->name("socioConsulta.documentacion");
+		Route::get('socio/consulta/{obj}/documentacionTributario', 'Socios\SocioController@documentacionTributario')->name("socioConsulta.documentacion.tributario");
+		Route::get('socio/consulta/{obj}/documentacionExtractoSocial', 'Socios\SocioController@documentacionExtractoSocial')->name("socioConsulta.documentacion.extractoSocial");
 	}
 }

@@ -478,7 +478,10 @@ class ConsultaController extends Controller
 		}
 		$this->log("Descargó de documentacion 'Extracto Social'");
 
-		$pdf = new CertificadoExtractoSocial($socio, $request->anio);
+		$configuracionExtractoSocial = ConfiguracionExtractoSocial::entidadId($entidad->id)
+			->anio($request->anio)
+			->first();
+		$pdf = new CertificadoExtractoSocial($socio, $request->anio, $configuracionExtractoSocial);
 		$pdf = $pdf->getRuta();
 		$nombre = "Extracto Social %s %s";
 		$nombre = sprintf($nombre, $socio->tercero->numero_identificacion, $socio->tercero->nombre_corto);

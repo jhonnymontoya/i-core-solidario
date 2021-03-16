@@ -15,20 +15,24 @@ class CertificadoExtractoSocial
 
     private $socio = null;
     private $anio = null;
-    private $vista = "pdf.socios.certificadoTributario";
+    private $configuracion = null;
+    private $vista = "pdf.socios.certificadoExtractoSocial";
     private $path = null;
 
     /**
      * Constructor
      */
-    public function __construct($socio, $anio) {
+    public function __construct($socio, $anio, $configuracion) {
         $this->socio = $socio;
         $this->anio = $anio;
+        $this->$configuracion = $configuracion;
         $entidad = $this->getEntidad();
         $path = $this->getPath();
 
-        $data = DB::select("EXEC socios.sp_certificado_tributario ?, ?", [$socio->id, $anio]);
-        $pdf = PDF::loadView($this->vista, compact("socio", "anio", "entidad", "data"))
+        $dataAhorros = DB::select("EXEC reportes.sp_certificado_extracto_social_ahorros ?, ?", [$socio->id, $anio]);
+        $dataCreditos = DB::select("EXEC reportes.sp_certificado_extracto_social_creditos ?, ?", [$socio->id, $anio]);
+        $dataConvenios = DB::select("EXEC reportes.sp_certificado_extracto_social_convenios ?, ?", [$socio->id, $anio]);
+        $pdf = PDF::loadView($this->vista, compact("socio", "anio", "entidad", "dataAhorros", "dataCreditos", "dataConvenios", "configuracion"))
             ->setPaper('letter', 'portait')
             ->setWarnings(false);
         $pdf->save($path);
