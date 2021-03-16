@@ -161,6 +161,7 @@ class ReportesController extends Controller
 		$res = DB::select($sql, [$entidad->id, $fecha, $fecha]);
 		$cantidadAsociados = 0;
 		foreach ($res as $value) {
+			if($value->fecha_nacimiento == null)continue;
 			$cantidadAsociados++;
 			$diff = substr($value->fecha_nacimiento, 0, 10);
 			$diff = Carbon::createFromFormat('Y-m-d', $diff)->startOfDay();
