@@ -34,7 +34,6 @@ class SocioController extends Controller
     {
         $usuario = $request->user();
         $this->log("API: Ingresó al dashboard: " . $usuario->usuario, 'CONSULTAR');
-        $usuario = $request->user();
         $socio = $this->getSocio($usuario);
         return response()->json($socio);
     }
@@ -46,7 +45,6 @@ class SocioController extends Controller
     {
         $usuario = $request->user();
         $this->log("API: Ingresó al perfil: " . $usuario->usuario, 'CONSULTAR');
-        $usuario = $request->user();
         $perfil = $this->getPerfil($usuario);
         return response()->json($perfil);
     }
@@ -58,9 +56,18 @@ class SocioController extends Controller
     {
         $usuario = $request->user();
         $this->log("API: Ingresó al beneficiarios: " . $usuario->usuario, 'CONSULTAR');
-        $usuario = $request->user();
         $perfil = $this->getBeneficiarios($usuario);
         return response()->json($perfil);
+    }
+
+    public function actualizarImagen(Request $request)
+    {
+        $usuario = $request->user();
+        $this->log("API: Actualizó la imagen: " . $usuario->usuario, 'ACTUALIZAR');
+        $socio = $usuario->socios[0];
+        $socio->avatar = "data:image/jpg;base64," . $request->imagen;
+        $socio->save();
+        return response()->json([]);
     }
 
     private function getSocio($usuario) {
@@ -205,5 +212,6 @@ class SocioController extends Controller
         Route::get('1.0/socio', 'Api\Socio\SocioController@socio');
         Route::get('1.0/perfil', 'Api\Socio\SocioController@perfil');
         Route::get('1.0/beneficiarios', 'Api\Socio\SocioController@beneficiarios');
+        Route::put('1.0/actualizarImagen', 'Api\Socio\SocioController@actualizarImagen');
     }
 }
