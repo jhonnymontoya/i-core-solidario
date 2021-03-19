@@ -286,7 +286,7 @@ class ConsultaController extends Controller
 			'modalidad' => [
 				'bail',
 				'required',
-				'exists:sqlsrv.creditos.modalidades,id,entidad_id,' . $this->getEntidad()->id . ',esta_activa,1,deleted_at,NULL',
+				'exists:sqlsrv.creditos.modalidades,id,entidad_id,' . $this->getEntidad()->id . ',esta_activa,1,uso_socio,1,deleted_at,NULL',
 			],
 			'valorCredito' => 'bail|required|integer|min:1',
 			'plazo' => 'bail|required|integer|min:1|max:1000',
