@@ -65,7 +65,7 @@ class SocioController extends Controller
         $usuario = $request->user();
         $this->log("API: Actualizó la imagen: " . $usuario->usuario, 'ACTUALIZAR');
         $socio = $usuario->socios[0];
-        $socio->avatar = "data:image/jpg;base64," . $request->imagen;
+        $socio->avatar = "data:image/png;base64," . $request->imagen;
         $socio->save();
         return response()->json([]);
     }
