@@ -35,6 +35,19 @@ class CreditosController extends Controller
         return response()->json($data);
     }
 
+    public function obtenerModalidades(Request $request)
+    {
+        $usuario = $request->user();
+        $socio = $usuario->socios[0];
+        $tercero = $socio->tercero;
+        $log = "API: Usuario '%s' consultó las modalidades de crédito";
+        $log = sprintf($log, $usuario->usuario);
+        $this->log($log, 'CONSULTAR');
+
+        $data = Creditos::getModalidadesDeCredito($tercero->entidad_id);
+        return response()->json($data);
+    }
+
     /**
      * Valida si el usuario tiene permiso para ver los movimientos
      * de ahorro de la modalidad seleccionada
@@ -68,6 +81,7 @@ class CreditosController extends Controller
      */
     public static function routes()
     {
+        Route::get('1.0/credito/modalidades', 'Api\Creditos\CreditosController@obtenerModalidades');
         Route::get('1.0/credito/{obj}', 'Api\Creditos\CreditosController@obtenerCredito');
     }
 }

@@ -395,4 +395,79 @@ class Creditos
         return $solicitud;
     }
 
+    public static function getModalidadesDeCredito($entidadId)
+    {
+        $modalidadesCredito = Modalidad::entidadId($entidadId)
+            ->activa()
+            ->usoSocio()
+            ->get();
+
+        $data = collect();
+        foreach ($modalidadesCredito as $modalidadCredito) {
+            $modalidad = (object)[
+                "id" => $modalidadCredito->id,
+                "nombre" => $modalidadCredito->nombre,
+                "periodicidadesDePago" => Creditos::getArrayPeriodicidades($modalidadCredito)
+            ];
+            $data->push($modalidad);
+        }
+        return $data;
+    }
+
+    private static function getArrayPeriodicidades($modalidadDeCredito)
+    {
+        $periodicidades = [];
+
+        if($modalidadDeCredito->acepta_pago_semanal)
+        {
+            array_push($periodicidades, "SEMANAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_decadal)
+        {
+            array_push($periodicidades, "DECADAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_catorcenal)
+        {
+            array_push($periodicidades, "CATORCENAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_quincenal)
+        {
+            array_push($periodicidades, "QUINCENAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_mensual)
+        {
+            array_push($periodicidades, "MENSUAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_bimensual)
+        {
+            array_push($periodicidades, "BIMESTRAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_trimestral)
+        {
+            array_push($periodicidades, "TRIMESTRAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_cuatrimestral)
+        {
+            array_push($periodicidades, "CUATRIMESTRAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_semestral)
+        {
+            array_push($periodicidades, "SEMESTRAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_anual)
+        {
+            array_push($periodicidades, "ANUAL");
+        }
+        return $periodicidades;
+    }
+
 }
