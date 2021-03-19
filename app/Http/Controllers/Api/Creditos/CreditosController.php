@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Creditos;
 
 use Route;
+use Validator;
 use App\Api\Creditos;
 use Illuminate\Http\Request;
 use App\Traits\ICoreTrait;
@@ -76,12 +77,49 @@ class CreditosController extends Controller
         }
     }
 
+    public function simularCredito(Request $request)
+    {
+        $usuario = $request->user();
+        $socio = $usuario->socios[0];
+        $tercero = $socio->tercero;
+        Validator::make($request->all(), [
+            "modalidadCreditoId" => [
+                "bail",
+                "required",
+                "integer",
+                "exists:sqlsrv.creditos.modalidades,id,entidad_id," . $tercero->entidad_id . ',esta_activa,1,uso_socio,1,deleted_at,NULL',
+            ],
+            "periodicidadDePago" => [
+                "bail",
+                "required",
+                "string",
+                "in:ANUAL,SEMESTRAL,CUATRIMESTRAL,TRIMESTRAL,BIMESTRAL,MENSUAL,QUINCENAL,CATORCENAL,DECADAL,SEMANAL,DIARIO"
+            ],
+            "valorCredito" => "bail|required|integer|min:1",
+            "plazo" => "bail|required|integer|min:1|max:1000"
+        ])->validate();
+
+        $log = "API: Usuario '%s' simuló crédito con los siguientes parámetros '%s'";
+        $log = sprintf($log, $usuario->usuario, json_encode($request->all()));
+        $this->log($log, 'CONSULTAR');
+
+        $data = Creditos::simularCredito(
+            $socio,
+            $request->modalidadCreditoId,
+            $request->periodicidadDePago,
+            $request->valorCredito,
+            $request->plazo
+        );
+        return response()->json($data);
+    }
+
     /**
      * Establece las rutas
      */
     public static function routes()
     {
         Route::get('1.0/credito/modalidades', 'Api\Creditos\CreditosController@obtenerModalidades');
+        Route::post('1.0/credito/simular', 'Api\Creditos\CreditosController@simularCredito');
         Route::get('1.0/credito/{obj}', 'Api\Creditos\CreditosController@obtenerCredito');
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Api;
 
 use Carbon\Carbon;
+use App\Helpers\ConversionHelper;
+use App\Helpers\FinancieroHelper;
 use App\Models\Creditos\Modalidad;
 use Illuminate\Support\Facades\DB;
 use App\Models\Creditos\SolicitudCredito;
@@ -468,6 +470,71 @@ class Creditos
             array_push($periodicidades, "ANUAL");
         }
         return $periodicidades;
+    }
+
+    public static function simularCredito($socio, $modalidadCreditoId, $periodicidad, $valorCredito, $plazo)
+    {
+        $fechaCredito = Carbon::now()->startOfDay();
+        $modalidad = Modalidad::find($modalidadCreditoId);
+        $fechaPrimerPago = $socio->pagaduria
+            ->calendarioRecaudos()
+            ->whereEstado("programado")
+            ->first();
+
+        $fechaPrimerPago = $fechaPrimerPago->fecha_recaudo;
+
+        $amortizacion = FinancieroHelper::obtenerAmortizacion(
+            $modalidad,
+            $valorCredito,
+            $fechaCredito,
+            $fechaPrimerPago,
+            $plazo,
+            $periodicidad
+        );
+        if(!$amortizacion) {
+            throw new Exception("Plazo invalido", 1);
+        }
+        $plazoTmp = ConversionHelper::conversionValorPeriodicidad(
+            $plazo,
+            "MENSUAL",
+            $periodicidad
+        );
+        $tasa = null;
+        if($modalidad->es_tasa_condicionada) {
+            $condicion = $modalidad->condicionesModalidad()
+                ->whereTipoCondicion("TASA")
+                ->first();
+            if(!$condicion) {
+                throw new Exception("No existe la condicioón", 1);
+            }
+            if(!$condicion->contenidoEnCondicion($plazoTmp)) {
+                throw new Exception("El plazo no puede estar en dicha condición", 1);
+
+            }
+            $tasa = floatval($condicion->valorCondicionado($plazoTmp));
+        }
+        else {
+            $tasa = $modalidad->tasa;
+        }
+
+        $dato[] = $amortizacion[0];
+        $dato[] = $amortizacion[count($amortizacion) - 1];
+
+        $data = array(
+            "fechaSimulacion" => $fechaCredito->format("Y-m-d"),
+            "modalidadDeCredito" => $modalidad->nombre,
+            "periodicidad" => $periodicidad,
+            "valorCredito" => "$" . number_format($valorCredito, 0),
+            "plazo" => $plazo,
+            "tasa" => number_format($tasa, 2) . "% M.V.",
+            "numeroCuotas" => count($amortizacion),
+            "fechaPrimerPago" => $fechaPrimerPago->format("Y-m-d"),
+            "fechaUltimoPago" => $dato[1]["fechaCuota"]->format("Y-m-d"),
+            "valorCuota" => "$" . number_format($dato[0]["total"], 0)
+        );
+
+        return $data;
+
     }
 
 }
