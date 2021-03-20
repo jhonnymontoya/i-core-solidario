@@ -420,44 +420,9 @@ class Creditos
     {
         $periodicidades = [];
 
-        if($modalidadDeCredito->acepta_pago_semanal)
+        if($modalidadDeCredito->acepta_pago_anual)
         {
-            array_push($periodicidades, "SEMANAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_decadal)
-        {
-            array_push($periodicidades, "DECADAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_catorcenal)
-        {
-            array_push($periodicidades, "CATORCENAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_quincenal)
-        {
-            array_push($periodicidades, "QUINCENAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_mensual)
-        {
-            array_push($periodicidades, "MENSUAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_bimensual)
-        {
-            array_push($periodicidades, "BIMESTRAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_trimestral)
-        {
-            array_push($periodicidades, "TRIMESTRAL");
-        }
-
-        if($modalidadDeCredito->acepta_pago_cuatrimestral)
-        {
-            array_push($periodicidades, "CUATRIMESTRAL");
+            array_push($periodicidades, "ANUAL");
         }
 
         if($modalidadDeCredito->acepta_pago_semestral)
@@ -465,10 +430,46 @@ class Creditos
             array_push($periodicidades, "SEMESTRAL");
         }
 
-        if($modalidadDeCredito->acepta_pago_anual)
+        if($modalidadDeCredito->acepta_pago_cuatrimestral)
         {
-            array_push($periodicidades, "ANUAL");
+            array_push($periodicidades, "CUATRIMESTRAL");
         }
+
+        if($modalidadDeCredito->acepta_pago_trimestral)
+        {
+            array_push($periodicidades, "TRIMESTRAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_bimensual)
+        {
+            array_push($periodicidades, "BIMESTRAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_mensual)
+        {
+            array_push($periodicidades, "MENSUAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_quincenal)
+        {
+            array_push($periodicidades, "QUINCENAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_catorcenal)
+        {
+            array_push($periodicidades, "CATORCENAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_decadal)
+        {
+            array_push($periodicidades, "DECADAL");
+        }
+
+        if($modalidadDeCredito->acepta_pago_semanal)
+        {
+            array_push($periodicidades, "SEMANAL");
+        }
+
         return $periodicidades;
     }
 
