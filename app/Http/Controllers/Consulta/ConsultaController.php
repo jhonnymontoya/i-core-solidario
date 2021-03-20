@@ -548,7 +548,7 @@ class ConsultaController extends Controller
 
 		event(new SolicitudCreditoDigitalEnviada($solicitud->id, $socio->id));
 
-		Session::flash("message", "Se ha enviado con exito la solicitud de crédito");
+		Session::flash("message", "Se ha enviado con éxito la solicitud de crédito");
 
 		return view("consulta.consulta.solicitarCreditoConfirmacion")
 			->withSocio($socio)
