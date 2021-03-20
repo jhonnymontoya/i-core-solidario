@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Api\Creditos;
 use Route;
 use Validator;
 use App\Api\Creditos;
-use Illuminate\Http\Request;
 use App\Traits\ICoreTrait;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Creditos\SolicitudCredito;
+use App\Events\Creditos\SolicitudCreditoDigitalEnviada;
 
 class CreditosController extends Controller
 {
@@ -113,6 +114,43 @@ class CreditosController extends Controller
         return response()->json($data);
     }
 
+    public function solicitarCredito(Request $request)
+    {
+        $usuario = $request->user();
+        $socio = $usuario->socios[0];
+        $tercero = $socio->tercero;
+        Validator::make($request->all(), [
+            "modalidadCreditoId" => [
+                "bail",
+                "required",
+                "integer",
+                "exists:sqlsrv.creditos.modalidades,id,entidad_id," . $tercero->entidad_id . ',esta_activa,1,uso_socio,1,deleted_at,NULL',
+            ],
+            "valorCredito" => "bail|required|integer|min:1",
+            "plazo" => "bail|required|integer|min:1|max:1000",
+            'observaciones' => 'bail|nullable|string|min:6|max:2000'
+        ])->validate();
+
+        $log = "API: Usuario '%s' solicitó crédito con los siguientes parámetros '%s'";
+        $log = sprintf($log, $usuario->usuario, json_encode($request->all()));
+        $this->log($log, 'CREAR');
+
+        $solicitud = Creditos::crearSolicitudCredito(
+            $socio,
+            $request->modalidadCreditoId,
+            $request->valorCredito,
+            $request->plazo,
+            $request->observaciones
+        );
+
+        event(new SolicitudCreditoDigitalEnviada($solicitud->id, $socio->id));
+
+        $data = [
+            "respuesta" => "Se ha enviado con éxito la solicitud de crédito"
+        ];
+        return response()->json($data);
+    }
+
     /**
      * Establece las rutas
      */
@@ -120,6 +158,7 @@ class CreditosController extends Controller
     {
         Route::get('1.0/credito/modalidades', 'Api\Creditos\CreditosController@obtenerModalidades');
         Route::post('1.0/credito/simular', 'Api\Creditos\CreditosController@simularCredito');
+        Route::post('1.0/credito/solicitar', 'Api\Creditos\CreditosController@solicitarCredito');
         Route::get('1.0/credito/{obj}', 'Api\Creditos\CreditosController@obtenerCredito');
     }
 }
