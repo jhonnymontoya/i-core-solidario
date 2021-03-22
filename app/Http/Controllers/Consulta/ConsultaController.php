@@ -10,6 +10,7 @@ use App\Api\Creditos;
 use App\Traits\ICoreTrait;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Sistema\Modulo;
 use App\Helpers\ConversionHelper;
 use App\Helpers\FinancieroHelper;
 use App\Models\Creditos\Modalidad;
@@ -54,9 +55,15 @@ class ConsultaController extends Controller
 			$genero->masculino = true;
 			$genero->femenino = false;
 		}
+
+		$modulo = Modulo::entidadId($tercero->entidad_id)
+			->codigo("APPMOVIL")
+			->first();
+
 		return view('consulta.consulta.index')
 			->withSocio($socio)
-			->withGenero($genero);
+			->withGenero($genero)
+			->withModulo($modulo);
 	}
 
 	public function ahorrosLista() {
