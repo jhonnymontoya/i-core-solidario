@@ -16,7 +16,7 @@
                         <div class="text-right">
                             @if($modulo->play_store)
                                 <a href="{{ $modulo->play_store }}" target="_blank" rel="noreferrer noopener">
-                                    <img width="10%" src="{{ asset('img/googleplay.png') }}">
+                                    <img width="160" src="{{ asset('img/googleplay.png') }}">
                                 </a>
                             @endif
                         </div>
