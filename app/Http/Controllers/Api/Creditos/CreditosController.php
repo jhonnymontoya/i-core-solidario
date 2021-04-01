@@ -26,12 +26,13 @@ class CreditosController extends Controller
     public function obtenerCredito(Request $request, SolicitudCredito $obj)
     {
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $socio = $usuario->socios[0];
         $tercero = $socio->tercero;
-        $this->validarPermisoCreditoUsuario($tercero, $obj);
+        $this->validarPermisoCreditoUsuario($tercero, $obj, $entidadId);
         $log = "API: Usuario '%s' consultó el crédito '%s'";
         $log = sprintf($log, $usuario->usuario, $obj->numero_obligacion);
-        $this->log($log, 'CONSULTAR');
+        $this->log($log, 'CONSULTAR', $entidadId);
 
         $data = Creditos::getDetalleCredito($tercero, $obj);
         return response()->json($data);
@@ -40,11 +41,12 @@ class CreditosController extends Controller
     public function obtenerModalidades(Request $request)
     {
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $socio = $usuario->socios[0];
         $tercero = $socio->tercero;
         $log = "API: Usuario '%s' consultó las modalidades de crédito";
         $log = sprintf($log, $usuario->usuario);
-        $this->log($log, 'CONSULTAR');
+        $this->log($log, 'CONSULTAR', $entidadId);
 
         $data = Creditos::getModalidadesDeCredito($tercero->entidad_id);
         return response()->json($data);
@@ -54,7 +56,7 @@ class CreditosController extends Controller
      * Valida si el usuario tiene permiso para ver los movimientos
      * de ahorro de la modalidad seleccionada
      */
-    private function validarPermisoCreditoUsuario($tercero, $solicitudCredito)
+    private function validarPermisoCreditoUsuario($tercero, $solicitudCredito, $entidadId)
     {
         $log = "API ERROR: Usuario '%s' intentó consultar el crédito '%s'";
         $log = sprintf(
@@ -63,17 +65,17 @@ class CreditosController extends Controller
             $solicitudCredito->numero_obligacion
         );
         if($tercero->entidad_id != $solicitudCredito->entidad_id) {
-            $this->log($log, 'CONSULTAR');
+            $this->log($log, 'CONSULTAR', $entidadId);
             return abort(401, 'No está autorizado a ingresar a la información');
         }
 
         if($solicitudCredito->estado_solicitud != 'DESEMBOLSADO') {
-            $this->log($log, 'CONSULTAR');
+            $this->log($log, 'CONSULTAR', $entidadId);
             return abort(401, 'No está autorizado a ingresar a la información');
         }
 
         if($solicitudCredito->tercero_id != $tercero->id) {
-            $this->log($log, 'CONSULTAR');
+            $this->log($log, 'CONSULTAR', $entidadId);
             return abort(401, 'No está autorizado a ingresar a la información');
         }
     }
@@ -81,6 +83,7 @@ class CreditosController extends Controller
     public function simularCredito(Request $request)
     {
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $socio = $usuario->socios[0];
         $tercero = $socio->tercero;
         Validator::make($request->all(), [
@@ -102,7 +105,7 @@ class CreditosController extends Controller
 
         $log = "API: Usuario '%s' simuló crédito con los siguientes parámetros '%s'";
         $log = sprintf($log, $usuario->usuario, json_encode($request->all()));
-        $this->log($log, 'CONSULTAR');
+        $this->log($log, 'CONSULTAR', $entidadId);
 
         $data = Creditos::simularCredito(
             $socio,
@@ -117,6 +120,7 @@ class CreditosController extends Controller
     public function solicitarCredito(Request $request)
     {
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $socio = $usuario->socios[0];
         $tercero = $socio->tercero;
         Validator::make($request->all(), [
@@ -133,7 +137,7 @@ class CreditosController extends Controller
 
         $log = "API: Usuario '%s' solicitó crédito con los siguientes parámetros '%s'";
         $log = sprintf($log, $usuario->usuario, json_encode($request->all()));
-        $this->log($log, 'CREAR');
+        $this->log($log, 'CREAR', $entidadId);
 
         $solicitud = Creditos::crearSolicitudCredito(
             $socio,

@@ -23,6 +23,7 @@ class DocumentacionController extends Controller
     public function certificadoTributario(Request $request)
     {
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $socio = $usuario->socios[0];
         $tercero = $socio->tercero;
         $correos = $tercero->getCorreos();
@@ -55,7 +56,7 @@ class DocumentacionController extends Controller
         }
         $log = "API: Usuario '%s' consultó el certificado tributario.";
         $log = sprintf($log, $usuario->usuario);
-        $this->log($log, 'CONSULTAR');
+        $this->log($log, 'CONSULTAR', $entidadId);
 
         $pdf = null;
         $pdf = new CertificadoTributario($socio, $request->anio);

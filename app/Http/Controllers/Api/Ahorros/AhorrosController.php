@@ -24,11 +24,12 @@ class AhorrosController extends Controller
     public function obtenerAhorro(Request $request, ModalidadAhorro $obj)
     {
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $socio = $usuario->socios[0];
-        $this->validarPermisoModalidadUsuario($socio, $obj);
+        $this->validarPermisoModalidadUsuario($socio, $obj, $entidadId);
         $log = "API: Usuario '%s' consultó los ahorros de la modalidad '%s'";
         $log = sprintf($log, $usuario->usuario, $obj->nombre);
-        $this->log($log, 'CONSULTAR');
+        $this->log($log, 'CONSULTAR', $entidadId);
 
         $data = Ahorros::getDetalleAhorros($socio, $obj);
         return response()->json($data);
@@ -38,7 +39,7 @@ class AhorrosController extends Controller
      * Valida si el usuario tiene permiso para ver los movimientos
      * de ahorro de la modalidad seleccionada
      */
-    private function validarPermisoModalidadUsuario($socio, $modalidad)
+    private function validarPermisoModalidadUsuario($socio, $modalidad, $entidadId)
     {
         $tercero = $socio->tercero;
         if($tercero->entidad_id != $modalidad->entidad_id) {
@@ -48,7 +49,7 @@ class AhorrosController extends Controller
                 $tercero->numero_identificacion,
                 $modalidad->nombre
             );
-            $this->log($log, 'INGRESAR');
+            $this->log($log, 'INGRESAR', $entidadId);
             return abort(401, 'No está autorizado a ingresar a la información');
         }
     }

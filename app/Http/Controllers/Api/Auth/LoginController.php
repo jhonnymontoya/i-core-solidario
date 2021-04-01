@@ -32,22 +32,29 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credenciales = request(['usuario', 'password']);
-        $activo = $this->validarModuloAppActivo($credenciales["usuario"]);
-        if($activo == false){
-            $this->log("API: Intentó ingresar al sistema con APP Movil desabilitada " . $request->usuario, 'INGRESAR');
-            return response()->json(['message' => 'App Movil no activa'], 412);
+        $entidadId = $this->getEntidadIdParaApi($request->usuario);
+        $estaAppMovilActiva = $this->validarModuloAppActivo($request->usuario);
+        if($estaAppMovilActiva == false){
+            $msg = "API: Intentó ingresar al sistema con APP Movil desabilitada '%s'";
+            $msg = sprintf($msg, $request->usuario);
+            $this->log($msg, 'INGRESAR', $entidadId);
+            return response()->json(['message' => 'App Móvil no activa'], 412);
         }
 
-        if(!Auth::attempt($credenciales)) {
-            $this->log("API: Intentó ingresar al sistema " . $request->usuario, 'INGRESAR');
+        if(!Auth::attempt(request(['usuario', 'password']))) {
+            $msg = "API: Intentó ingresar al sistema con contraseña errada '%s'";
+            $msg = sprintf($msg, $request->usuario);
+            $this->log($msg, 'INGRESAR', $entidadId);
             return response()->json(['message' => 'No autorizado'], 401);
         }
         $usuario = $request->user();
         $tokenRes = $usuario->createToken('I-Core Token');
         $token = $tokenRes->token;
         $token->save();
-        $this->log("API: Ingresó al sistema: " . $request->usuario, 'INGRESAR');
+
+        $msg = "API: Ingresó al sistema: '%s'";
+        $msg = sprintf($msg, $request->usuario);
+        $this->log($msg, 'INGRESAR', $entidadId);
         return response()->json([
             'token' => $tokenRes->accessToken,
             'fechaExpiracion' => $token->expires_at
@@ -56,6 +63,7 @@ class LoginController extends Controller
 
     public function validarCredenciales(LoginRequest $request)
     {
+        $entidadId = $this->getEntidadIdParaApi($request->usuario);
         $credenciales = request(['usuario', 'password']);
 
         $respuesta = false;
@@ -63,17 +71,25 @@ class LoginController extends Controller
         $respuesta = $usuario->usuario == $credenciales["usuario"]
             && Hash::check($credenciales["password"], $usuario->password);
         if(!$respuesta) {
-            $this->log("API: Intentó validar credenciales  " . $request->usuario, 'CONSULTAR');
+            $msg = "API: Intentó validar credenciales sin éxito '%s'";
+            $msg = sprintf($msg, $request->usuario);
+            $this->log($msg, 'CONSULTAR', $entidadId);
             return response()->json(['message' => 'No autorizado'], 401);
         }
-        $this->log("API: Validó credenciales para Biometrico: " . $request->usuario, 'CONSULTAR');
+
+        $msg = "API: Validó credenciales para Biometrico: '%s'";
+        $msg = sprintf($msg, $request->usuario);
+        $this->log($msg, 'CONSULTAR', $entidadId);
         return response()->json();
     }
 
     public function logout(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Salió del sistema: " . $usuario->usuario, 'SALIR');
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
+        $msg = "API: Salió del sistema: '%s'";
+        $msg = sprintf($msg, $usuario->usuario);
+        $this->log($msg, 'SALIR', $entidadId);
         $request->user()->token()->revoke();
     }
 
@@ -82,7 +98,11 @@ class LoginController extends Controller
      */
     public function sendResetLinkEmail(ForgotPasswordRequest $request)
     {
-        $this->log("API: Envió link de restauración de contraseña: " . $request->usuario, 'INGRESAR');
+        $entidadId = $this->getEntidadIdParaApi($request->usuario);
+
+        $msg = "API: Envió link de restauración de contraseña: '%s'";
+        $msg = sprintf($msg, $request->usuario);
+        $this->log($msg, 'INGRESAR', $entidadId);
         //Se busca el usuario
         $user = $this->getUser($request->only("usuario"));
 
@@ -102,24 +122,32 @@ class LoginController extends Controller
 
         $respuesta = false;
         $usuario = $request->user();
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
         $respuesta = $usuario->usuario == $credenciales["usuario"]
             && Hash::check($credenciales["passwordActual"], $usuario->password);
         if(!$respuesta) {
-            $this->log("API: Intentó cambiar la contraseña sin exito " . $request->usuario, 'ACTUALIZAR');
+            $msg = "API: Intentó cambiar la contraseña sin exito '%s'";
+            $msg = sprintf($msg, $request->usuario);
+            $this->log($msg, 'ACTUALIZAR', $entidadId);
             return response()->json(['message' => 'No autorizado'], 401);
         }
 
         $usuario->password = bcrypt($credenciales["password"]);
         $usuario->save();
 
-        $this->log("API: Actualizó la contraseña: " . $request->usuario, 'ACTUALIZAR');
+        $msg = "API: Actualizó la contraseña: '%s'";
+        $msg = sprintf($msg, $request->usuario);
+        $this->log($msg, 'ACTUALIZAR', $entidadId);
         return response()->json();
     }
 
     public function ping(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ping de token de seguridad: " . $usuario->usuario, 'CONSULTAR');
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
+        $msg = "API: Ping de token de seguridad: '%s'";
+        $msg = sprintf($msg, $usuario->usuario);
+        $this->log($msg, 'CONSULTAR', $entidadId);
     }
 
     /**
@@ -164,7 +192,10 @@ class LoginController extends Controller
             $tercero = $socio->tercero;
             $contactos = $tercero->contactos()->whereNotNull("email")->get();
             foreach ($contactos as $contacto) {
-                $val = Validator::make(["email" => $contacto->email], ["email" => "bail|required|email"]);
+                $val = Validator::make(
+                    ["email" => $contacto->email],
+                    ["email" => "bail|required|email:rfc,dns"]
+                );
                 if(!$val->fails())
                     $correos->push($contacto->email);
             }
@@ -174,11 +205,7 @@ class LoginController extends Controller
 
     protected function validarModuloAppActivo($socio)
     {
-        $socio = UsuarioWeb::with([
-            'socios',
-            'socios.tercero'
-        ])->whereUsuario($socio)->first();
-        $entidad_id = $socio->socios[0]->tercero->entidad_id;
+        $entidad_id = $this->getEntidadIdParaApi($socio);
         $modulo = Modulo::entidadId($entidad_id)->codigo('APPMOVIL')->first();
         if(is_null($modulo) == true) return false;
         return $modulo->esta_activo;

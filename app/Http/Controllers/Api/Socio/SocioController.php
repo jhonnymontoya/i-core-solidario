@@ -33,7 +33,10 @@ class SocioController extends Controller
     public function socio(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ingresó al dashboard: " . $usuario->usuario, 'CONSULTAR');
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
+        $msg = "API: Ingresó al dashboard: '%s'";
+        $msg = sprintf($msg, $usuario->usuario);
+        $this->log($msg, 'CONSULTAR', $entidadId);
         $socio = $this->getSocio($usuario);
         return response()->json($socio);
     }
@@ -44,7 +47,10 @@ class SocioController extends Controller
     public function perfil(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ingresó al perfil: " . $usuario->usuario, 'CONSULTAR');
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
+        $msg = "API: Ingresó al perfil: '%s'";
+        $msg = sprintf($msg, $usuario->usuario);
+        $this->log($msg, 'CONSULTAR', $entidadId);
         $perfil = $this->getPerfil($usuario);
         return response()->json($perfil);
     }
@@ -55,7 +61,10 @@ class SocioController extends Controller
     public function beneficiarios(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Ingresó al beneficiarios: " . $usuario->usuario, 'CONSULTAR');
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
+        $msg = "API: Ingresó al beneficiarios: '%s'";
+        $msg = sprintf($msg, $usuario->usuario);
+        $this->log($msg, 'CONSULTAR', $entidadId);
         $perfil = $this->getBeneficiarios($usuario);
         return response()->json($perfil);
     }
@@ -63,7 +72,10 @@ class SocioController extends Controller
     public function actualizarImagen(Request $request)
     {
         $usuario = $request->user();
-        $this->log("API: Actualizó la imagen: " . $usuario->usuario, 'ACTUALIZAR');
+        $entidadId = $this->getEntidadIdParaApi($usuario->usuario);
+        $msg = "API: Actualizó la imagen: '%s'";
+        $msg = sprintf($msg, $usuario->usuario);
+        $this->log($msg, 'ACTUALIZAR', $entidadId);
         $socio = $usuario->socios[0];
         $socio->avatar = "data:image/png;base64," . $request->imagen;
         $socio->save();
