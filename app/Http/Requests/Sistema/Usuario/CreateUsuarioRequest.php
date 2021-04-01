@@ -54,7 +54,7 @@ class CreateUsuarioRequest extends FormRequest
             'email' => [
                 'bail',
                 'required',
-                'email',
+                'email:rfc,dns',
                 'min:3',
                 'max:100',
                 'unique:sqlsrv.sistema.usuarios,email,NULL,id,deleted_at,NULL'

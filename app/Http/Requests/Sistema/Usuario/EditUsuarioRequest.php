@@ -57,7 +57,7 @@ class EditUsuarioRequest extends FormRequest
             'email' => [
                 'bail',
                 'required',
-                'email',
+                'email:rfc,dns',
                 'min:3',
                 'max:100',
                 'unique:sqlsrv.sistema.usuarios,email,' . $this->obj->id . ',id,deleted_at,NULL'
