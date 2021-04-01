@@ -505,8 +505,11 @@
 <script type="text/javascript">
 	$(function(){
 		$("select[name='profesion']").selectAjax("{{ url('api/profesion') }}", {id:"{{ $socio->profesion_id | old('profesion') }}"});
-		$("select[name='actividad_economica']").selectAjax("{{ url('ciiu') }}", {id:"{{ $socio->tercero->actividad_economica_id | old('actividad_economica') }}"});
-		$(window).load(function(){
+		@if ($socio->tercero->actividad_economica_id || old('actividad_economica'))
+			$("select[name='actividad_economica']").selectAjax("{{ url('ciiu') }}", {id:"{{ $socio->tercero->actividad_economica_id | old('actividad_economica') }}"});
+		@endif
+
+		$(document).ready(function(){
 			@if(!empty($socio->sueldo_mes))
 			$("input[name='sueldo_mensual']").maskMoney('mask');
 			@endif
@@ -529,7 +532,6 @@
 			$("input[name='valor_descuento_extra_prima']").maskMoney('mask');
 			@endif
 		});
-
 	});
 </script>
 @endpush
