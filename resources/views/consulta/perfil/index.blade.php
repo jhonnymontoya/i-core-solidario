@@ -68,10 +68,14 @@
 								<dd>{{ empty($socio->pagaduria) ? '' : $socio->pagaduria->nombre }}</dd>
 
 								<dt>Fecha nacimiento</dt>
-								<dd>{{ empty($socio->tercero->fecha_nacimiento) ? '' : $socio->tercero->fecha_nacimiento }}</dd>
+								@if (empty($socio->tercero->fecha_nacimiento))
+									<dd></dd>
+								@else
+									<dd>{{ $socio->tercero->fecha_nacimiento }} ({{ $socio->tercero->fecha_nacimiento->diffForHumans() }})</dd>
+								@endif
 
 								<dt>Ingreso empresa</dt>
-								<dd>{{ $socio->fecha_ingreso }}</dd>
+								<dd>{{ $socio->fecha_ingreso }} ({{ $socio->fecha_ingreso->diffForHumans() }})</dd>
 
 								<dt>Endeudamiento</dt>
 								<dd><span class="badge badge-pill {{ $label }}">{{ number_format($porcentaje, 2) }}%</span></dd>

@@ -11,7 +11,7 @@
 		<strong>
 			<label class="text-primary">{{ $tercero->nombre }}</label>
 			<br>
-			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }} 
+			{{ $tercero->tipoIdentificacion->codigo }}: {{ number_format($tercero->numero_identificacion) }}-{{ $tercero->digito_verificacion }}
 		</strong>
 		<h4>
 			Estado de cuenta
@@ -34,7 +34,11 @@
 					<div class="col-md-5 col-5">{{ $socio != null ?optional($socio->pagaduria)->nombre : '' }}</div>
 
 					<div class="col-md-2 col-2"><strong>Afiliación:</strong></div>
-					<div class="col-md-3 col-3">{{ optional($socio)->fecha_afiliacion }}</div>
+					@if ($socio)
+						<div class="col-md-3 col-3">{{ $socio->fecha_afiliacion }} ({{ $socio->fecha_afiliacion->diffForHumans() }})</div>
+					@else
+						<div class="col-md-3 col-3"></div>
+					@endif
 				</div>
 				<?php
 					$endeudamiento = 0;
@@ -47,7 +51,11 @@
 					<div class="col-md-5 col-5">{{ optional($socio)->estado }}</div>
 
 					<div class="col-md-2 col-2"><strong>Ingreso empresa:</strong></div>
-					<div class="col-md-3 col-3">{{ optional($socio)->fecha_ingreso }}</div>
+					@if ($socio)
+						<div class="col-md-3 col-3">{{ $socio->fecha_ingreso }} ({{ $socio->fecha_ingreso->diffForHumans() }})</div>
+					@else
+						<div class="col-md-3 col-3"></div>
+					@endif
 				</div>
 
 				<div class="row">
@@ -55,7 +63,11 @@
 					<div class="col-md-5 col-5">${{ number_format(optional($socio)->sueldo_mes) }}</div>
 
 					<div class="col-md-2 col-2"><strong>Nacimiento:</strong></div>
-					<div class="col-md-3 col-3">{{ optional($ter)->fecha_nacimiento }}</div>
+					@if ($ter)
+						<div class="col-md-3 col-3">{{ $ter->fecha_nacimiento }} ({{ $ter->fecha_nacimiento->diffForHumans() }})</div>
+					@else
+						<div class="col-md-3 col-3"></div>
+					@endif
 				</div>
 
 				<div class="row">
