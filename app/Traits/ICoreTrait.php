@@ -2,12 +2,13 @@
 
 namespace App\Traits;
 
-use App\Models\General\ControlCierreModulo;
-use App\Models\Sistema\LogEvento;
-use Auth;
-use Carbon\Carbon;
 use Log;
+use Auth;
 use Request;
+use Carbon\Carbon;
+use App\Models\Sistema\LogEvento;
+use App\Models\Sistema\UsuarioWeb;
+use App\Models\General\ControlCierreModulo;
 
 /**
  * Métodos de uso general
@@ -65,12 +66,17 @@ trait ICoreTrait
 		return false;
 	}
 
-	protected function log($descripcion = null, $tipoEvento = 'INGRESAR') {
+	protected function log($descripcion = null, $tipoEvento = 'INGRESAR', $entidadId = null) {
 		try{
 			$metadata = $this->getMetaDataLog();
 
 			$evento = new LogEvento;
 			$evento->fill($metadata);
+
+			if(is_null($entidadId) == false){
+				$evento->entidad_id = $entidadId;
+			}
+
 			$evento->tipo_evento = $tipoEvento;
 			$evento->descripcion = $descripcion;
 			$evento->save();
@@ -131,4 +137,16 @@ trait ICoreTrait
 		}
 		return $metadata;
 	}
+
+	/**
+	 * Función que devuelve la entidad ID para API
+	 */
+	protected function getEntidadIdParaApi($numeroIdentificacion)
+    {
+        $socio = UsuarioWeb::with([
+            'socios',
+            'socios.tercero'
+        ])->whereUsuario($numeroIdentificacion)->first();
+        return $socio->socios[0]->tercero->entidad_id;
+    }
 }
