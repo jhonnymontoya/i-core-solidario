@@ -1222,7 +1222,7 @@ class SocioController extends Controller
 			$fechaAmortizacionUltimoPago = $amortizaciones[$amortizaciones->count() - 1]->fecha_cuota;
 		}
 		$ultimoMovimiento = $obj->movimientosCapitalCredito()->orderBy('fecha_movimiento', 'desc')->first();
-		$ultimoMovimiento = $ultimoMovimiento->fecha_movimiento;
+		$ultimoMovimiento = optional($ultimoMovimiento)->fecha_movimiento;
 		$codeudores = collect();
 		foreach($obj->codeudores as $codeudor) {
 			$tercero = $codeudor->tercero;
