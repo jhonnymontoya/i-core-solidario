@@ -101,7 +101,7 @@
 						<th class="cth">Tipo de ahorro</th>
 						<th class="cth">Saldo</th>
 						<th class="cth">Abonos periodo</th>
-						<th class="cth">Tasa E.A</th>
+						<th class="cth">Tasa E.A.</th>
 						<th class="cth">Interes periodo</th>
 						<th class="cth">Interes externo</th>
 						<th class="cth">Beneficio</th>
@@ -159,9 +159,9 @@
 				<thead>
 					<tr>
 						<th class="cth">Modalidad</th>
-						<th class="cth">Número cédito</th>
+						<th class="cth">Número crédito</th>
 						<th class="cth">Valor inicial</th>
-						<th class="cth">Tasa E.A</th>
+						<th class="cth">Tasa M.V.</th>
 						<th class="cth">Saldo capital</th>
 						<th class="cth">Abonos periodo</th>
 						<th class="cth">Interes periodo</th>
