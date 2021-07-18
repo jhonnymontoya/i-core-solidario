@@ -42,7 +42,9 @@ class UsuarioController extends Controller
             ->orderBy('primer_apellido')
             ->paginate();
 
-        return view('sistema.usuario.index')->withUsuarios($usuarios)->withEntidades($entidades);
+        return view('sistema.usuario.index')
+            ->withUsuarios($usuarios)
+            ->withEntidades($entidades);
     }
 
     public function create() {
@@ -56,7 +58,6 @@ class UsuarioController extends Controller
     }
 
     public function store(CreateUsuarioRequest $request) {
-        $tipoIdentificacion = TipoIdentificacion::find($request->tipo_identificacion_id);
         $usuario = new Usuario;
         $usuario->fill($request->all());
         $usuario->password = bcrypt($request->password);
@@ -65,7 +66,9 @@ class UsuarioController extends Controller
             $obj->imagen = $request->avatar;
             $usuario->save();
         }
-        Session::flash('message', 'Se ha creado el usuario \'' . $usuario->nombre_corto . '\'');
+        $msg = "Se ha creado el usuario '%s'";
+        $msg = sprintf($msg, $usuario->nombre_corto);
+        Session::flash('message', $msg);
         return redirect()->route('usuarioEdit', [$usuario->id, '#entidades']);
     }
 
@@ -90,9 +93,6 @@ class UsuarioController extends Controller
     }
 
     public function update(EditUsuarioRequest $request, Usuario $obj) {
-        $tipoIdentificacion = TipoIdentificacion::find($request->tipo_identificacion_id);
-        $obj->tipoIdentificacion()->dissociate();
-        $obj->tipoIdentificacion()->associate($tipoIdentificacion);
         $obj->fill($request->all());
         if(!empty($request->password)) {
             $obj->password = bcrypt($request->password);
@@ -109,7 +109,9 @@ class UsuarioController extends Controller
                 if($perfil != null)$obj->perfiles()->attach($perfil);
             }
         }
-        Session::flash('message', 'Se ha actualizado el usuario \'' . $obj->nombre_corto . '\'');
+        $msg = "Se ha actualizado el usuario '%s'";
+        $msg = sprintf($msg, $obj->nombre_corto);
+        Session::flash('message', $msg);
         return redirect('usuario');
     }
 
@@ -129,9 +131,14 @@ class UsuarioController extends Controller
         Route::get('usuario', 'Sistema\UsuarioController@index');
         Route::get('usuario/create', 'Sistema\UsuarioController@create');
         Route::post('usuario', 'Sistema\UsuarioController@store');
-        Route::get('usuario/uiConfiguracion', 'Sistema\UsuarioController@uiConfiguracion')->name('usuario.configuracion');
-        Route::get('usuario/{obj}/edit', 'Sistema\UsuarioController@edit')->name('usuarioEdit');
-        Route::put('usuario/{obj}', 'Sistema\UsuarioController@update')->name('usuarioShow');
+        Route::get(
+            'usuario/uiConfiguracion',
+            'Sistema\UsuarioController@uiConfiguracion'
+        )->name('usuario.configuracion');
+        Route::get('usuario/{obj}/edit', 'Sistema\UsuarioController@edit')
+            ->name('usuarioEdit');
+        Route::put('usuario/{obj}', 'Sistema\UsuarioController@update')
+            ->name('usuarioShow');
         Route::get('usuario/{obj}', 'Sistema\UsuarioController@show');
     }
 }
