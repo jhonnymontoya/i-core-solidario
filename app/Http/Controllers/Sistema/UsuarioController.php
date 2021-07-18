@@ -28,6 +28,7 @@ class UsuarioController extends Controller
     }
 
     public function index(Request $request) {
+        $this->logActividad("Ingreso a usuarios", $request);
         $entidades = Entidad::with('terceroEntidad')
             ->activa()
             ->get()
@@ -48,6 +49,7 @@ class UsuarioController extends Controller
     }
 
     public function create() {
+        $this->log("Ingresó a crear nuevo usuario");
         $tipos = TipoIdentificacion::activo()
             ->aplicacion('NATURAL')
             ->orderBy('nombre')
@@ -58,6 +60,9 @@ class UsuarioController extends Controller
     }
 
     public function store(CreateUsuarioRequest $request) {
+        $msg = "Creó un usuario con los siguientes parámetros ";
+        $msg .= json_encode($request->all());
+        $this->log($msg, "CREAR");
         $usuario = new Usuario;
         $usuario->fill($request->all());
         $usuario->password = bcrypt($request->password);
@@ -73,6 +78,8 @@ class UsuarioController extends Controller
     }
 
     public function edit(Usuario $obj) {
+        $msg = "Ingresó a editar el usuario '%s'";
+        $this->log(sprintf($msg, $obj->nombre_corto));
         $entidades = Entidad::activa()
             ->with(['perfiles' => function($query){
                 $query->activo()->orderBy('nombre', 'asc');
@@ -93,6 +100,9 @@ class UsuarioController extends Controller
     }
 
     public function update(EditUsuarioRequest $request, Usuario $obj) {
+        $msg = "Actualizó un usuario con los siguientes parámetros ";
+        $msg .= json_encode($request->all());
+        $this->log($msg, "ACTUALIZAR");
         $obj->fill($request->all());
         if(!empty($request->password)) {
             $obj->password = bcrypt($request->password);
@@ -116,6 +126,8 @@ class UsuarioController extends Controller
     }
 
     public function show(Usuario $obj) {
+        $msg = "Ingresó a visualizar el usuario '%s'";
+        $this->log(sprintf($msg, $obj->nombre_corto));
         return view('sistema.usuario.show')->withUsuario($obj);
     }
 
