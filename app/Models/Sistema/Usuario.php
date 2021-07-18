@@ -182,10 +182,10 @@ class Usuario extends Authenticatable
     public function scopeCompleto($query, $value) {
         if(strlen($value) > 0) {
             if($value) {
-                $query->whereRaw('char_length(segundo_nombre) > 0 and char_length(segundo_apellido) > 0 and char_length(avatar) > 0');
+                $query->whereRaw('len(segundo_nombre) > 0 and len(segundo_apellido) > 0 and len(avatar) > 0');
             }
             else {
-                $query->whereRaw('char_length(segundo_nombre) = 0 or char_length(segundo_apellido) = 0 or char_length(avatar) = 0');
+                $query->whereRaw('len(segundo_nombre) = 0 or len(segundo_apellido) = 0 or len(avatar) = 0');
             }
         }
     }
