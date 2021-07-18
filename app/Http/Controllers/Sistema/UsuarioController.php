@@ -44,7 +44,7 @@ class UsuarioController extends Controller
             ->orderBy('primer_nombre')
             ->orderBy('primer_apellido');
 
-            if(Auth::user()->es_root == false){
+            if($this->esSesionRoot() == false){
                 $usuarios->whereEsRoot(false);
             }
 
@@ -85,8 +85,16 @@ class UsuarioController extends Controller
     }
 
     public function edit(Usuario $obj) {
+        if($obj->es_root && $this->esSesionRoot() == false)
+        {
+            $msg = "Intentó ingresar a editar el usuario '%s' sin permiso";
+            $this->log(sprintf($msg, $obj->nombre_corto));
+            abort(404);
+        }
+
         $msg = "Ingresó a editar el usuario '%s'";
         $this->log(sprintf($msg, $obj->nombre_corto));
+
         $entidades = Entidad::activa()
             ->with(['perfiles' => function($query){
                 $query->activo()->orderBy('nombre', 'asc');
@@ -107,6 +115,13 @@ class UsuarioController extends Controller
     }
 
     public function update(EditUsuarioRequest $request, Usuario $obj) {
+        if($obj->es_root && $this->esSesionRoot() == false)
+        {
+            $msg = "Intentó actualizar el usuario '%s' sin permiso";
+            $this->log(sprintf($msg, $obj->nombre_corto));
+            abort(404);
+        }
+
         $msg = "Actualizó un usuario con los siguientes parámetros ";
         $msg .= json_encode($request->all());
         $this->log($msg, "ACTUALIZAR");
@@ -133,6 +148,13 @@ class UsuarioController extends Controller
     }
 
     public function show(Usuario $obj) {
+        if($obj->es_root && $this->esSesionRoot() == false)
+        {
+            $msg = "Intentó ingresar a mostrar el usuario '%s' sin permiso";
+            $this->log(sprintf($msg, $obj->nombre_corto));
+            abort(404);
+        }
+
         $msg = "Ingresó a visualizar el usuario '%s'";
         $this->log(sprintf($msg, $obj->nombre_corto));
         return view('sistema.usuario.show')->withUsuario($obj);
@@ -144,6 +166,11 @@ class UsuarioController extends Controller
         $usuario->ui_configuracion = $request;
         $usuario->save();
         return request()->json("");
+    }
+
+    private function esSesionRoot()
+    {
+        return Auth::user()->es_root;
     }
 
     public static function routes() {
