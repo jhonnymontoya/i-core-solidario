@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sistema;
 
 use DB;
 use Log;
+use Auth;
 use Route;
 use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
@@ -39,9 +40,15 @@ class UsuarioController extends Controller
             ->entidad($request->get('entidad'))
             ->completo($request->get('perfil'))
             ->activo($request->get('activo'))
+            ->orderBy('esta_activo', 'desc')
             ->orderBy('primer_nombre')
-            ->orderBy('primer_apellido')
-            ->paginate();
+            ->orderBy('primer_apellido');
+
+            if(Auth::user()->es_root == false){
+                $usuarios->whereEsRoot(false);
+            }
+
+        $usuarios = $usuarios->paginate();
 
         return view('sistema.usuario.index')
             ->withUsuarios($usuarios)
