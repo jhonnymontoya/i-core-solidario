@@ -1,48 +1,36 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Be right back.</title>
+<?php
+    $layout = 'layouts.invitado';
+    if(Auth::getUser() instanceof \App\Models\Sistema\Usuario){
+        $layout = 'layouts.admin';
+    }
+    elseif(Auth::getUser() instanceof \App\Models\Sistema\UsuarioWeb){
+        $layout = 'layouts.consulta';
+    }
+    else{
+        $layout = 'layouts.invitado';
+    }
+?>
+@extends($layout)
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato', sans-serif;
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">404</div>
-                <p>{{ $exception->getMessage() }}</p>
+@section('content')
+<div class="content-wrapper">
+    <section class="content">
+        <br>
+        <div class="row justify-content-md-center">
+            <div class="info-box bg-gradient-danger col-md-8">
+                <span class="info-box-icon"><i class="fas fa-exclamation"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-number">404</span>
+                    <span class="info-box-text">No se encontró el elemento solicitado.</span>
+                </div>
             </div>
         </div>
-    </body>
-</html>
+    </section>
+</div>
+@endsection
+
+@push('style')
+@endpush
+
+@push('scripts')
+@endpush
