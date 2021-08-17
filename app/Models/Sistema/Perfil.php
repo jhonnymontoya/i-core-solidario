@@ -26,7 +26,8 @@ class Perfil extends Model
 	protected $fillable = [
 		'nombre',
 		'descripcion',
-		'esta_activo'
+		'esta_activo',
+		//es_root
 	];
 
 	/**
