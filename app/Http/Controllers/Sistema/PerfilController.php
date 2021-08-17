@@ -18,13 +18,15 @@ use App\Http\Requests\Sistema\Perfil\CreatePerfilRequest;
 
 class PerfilController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth:admin');
         $this->middleware('verEnt');
         $this->middleware('verMenu');
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $entidades = Entidad::with('terceroEntidad')->get();
         $listaEntidades = array();
         foreach($entidades as $entidad)
@@ -46,7 +48,8 @@ class PerfilController extends Controller
             ->withEntidades($listaEntidades);
     }
 
-    public function create() {
+    public function create()
+    {
         $entidades = Entidad::activa()
             ->get()
             ->sortBy('terceroEntidad.razon_social')
@@ -59,7 +62,8 @@ class PerfilController extends Controller
             ->withEntidades($entidades);
     }
 
-    public function store(CreatePerfilRequest $request) {
+    public function store(CreatePerfilRequest $request)
+    {
         $perfil = new Perfil;
         try {
             DB::transaction(function() use($perfil, $request){
@@ -79,7 +83,15 @@ class PerfilController extends Controller
         return redirect('perfil');
     }
 
-    public function edit(Perfil $obj) {
+    public function edit(Perfil $obj)
+    {
+        if($obj->es_root && $this->esSesionRoot() == false)
+        {
+            $msg = "Intentó ingresar a editar el perfil '%s' sin permiso";
+            $this->log(sprintf($msg, $obj->nombre));
+            abort(404);
+        }
+
         $entidades = Entidad::activa()
             ->get()
             ->sortBy('terceroEntidad.razon_social')
@@ -92,7 +104,15 @@ class PerfilController extends Controller
             ->withEntidades($entidades);
     }
 
-    public function update(EditPerfilRequest $request, Perfil $obj) {
+    public function update(EditPerfilRequest $request, Perfil $obj)
+    {
+        if($obj->es_root && $this->esSesionRoot() == false)
+        {
+            $msg = "Intentó actualizar el perfil '%s' sin permiso";
+            $this->log(sprintf($msg, $obj->nombre));
+            abort(404);
+        }
+
         $obj->fill($request->all());
         try {
             DB::transaction(function() use($obj, $request){
@@ -114,7 +134,8 @@ class PerfilController extends Controller
         return Auth::user()->es_root;
     }
 
-    public static function routes() {
+    public static function routes()
+    {
         Route::get('perfil', 'Sistema\PerfilController@index');
         Route::get('perfil/create', 'Sistema\PerfilController@create');
         Route::post('perfil', 'Sistema\PerfilController@store');
