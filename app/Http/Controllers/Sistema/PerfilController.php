@@ -27,6 +27,8 @@ class PerfilController extends Controller
 
     public function index(Request $request)
     {
+        $this->logActividad("Ingreso a perfiles", $request);
+
         $entidades = Entidad::with('terceroEntidad')->get();
         $listaEntidades = array();
         foreach($entidades as $entidad)
@@ -50,6 +52,7 @@ class PerfilController extends Controller
 
     public function create()
     {
+        $this->log("Ingresó a crear nuevo perfil");
         $entidades = Entidad::activa()
             ->get()
             ->sortBy('terceroEntidad.razon_social')
@@ -64,6 +67,9 @@ class PerfilController extends Controller
 
     public function store(CreatePerfilRequest $request)
     {
+        $msg = sprintf("Creó un perfil '%s'", $request->nombre);
+        $this->log($msg, "CREAR");
+
         $perfil = new Perfil;
         try {
             DB::transaction(function() use($perfil, $request){
@@ -92,6 +98,9 @@ class PerfilController extends Controller
             abort(404);
         }
 
+        $msg = "Ingresó a editar el perfil '%s'";
+        $this->log(sprintf($msg, $obj->nombre));
+
         $entidades = Entidad::activa()
             ->get()
             ->sortBy('terceroEntidad.razon_social')
@@ -112,6 +121,9 @@ class PerfilController extends Controller
             $this->log(sprintf($msg, $obj->nombre));
             abort(404);
         }
+
+        $msg = sprintf("Actualizó el perfil '%s'", $obj->nombre);
+        $this->log($msg, "ACTUALIZAR");
 
         $obj->fill($request->all());
         try {
