@@ -56,6 +56,7 @@ class Perfil extends Model
 	 */
 	protected $casts = [
 		'esta_activo'	=> 'boolean',
+		'es_root'		=> 'boolean',
 	];
 
 	/**
