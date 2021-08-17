@@ -6,6 +6,7 @@ use DB;
 use Log;
 use Auth;
 use Route;
+use App\Traits\ICoreTrait;
 use App\Models\Sistema\Menu;
 use Illuminate\Http\Request;
 use App\Models\Sistema\Perfil;
@@ -18,6 +19,9 @@ use App\Http\Requests\Sistema\Perfil\CreatePerfilRequest;
 
 class PerfilController extends Controller
 {
+
+    use ICoreTrait;
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -40,7 +44,7 @@ class PerfilController extends Controller
             ->activo($request->estado);
 
         if($this->esSesionRoot() == false){
-            $usuarios->whereEsRoot(false);
+            $perfiles->whereEsRoot(false);
         }
 
         $perfiles = $perfiles->paginate();
