@@ -97,7 +97,15 @@ class UsuarioController extends Controller
 
         $entidades = Entidad::activa()
             ->with(['perfiles' => function($query){
-                $query->activo()->orderBy('nombre', 'asc');
+                if($this->esSesionRoot()) {
+                    $query->activo()->orderBy('nombre', 'asc');
+                }
+                else{
+                    $query
+                        ->whereEsRoot(false)
+                        ->activo()
+                        ->orderBy('nombre', 'asc');
+                }
             }])
             ->get()
             ->sortBy('terceroEntidad.razon_social');
@@ -138,7 +146,13 @@ class UsuarioController extends Controller
             $entidades = $request->entidades;
             foreach($entidades as $entidad) {
                 $perfil = Perfil::find($entidad);
-                if($perfil != null)$obj->perfiles()->attach($perfil);
+                if($perfil == null){
+                    continue;
+                }
+                if($perfil->es_root && $this->esSesionRoot() == false){
+                    continue;
+                }
+                $obj->perfiles()->attach($perfil);
             }
         }
         $msg = "Se ha actualizado el usuario '%s'";
