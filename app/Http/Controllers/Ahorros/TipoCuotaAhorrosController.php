@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Ahorros;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Ahorros\TipoCuotaAhorros\CreateTipoCuotaAhorrosRequest;
-use App\Http\Requests\Ahorros\TipoCuotaAhorros\EditTipoCuotaAhorrosRequest;
-use App\Models\Ahorros\ModalidadAhorro;
+use Route;
 use App\Traits\ICoreTrait;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Ahorros\ModalidadAhorro;
 use Illuminate\Support\Facades\Session;
-use Route;
+use App\Http\Requests\Ahorros\TipoCuotaAhorros\EditTipoCuotaAhorrosRequest;
+use App\Http\Requests\Ahorros\TipoCuotaAhorros\CreateTipoCuotaAhorrosRequest;
 
 class TipoCuotaAhorrosController extends Controller
 {
@@ -22,23 +22,28 @@ class TipoCuotaAhorrosController extends Controller
     }
 
     public function index(Request $request) {
+        $this->logActividad("Ingreso a tipos de cuotas de ahorros", $request);
         $tiposCuotasAhorros = ModalidadAhorro::entidadId($this->getEntidad()->id)
-                                    ->voluntario()
-                                    ->activa($request->estado)
-                                    ->tipoAhorro($request->tipo_ahorro)
-                                    ->search($request->name)
-                                    ->orderBy('esta_activa', 'desc')
-                                    ->orderBy('nombre', 'asc')
-                                    ->paginate();
+            ->voluntario()
+            ->activa($request->estado)
+            ->tipoAhorro($request->tipo_ahorro)
+            ->search($request->name)
+            ->orderBy('esta_activa', 'desc')
+            ->orderBy('nombre', 'asc')
+            ->paginate();
 
-        return view('ahorros.tipoCuotaAhorros.index')->withTiposCuotasAhorros($tiposCuotasAhorros);
+        return view('ahorros.tipoCuotaAhorros.index')
+            ->withTiposCuotasAhorros($tiposCuotasAhorros);
     }
 
     public function create() {
+        $this->log("Ingresó a crear un tipo de ahorro", 'INGRESAR');
         return view('ahorros.tipoCuotaAhorros.create');
     }
 
     public function store(CreateTipoCuotaAhorrosRequest $request) {
+        $msg = "Creó un tipo de ahorro con los siguientes parámetros %s";
+        $this->log(sprintf($msg, json_encode($request->all())), 'CREAR');
         $tipoAhorro = new ModalidadAhorro;
 
         $tipoAhorro->fill($request->all());
@@ -59,12 +64,17 @@ class TipoCuotaAhorrosController extends Controller
     }
 
     public function edit(ModalidadAhorro $obj) {
+        $msg = "Ingresó a editar el tipo de ahorro '%s'";
+        $this->log(sprintf($msg, $obj->id), 'INGRESAR');
         $this->objEntidad($obj, 'No autorizado a editar la modalidad de ahorro');
         return view('ahorros.tipoCuotaAhorros.edit')->withCuota($obj);
     }
 
     public function update(EditTipoCuotaAhorrosRequest $request, ModalidadAhorro $obj) {
         $this->objEntidad($obj, 'No autorizado a editar la modalidad de ahorro');
+        $msg = "Actualizó el tipo de ahorro '%s' con los siguientes parámetros %s";
+        $msg = sprintf($msg, $obj->id, json_encode($request->all()));
+        $this->log($msg, 'ACTUALIZAR');
         $obj->nombre                        = $request->nombre;
         $obj->tasa                          = $request->tasa;
         $obj->capitalizacion_simultanea     = $request->capitalizacion_simultanea;
@@ -88,7 +98,8 @@ class TipoCuotaAhorrosController extends Controller
         Route::get('tipoCuotaAhorros', 'Ahorros\TipoCuotaAhorrosController@index');
         Route::get('tipoCuotaAhorros/create', 'Ahorros\TipoCuotaAhorrosController@create');
         Route::post('tipoCuotaAhorros', 'Ahorros\TipoCuotaAhorrosController@store');
-        Route::get('tipoCuotaAhorros/{obj}/edit', 'Ahorros\TipoCuotaAhorrosController@edit')->name('tipoCuotaAhorroEdit');
+        Route::get('tipoCuotaAhorros/{obj}/edit', 'Ahorros\TipoCuotaAhorrosController@edit')
+            ->name('tipoCuotaAhorroEdit');
         Route::put('tipoCuotaAhorros/{obj}', 'Ahorros\TipoCuotaAhorrosController@update');
     }
 }
