@@ -48,7 +48,7 @@ class EditTipoCuotaAhorrosRequest extends FormRequest
 
         if($this->tipo_ahorro == 'PROGRAMADO') {
             $reglasProgramado =  [
-                'tasa_penalidad' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|numeric|gt:0|max:100',
+                'tasa_penalidad' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|numeric|gte:0|max:100',
             ];
 
             if($this->obj->tipo_vencimiento == "COLECTIVO")

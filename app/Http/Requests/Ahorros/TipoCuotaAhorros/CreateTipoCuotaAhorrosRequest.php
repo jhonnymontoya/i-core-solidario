@@ -65,7 +65,7 @@ class CreateTipoCuotaAhorrosRequest extends FormRequest
                 'tipo_vencimiento' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|in:COLECTIVO,INDIVIDUAL',
                 'plazo' => 'bail|nullable|required_if:tipo_vencimiento,INDIVIDUAL|integer|min:1|max:120',
                 'fecha_vencimiento_colectivo' => 'bail|nullable|required_if:tipo_vencimiento,COLECTIVO|date_format:"d/m/Y"|after:tomorrow',
-                'tasa_penalidad' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|numeric|gt:0|max:100',
+                'tasa_penalidad' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|numeric|gte:0|max:100',
                 'penalidad_por_retiro' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|boolean',
 
             ];
