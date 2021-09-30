@@ -103,7 +103,11 @@
 								@endphp
 								<label class="control-label">Tasa E.A.</label>
 								<div class="input-group">
-									{!! Form::text('tasa', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa E.A.']) !!}
+									@php
+										$tasa = $cuota->tasa == 0 ? "" : $cuota->tasa;
+										$tasa = empty(old('tasa')) ? $tasa : old('tasa');
+									@endphp
+									{!! Form::text('tasa', $tasa, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa E.A.']) !!}
 									<div class="input-group-append">
 										<span class="input-group-text">%</span>
 									</div>
