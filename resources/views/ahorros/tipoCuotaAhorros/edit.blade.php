@@ -322,6 +322,30 @@
 					</div>
 					@endif
 					<div class="row">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">¿Para beneficiarios?</label>
+								<div>
+									@php
+										$valid = $errors->has('para_beneficiario') ? 'is-invalid' : '';
+										$pir = empty(old('para_beneficiario')) ? $cuota->para_beneficiario : old('para_beneficiario');
+									@endphp
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary {{ $pir ? 'active' : '' }}">
+											{!! Form::radio('para_beneficiario', 1, ($pir ? true : false), ['class' => [$valid]]) !!}Sí
+										</label>
+										<label class="btn btn-danger {{ !$pir ? 'active' : '' }}">
+											{!! Form::radio('para_beneficiario', 0, (!$pir ? true : false ), ['class' => [$valid]]) !!}No
+										</label>
+									</div>
+									@if ($errors->has('para_beneficiario'))
+										<div class="invalid-feedback">{{ $errors->first('para_beneficiario') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">¿Activo?</label>
@@ -344,6 +368,7 @@
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
 				<div class="card-footer text-right">
