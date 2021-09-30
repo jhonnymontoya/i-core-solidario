@@ -23,14 +23,26 @@ class CuotaVoluntariaController extends Controller
     }
 
     public function index(Request $request) {
-        $socio = Socio::with('cuotasObligatorias')->estado('ACTIVO')->whereId($request->socio)->first();
+        $this->logActividad("Ingreso a cuotas voluntarias", $request);
+        $socio = Socio::with('cuotasObligatorias')
+            ->estado('ACTIVO')
+            ->whereId($request->socio)
+            ->first();
+
         return view('ahorros.cuotaVoluntaria.index')->withSocio($socio);
     }
 
     public function create(Socio $obj) {
-        $tiposCuotasVoluntarias = ModalidadAhorro::entidadId($this->getEntidad()->id)->voluntario()->activa(true)->get();
+        $msg = "Ingresó a crear un ahorro voluntario para socio '%s'";
+        $this->log(sprintf($msg, $obj->id), 'INGRESAR');
+        $tiposCuotasVoluntarias = ModalidadAhorro::entidadId($this->getEntidad()->id)
+            ->voluntario()
+            ->activa(true)
+            ->get();
+
         $tiposCuotas = array();
-        foreach ($tiposCuotasVoluntarias as $value)$tiposCuotas[$value->id] = $value->codigo . " - " . $value->nombre;
+        foreach ($tiposCuotasVoluntarias as $value)
+            $tiposCuotas[$value->id] = $value->codigo . " - " . $value->nombre;
 
         $periodicidades = array(
                 'DIARIO' => 'Diario',
@@ -45,20 +57,27 @@ class CuotaVoluntariaController extends Controller
                 'SEMESTRAL' => 'Semestral',
                 'ANUAL' => 'Anual'
             );
+
         $listaProgramaciones = array();
-        $programaciones = $obj->pagaduria->calendarioRecaudos()->whereEstado('PROGRAMADO')->get();
+        $programaciones = $obj->pagaduria
+            ->calendarioRecaudos()
+            ->whereEstado('PROGRAMADO')
+            ->get();
+
         foreach($programaciones as $programacion) {
             $listaProgramaciones[$programacion->fecha_recaudo->format('d/m/Y')] = $programacion->fecha_recaudo;
         }
 
         return view('ahorros.cuotaVoluntaria.create')
-                        ->withSocio($obj)
-                        ->withTiposCuotasVoluntarias($tiposCuotas)
-                        ->withPeriodicidades($periodicidades)
-                        ->withProgramaciones($listaProgramaciones);
+            ->withSocio($obj)
+            ->withTiposCuotasVoluntarias($tiposCuotas)
+            ->withPeriodicidades($periodicidades)
+            ->withProgramaciones($listaProgramaciones);
     }
 
     public function store(CreateCuotaVoluntariaRequest $request, Socio $obj) {
+        $msg = "Creó un ahorro voluntario para el socio '%s' con los siguientes parámetros %s";
+        $this->log(sprintf($msg, $obj->id,  json_encode($request->all())), 'CREAR');
         $cuota = new CuotaVoluntaria;
 
         $cuota->fill($request->all());
@@ -85,10 +104,14 @@ class CuotaVoluntariaController extends Controller
     }
 
     public function confirmDelete(CuotaVoluntaria $obj) {
+        $msg = "Ingresó a eliminar la cuota voluntaria '%s'";
+        $this->log(sprintf($msg, $obj->id), 'INGRESAR');
         return view('ahorros.cuotaVoluntaria.delete')->withCuota($obj);
     }
 
     public function delete(CuotaVoluntaria $obj) {
+        $msg = "Eliminó la cuota voluntaria '%s'";
+        $this->log(sprintf($msg, $obj->id), "ELIMINAR");
         $obj->delete();
 
         Session::flash('message', 'Se ha eliminado la cuota para \'' . $obj->modalidadAhorro->nombre . '\'');
@@ -97,9 +120,11 @@ class CuotaVoluntariaController extends Controller
 
     public static function routes() {
         Route::get('cuotaVoluntaria', 'Ahorros\CuotaVoluntariaController@index');
-        Route::get('cuotaVoluntaria/{obj}', 'Ahorros\CuotaVoluntariaController@create')->name('cuotaVoluntariaCreate');
+        Route::get('cuotaVoluntaria/{obj}', 'Ahorros\CuotaVoluntariaController@create')
+            ->name('cuotaVoluntariaCreate');
         Route::post('cuotaVoluntaria/{obj}', 'Ahorros\CuotaVoluntariaController@store');
-        Route::get('cuotaVoluntaria/{obj}/delete', 'Ahorros\CuotaVoluntariaController@confirmDelete')->name('cuotaVoluntariaDelete');
+        Route::get('cuotaVoluntaria/{obj}/delete', 'Ahorros\CuotaVoluntariaController@confirmDelete')
+            ->name('cuotaVoluntariaDelete');
         Route::delete('cuotaVoluntaria/{obj}', 'Ahorros\CuotaVoluntariaController@delete');
     }
 }
