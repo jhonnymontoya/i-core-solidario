@@ -43,6 +43,7 @@ class EditTipoCuotaAhorrosRequest extends FormRequest
             'capitalizacion_simultanea' => 'bail|required|boolean',
             'esta_activa' => 'bail|required|boolean',
             'paga_intereses_retirados' => 'bail|nullable|boolean',
+            'para_beneficiario' => 'bail|required|boolean',
         ];
 
         if($this->tipo_ahorro == 'PROGRAMADO') {
