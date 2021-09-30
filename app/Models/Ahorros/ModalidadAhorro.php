@@ -54,6 +54,7 @@ class ModalidadAhorro extends Model
         'paga_intereses_retirados',//Indica si se incluyen los socios en estado liquidado para el proceso de cierre
         'apalancamiento_cupo', //Este campo se alimenta por /cupoCredito
         'esta_activa',
+        'para_beneficiario'
     ];
 
     /**
@@ -80,6 +81,7 @@ class ModalidadAhorro extends Model
         'paga_retiros'                  => 'boolean',
         'paga_intereses_retirados'      => 'boolean',
         'esta_activa'                   => 'boolean',
+        'para_beneficiario'             => 'boolean',
     ];
 
     /**
