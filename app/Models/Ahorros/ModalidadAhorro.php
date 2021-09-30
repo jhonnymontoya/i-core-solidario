@@ -82,6 +82,8 @@ class ModalidadAhorro extends Model
         'paga_intereses_retirados'      => 'boolean',
         'esta_activa'                   => 'boolean',
         'para_beneficiario'             => 'boolean',
+        'tasa'                          => 'decimal:2',
+        'tasa_penalidad'                => 'decimal:2'
     ];
 
     /**
