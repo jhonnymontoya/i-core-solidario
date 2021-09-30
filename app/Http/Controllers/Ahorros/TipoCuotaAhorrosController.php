@@ -81,6 +81,7 @@ class TipoCuotaAhorrosController extends Controller
         $obj->esta_activa                   = $request->esta_activa;
         $obj->intereses_cuif_id             = $request->intereses_cuif_id;
         $obj->paga_intereses_retirados      = $request->paga_intereses_retirados;
+        $obj->para_beneficiario             = $request->para_beneficiario;
         if($obj->tipo_ahorro != 'VOLUNTARIO') {
             $obj->plazo = $request->plazo;;
             $obj->fecha_vencimiento_colectivo = $request->fecha_vencimiento_colectivo;
