@@ -39,7 +39,7 @@ class EditTipoCuotaAhorrosRequest extends FormRequest
                 'nullable',
                 'exists:sqlsrv.contabilidad.cuifs,id,entidad_id,' . $entidad->id . ',tipo_cuenta,AUXILIAR,esta_activo,1,modulo_id,2,deleted_at,NULL',
             ],
-            'tasa' => 'bail|nullable|numeric|min:0.00001|max:100',
+            'tasa' => 'bail|nullable|numeric|gt:0|max:100',
             'capitalizacion_simultanea' => 'bail|required|boolean',
             'esta_activa' => 'bail|required|boolean',
             'paga_intereses_retirados' => 'bail|nullable|boolean',
@@ -48,7 +48,7 @@ class EditTipoCuotaAhorrosRequest extends FormRequest
 
         if($this->tipo_ahorro == 'PROGRAMADO') {
             $reglasProgramado =  [
-                'tasa_penalidad' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|numeric|min:0.00001|max:100',
+                'tasa_penalidad' => 'bail|nullable|required_if:tipo_ahorro,PROGRAMADO|numeric|gt:0|max:100',
             ];
 
             if($this->obj->tipo_vencimiento == "COLECTIVO")
