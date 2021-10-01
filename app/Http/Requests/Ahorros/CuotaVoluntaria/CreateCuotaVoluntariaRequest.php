@@ -59,6 +59,13 @@ class CreateCuotaVoluntariaRequest extends FormRequest
             'periodicidad' => 'bail|required|in:DIARIO,SEMANAL,DECADAL,CATORCENAL,QUINCENAL,MENSUAL,BIMESTRAL,TRIMESTRAL,CUATRIMESTRAL,SEMESTRAL,ANUAL',
             'periodo_inicial' => 'bail|required|date_format:"d/m/Y"',
             'periodo_final' => 'bail|nullable|date_format:"d/m/Y"|after:periodo_inicial',
+            'tercero_id' => [
+                'bail',
+                'nullable',
+                'integer',
+                'min:1',
+                'exists:sqlsrv.general.terceros,id,entidad_id,' . $entidad->id . ',esta_activo,1,deleted_at,NULL'
+            ]
         ];
 
         if($this->factor_calculo == 'PORCENTAJESUELDO') {
