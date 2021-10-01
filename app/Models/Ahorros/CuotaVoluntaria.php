@@ -60,6 +60,19 @@ class CuotaVoluntaria extends Model
      * Getters personalizados
      */
 
+    public function getNombreAttribute()
+    {
+        $nombre = '%s - %s %s';
+        $modalidad = $this->modalidadAhorro;
+        $nombre = sprintf(
+            $nombre,
+            $modalidad->codigo,
+            $modalidad->nombre,
+            $modalidad->para_beneficiario ? "- " . $this->beneficiario : "",
+        );
+        return trim($nombre);
+    }
+
     /**
      * Setters Personalizados
      */
