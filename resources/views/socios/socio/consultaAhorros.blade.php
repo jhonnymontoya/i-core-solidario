@@ -52,7 +52,7 @@
 			<h5>{{ $socio->tercero->tipoIdentificacion->codigo }} {{ $socio->tercero->nombre_completo }}</h5>
 			<dl class="row">
 				<dt class="col-md-2 col-sm-6">Movimientos de:</dt>
-				<dd class="col-md-4 col-sm-6">{{ $modalidad->codigo }} - {{ $modalidad->nombre }}</dd>
+				<dd class="col-md-4 col-sm-6">{{ $modalidad->getNombre($socio->id) }}</dd>
 			</dl>
 		</div>
 		<div class="container-fluid">
