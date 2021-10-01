@@ -189,9 +189,14 @@ class ModalidadAhorro extends Model
         return null;
     }
 
-    public function getNombre($socioId = null)
+    public function getNombre($socioId = null, $incluirCodigo = true)
     {
-        $nombre = $this->codigo . ' - ' . $this->nombre;
+        $nombre = $this->nombre;
+
+        if($incluirCodigo) {
+            $nombre = $this->codigo . ' - ' . $nombre;
+        }
+
         if($this->tipo_ahorro == 'OBLIGATORIO' || $this->para_beneficiario == false || is_null($socioId)){
             return $nombre;
         }
@@ -204,7 +209,12 @@ class ModalidadAhorro extends Model
             return $nombre;
         }
 
-        return $cuotaVoluntaria->nombre;
+        $nombre = $cuotaVoluntaria->nombre;
+        if($incluirCodigo == false){
+            $nombre = str_replace($this->codigo . ' - ', "", $nombre);
+        }
+
+        return $nombre;
     }
 
     /**
