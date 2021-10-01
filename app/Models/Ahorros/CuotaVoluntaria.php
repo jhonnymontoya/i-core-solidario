@@ -32,6 +32,7 @@ class CuotaVoluntaria extends Model
         'periodicidad',
         'periodo_inicial',
         'periodo_final',
+        'beneficiario'
     ];
 
     /**
