@@ -189,6 +189,24 @@ class ModalidadAhorro extends Model
         return null;
     }
 
+    public function getNombre($socioId = null)
+    {
+        $nombre = $this->codigo . ' - ' . $this->nombre;
+        if($this->tipo_ahorro == 'OBLIGATORIO' || $this->para_beneficiario == false || is_null($socioId)){
+            return $nombre;
+        }
+
+        $cuotaVoluntaria = $this->cuotasVoluntarias()
+            ->whereSocioId($socioId)
+            ->first();
+
+        if(is_null($cuotaVoluntaria)){
+            return $nombre;
+        }
+
+        return $cuotaVoluntaria->nombre;
+    }
+
     /**
      * Relaciones Uno a Uno
      */
