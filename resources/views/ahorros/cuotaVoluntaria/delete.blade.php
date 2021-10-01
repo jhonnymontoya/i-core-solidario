@@ -102,7 +102,7 @@
                                         }
                                     ?>
                                     <tr>
-                                        <td>{{ $cuota->modalidadAhorro->codigo . ' - ' . $cuota->modalidadAhorro->nombre }}</td>
+                                        <td>{{ $cuota->nombre }}</td>
                                         <td>{{ $tipo_calculo }}</td>
                                         <td class="text-right">{{ $valor }}</td>
                                         <td class="text-right">${{ $montoCuota }}</td>

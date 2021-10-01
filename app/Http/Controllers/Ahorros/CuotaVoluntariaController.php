@@ -6,6 +6,7 @@ use Route;
 use App\Traits\ICoreTrait;
 use App\Models\Socios\Socio;
 use Illuminate\Http\Request;
+use App\Models\General\Tercero;
 use App\Http\Controllers\Controller;
 use App\Models\Ahorros\CuotaVoluntaria;
 use App\Models\Ahorros\ModalidadAhorro;
@@ -24,7 +25,7 @@ class CuotaVoluntariaController extends Controller
 
     public function index(Request $request) {
         $this->logActividad("Ingreso a cuotas voluntarias", $request);
-        $socio = Socio::with('cuotasObligatorias')
+        $socio = Socio::with('cuotasVoluntarias')
             ->estado('ACTIVO')
             ->whereId($request->socio)
             ->first();
@@ -35,14 +36,37 @@ class CuotaVoluntariaController extends Controller
     public function create(Socio $obj) {
         $msg = "Ingresó a crear un ahorro voluntario para socio '%s'";
         $this->log(sprintf($msg, $obj->id), 'INGRESAR');
+
         $tiposCuotasVoluntarias = ModalidadAhorro::entidadId($this->getEntidad()->id)
             ->voluntario()
             ->activa(true)
             ->get();
 
+        $beneficiarios = $obj->beneficiarios()
+            ->with(["parentesco", "tercero"])
+            ->get();
+
+        $listaBeneficiarios = [];
+        foreach($beneficiarios as $beneficiario){
+            $nombre = "%s %s (%s)";
+            $nombre = sprintf(
+                $nombre,
+                $beneficiario->tercero->primer_nombre,
+                $beneficiario->tercero->primer_apellido,
+                $beneficiario->parentesco->nombre
+            );
+            $listaBeneficiarios[$beneficiario->tercero->id] = $nombre;
+        }
+
         $tiposCuotas = array();
-        foreach ($tiposCuotasVoluntarias as $value)
+        $modalidadesBeneficiarios = [];
+        foreach ($tiposCuotasVoluntarias as $value){
             $tiposCuotas[$value->id] = $value->codigo . " - " . $value->nombre;
+
+            if($value->para_beneficiario){
+                $modalidadesBeneficiarios[] = $value->id;
+            }
+        }
 
         $periodicidades = array(
                 'DIARIO' => 'Diario',
@@ -72,7 +96,9 @@ class CuotaVoluntariaController extends Controller
             ->withSocio($obj)
             ->withTiposCuotasVoluntarias($tiposCuotas)
             ->withPeriodicidades($periodicidades)
-            ->withProgramaciones($listaProgramaciones);
+            ->withProgramaciones($listaProgramaciones)
+            ->withBeneficiarios($listaBeneficiarios)
+            ->withModalidadesBeneficiarios(join(",", $modalidadesBeneficiarios));
     }
 
     public function store(CreateCuotaVoluntariaRequest $request, Socio $obj) {
@@ -84,6 +110,18 @@ class CuotaVoluntariaController extends Controller
         $cuota->socio_id = $obj->id;
 
         $modalidad = ModalidadAhorro::find($request->modalidad_ahorro_id);
+
+        if($modalidad->para_beneficiario){
+            $tercero = Tercero::find($request->tercero_id);
+            $nombre = "%s %s";
+            $nombre = sprintf(
+                $nombre,
+                $tercero->primer_nombre,
+                $tercero->primer_apellido
+            );
+            $cuota->beneficiario = $nombre;
+        }
+
         if($modalidad->tipo_ahorro == 'PROGRAMADO') {
             $fechaFinal = $modalidad->getFechaFinalizacion($cuota->periodo_inicial);
             if($cuota->periodo_inicial->greaterThan($fechaFinal)) {

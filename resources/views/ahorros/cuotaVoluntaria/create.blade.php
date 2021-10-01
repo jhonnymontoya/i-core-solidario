@@ -143,6 +143,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group" id="selBeneficiario">
+                                @php
+                                    $valid = $errors->has('tercero_id') ? 'is-invalid' : '';
+                                @endphp
+                                <label class="control-label">Beneficiario</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    </div>
+                                    {!! Form::select('tercero_id', $beneficiarios, null, ['class' => [$valid, 'form-control'], 'placeholder' => 'Seleccione un beneficiario']) !!}
+                                    @if ($errors->has('tercero_id'))
+                                        <div class="invalid-feedback">{{ $errors->first('tercero_id') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-right">
@@ -183,6 +202,24 @@
             $("#moneda").hide();
             $("#porcentaje").show();
         }
+
+        let modalidadBeneficiarios = [{{ $modalidadesBeneficiarios }}];
+        $("select[name='modalidad_ahorro_id']").on('change', function(){
+            alternarParaBeneficiario($("select[name='modalidad_ahorro_id']").find('option:selected').val());
+        });
+
+        function alternarParaBeneficiario(modalidad){
+            var esParaBeneficiarios = modalidadBeneficiarios.find(
+                elemento => elemento == modalidad
+            );
+            if(esParaBeneficiarios == undefined){
+                $("#selBeneficiario").hide();
+            }
+            else{
+                $("#selBeneficiario").show();
+            }
+        }
+        alternarParaBeneficiario($("select[name='modalidad_ahorro_id']").find('option:selected').val());
     });
 </script>
 @endpush
