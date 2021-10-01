@@ -116,7 +116,7 @@
 									$totalCuota += $ahorro->cuota;
 								@endphp
 								<tr>
-									<td>{{ $ahorro->codigo }} - {{ $ahorro->nombre }}</td>
+									<td>{{ $ahorro->nombre_completo }}</td>
 									<td class="text-right">${{ number_format(\App\Helpers\ConversionHelper::conversionValorPeriodicidad($ahorro->cuota, $ahorro->periodicidad, 'MENSUAL'), 0) }}</td>
 									<td class="text-right">${{ number_format($ahorro->saldo, 0) }}</td>
 									<td class="text-right">{{ number_format($ahorro->tasa, 2) }}%</td>
