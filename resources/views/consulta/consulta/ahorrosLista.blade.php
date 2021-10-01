@@ -82,7 +82,7 @@
 												<tr>
 													<td>
 														<a href="{{ route('consulta.ahorros', $ahorro->modalidad_ahorro_id) }}">
-															{{ $ahorro->codigo }} - {{ $ahorro->nombre }}
+															{{ $ahorro->nombre_completo }}
 														</a>
 													</td>
 													<td class="text-right">${{ number_format($ahorro->cuota) }}</td>
@@ -138,7 +138,7 @@
 												<tr>
 													<td>
 														<a href="{{ route('consulta.ahorros', $ahorro->modalidad_ahorro_id) }}">
-															{{ $ahorro->codigo }} - {{ $ahorro->nombre }}
+															{{ $ahorro->nombre_completo }}
 														</a>
 													</td>
 													<td class="text-right">${{ number_format($ahorro->cuota) }}</td>

@@ -28,7 +28,7 @@
 		<div class="container-fluid">
 			<div class="card card-primary card-outline">
 				<div class="card-header with-border">
-					<h3 class="card-title">{{ $modalidad->codigo }} - {{ $modalidad->nombre }}</h3>
+					<h3 class="card-title">{{ $modalidad->getNombre($socio->id) }}</h3>
 					<div class="card-tools">
 						<a class="btn btn-sm btn-outline-danger float-right" href="{{ url('consulta/ahorros/lista') }}">Volver</a>
 					</div>
