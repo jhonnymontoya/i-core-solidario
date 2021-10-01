@@ -58,7 +58,7 @@ class Ahorros
             );
             $dato = [
                 "id" => $ahorro->modalidad_ahorro_id,
-                "modalidad" => $ahorro->nombre,
+                "modalidad" => $ahorro->nombre_completo,
                 "cuota" => number_format($ahorro->cuota, 0),
                 "periodicidad" => mb_convert_case(
                     $ahorro->periodicidad,
@@ -98,7 +98,7 @@ class Ahorros
             }
             $dato = [
                 "id" => $ahorro->modalidad_ahorro_id,
-                "modalidad" => $ahorro->nombre,
+                "modalidad" => $ahorro->nombre_completo,
                 "cuota" => number_format($ahorro->cuota, 0),
                 "periodicidad" => mb_convert_case(
                     $ahorro->periodicidad,
@@ -160,7 +160,7 @@ class Ahorros
     {
         $data = [
             "codigoModalidad" => $modalidad->codigo,
-            "nombreModalidad" => $modalidad->nombre,
+            "nombreModalidad" => $modalidad->getNombre($socio->id, false),
             "movimientos" => Ahorros::getAhorroMovimientos($socio, $modalidad)
         ];
         return $data;
