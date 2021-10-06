@@ -131,7 +131,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-10">
 							<div class="form-group {{ ($errors->has('archivoAhorros')?'has-error':'') }}">
 								<label class="control-label">
 									@if ($errors->has('archivoAhorros'))
@@ -143,6 +143,12 @@
 								@if ($errors->has('archivoAhorros'))
 									<span class="help-block">{{ $errors->first('archivoAhorros') }}</span>
 								@endif
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">&nbsp;</label><br>
+								<a href="{{ asset('plantillas/ahorros/PlantillaCargueAjustesAhorrosLote.csv') }}" download="PlantillaCargueAjustesAhorrosLote.csv" class="btn bg-purple">Descargar plantilla</a>
 							</div>
 						</div>
 					</div>
