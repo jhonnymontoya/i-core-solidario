@@ -70,7 +70,7 @@
 									$label = "badge-";
 									switch($proceso->estado) {
 										case 'PRECARGA':
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 										case 'CARGADO':
 											$label .= 'info';
@@ -82,7 +82,7 @@
 											$label .= 'danger';
 											break;
 										default:
-											$label .= 'default';
+											$label .= 'secondary';
 											break;
 									}
 								@endphp
