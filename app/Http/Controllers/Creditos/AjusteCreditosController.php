@@ -217,8 +217,10 @@ class AjusteCreditosController extends Controller
 				$movimientoTemporal->detalleMovimientos()->save($ajuste);
 			}
 			$respuesta = DB::select('exec creditos.sp_grabar_ajuste_credito ?, ?', [$movimientoTemporal->id, $obj->id]);
+
+			$respuesta = $respuesta[0];
 		
-			if ($respuesta[0]->ERROR == '0') {
+			if ($respuesta->ERROR == '0') {
 				if($this->getEntidad()->usa_tarjeta) {
 					//Se dispara evento de actualización de obligación en red
 					if ($obj->solicitudDeTarjetaHabiente()) {
@@ -228,11 +230,24 @@ class AjusteCreditosController extends Controller
 					event(new CalcularAjusteAhorrosVista($obj->id, true));
 				}
 
-				Session::flash('message', $respuesta[0]->MENSAJE);
+				Session::flash('message', $respuesta->MENSAJE);
+
+				if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+	                Session::flash(
+	                    'codigoComprobante',
+	                    $respuesta->CODIGOCOMPROBANTE
+	                );
+
+	                Session::flash(
+	                    'numeroComprobante',
+	                    $respuesta->NUMEROCOMPROBANTE
+	                );
+	            }
+
 				DB::commit();
 			}
 			else {
-				Session::flash('error', $respuesta[0]->MENSAJE);
+				Session::flash('error', $respuesta->MENSAJE);
 				DB::rollBack();
 			}
 			DB::commit();
@@ -240,7 +255,12 @@ class AjusteCreditosController extends Controller
 		catch(Exception $e) {
 			DB::rollBack();
 		}
-		$url = sprintf("%s?tercero=%s&fechaAjuste=%s", url('ajusteCreditos'), $obj->tercero->id, $request->fechaAjuste);
+		$url = sprintf(
+			"%s?tercero=%s&fechaAjuste=%s",
+			url('ajusteCreditos'),
+			$obj->tercero->id,
+			$request->fechaAjuste
+		);
 		return redirect($url);
 	}
 

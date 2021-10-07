@@ -277,26 +277,29 @@ class RecaudoCajaController extends Controller
 				Session::flash('error', 'Error: Contabilizando el comprobante');
 				return redirect()->route('recaudosCaja/create');
 			}
-			if(!empty($respuesta[0]->ERROR)) {
+
+			$respuesta = $respuesta[0];
+
+			if(!empty($respuesta->ERROR)) {
 				DB::rollBack();
-				Session::flash('error', 'Error: ' . $respuesta[0]->MENSAJE);
+				Session::flash('error', 'Error: ' . $respuesta->MENSAJE);
 				return redirect()->route('recaudosCaja/create');
 			}
 
 			foreach($movimientoAhorros as $m) {
-				$m->movimiento_id = $respuesta[0]->MOVIMIENTO;
+				$m->movimiento_id = $respuesta->MOVIMIENTO;
 				$m->save();
 			}
 			foreach($movimientoCapitalCreditos as $m) {
-				$m->movimiento_id = $respuesta[0]->MOVIMIENTO;
+				$m->movimiento_id = $respuesta->MOVIMIENTO;
 				$m->save();
 			}
 			foreach($movimientoInteresCreditos as $m) {
-				$m->movimiento_id = $respuesta[0]->MOVIMIENTO;
+				$m->movimiento_id = $respuesta->MOVIMIENTO;
 				$m->save();
 			}
 			foreach($movimientoSeguroCreditos as $m) {
-				$m->movimiento_id = $respuesta[0]->MOVIMIENTO;
+				$m->movimiento_id = $respuesta->MOVIMIENTO;
 				$m->save();
 			}
 
@@ -304,7 +307,7 @@ class RecaudoCajaController extends Controller
 			$recaudo->entidad_id = $entidad->id;
 			$recaudo->tercero_id = $tercero->id;
 			$recaudo->recaudo_cuif_id = $cuif->id;
-			$recaudo->movimiento_id = $respuesta[0]->MOVIMIENTO;
+			$recaudo->movimiento_id = $respuesta->MOVIMIENTO;
 			$recaudo->fecha_recaudo = $fecha;
 			$recaudo->recaudo = $request->data;
 			$recaudo->save();
@@ -323,7 +326,23 @@ class RecaudoCajaController extends Controller
 			}
 
 			DB::commit();
-			Session::flash('message', 'Se ha contabilizado el abono con el documento ' . $respuesta[0]->MENSAJE);
+			Session::flash(
+				'message',
+				'Se ha contabilizado el abono con el documento ' . $respuesta->MENSAJE
+			);
+
+			if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $respuesta->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $respuesta->NUMEROCOMPROBANTE
+                );
+            }
+
 			return redirect('recaudosCaja');
 		}
 		catch(Exception $e) {

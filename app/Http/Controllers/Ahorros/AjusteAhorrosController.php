@@ -56,7 +56,7 @@ class AjusteAhorrosController extends Controller
 		$socio = Socio::find($request->socio);
 		if($socio == null) {
 			Session::flash('error', 'No se encuentra el socio para el ajuste de ahorro.');
-			return redirect($volver);
+			return redirect('ajusteAhorros');
 		}
 		$volver = sprintf('ajusteAhorros?socio=%s&fechaAjuste=%s', $socio->id, $request->fechaAjuste);
 		$valorAhorros = floatval("$request->valorAjuste");			
@@ -175,15 +175,29 @@ class AjusteAhorrosController extends Controller
 
 			$respuesta = DB::select('exec ahorros.sp_grabar_ajuste_ahorro ?, ?, ?, ?', [$movimientoTemporal->id, $modalidadAhorro->id, $valorAhorros, $valorIntereses]);
 		
-			if($respuesta[0]->ERROR == '0') {
+			$respuesta = $respuesta[0];
+
+			if($respuesta->ERROR == '0') {
 				if($this->getEntidad()->usa_tarjeta) {
 					event(new CalcularAjusteAhorrosVista($socio->id, false));
 				}
-				Session::flash('message', $respuesta[0]->MENSAJE);
+				Session::flash('message', $respuesta->MENSAJE);
+
+				if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+	                Session::flash(
+	                    'codigoComprobante',
+	                    $respuesta->CODIGOCOMPROBANTE
+	                );
+
+	                Session::flash(
+	                    'numeroComprobante',
+	                    $respuesta->NUMEROCOMPROBANTE
+	                );
+	            }
 				DB::commit();
 			}
 			else {
-				Session::flash('error', $respuesta[0]->MENSAJE);
+				Session::flash('error', $respuesta->MENSAJE);
 				DB::rollBack();
 			}
 			DB::commit();

@@ -168,11 +168,29 @@ class RetiroSocioController extends Controller
         $fechaSaldo = Carbon::createFromFormat('d/m/Y', $request->fecha_saldo)->startOfDay();
         $liquidacion = DB::select("exec socios.sp_liquidacion_retiro_socios ?, ?, ?", [$obj->id, $fechaMovimiento, $fechaSaldo]);
 
-        if(empty($liquidacion[0]->ERROR) == false) {
-            Session::flash('error', $liquidacion[0]->MENSAJE);
+        if (is_null($liquidacion)) {
+            abort(500, "Error procesando la liquidación");
+        }
+
+        $liquidacion = $liquidacion[0];
+
+        if (empty($liquidacion->ERROR) == false) {
+            Session::flash('error', $liquidacion->MENSAJE);
         }
         else {
-            Session::flash('message', $liquidacion[0]->MENSAJE);
+            Session::flash('message', $liquidacion->MENSAJE);
+
+            if (empty($liquidacion->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $liquidacion->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $liquidacion->NUMEROCOMPROBANTE
+                );
+            }
         }
         return redirect('retiroSocio');
     }

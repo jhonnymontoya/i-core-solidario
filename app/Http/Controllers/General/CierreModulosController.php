@@ -239,8 +239,11 @@ class CierreModulosController extends Controller
 			Session::flash('error', 'Error al liquidar los rendimientos');
 			return redirect()->route('cierreModulosDetalleAhorros', $obj->id);
 		}
-		if($res[0]->ERROR == 1) {
-			Session::flash('error', $res[0]->MENSAJE);
+
+		$res = $res[0];
+
+		if($res->ERROR == 1) {
+			Session::flash('error', $res->MENSAJE);
 			return redirect()->route('cierreModulosDetalleAhorros', $obj->id);
 		}
 
@@ -253,7 +256,18 @@ class CierreModulosController extends Controller
 
 		$cierreModulo->save();
 		event(new ProcesoCerrado($obj->id));
-		Session::flash('message', 'Ha sido procesado con éxito el cierre del módulo Ahorros');
+
+		Session::flash(
+			'message',
+			'Ha sido procesado con éxito el cierre del módulo Ahorros'
+		);
+
+		if (empty($res->CODIGOCOMPROBANTE) == false) {
+            Session::flash('codigoComprobante', $res->CODIGOCOMPROBANTE);
+
+            Session::flash('numeroComprobante', $res->NUMEROCOMPROBANTE);
+        }
+
 		return redirect()->route('cierreModulosDetalle', $obj->id);
 	}
 

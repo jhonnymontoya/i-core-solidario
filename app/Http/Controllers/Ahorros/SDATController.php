@@ -231,7 +231,9 @@ class SDATController extends Controller
 			$movimiento->detalleMovimientos()->saveMany($detalles);
 			$respuesta = DB::select('exec ahorros.sp_contabilizar_constitucion_sdat ?, ?', [$obj->id, $movimiento->id]);
 
-			if($respuesta[0]->ERROR == 1) {
+			$respuesta = $respuesta[0];
+
+			if($respuesta->ERROR == 1) {
 				DB::rollBack();
 				Session::flash('error', $respuesta[0]->MENSAJE);
 				return redirect("SDAT");
@@ -240,11 +242,26 @@ class SDATController extends Controller
 			DB::commit();
 		} catch(Exception $e) {
 			DB::rollBack();
-			Log::error('Mensaje de error: ' . $e->getMessage()); //Incluir Log
-			Session::flash('error', $respuesta[0]->MENSAJE);
+			Log::error('Mensaje de error: ' . $e->getMessage());
+			Session::flash('error', $respuesta->MENSAJE);
 			return redirect("SDAT");
 		}
-		Session::flash("message", "Se ha constituido el SDAT número '$obj->id' con éxito."); //Incluir Session
+		Session::flash(
+			"message",
+			"Se ha constituido el SDAT número '$obj->id' con éxito."
+		);
+
+		if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+            Session::flash(
+                'codigoComprobante',
+                $respuesta->CODIGOCOMPROBANTE
+            );
+
+            Session::flash(
+                'numeroComprobante',
+                $respuesta->NUMEROCOMPROBANTE
+            );
+        }
 		return redirect("SDAT");
 	}
 
@@ -472,15 +489,31 @@ class SDATController extends Controller
 			}
 			DB::commit();
 			$msg = "Se ha saldado con exito el SDAT '%s' de %s con el documento '%s'";
-			$msg = sprintf($msg, $obj->id, $tercero->nombre_corto, $mc->tipoComprobante->codigo . '-' . $mc->numero_comprobante);
+			$msg = sprintf(
+				$msg,
+				$obj->id,
+				$tercero->nombre_corto,
+				$mc->tipoComprobante->codigo . '-' . $mc->numero_comprobante
+			);
 			Session::flash('message', $msg);
+
+			if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $respuesta->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $respuesta->NUMEROCOMPROBANTE
+                );
+            }
 
 		} catch(Exception $e) {
 			DB::rollBack();
 			Log::error('Mensaje de error: ' . $e->getMessage());
 			$msg = "Error al saldar el SDAT";
 			Session::flash('error', $msg);
-			//abort(500, 'Mensaje de error');
 		}
 		return redirect('SDAT');
 	}

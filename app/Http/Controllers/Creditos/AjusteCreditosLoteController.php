@@ -482,12 +482,15 @@ class AjusteCreditosLoteController extends Controller
 				Session::flash('error', 'Error: Contabilizando el comprobante');
 				return redirect()->route('ajusteCreditoLoteResumen', $obj->id);
 			}
-			if (!empty($respuesta[0]->ERROR)) {
+
+			$respuesta = $respuesta[0];
+
+			if (!empty($respuesta->ERROR)) {
 				DB::rollBack();
-				Session::flash('error', 'Error: ' . $respuesta[0]->MENSAJE);
+				Session::flash('error', 'Error: ' . $respuesta->MENSAJE);
 				return redirect()->route('ajusteCreditoLoteResumen', $obj->id);
 			}
-			$idComprobante = $respuesta[0]->MENSAJE;
+			$idComprobante = $respuesta->MENSAJE;
 
 			foreach ($movimientosCapital as $movimiento) {
 				$movimiento->movimiento_id = $idComprobante;
@@ -512,7 +515,23 @@ class AjusteCreditosLoteController extends Controller
 			}
 
 			DB::commit();
-			Session::flash('message', 'Se ha contabilizado el ajuste de creditos ' . $obj->consecutivo_proceso);
+			Session::flash(
+				'message',
+				'Se ha contabilizado el ajuste de creditos ' . $obj->consecutivo_proceso
+			);
+
+			if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $respuesta->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $respuesta->NUMEROCOMPROBANTE
+                );
+            }
+
 			return redirect('ajusteCreditoLote');
 		}
 		catch(Exception $e)

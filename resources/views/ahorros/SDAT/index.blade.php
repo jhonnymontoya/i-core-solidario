@@ -27,7 +27,14 @@
 		@if (Session::has('message'))
 			<div class="alert alert-success alert-dismissible" data-closable>
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
-				{{ Session::get('message') }}
+				@if (Session::has('codigoComprobante'))
+					<a href="{{ route('reportesReporte', 1) }}?codigoComprobante={{ Session::get('codigoComprobante') }}&numeroComprobante={{ Session::get('numeroComprobante') }}" title="Imprimir comprobante" target="_blank">
+						{{ Session::get('message') }}
+					</a>
+					<i class="fas fa-external-link-alt"></i>
+				@else
+					{{ Session::get('message') }}
+				@endif
 			</div>
 		@endif
 		@if (Session::has('error'))

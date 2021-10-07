@@ -159,6 +159,19 @@ class RecaudoNominaController extends Controller
 				});
 			}
 			Session::flash('message', $res->MENSAJE);
+
+			if (empty($res->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $res->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $res->NUMEROCOMPROBANTE
+                );
+            }
+
 			return redirect()->route('recaudosNominaGestion', $obj->id);
 		}
 	}

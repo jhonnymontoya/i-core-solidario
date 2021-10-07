@@ -131,14 +131,21 @@ class AjusteAhorrosLoteController extends Controller
 					$cantidadErrores++;
 					continue;
 				}
-				$socio = Tercero::entidadTercero()->activo()->where('numero_identificacion', $ahorro['socio_id'])->first();
+				$socio = Tercero::entidadTercero()
+					->with('socio')
+					->activo()
+					->where('numero_identificacion', $ahorro['socio_id'])
+					->first();
 				if(!optional($socio)->socio) {
 					$errores->push('Registro ' . $fila . ': No se encontró socio con el número de identificación');
 					$fila++;
 					$cantidadErrores++;
 					continue;
 				}
-				$modalidad = $modalidadesAhorros->where('codigo', mb_convert_case($ahorro['modalidad_ahorro_id'], MB_CASE_UPPER, "UTF-8"))->first();
+				$modalidad = $modalidadesAhorros->where(
+					'codigo',
+					mb_convert_case($ahorro['modalidad_ahorro_id'], MB_CASE_UPPER, "UTF-8")
+				)->first();
 				if(!$modalidad) {
 					$errores->push('Registro ' . $fila . ': No se encontró la modalidad de ahorro');
 					$fila++;
@@ -360,12 +367,15 @@ class AjusteAhorrosLoteController extends Controller
 				Session::flash('error', 'Error: Contabilizando el comprobante');
 				return redirect()->route('ajusteAhorrosLoteResumen', $obj->id);
 			}
-			if(!empty($respuesta[0]->ERROR)) {
+
+			$respuesta = $respuesta[0];
+
+			if(!empty($respuesta->ERROR)) {
 				DB::rollBack();
-				Session::flash('error', 'Error: ' . $respuesta[0]->MENSAJE);
+				Session::flash('error', 'Error: ' . $respuesta->MENSAJE);
 				return redirect()->route('ajusteAhorrosLoteResumen', $obj->id);
 			}
-			$idComprobante = $respuesta[0]->MENSAJE;
+			$idComprobante = $respuesta->MENSAJE;
 
 			foreach($detalleAjustesAhorros as $ajuste) {
 				$arr = json_decode($ajuste->detalle);
@@ -386,7 +396,22 @@ class AjusteAhorrosLoteController extends Controller
 				}
 			}
 			DB::commit();
-			Session::flash('message', 'Se ha contabilizado el ajuste de ahorros ' . $obj->consecutivo_proceso);
+			Session::flash(
+				'message',
+				'Se ha contabilizado el ajuste de ahorros ' . $obj->consecutivo_proceso
+			);
+
+			if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $respuesta->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $respuesta->NUMEROCOMPROBANTE
+                );
+            }
 			return redirect('ajusteAhorrosLote');
 		}
 		catch(Exception $e) {

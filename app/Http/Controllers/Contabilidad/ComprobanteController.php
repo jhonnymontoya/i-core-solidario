@@ -242,11 +242,27 @@ class ComprobanteController extends Controller
 			Session::flash('faltantes', ['error' => "Error contabilizando el comprobante, ya se ha contabilizado"]);
 			return redirect('comprobante');
 		}
-		if($respuesta[0]->ERROR == 1) {
-			Session::flash('faltantes', ['error' => $respuesta[0]->MENSAJE]);
+
+		$respuesta = $respuesta[0];
+
+		if($respuesta->ERROR == 1) {
+			Session::flash('faltantes', ['error' => $respuesta->MENSAJE]);
 			return redirect()->route('comprobanteEdit', $obj);
 		}
-		Session::flash('message', $respuesta[0]->MENSAJE);
+		Session::flash('message', $respuesta->MENSAJE);
+
+		if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+            Session::flash(
+                'codigoComprobante',
+                $respuesta->CODIGOCOMPROBANTE
+            );
+
+            Session::flash(
+                'numeroComprobante',
+                $respuesta->NUMEROCOMPROBANTE
+            );
+        }
+
 		return redirect('comprobante');
 	}
 

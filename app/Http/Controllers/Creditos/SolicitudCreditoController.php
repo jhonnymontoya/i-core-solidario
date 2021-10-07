@@ -1037,21 +1037,37 @@ class SolicitudCreditoController extends Controller
 			});
 			$movimientoTemporal->detalleMovimientos()->saveMany($detalles);
 			$respuesta = DB::select('exec creditos.sp_contabilizar_desembolso_credito ?, ?', [$movimientoTemporal->id, $obj->id]);
-			if($respuesta[0]->ERROR == '0') {
+
+			$respuesta = $respuesta[0];
+
+			if($respuesta->ERROR == '0') {
 				if($this->getEntidad()->usa_tarjeta) {
 					event(new CalcularAjusteAhorrosVista($obj->id, true));
 				}
 				$obj->quien_desembolso_usuario = optional($this->getUser())->usuario;
 				$obj->quien_desembolso = optional($this->getUser())->nombre_corto;
 				$obj->save();
-				Session::flash('message', $respuesta[0]->MENSAJE);
+				Session::flash('message', $respuesta->MENSAJE);
+
+				if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $respuesta->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $respuesta->NUMEROCOMPROBANTE
+                );
+            }
+
 				DB::commit();
 
 				//Se dispara evento cuando la solicitud de crédito se desembolsa
 				event(new SolicitudCreditoDesembolsado($obj));
 			}
 			else {
-				Session::flash('error', $respuesta[0]->MENSAJE);
+				Session::flash('error', $respuesta->MENSAJE);
 				DB::rollBack();
 			}
 			DB::commit();

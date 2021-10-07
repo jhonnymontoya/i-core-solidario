@@ -485,12 +485,15 @@ class ProcesoCreditoLoteController extends Controller
 				Session::flash('error', 'Error: Contabilizando el comprobante');
 				return redirect()->route('procesoCreditoLoteDesembolso', $obj->id);
 			}
-			if(!empty($respuesta[0]->ERROR)) {
+
+			$respuesta = $respuesta[0];
+
+			if(!empty($respuesta->ERROR)) {
 				DB::rollBack();
-				Session::flash('error', 'Error: ' . $respuesta[0]->MENSAJE);
+				Session::flash('error', 'Error: ' . $respuesta->MENSAJE);
 				return redirect()->route('procesoCreditoLoteDesembolso', $obj->id);
 			}
-			$idComprobante = $respuesta[0]->MENSAJE;
+			$idComprobante = $respuesta->MENSAJE;
 
 			foreach ($solicitudes as $solicitud) {
 				$movimientoCapital = new MovimientoCapitalCredito;
@@ -504,7 +507,22 @@ class ProcesoCreditoLoteController extends Controller
 				}
 			}
 			DB::commit();
-			Session::flash('message', 'Se ha desembolsado el proceso de créditos ' . $obj->consecutivo_proceso);
+			Session::flash(
+				'message',
+				'Se ha desembolsado el proceso de créditos ' . $obj->consecutivo_proceso
+			);
+
+			if (empty($respuesta->CODIGOCOMPROBANTE) == false) {
+                Session::flash(
+                    'codigoComprobante',
+                    $respuesta->CODIGOCOMPROBANTE
+                );
+
+                Session::flash(
+                    'numeroComprobante',
+                    $respuesta->NUMEROCOMPROBANTE
+                );
+            }
 			return redirect('procesoCreditoLote');
 		}
 		catch(Exception $e) {
