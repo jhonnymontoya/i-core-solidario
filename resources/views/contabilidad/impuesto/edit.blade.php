@@ -130,7 +130,7 @@
 								@endphp
 								<label class="control-label">Tasa</label>
 								<div class="input-group">
-									{!! Form::number('tasa', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa', 'form' => 'formConcepto', 'min' => 0, 'max' => 100, 'step' => '0.01']) !!}
+									{!! Form::number('tasa', null, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Tasa', 'form' => 'formConcepto', 'min' => 0, 'max' => 100, 'step' => '0.001']) !!}
 									<div class="input-group-prepend">
 										<span class="input-group-text">%</span>
 									</div>
