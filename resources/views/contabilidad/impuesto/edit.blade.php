@@ -176,7 +176,7 @@
 											<tr data-id="{{ $concepto->id }}">
 												<td>{{ $concepto->nombre }}</td>
 												<td>{{ $concepto->cuentaDestino->full }}</td>
-												<td>{{ number_format($concepto->tasa, 2) }}%</td>
+												<td>{{ number_format($concepto->tasa, 3) }}%</td>
 												<td>
 													<a href="#" title="Inactivar" class="toggle-estado">
 														<span class="badge badge-pill badge-{{ $estado ? "success" : "danger" }}">
