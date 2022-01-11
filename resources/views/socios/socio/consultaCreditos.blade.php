@@ -209,8 +209,11 @@
 					<div id="amortizacion" style="display: none;" data-visible="false">
 						<br>
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<h3>Amortización</h3>
+							</div>
+							<div class="col-md-6">
+								<a class="btn btn-sm btn-outline-primary float-right" href="{{ route("reportesReporte", 30) }}?numeroRadicado={{ $credito->id }}&print=1" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
 							</div>
 						</div>
 						<div class="row" style="margin-left: 30px; margin-right: 30px;">

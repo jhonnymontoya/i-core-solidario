@@ -1545,8 +1545,6 @@ class ReportesController extends Controller
                     ->render();
     }
 
-
-
     /**
      * REPORTE TRANSUNION
      * @param type $request
@@ -1692,6 +1690,48 @@ class ReportesController extends Controller
             ->render();
     }
 
+    /**
+     * AMORTIZACIÓN DE UNA OBLIGACIÓN
+     * @param type $request
+     * @return type
+     */
+    public function amortizacionCredito($request) {
+        $entidad = $this->getEntidad();
+        $validate = Validator::make($request->all(), [
+            'numeroRadicado'    => [
+                'bail',
+                'required',
+                'integer',
+                'min:1',
+                'max:2147483647',
+                'exists:sqlsrv.creditos.solicitudes_creditos,id,entidad_id,' .
+                $entidad->id . ',deleted_at,NULL',
+            ]
+        ]);
+        try {
+            if($validate->fails()) {
+                return "";
+            }
+        }
+        catch(QueryException $e) {
+            return "";
+        }
+
+        $includes = [
+            "modalidadCredito",
+            "amortizaciones",
+            "tercero.tipoIdentificacion",
+        ];
+
+        $solicitud = SolicitudCredito::with($includes)
+            ->find($request->numeroRadicado);
+        //dd($solicitud);
+
+        return view("reportes.creditos.amortizacionCredito")
+            ->withEntidad($entidad)
+            ->withSolicitud($solicitud)
+            ->render();
+    }
 
     /*FIN CRÉDITOS*/
 
