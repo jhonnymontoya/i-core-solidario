@@ -1317,7 +1317,16 @@ class ReportesController extends Controller
             }
         }
         foreach($creditos as $credito) {
+            $esCreditoRecogido = $creditosRecogidos->whereIn(
+                    "tipo_consolidacion",
+                    ["SALDOTOTAL", "INCLUIDORECAUDO"]
+                )
+                ->where("solicitud_credito_consolidado_id", $credito->id)
+                ->first();
             $saldo = $credito->saldoObligacion($solicitud->fecha_solicitud);
+            if($esCreditoRecogido && $saldo - $esCreditoRecogido->pago_capital <= 0){
+                continue;
+            }
             if($saldo != 0) {
                 $endeudamiento->push([
                     'concepto' => Str::limit($credito->numero_obligacion . ' - ' . $credito->modalidadCredito->nombre, 40),
