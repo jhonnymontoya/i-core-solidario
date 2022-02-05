@@ -39,7 +39,7 @@ class RecaudoCajaController extends Controller
 
     public function index(Request $request) {
         $this->logActividad("Ingresó a recaudos por caja", $request);
-        $recaudos = RecaudoCaja::entidadId()->orderBy('fecha_recaudo', 'ASC')->paginate();
+        $recaudos = RecaudoCaja::entidadId()->orderBy('fecha_recaudo', 'DESC')->paginate();
         return view('recaudos.recaudosCaja.index')->withRecaudos($recaudos);
     }
 
