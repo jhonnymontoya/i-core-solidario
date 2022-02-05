@@ -88,6 +88,10 @@ class MakeRecaudoCajaRequest extends FormRequest
 					if(!$this->ahorrosValidos()) {
 						$validator->errors()->add('data', $this->errorData);
 					}
+					//validar cuotas no reembolsables
+					if(!$this->cuotasNoReembolsablesValidas()) {
+						$validator->errors()->add('data', $this->errorData);
+					}
 					//validar Ahorros
 					if(!$this->creditosValidos()) {
 						$validator->errors()->add('data', $this->errorData);
@@ -119,12 +123,20 @@ class MakeRecaudoCajaRequest extends FormRequest
 	public function tieneAjustes() {
 		$data = json_decode($this->data);
 		//Se valida si los datos se encuentran bien formados
-		if(is_null($data->ahorros) || is_null($data->creditos)) {
+		if(
+			is_null($data->ahorros) ||
+			is_null($data->creditos) ||
+			is_null($data->cuotasNoRembolsables)
+		) {
 			$this->errorData = "Datos mal formados.";
 			return false;
 		}
 		//Se valida que exista al menos un abono en ahorros o en créditos
-		if(count($data->ahorros) == 0 && count($data->creditos)== 0) {
+		if(
+			count($data->ahorros) == 0 &&
+			count($data->creditos)== 0 &&
+			count($data->cuotasNoRembolsables)== 0
+		) {
 			$this->errorData = "No existen abonos.";
 			return false;
 		}
@@ -148,6 +160,34 @@ class MakeRecaudoCajaRequest extends FormRequest
 									'required',
 									'integer',
 									'exists:sqlsrv.ahorros.modalidades_ahorros,id,entidad_id,' . $this->entidad->id . ',es_reintegrable,1,deleted_at,NULL'
+								],
+				'valor'			=> 'bail|required|integer|min:1',
+			]);
+			if($validator->fails()) {
+				$this->errorData = $validator->errors()->all()[0];
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Valida las cuoptas no reembolsables
+	 * @return type
+	 */
+	public function cuotasNoReembolsablesValidas() {
+		$data = json_decode($this->data);
+		foreach($data->cuotasNoRembolsables as $cuotaNoReembolsable) {
+			if(is_null($cuotaNoReembolsable)) {
+				$this->errorData = "Error en cuotas no reeembolsables.";
+				return false;
+			}
+			$validator = Validator::make((array)$cuotaNoReembolsable, [
+				'modalidad'		=> [
+									'bail',
+									'required',
+									'integer',
+									'exists:sqlsrv.ahorros.modalidades_ahorros,id,entidad_id,' . $this->entidad->id . ',es_reintegrable,0,deleted_at,NULL'
 								],
 				'valor'			=> 'bail|required|integer|min:1',
 			]);

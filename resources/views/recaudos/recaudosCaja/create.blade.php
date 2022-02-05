@@ -13,6 +13,10 @@
 @component('recaudos.recaudosCaja.componentes.modales.creditos')
 @endcomponent
 
+{{-- Modal de cuotas no reintegrables --}}
+@component('recaudos.recaudosCaja.componentes.modales.cuotasNoReintegrables')
+@endcomponent
+
 @if ($tercero)
 	{{-- Modal de resumen --}}
 	@component('recaudos.recaudosCaja.componentes.modales.resumen', ['totalAhorros' => $totalAhorros, 'tercero' => $tercero, 'socio' => $socio, 'cuenta' => $cuenta, 'fecha' => $fecha])
@@ -176,6 +180,11 @@
 						{{-- Componente de créditos --}}
 						@component('recaudos.recaudosCaja.componentes.creditos', ['creditos' => $creditos, 'fecha' => $fecha])
 						@endcomponent
+
+						<h3>Cuotas no reembolsables</h3>
+						{{-- Componente de cuotas no reembolsables --}}
+						@component('recaudos.recaudosCaja.componentes.cuotasNoReembolsables', ['cuotasNoReembolsables' => $cuotasNoReembolsables])
+						@endcomponent
 					@else
 						<br>
 					@endif
@@ -203,6 +212,7 @@
 	var data = new Object();
 	data.ahorros = [];
 	data.creditos = [];
+	data.cuotasNoRembolsables = [];
 	data.totalRecaudo = 0;
 	$(function(){
 		$("select[name='tercero']").select2({
@@ -288,8 +298,11 @@
 		data.ahorros.forEach(function(ahorro){
 			total += ahorro.valor;
 		});
-		data.creditos.forEach(function(ahorro){
-			total += ahorro.total;
+		data.creditos.forEach(function(credito){
+			total += credito.total;
+		});
+		data.cuotasNoRembolsables.forEach(function(cuotaNoRembolsable){
+			total += cuotaNoRembolsable.valor;
 		});
 		data.totalRecaudo = total;
 		$(".total").text("Total: $" + $().formatoMoneda(total));
@@ -301,6 +314,7 @@
 			data = JSON.parse('{!! $data !!}');
 			actualizarAhorros();
 			actualizarCreditos();
+			actualizarCuotasNoReembolsables();
 			<?php
 		}		
 	?>

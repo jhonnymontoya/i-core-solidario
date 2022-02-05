@@ -52,14 +52,25 @@ class RecaudoCajaController extends Controller
         ]);
         $this->log("Ingresó a crear nuevo recaudo por caja con los siguientes parámetros " . json_encode($request->all()));
         $fechaConsulta = isset($req["fecha"]) ? Carbon::createFromFormat('d/m/Y', $req["fecha"])->startOfDay() : Carbon::now()->startOfDay();
-        $tercero = $socio = $ahorros = $creditos = $cuenta = null;
+        $tercero = null; $socio = null; $ahorros = null; $creditos = null;
+        $cuenta = null; $cuotasNoReembolsables = null;
         $totalAhorros = 0;
         if(isset($req["tercero"])) {
             $tercero = Tercero::find($req["tercero"]);
             $socio = optional($tercero)->socio;
             if($socio) {
-                $ahorros = DB::select("exec recaudos.sp_consulta_ahorros ?, ?", [$socio->id, $fechaConsulta]);
+                $ahorros = DB::select(
+                    "exec recaudos.sp_consulta_ahorros ?, ?",
+                    [$socio->id, $fechaConsulta]
+                );
                 $ahorros = collect($ahorros);
+
+                $cuotasNoReembolsables = DB::select(
+                    "exec recaudos.sp_consulta_ahorros_no_reintegrables ?",
+                    [$socio->id]
+                );
+                $cuotasNoReembolsables = collect($cuotasNoReembolsables);
+
                 $totalAhorros = $socio->getTotalAhorros($fechaConsulta);
             }
             $creditos = $tercero->solicitudesCreditos()->whereEstadoSolicitud('DESEMBOLSADO')->get();
@@ -93,6 +104,7 @@ class RecaudoCajaController extends Controller
                 ->withTotalAhorros($totalAhorros)
                 ->withAhorros($ahorros)
                 ->withCreditos($creditos)
+                ->withCuotasNoReembolsables($cuotasNoReembolsables)
                 ->withCuenta($cuenta);
     }
 
@@ -132,12 +144,8 @@ class RecaudoCajaController extends Controller
                 $ajuste = new DetalleMovimientoTemporal;
                 $ajuste->entidad_id = $entidad->id;
                 $ajuste->codigo_comprobante = $tipoComprobante->codigo;
-                $ajuste->tercero_id = $tercero->id;
-                $ajuste->tercero_identificacion = $tercero->numero_identificacion;
-                $ajuste->tercero = $tercero->nombre;
-                $ajuste->cuif_id = $modalidad->cuenta->id;
-                $ajuste->cuif_codigo = $modalidad->cuenta->codigo;
-                $ajuste->cuif_nombre = $modalidad->cuenta->nombre;
+                $ajuste->setTercero($tercero);
+                $ajuste->setCuif($modalidad->cuenta);
                 $ajuste->serie = $serie++;
                 $ajuste->fecha_movimiento = $fecha;
                 $ajuste->credito = $ahorro->valor;
@@ -152,6 +160,22 @@ class RecaudoCajaController extends Controller
                 $movimientoAhorro->fecha_movimiento = $fecha;
                 $movimientoAhorro->valor_movimiento = $ahorro->valor;
                 array_push($movimientoAhorros, $movimientoAhorro);
+            }
+
+            foreach($data->cuotasNoRembolsables as $cuotaNoReembolsable) {
+                $modalidad = ModalidadAhorro::find($cuotaNoReembolsable->modalidad);
+
+                $ajuste = new DetalleMovimientoTemporal;
+                $ajuste->entidad_id = $entidad->id;
+                $ajuste->codigo_comprobante = $tipoComprobante->codigo;
+                $ajuste->setTercero($tercero);
+                $ajuste->setCuif($modalidad->cuenta);
+                $ajuste->serie = $serie++;
+                $ajuste->fecha_movimiento = $fecha;
+                $ajuste->credito = $cuotaNoReembolsable->valor;
+                $ajuste->debito = 0;
+                $ajuste->referencia = $modalidad->codigo . ' - ' . $tercero->numero_identificacion;
+                array_push($detalles, $ajuste);
             }
 
             //Se crea colecciones de obligaciones para disparar eventos
@@ -180,12 +204,8 @@ class RecaudoCajaController extends Controller
                     $ajuste = new DetalleMovimientoTemporal;
                     $ajuste->entidad_id = $entidad->id;
                     $ajuste->codigo_comprobante = $tipoComprobante->codigo;
-                    $ajuste->tercero_id = $tercero->id;
-                    $ajuste->tercero_identificacion = $tercero->numero_identificacion;
-                    $ajuste->tercero = $tercero->nombre;
-                    $ajuste->cuif_id = $cuenta->cuentaCapital->id;
-                    $ajuste->cuif_codigo = $cuenta->cuentaCapital->codigo;
-                    $ajuste->cuif_nombre = $cuenta->cuentaCapital->nombre;
+                    $ajuste->setTercero($tercero);
+                    $ajuste->setCuif($cuenta->cuentaCapital);
                     $ajuste->serie = $serie++;
                     $ajuste->fecha_movimiento = $fecha;
                     $ajuste->credito = $credito->capital;
@@ -203,12 +223,8 @@ class RecaudoCajaController extends Controller
                     $ajuste = new DetalleMovimientoTemporal;
                     $ajuste->entidad_id = $entidad->id;
                     $ajuste->codigo_comprobante = $tipoComprobante->codigo;
-                    $ajuste->tercero_id = $tercero->id;
-                    $ajuste->tercero_identificacion = $tercero->numero_identificacion;
-                    $ajuste->tercero = $tercero->nombre;
-                    $ajuste->cuif_id = $cuenta->cuentaInteresesIngreso->id;
-                    $ajuste->cuif_codigo = $cuenta->cuentaInteresesIngreso->codigo;
-                    $ajuste->cuif_nombre = $cuenta->cuentaInteresesIngreso->nombre;
+                    $ajuste->setTercero($tercero);
+                    $ajuste->setCuif($cuenta->cuentaInteresesIngreso);
                     $ajuste->serie = $serie++;
                     $ajuste->fecha_movimiento = $fecha;
                     $ajuste->credito = $credito->intereses;
@@ -228,12 +244,8 @@ class RecaudoCajaController extends Controller
                     $ajuste = new DetalleMovimientoTemporal;
                     $ajuste->entidad_id = $entidad->id;
                     $ajuste->codigo_comprobante = $tipoComprobante->codigo;
-                    $ajuste->tercero_id = $tercero->id;
-                    $ajuste->tercero_identificacion = $tercero->numero_identificacion;
-                    $ajuste->tercero = $tercero->nombre;
-                    $ajuste->cuif_id = $cuenta->id;
-                    $ajuste->cuif_codigo = $cuenta->codigo;
-                    $ajuste->cuif_nombre = $cuenta->nombre;
+                    $ajuste->setTercero($tercero);
+                    $ajuste->setCuif($cuenta);
                     $ajuste->serie = $serie++;
                     $ajuste->fecha_movimiento = $fecha;
                     $ajuste->credito = $credito->seguro;
@@ -256,12 +268,8 @@ class RecaudoCajaController extends Controller
 
             $ajusteContrapartida->entidad_id = $entidad->id;
             $ajusteContrapartida->codigo_comprobante = $tipoComprobante->codigo;
-            $ajusteContrapartida->tercero_id = $tercero->id;
-            $ajusteContrapartida->tercero_identificacion = $tercero->numero_identificacion;
-            $ajusteContrapartida->tercero = $tercero->nombre;
-            $ajusteContrapartida->cuif_id = $cuif->id;
-            $ajusteContrapartida->cuif_codigo = $cuif->codigo;
-            $ajusteContrapartida->cuif_nombre = $cuif->nombre;
+            $ajusteContrapartida->setTercero($tercero);
+            $ajusteContrapartida->setCuif($cuif);
             $ajusteContrapartida->serie = $serie++;
             $ajusteContrapartida->fecha_movimiento = $fecha;
 

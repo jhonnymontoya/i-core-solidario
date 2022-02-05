@@ -66,11 +66,10 @@
 	}
 	function removerAbonoAhorro(id) {
 		var abono = $("tr[data-abono-ahorro-id='" + id + "']");
-		data.ahorros.forEach(function(ahorro, key){
-			if(ahorro.modalidad == id) {
-				delete data.ahorros[key];
-			}
-		});
+		arr = data.ahorros;
+		data.ahorros = arr.filter(function(item){
+            return item.modalidad != id;
+        });
 		abono.remove();
 		actualizar();
 	}

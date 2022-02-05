@@ -45,21 +45,30 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<h3>Ahorros</h3>
+					</div>
+					<div class="col-md-6">
+						<h3>Cuotas no reembolsables</h3>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<dl>
 							<dt>Total abonos</dt>
 							<dd id="mTotalAbonoAhorros">$0</dd>
 						</dl>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<dl>
 							<dt>Nuevo saldo</dt>
 							<dd id="mNuevoSaldoAhorros">$0</dd>
+						</dl>
+					</div>
+					<div class="col-md-4">
+						<dl>
+							<dt>Total abonos</dt>
+							<dd id="mTotalAbonoCuotasNoReembolsables">$0</dd>
 						</dl>
 					</div>
 				</div>
@@ -127,6 +136,11 @@
 			$(td[1]).text("$" + $().formatoMoneda(cIntereses));
 			$(td[2]).text("$" + $().formatoMoneda(cSeguro));
 			$(td[3]).text("$" + $().formatoMoneda(ctotal));
+
+			//cuotas no reembolsables
+			totalAbonoCuotasNoReembolsable = 0;
+			data.cuotasNoRembolsables.forEach(function(cuota){totalAbonoCuotasNoReembolsable += cuota.valor;});
+			$(dd[2]).text("$" + $().formatoMoneda(totalAbonoCuotasNoReembolsable));
 		});
 		$("#mfRecaudo").submit(function(event){
 			boton = $(this).find("input[type='submit']");

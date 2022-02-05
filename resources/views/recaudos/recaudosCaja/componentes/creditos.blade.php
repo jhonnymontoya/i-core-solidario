@@ -82,11 +82,10 @@
 	}
 	function removerAbonoCredito(id) {
 		var abono = $("tr[data-abono-credito-id='" + id + "']");
-		data.creditos.forEach(function(credito, key){
-			if(credito.id == id) {
-				delete data.creditos[key];
-			}
-		});
+		arr = data.creditos;
+		data.creditos = arr.filter(function(item){
+            return item.id != id;
+        });
 		abono.remove();
 		actualizar();
 	}
