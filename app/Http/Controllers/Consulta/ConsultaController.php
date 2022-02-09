@@ -11,6 +11,7 @@ use App\Traits\ICoreTrait;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Sistema\Modulo;
+use App\Models\General\Contacto;
 use App\Helpers\ConversionHelper;
 use App\Helpers\FinancieroHelper;
 use App\Models\Creditos\Modalidad;
@@ -386,7 +387,10 @@ class ConsultaController extends Controller
         $usuario = \Auth::user();
         $socio = $usuario->socios[0];
         $tercero = $socio->tercero;
-        return view('consulta.perfil.editar')->withUsuario($usuario)->withSocio($socio)->withTercero($tercero);
+        return view('consulta.perfil.editar')
+            ->withUsuario($usuario)
+            ->withSocio($socio)
+            ->withTercero($tercero);
     }
 
     /**
@@ -410,6 +414,26 @@ class ConsultaController extends Controller
             $socio->avatar = $request->avatar;
             $socio->save();
         }
+
+        $contacto = $tercero->contactos()
+            ->whereTipoContacto("LABORAL")
+            ->first();
+
+        if(is_null($contacto)){
+            $contacto = new Contacto;
+            $contacto->tercero_id = $tercero->id;
+            $contacto->tipo_contacto = 'LABORAL';
+            $contacto->es_preferido = 1;
+        }
+        $contacto->ciudad_id = $request->ciudad_laboral;
+        $contacto->direccion = $request->direccion_laboral;
+        $contacto->movil = $request->celular_laboral;
+        $contacto->telefono = $request->telefono_laboral;
+        $contacto->extension = $request->extension_laboral;
+        $contacto->email = $request->email_laboral;
+        $contacto->save();
+
+        $this->log("Actualizó la información del perfil", "ACTUALIZAR");
 
         $contacto = $tercero->getContacto(true, true);
         if(!empty($contacto) && !empty($contacto->email)) {

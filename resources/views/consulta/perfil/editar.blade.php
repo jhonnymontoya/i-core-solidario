@@ -1,5 +1,24 @@
 @extends('layouts.consulta')
-
+<?php
+	$direccionLaboral = null;
+	$celularLaboral = null;
+	$telefonoLaboral = null;
+	$extencion = null;
+	$emailLaboral = null;
+	$ciudadLaboral = null;
+	foreach($socio->tercero->contactos as $contacto)
+	{
+		if($contacto->tipo_contacto == "LABORAL")
+		{
+			$direccionLaboral = $contacto->direccion;
+			$celularLaboral = $contacto->movil;
+			$telefonoLaboral = $contacto->telefono;
+			$extencion = $contacto->extension;
+			$emailLaboral = $contacto->email;
+			$ciudadLaboral= $contacto->ciudad_id;
+		}
+	}
+?>
 @section('content')
 {{-- Contenido principal de la página --}}
 <div class="content-wrapper">
@@ -42,6 +61,121 @@
 									<a class="btn btn-outline-secondary btn-sm select-image-btn"><i class="fas fa-camera"></i></a>
 									<a class="zoom-in-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-plus"></i></a>
 									<a class="zoom-out-btn btn btn-outline-secondary btn-sm"><i class="fas fa-search-minus"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<br>
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<h5>Actualizar información de contacto</h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2 text-center">
+							<hr>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('ciudad_laboral') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-3 control-label text-center">Ciudad</label>
+								<div class="col-9">
+									{!! Form::select('ciudad_laboral', [], null, ['class' => [$valid, 'form-control', 'select2']]) !!}
+									@if ($errors->has('ciudad_laboral'))
+										<div class="invalid-feedback">{{ $errors->first('ciudad_laboral') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('direccion_laboral') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-3 control-label text-center">Dirección</label>
+								<div class="col-9">
+									{!! Form::text('direccion_laboral', $direccionLaboral, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Dirección']) !!}
+									@if ($errors->has('direccion_laboral'))
+										<div class="invalid-feedback">{{ $errors->first('direccion_laboral') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('celular_laboral') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-3 control-label text-center">Celular</label>
+								<div class="col-9">
+									{!! Form::text('celular_laboral', $celularLaboral, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Celular', 'data-mask' => '(000) 000-0000']) !!}
+									@if ($errors->has('celular_laboral'))
+										<div class="invalid-feedback">{{ $errors->first('celular_laboral') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('telefono_laboral') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-3 control-label text-center">Teléfono</label>
+								<div class="col-9">
+									{!! Form::text('telefono_laboral', $telefonoLaboral, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Teléfono', 'data-mask' => '000-0000']) !!}
+									@if ($errors->has('telefono_laboral'))
+										<div class="invalid-feedback">{{ $errors->first('telefono_laboral') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('extension_laboral') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-3 control-label text-center">Extensión</label>
+								<div class="col-9">
+									{!! Form::text('extension_laboral', $extencion, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Extensión']) !!}
+									@if ($errors->has('extension_laboral'))
+										<div class="invalid-feedback">{{ $errors->first('extension_laboral') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="form-group row">
+								@php
+									$valid = $errors->has('email_laboral') ? 'is-invalid' : '';
+								@endphp
+								<label class="col-3 control-label text-center">Correo electrónico</label>
+								<div class="col-9">
+									{!! Form::text('email_laboral', $emailLaboral, ['class' => [$valid, 'form-control'], 'autocomplete' => 'off', 'placeholder' => 'Correo electrónico']) !!}
+									@if ($errors->has('email_laboral'))
+										<div class="invalid-feedback">{{ $errors->first('email_laboral') }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -93,6 +227,7 @@
 							</div>
 						</div>
 					</div>
+
 				</div>
 				<div class="card-footer text-right">
 					{!! Form::submit('Guardar', ['class' => 'btn btn-outline-success']) !!}
@@ -157,6 +292,8 @@
 		$("#profile").submit(function(){
 			$("input[name='avatar']").val($imageCropper.cropit('export'));
 		});
+
+		$("select[name='ciudad_laboral']").selectAjax("{{ url('api/ciudad') }}", {id:"{{ $ciudadLaboral | old('ciudad_laboral') }}"});
 
 	});
 </script>
