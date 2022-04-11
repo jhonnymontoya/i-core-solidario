@@ -172,7 +172,7 @@
 											<td>{{ $imp->impuesto->nombre }}</td>
 											<td>{{ $imp->conceptoImpueso->nombre }}</td>
 											<td class="text-right">${{ number_format($imp->base, 0) }}</td>
-											<td class="text-right">{{ number_format($imp->tasa, 2) }}%</td>
+											<td class="text-right">{{ number_format($imp->tasa, 3) }}%</td>
 											<td class="text-right">${{ number_format($imp->valor_impuesto, 2) }}</td>
 											<td class="text-right">${{ number_format($imp->iva, 0) }}</td>
 											<td>
