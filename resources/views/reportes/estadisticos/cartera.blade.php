@@ -157,7 +157,7 @@
 						$participacionSaldo += $element->participacionSaldo;
 						?>
 						<tr>
-							<td>{{ $element->empresa }}</td>
+							<td>{{ empty($element->empresa) ? "- SIN EMPRESA -" : $element->empresa }}</td>
 							<td class="text-right">{{ number_format($element->cantidadCreditos, 0) }}</td>
 							<td class="text-right">{{ number_format($element->participacion, 2) }}%</td>
 							<td class="text-right">${{ number_format($element->saldo, 0) }}</td>
