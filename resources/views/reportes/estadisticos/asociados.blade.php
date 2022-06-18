@@ -358,18 +358,18 @@
 				@endphp
 				@foreach ($asociadosDelMes as $item)
 					@php
-						$cuotasObligatorias += $item->cuota_oblogatoria;
+						$cuotasObligatorias += $item->cuota_obligatoria;
 						$cuotasVoluntarias += $item->cuota_voluntaria;
-						$total += ($item->cuota_oblogatoria + $item->cuota_voluntaria);
+						$total += ($item->cuota_obligatoria + $item->cuota_voluntaria);
 					@endphp
 					<tr>
 						<td class="text-right">{{ $item->numero_identificacion }}</td>
 						<td>{{ $item->nombre }}</td>
 						<td class="text-center">{{ $item->fecha_afiliacion }}</td>
 						<td>{{ $item->pagaduria }}</td>
-						<td class="text-right">${{ number_format($item->cuota_oblogatoria) }}</td>
+						<td class="text-right">${{ number_format($item->cuota_obligatoria) }}</td>
 						<td class="text-right">${{ number_format($item->cuota_voluntaria) }}</td>
-						<td class="text-right">${{ number_format($item->cuota_oblogatoria + $item->cuota_voluntaria) }}</td>
+						<td class="text-right">${{ number_format($item->cuota_obligatoria + $item->cuota_voluntaria) }}</td>
 					</tr>
 				@endforeach
 			</tbody>
