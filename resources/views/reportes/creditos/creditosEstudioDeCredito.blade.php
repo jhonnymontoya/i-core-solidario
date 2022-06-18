@@ -1,6 +1,12 @@
 @php
     $imagen = $entidad->categoriaImagenes[0]->pivot->nombre;
     $tercero = $entidad->terceroEntidad;
+
+    $antiguedad = 'No aplica';
+    if($socio->estado == 'ACTIVO' || $socio->estado == 'NOVEDAD')
+    {
+        $antiguedad = $socio->fecha_antiguedad != null? $socio->fecha_antiguedad->diffForHumans() : 'Sin antigüedad';
+    }
 @endphp
 <div class="row">
     <div class="col-2 text-center">
@@ -27,6 +33,14 @@
                     <div class="row">
                         <div class="col-md-3 col-3"><strong>Nombre:</strong></div>
                         <div class="col-md-9 col-9">{{ $ter->tipoIdentificacion->codigo }} {{ $ter->nombre_completo }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-3"><strong>Fecha afiliación:</strong></div>
+                        <div class="col-md-2 col-2">{{ $socio->fecha_afiliacion }}</div>
+
+                        <div class="col-md-3 col-3"><strong>Antigüedad:</strong></div>
+                        <div class="col-md-4 col-4">{{ $antiguedad }}</div>
                     </div>
 
                     <div class="row">
