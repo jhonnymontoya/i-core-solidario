@@ -92,7 +92,7 @@
 							@php
 								$saldo = $socio->tercero->cupoDisponible($fecha);
 							@endphp
-							<h4 class="text-{{ $saldo <= 0 ? 'danger' : 'primary' }}"><strong>Cupo disponible: ${{ number_format($saldo) }}</strong>&nbsp;<small data-toggle="tooltip" data-original-title="Sujeto a políticas de crédito"><i class="fa fa-info-circle"></i></small></h4>
+							<h5 class="text-{{ $saldo <= 0 ? 'danger' : 'primary' }}" title="Sujeto a políticas de crédito"><strong>Cupo aproximado disponible: <font size="5">${{ number_format($saldo) }}</font></strong>&nbsp;<small data-toggle="tooltip" title="Sujeto a políticas de crédito"><i class="fa fa-info-circle"></i></small></h5>
 						</div>
 						<div class="col-md-6">
 							<div class="row">
