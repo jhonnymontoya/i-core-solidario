@@ -194,8 +194,8 @@ class ReportesController extends Controller
         }
 
         //afiliaciones del mes
-        $sql = "SELECT t.numero_identificacion, t.nombre, s.fecha_afiliacion, p.nombre pagaduria, SUM(COALESCE(CASE co.tipo_calculo WHEN 'VALORFIJO' THEN co.valor WHEN 'PORCENTAJESUELDO' THEN (co.valor * s.sueldo_mes) / 100 END, 0)) AS cuota_oblogatoria, SUM(COALESCE(CASE cv.factor_calculo WHEN 'VALORFIJO' THEN general.fn_conversion_valor_periodicidad(cv.valor, cv.periodicidad, 'MENSUAL') WHEN 'PORCENTAJESUELDO' THEN general.fn_conversion_valor_periodicidad((cv.valor * s.sueldo_mes) / 100, cv.periodicidad, 'MENSUAL') END, 0)) AS cuota_voluntaria FROM socios.socios AS s INNER JOIN general.terceros AS t ON s.tercero_id = t.id INNER JOIN recaudos.pagadurias AS p ON s.pagaduria_id = p.id LEFT JOIN ahorros.cuotas_voluntarias AS cv ON cv.socio_id = s.id AND cv.deleted_at IS NULL LEFT JOIN socios.cuotas_obligatorias AS co ON co.socio_id = s.id WHERE t.entidad_id = ? AND s.fecha_afiliacion BETWEEN DATEADD(DAY, -(DAY(?) - 1), ?) AND ? GROUP BY t.numero_identificacion, t.nombre, s.fecha_afiliacion, p.nombre;";
-        $asociadosDelMes = DB::select($sql, [$entidad->id, $fecha, $fecha, $fecha]);
+        $sql = "EXEC reportes.sp_estadistico_afiliaciones_del_mes ?, ?";
+        $asociadosDelMes = DB::select($sql, [$entidad->id, $fecha]);
         foreach ($asociadosDelMes as &$item) {
             $diff = substr($item->fecha_afiliacion, 0, 10);
             $item->fecha_afiliacion = Carbon::createFromFormat('Y-m-d', $diff)->startOfDay();
