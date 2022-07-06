@@ -240,6 +240,9 @@ class FinancieroHelper
 			}//dd($nuevaAmortizacion);
 		}
 		else {
+            if(empty($fechaProximoPagoIntereses)){
+                $fechaProximoPagoIntereses = $fechaProximoPago;
+            }
 			$f1 = Carbon::createFromFormat('d/m/Y', $fechaProximoPago)->startOfDay();
 			$f2 = Carbon::createFromFormat('d/m/Y', $fechaProximoPagoIntereses)->startOfDay();
 			$fechaInicial = $f1->gt($f2) ? $f2->copy() : $f1->copy();
