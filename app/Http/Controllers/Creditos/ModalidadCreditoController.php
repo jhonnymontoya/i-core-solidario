@@ -293,8 +293,9 @@ class ModalidadCreditoController extends Controller
 	}
 
 	public function cupo(Modalidad $obj, EditModalidadCupoRequest $request) {
-		$msg = "Creó cupo a la modalidad de crédito '%s - %s' con los siguientes parámetros " . json_encode($request->all());
-		$this->log(sprintf($msg, $obj->codigo, $obj->nombre), 'CREAR');
+		$msg = "Creó cupo a la modalidad de crédito '%s - %s' con los siguientes parámetros ";
+		$msg = sprintf($msg, $obj->codigo, $obj->nombre) . json_encode($request->all());
+		$this->log($msg, 'CREAR');
 		$this->objEntidad($obj, 'No tiene permiso para acceder a esta modalidad de crédito');
 		$obj->nombre = $request->nombre;
 		$obj->descripcion = $request->descripcion;
